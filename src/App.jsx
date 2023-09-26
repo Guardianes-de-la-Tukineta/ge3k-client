@@ -1,12 +1,14 @@
-import { useState } from 'react'
+import { Route, Routes } from 'react-router'
 import './App.css'
+import Card from './components/Card/Card/'
 
-function App() {
-  const [count, setCount] = useState(0)
-
+function App() { 
+ 
   return (
-    <>
-      <h1>Hola Mundo Ge3k</h1>
+    <>      
+      <Routes>
+        <Route path='/' element={<Card/>}/>
+      </Routes>       
     </>
   )
 }
