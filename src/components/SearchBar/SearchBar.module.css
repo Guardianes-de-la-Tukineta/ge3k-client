@@ -1,0 +1,13 @@
+.buttonSearchBar {
+  border: none !important;
+  background-color: rgb(218, 140, 76) !important;
+}
+
+.buttonSearchBar:hover {
+  background-color: rgb(214, 112, 28) !important;
+}
+
+.searhContainer {
+flex: 1 !important;
+margin: 0 1rem
+}
