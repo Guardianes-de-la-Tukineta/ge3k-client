@@ -5,14 +5,14 @@ import styles from "./Footer.module.css";
 function Footer() {
   return (
     <footer style={{ backgroundColor: "black", color: "white" }}>
-      <Container>
+      <Container fluid>
         <Row>
           <Col>
             <h5 className={styles.titleH5}>FIND US IN</h5>
             <img
               className={styles.map}
               src="https://almacenesgredos.es/wp-content/uploads/2021/04/mapa.jpg"
-              alt=""
+              alt="localizacion de la tienda"
             />
           </Col>
           <Col>
