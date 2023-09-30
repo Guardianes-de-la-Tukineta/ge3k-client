@@ -41,7 +41,7 @@ function Details() {
           <h2 className={styles.info}>Theme: Coders</h2>
           <Button style={buttonStyle}>
             <i
-              class="bi bi-cart4"
+              className="bi bi-cart4"
               style={{ color: "black", fontSize: "1.2rem", padding: "5px" }}
             ></i>{" "}
             Add to card
