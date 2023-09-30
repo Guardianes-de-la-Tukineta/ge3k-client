@@ -31,13 +31,13 @@ function Footer() {
             <p>SEARCH</p>
             <h5>Bustanos en redes</h5>
             <p>
-              <i class="bi bi-instagram"></i> Instagram
+              <i className="bi bi-instagram"></i> Instagram
             </p>
             <p>
-              <i class="bi bi-facebook"></i> Facebook
+              <i className="bi bi-facebook"></i> Facebook
             </p>
             <p>
-              <i class="bi bi-envelope"></i> Mail
+              <i className="bi bi-envelope"></i> Mail
             </p>
           </Col>
           <Col>

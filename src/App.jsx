@@ -1,18 +1,18 @@
 import { Route, Routes } from 'react-router'
 import './App.css'
-import NavBar from './components/NavBar/NavBar'
 import CardContainer from './components/CardContainer/CardContainer'
 import Home from './Views/Home/Home.jsx'
+import ProductDetails from './Views/ProductDetails/ProductDetails'
 
 function App() { 
  
   return (
-    <> 
-         
+    <>         
       <Routes>
         <Route path='/' element={<Home/>}/>
-        <Route path='/:category' element={<CardContainer/>}/>
-        <Route path='/product/:id' element={<ProductDetail/>}/>
+        <Route path='/category/:nameCategory' element={<CardContainer/>}/>
+        <Route path='/thematic/:nameThematic' element={<CardContainer/>}/>
+        <Route path='/product/:id' element={<ProductDetails/>}/>
       </Routes>       
     </>
   )
