@@ -1,0 +1,14 @@
+.title{
+    text-align: left;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #111111;
+   
+}
+
+.line{
+width: 100%;
+  height: 0.1rem; 
+  background-color: #ff6824;
+  margin-bottom: 1rem;
+}
