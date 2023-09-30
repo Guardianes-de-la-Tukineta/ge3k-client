@@ -1,10 +1,11 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import styles from "./Footer.module.css";
+import { Link } from "react-router-dom";
 
 function Footer() {
   return (
-    <footer style={{ backgroundColor: "black", color: "white" }}>
+    <div style={{ backgroundColor: "black", color: "white" }}>
       <Container fluid>
         <Row>
           <Col>
@@ -18,27 +19,17 @@ function Footer() {
           <Col>
             <h5 className={styles.titleH5}>STORE LEGAL</h5>
             <p>Refund and return policies</p>
-            <p>Terminos y condiciones</p>
-            {/* <h5>MICUENTA</h5>
-            <p>Loguin</p>
-            <p>Detalles de mi cuenta</p>
-            <p>Recuperar Password </p>
-            <p>Mis pedidos</p>
-            <p>Mis direcciones</p> */}
+            <Link to="/legal" className={styles.footerLink}>
+              <p>Terms & Conditions</p>
+            </Link>
           </Col>
           <Col>
             <h5 className={styles.titleH5}>FIND</h5>
             <p>SEARCH</p>
             <h5>Bustanos en redes</h5>
-            <p>
-              <i class="bi bi-instagram"></i> Instagram
-            </p>
-            <p>
-              <i class="bi bi-facebook"></i> Facebook
-            </p>
-            <p>
-              <i class="bi bi-envelope"></i> Mail
-            </p>
+            <p>{/* <i class="bi bi-instagram"></i> */} Instagram</p>
+            <p>{/* <i class="bi bi-facebook"></i> */} Facebook</p>
+            <p>{/* <i class="bi bi-envelope"></i>*/} Mail</p>
           </Col>
           <Col>
             <h5 className={styles.titleH5}>ABOUT US</h5>
@@ -55,7 +46,7 @@ function Footer() {
           </Col>
         </Row>
       </Container>
-    </footer>
+    </div>
   );
 }
 
