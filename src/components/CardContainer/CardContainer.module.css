@@ -1,0 +1,9 @@
+.titleH1{
+    color: orangered ;
+    text-align: center;
+    margin-bottom: 5%;
+}
+.paginationCards{
+    display: flex;
+    justify-content: center;
+}
