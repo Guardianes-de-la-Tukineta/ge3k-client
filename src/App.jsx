@@ -1,8 +1,9 @@
 import { Route, Routes } from 'react-router'
 import './App.css'
-import Home from './components/Home/Home'
 import NavBar from './components/NavBar/NavBar'
 import CardContainer from './components/CardContainer/CardContainer'
+import Home from './Views/Home/Home.jsx'
+
 function App() { 
  
   return (
