@@ -1,10 +1,14 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 import "./Legal.css"; // Importa tu archivo de estilos personalizados
+import { Link } from "react-router-dom";
 
 function Legal() {
   return (
     <Container fluid className="legal-container">
+      <Link to="/">
+        <p>BACK TO HOME</p>
+      </Link>
       <h1>Legal Information</h1>
       <h2>Terms and Conditions</h2>
       <section>
@@ -81,6 +85,9 @@ function Legal() {
           date].
         </p>
       </footer>
+      <Link to="/">
+        <p>BACK TO HOME</p>
+      </Link>
     </Container>
   );
 }

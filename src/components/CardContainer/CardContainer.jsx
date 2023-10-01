@@ -4,6 +4,7 @@ import CardProduct from "../CardProduct/CardProduct";
 import style from './CardContainer.module.css'
 import PaginationCards from "../Pagination/PaginationCards";
 
+
 const CardContainer = () => {
     //estados 
     const[cardsPerPagin,setCardsPerPagin]=useState(12); //numero de targetas por pag.para mostrar

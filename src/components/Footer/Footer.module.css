@@ -8,3 +8,11 @@
 .map{
     width: 300px;
 }
+.footerLink{
+  color: white;
+  text-decoration: none;
+}
+.footerLink:hover{
+  color: #fc6522;
+  text-decoration: none;
+}

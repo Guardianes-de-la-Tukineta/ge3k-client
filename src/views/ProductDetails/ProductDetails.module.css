@@ -1,3 +1,12 @@
+.detailsLink{
+    text-decoration: none;
+    color: black;
+}
+.detailsLink:hover{
+    text-decoration: none;
+    color: #ff6824;
+}
+
 .productDetailsConteiner{
     padding: 10px;
     font-weight:bold;
