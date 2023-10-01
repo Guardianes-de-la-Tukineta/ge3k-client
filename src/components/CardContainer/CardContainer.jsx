@@ -1,9 +1,8 @@
 import React, {useState } from "react";
 import { useStore } from "../../zustand/useStore/useStore";
 import CardProduct from "../CardProduct/CardProduct";
-import style from './CardContainer.module.css'
 import PaginationCards from "../Pagination/PaginationCards";
-
+import style from './CardContainer.module.css'
 
 const CardContainer = () => {
     //estados 
@@ -18,7 +17,7 @@ const CardContainer = () => {
     const showProducts=currentProducts.slice(currentPage*cardsPerPagin-cardsPerPagin, currentPage*cardsPerPagin) //logica para rebanar el array total, y mostrar solo las cardsperpag correspondientes
     
     return (
-        <div className="row d-flex align-items-center justify-content-center">       
+        <div className="row">       
             {
                 showProducts.map((product)=>(
                     <CardProduct
@@ -29,7 +28,7 @@ const CardContainer = () => {
                     />
                 ))
             }
-            <div className={style.paginationCards}>
+            <div className='d-flex justify-content-center'>
                 <PaginationCards 
                     cardsPerPagin={cardsPerPagin} 
                     currentPage={currentPage} 
