@@ -27,9 +27,16 @@ function Footer() {
             <h5 className={styles.titleH5}>FIND</h5>
             <p>SEARCH</p>
             <h5>Bustanos en redes</h5>
-            <p>{/* <i class="bi bi-instagram"></i> */} Instagram</p>
-            <p>{/* <i class="bi bi-facebook"></i> */} Facebook</p>
-            <p>{/* <i class="bi bi-envelope"></i>*/} Mail</p>
+
+            <p>
+              <i className="bi bi-instagram"></i> Instagram
+            </p>
+            <p>
+              <i className="bi bi-facebook"></i> Facebook
+            </p>
+            <p>
+              <i className="bi bi-envelope"></i> Mail
+            </p>
           </Col>
           <Col>
             <h5 className={styles.titleH5}>ABOUT US</h5>
