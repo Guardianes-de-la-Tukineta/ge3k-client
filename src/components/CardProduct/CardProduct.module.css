@@ -1,8 +1,5 @@
-.card{       
-    align-items: center;
-    display: flex;
-    justify-content: center;  
-    padding-top:1%;     
+.card{
+    height: 100%;
 }
 .addCart{
     background-color: #ff6824 !important;
@@ -16,10 +13,16 @@
     color: red;
     padding: 3%;
 }
-
 .fav{
     color: aqua;
     border-radius: 50%;
     border: none;
     padding: 1%;
+}
+.description {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Número de líneas para mostrar */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
