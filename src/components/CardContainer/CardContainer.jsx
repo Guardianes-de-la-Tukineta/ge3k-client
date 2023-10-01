@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useStore } from "../../zustand/useStore/useStore";
 import CardProduct from "../CardProduct/CardProduct";
 import { useLocation } from "react-router-dom";

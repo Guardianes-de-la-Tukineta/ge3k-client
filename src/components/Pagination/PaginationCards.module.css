@@ -1,4 +1,3 @@
-.pagItem{
-    background-color: orangered !important;
-    color: aqua;
+*{
+    --bs-pagination-active-bg: #ff6824;      
 }
