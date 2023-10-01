@@ -1,6 +1,8 @@
 .buttonSearchBar {
   border: none !important;
   background-color: rgb(218, 140, 76) !important;
+  z-index: 1;
+
 }
 
 .buttonSearchBar:hover {
@@ -9,5 +11,28 @@
 
 .searhContainer {
 flex: 1 !important;
-margin: 0 1rem
+margin: 0 1rem;
+
+
+
+}
+
+.suggestionText {
+  color: rgba(255, 255, 255, 0.733);
+  cursor: pointer;
+  position: relative;
+  z-index: 5;
+}
+
+.coincidences {
+  padding:  5px;
+}
+
+.custom {
+  width: 40%; 
+  height: 30px;
+  /* background-color: white; */
+  /* z-index: 2; */
+  display: flex; 
+  
 }
