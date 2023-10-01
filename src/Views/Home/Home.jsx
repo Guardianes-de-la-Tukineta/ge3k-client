@@ -1,21 +1,21 @@
 import React from "react";
-import NavBar from "../../components/NavBar/NavBar"
-import Footer from "../../components/Footer/Footer"
-
+import NavBar from "../../components/NavBar/NavBar";
+import Footer from "../../components/Footer/Footer";
+import PaginationCards from "../../components/Pagination/PaginationCards";
+import CardContainer from "../../components/CardContainer/CardContainer";
 
 const Home = () => {
-    
-    return (
-        <div>
-            <NavBar/>
-            <Footer/>
-        </div>
-    )
-}
+  return (
+    <div>
+      <NavBar />
+      <PaginationCards />
+      <CardContainer />
+      <Footer />
+    </div>
+  );
+};
 
 export default Home;
-
-
 
 // const { getSales } = useStore() //esto actua como nuestro dispatch, guardamos en la variable la action getSales
 //     const { sales } = useStore.getState(); // obtenemos del estado global la variable sales(productos en oferta)
@@ -32,7 +32,7 @@ export default Home;
 //                 {
 //                     sales.map((product) => (
 //                         <Carousel.Item key={product.id}>
-//                             <CardProduct  // llamamos el componente Card pasandole como props los datos de la variable global                        
+//                             <CardProduct  // llamamos el componente Card pasandole como props los datos de la variable global
 //                                 name={product.name}
 //                                 description={product.description}
 //                             />
@@ -42,5 +42,3 @@ export default Home;
 //             </Carousel>
 //         </div>
 //     )
-
-
