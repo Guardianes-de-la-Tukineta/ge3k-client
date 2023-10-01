@@ -1,0 +1,48 @@
+.title{
+    color: #FC6522;
+    text-align: end;
+    font-size: 25px;
+}
+
+.rating {
+    text-align: end;
+    font-size: 30px;
+
+}
+
+.price {
+    text-align: end;
+    font-weight: bold;
+}
+
+.button_sale {
+    background-color:#FC6522;
+    width: 60%;
+    margin-left: 90px;
+    margin-top: 100px;
+    border: none;   
+}
+
+.hr{
+    border-color: #020202;
+    width: 5px;
+    border-width: 30px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.fav {
+    padding: 5px;
+    background-color: rgb(255, 255, 255);
+    border: none;
+  }
+  
+.favActive {
+    color: white;
+  }
+  
+.favIcon {
+    color: #FC6522;
+    font-size: 30px;
+  }
+  
