@@ -33,7 +33,7 @@ const SearchBar = () => {
       const results = store.sales.filter((sale) => {
        return(
        sale.name.toLowerCase().includes(find.toLowerCase()) ||
-       sale.description.toLowerCase().includes(find.toLowerCase())
+       sale.price.toLowerCase().includes(find.toLowerCase())
        )}
       )
       console.log(results[0])
@@ -60,7 +60,7 @@ const SearchBar = () => {
     const suggestions = store.sales
        .filter((sale) => 
         sale.name.toLowerCase().includes(inputValue) ||
-        sale.description.toLowerCase().includes(inputValue)
+        sale.price.toLowerCase().includes(inputValue)
        )
        .map((sale) => sale.name);
        setSuggestions(suggestions);
@@ -99,8 +99,10 @@ const SearchBar = () => {
     style: { 
     backgroundColor: "white",
     width: "100%",
-    height: "30px",
-    color: "black"}
+    height: "35px",
+    color: "black",
+    textAlign: "center",
+  }
  };
 
  
