@@ -1,0 +1,25 @@
+.card{       
+    align-items: center;
+    display: flex;
+    justify-content: center;  
+    padding-top:1%;     
+}
+.addCart{
+    background-color: #ff6824 !important;
+    cursor:pointer;
+    width: 100%
+}
+.addCart i{
+    color: aliceblue !important;
+}
+.card i{
+    color: red;
+    padding: 3%;
+}
+
+.fav{
+    color: aqua;
+    border-radius: 50%;
+    border: none;
+    padding: 1%;
+}

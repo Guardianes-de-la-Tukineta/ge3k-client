@@ -14,9 +14,9 @@ const NavBar = () => {
           
           <div className="flex-grow-1 d-none d-md-block "><SearchBar /></div>
           
-          <div className='p-2 ml-1'><i class="bi bi-heart-fill"></i></div>
+          <div className='p-2 ml-1'><i className="bi bi-heart-fill"></i></div>
           
-          <div className='p-2 ml-1'><i class="bi bi-cart-fill"></i></div>
+          <div className='p-2 ml-1'><i className="bi bi-cart-fill"></i></div>
           
           <div className="d-flex flex-row justify-content-between">
               <Nav.Link href="#" className='text-white fw-normal p-2'>Log In</Nav.Link>
