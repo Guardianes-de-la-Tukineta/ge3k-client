@@ -8,7 +8,7 @@ export const useStore = create(zukeeper((set) => ({
     allProducts:[], //productos todos
     currentProducts:[], // para categorias
     category:'all', //categoria actual
-    brand:'all', //Theme actual
+    brand:'all', //Theme actual, tiene ahorita brand por que la api use tienes brand
     maxPrice:0, //maximo precio
     productDetail:[],
 
@@ -27,55 +27,7 @@ export const useStore = create(zukeeper((set) => ({
 
     getProductDetail:()=>{},
 
-    getCurrentProducts:async()=>{
-            const currentProducts = [ //esto lo recibimos del back
-            { name: 'camiseta goku', description: 'camiseta talla L para chicos y chicas', id: 1,price:'$50' },
-            { name: 'camiseta gohan', description: 'camiseta talla S para chicos y chicas', id: 2,price:'$50' },
-            { name: 'camiseta yamcha', description: 'camiseta talla XS para chicos y chicas', id: 3,price:'$50' },
-            { name: 'camiseta goku', description: 'camiseta talla L para chicos y chicas', id: 4,price:'$50' },
-            { name: 'camiseta gohan', description: 'camiseta talla S para chicos y chicas', id: 5,price:'$50' },
-            { name: 'camiseta yamcha', description: 'camiseta talla XS para chicos y chicas', id:6,price:'$50' },
-            { name: 'camiseta goku', description: 'camiseta talla L para chicos y chicas', id:7,price:'$50' },
-            { name: 'camiseta gohan', description: 'camiseta talla S para chicos y chicas', id: 8,price:'$50' },
-            { name: 'camiseta yamcha', description: 'camiseta talla XS para chicos y chicas', id: 9 ,price:'$50'},
-            { name: 'camiseta yamcha', description: 'camiseta talla XS para chicos y chicas', id: 10 ,price:'$50'},
-            { name: 'camiseta yamcha', description: 'camiseta talla XS para chicos y chicas', id:11,price:'$50' },
-            { name: 'camiseta goku', description: 'camiseta talla L para chicos y chicas', id:12,price:'$50' },
-            { name: 'camiseta gohan', description: 'camiseta talla S para chicos y chicas', id: 13,price:'$50' },
-            { name: 'camiseta yamcha', description: 'camiseta talla XS para chicos y chicas', id: 14 ,price:'$50'},
-            { name: 'camiseta yamcha', description: 'camiseta talla XS para chicos y chicas', id: 15 ,price:'$50'},
-            { name: 'camiseta goku', description: 'camiseta talla L para chicos y chicas', id: 16,price:'$50' },
-            { name: 'camiseta gohan', description: 'camiseta talla S para chicos y chicas', id: 17,price:'$50' },
-            { name: 'camiseta yamcha', description: 'camiseta talla XS para chicos y chicas', id: 18,price:'$50' },
-            { name: 'camiseta goku', description: 'camiseta talla L para chicos y chicas', id:19,price:'$50' },
-            { name: 'camiseta gohan', description: 'camiseta talla S para chicos y chicas', id: 20,price:'$50' },
-            { name: 'camiseta yamcha', description: 'camiseta talla XS para chicos y chicas', id:21,price:'$50' },
-            { name: 'camiseta goku', description: 'camiseta talla L para chicos y chicas', id:22,price:'$50' },
-            { name: 'camiseta gohan', description: 'camiseta talla S para chicos y chicas', id: 23,price:'$50' },
-            { name: 'camiseta yamcha', description: 'camiseta talla XS para chicos y chicas', id: 24 ,price:'$50'},
-            { name: 'camiseta yamcha', description: 'camiseta talla XS para chicos y chicas', id: 25 ,price:'$50'},
-            { name: 'camiseta yamcha', description: 'camiseta talla XS para chicos y chicas', id:26,price:'$50' },
-            { name: 'camiseta goku', description: 'camiseta talla L para chicos y chicas', id:27,price:'$50' },
-            { name: 'camiseta gohan', description: 'camiseta talla S para chicos y chicas', id: 28,price:'$50' },
-            { name: 'camiseta yamcha', description: 'camiseta talla XS para chicos y chicas', id: 29 ,price:'$50'},
-            { name: 'camiseta yamcha', description: 'camiseta talla XS para chicos y chicas', id: 30 ,price:'$50'},
-            { name: 'camiseta yamcha', description: 'camiseta talla XS para chicos y chicas', id:31,price:'$50' },
-            { name: 'camiseta goku', description: 'camiseta talla L para chicos y chicas', id:32,price:'$50' },
-            { name: 'camiseta gohan', description: 'camiseta talla S para chicos y chicas', id: 33,price:'$50' },
-            { name: 'camiseta yamcha', description: 'camiseta talla XS para chicos y chicas', id: 34 ,price:'$50'},
-            { name: 'camiseta yamcha', description: 'camiseta talla XS para chicos y chicas', id: 35 ,price:'$50'},
-            { name: 'camiseta yamcha', description: 'camiseta talla XS para chicos y chicas', id:36,price:'$50' },
-            { name: 'camiseta goku', description: 'camiseta talla L para chicos y chicas', id:37,price:'$50' },
-            { name: 'camiseta gohan', description: 'camiseta talla S para chicos y chicas', id: 38,price:'$50' },
-            { name: 'camiseta yamcha', description: 'camiseta talla XS para chicos y chicas', id: 39 ,price:'$50'},
-            { name: 'camiseta yamcha', description: 'camiseta talla XS para chicos y chicas', id: 40 ,price:'$50'}
-        ]
-        set( (state) => ({ //set sirve para modificar el initial state
-            ...state,
-            currentProducts  
-        }))
-    },
-
+    
     // Obtiene todos los productos y filtra por categoría
     getAllProductsByCategory: (category) => {
         const fetchProducts = async () => {
@@ -132,31 +84,21 @@ export const useStore = create(zukeeper((set) => ({
         fetchProducts()
     },
 
-  // Filtra los currentProducts por precio y tema
-    filterByPriceAndTheme: () => set((state) => {
+  // Filtra los productos por precio, categoria y tematica
+  filterProducts: () => set((state) => {
+    const filtredProducts = state.allProducts.filter((product) => (product.price <= state.maxPrice) && (state.brand === 'all' || product.brand === state.brand)
+    && (state.category === 'all' || product.category === state.category))
+    return {
+      ...state, currentProducts:filtredProducts
+    }
+  }),
 
-      const filtredProducts = state.allProducts.filter(product => product.price <= state.maxPrice && (state.brand === 'all' || product.brand === state.brand)
-      && product.category === state.category)
-
-      return {
-        ...state, currentProducts:filtredProducts
-      }
-    }),
-
-    // Filtra los currentProducts por precio y categoria
-    filterByPriceAndCategory: () => set((state) => {
-
-        const filtredProducts = state.allProducts.filter(product => product.price <= state.maxPrice && (state.category === 'all' || product.category === state.category) && product.brand === state.brand)
-        return {
-          ...state, currentProducts:filtredProducts
-        }
-  
-      }),
 
   //Actulizar el estado de filtros cuando el usuario hace click en un nuevo filtro, categoria o precio.
   setFilters: (newState) => set((newState)),
 
- // Ordena los productos actuales por precio y categoría
+
+ // Ordena los productos actuales por precio
     sortCurrentProductsByPrice: (order) => set((state) => {
         const sortedProducts = [...state.currentProducts].sort((a, b) => {
             if (order === 'asc') {

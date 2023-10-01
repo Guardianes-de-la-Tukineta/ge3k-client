@@ -1,12 +1,11 @@
 .card{       
-    margin: 0.5%;
     align-items: center;
     display: flex;
     justify-content: center;  
     padding-top:1%;     
 }
 .addCart{
-    background-color: orangered !important;
+    background-color: #ff6824 !important;
     cursor:pointer;
     width: 100%
 }

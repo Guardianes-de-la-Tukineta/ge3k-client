@@ -1,29 +1,25 @@
 import React from "react";
-import { useState, useRef } from "react";
+import { useState} from "react";
 import style from "./Filters.module.css";
 import { useStore } from "../../zustand/useStore/useStore";
 import { useEffect } from "react";
 
 
 
-const Filters = () => {
+const Filters = ({nameCategory, nameThematic}) => {
  
-  const {maxPrice, category, brand, getAllProductsByCategory, getAllProductsByTheme, filterByPriceAndTheme, filterByPriceAndCategory, setFilters } = useStore();
+  const {maxPrice, category, brand, getAllProductsByCategory, getAllProductsByTheme, filterProducts, setFilters } = useStore();
   const [maxPriceRange, setMaxPriceRange] = useState(0);
-  const kindRoute = 'category';
 
 
 
   useEffect(()=>{
 
-    const categoryCurrent = 'laptops';
-    const brande = 'Apple';
-
-    if(kindRoute === 'category'){
-      getAllProductsByCategory(categoryCurrent)
+    if(nameCategory){
+      getAllProductsByCategory(nameCategory)
       
-    } else {
-      getAllProductsByTheme(brande)
+    } else if (nameThematic) {
+      getAllProductsByTheme(nameThematic)
 
     }
 
@@ -37,14 +33,12 @@ useEffect(() => {
 }, [maxPrice]);
 
 
-
   const handleFilterByCategory = (ev) => {
 
     setFilters((prevState) => ({
       ...prevState, category: ev.target.value
    }))
-   filterByPriceAndCategory()
-
+   filterProducts()
   }
 
 
@@ -55,9 +49,8 @@ useEffect(() => {
        brand: ev.target.value
    }));
   
-   filterByPriceAndTheme()
+   filterProducts()
   }
-
 
 
   const handleFilterByPrice = (ev) => {
@@ -66,19 +59,14 @@ useEffect(() => {
        ...prevState, maxPrice: parseFloat(ev.target.value)
     }))
 
-    if(kindRoute === 'category') {
-      filterByPriceAndTheme()
-    } else{
-      filterByPriceAndCategory()
-    }
-
+    filterProducts()
+    
   }
-
 
 
   return (
     <div>
-      {(kindRoute !== 'category') && <div className="d-flex flex-column align-items-start mb-4">
+      {( nameThematic|| !nameCategory) && <div className="d-flex flex-column align-items-start mb-4">
         <span className={style.title}>CATEGORIES</span>
         <div className={style.line}></div>
 
@@ -106,7 +94,7 @@ useEffect(() => {
         </label>
       </div>}
 
-      {(kindRoute === 'category') && <div className="d-flex flex-column align-items-start mb-4">
+      { (nameCategory || !nameThematic ) && <div className="d-flex flex-column align-items-start mb-4">
         <span className={style.title}>THEMES</span>
         <div className={style.line}></div>
 

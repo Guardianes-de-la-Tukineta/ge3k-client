@@ -8,7 +8,6 @@ function SortPriceDropDown() {
  const [open, setOpen] = useState(false);
 
  const handleSelect = (key) => {
-    console.log(key)
     setOpen(!open);
     sortCurrentProductsByPrice(key);
   }
@@ -21,8 +20,8 @@ function SortPriceDropDown() {
       </Dropdown.Toggle>
 
       <Dropdown.Menu style={{minWidth: '100%'}}>
-      <div  onClick={()=> handleSelect('asc')} style={{cursor: 'pointer', padding: '8px 8px', fontSize: '0.85rem'}}>Lowest price first</div>
-        <div onClick={()=> handleSelect('desc')} style={{cursor: 'pointer', padding: '8px 8px', fontSize: '0.85rem'}}>Highest price first</div>
+      <div  onClick={()=> handleSelect('asc')} style={{cursor: 'pointer', padding: '8px 16px', fontSize: '0.85rem'}}>Lowest price first</div>
+        <div onClick={()=> handleSelect('desc')} style={{cursor: 'pointer', padding: '8px 16px', fontSize: '0.85rem'}}>Highest price first</div>
       </Dropdown.Menu>
     </Dropdown>
   );

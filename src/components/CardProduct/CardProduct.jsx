@@ -13,7 +13,8 @@ const CardProduct = ({name,description,id,img,price}) => {
          : setIsFav(true)
     }
     return (        
-        <Card className={`col-md-4 col-lg-2 mb-4 ${style.card}`}>
+        <div className={`col-md-6 col-lg-4 mb-3 ${style.card}`}>
+        <Card className='p-2'>
             <Card.Img variant="top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKCkeJVDJ3xsvm_lBaCqZW9FB3-0A1gticFA&usqp=CAU"/>
             <Card.Body>
             <Card.Title>{name}</Card.Title>
@@ -29,6 +30,7 @@ const CardProduct = ({name,description,id,img,price}) => {
             <Button className={style.addCart}><i className="bi bi-cart"></i> Add to cart</Button>
             </Card.Body>
       </Card>
+      </div>
     );
 }
  
