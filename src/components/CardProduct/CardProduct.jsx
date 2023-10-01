@@ -1,14 +1,27 @@
-import React from 'react'
-const CardProduct = ({name,description,id}) => {
-    return (
-        <div className='card'>
-            <div className='card-body'>
-                <h4 className='card-title'>{name}</h4>
-                <p className='card-text'>{description}</p>
-                <p className='card-text'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic placeat quis sunt blanditiis aliquam quos delectus, architecto iste maiores eum magnam ullam. Voluptas officiis animi, tenetur dolore facere dicta eveniet.</p>
+import React from "react";
+import styles from "./CardProduct.module.css";
+
+const CardProduct = ({ name, price, rating, image, id }) => {
+  return (
+    <div className="card w-100 h-100">
+      <div className="card-body">
+        <div className="row">
+          <div className="col-md-6">
+            <img src={image} alt="image" className="img-fluid" />
+          </div>
+          <div className="col-md-6">
+            <h1 className={`mb-0 ${styles.title}`}>{name}</h1>
+            <p className={`mb-0 ${styles.rating}`}>{rating}</p>
+            <h1 className={`mb-0 ${styles.price}`}>{price}</h1>
+            <div className="colum">
+              <hr />
+              <button className={styles.button_sale}>Add to cart</button>
             </div>
+          </div>
         </div>
-    );
-}
- 
+      </div>
+    </div>
+  );
+};
+
 export default CardProduct;
