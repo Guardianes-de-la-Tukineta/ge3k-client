@@ -2,8 +2,6 @@
 import React, { useEffect } from "react";
 import { useStore } from "../../zustand/useStore/useStore";
 import { Carousel } from "react-bootstrap";
-import NavBar from "../../components/NavBar/NavBar";
-import Footer from "../../components/Footer/Footer";
 import Silder from "../../components/Slider/Slider";
 import Category from "../../components/Category/Category";
 import CardProductSale from "../../components/CardProductSale/CardProductSale";
@@ -26,7 +24,6 @@ const Home = () => {
 
   return (
     <div>
-      <NavBar />
       <Silder />
 
       <div>
@@ -63,8 +60,6 @@ const Home = () => {
       <div>
         <Themes />
       </div>
-
-      <Footer />
     </div>
   );
 };
