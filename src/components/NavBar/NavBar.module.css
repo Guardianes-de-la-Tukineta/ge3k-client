@@ -5,3 +5,9 @@
 i {
   color: rgb(255, 255, 255);
 }
+
+.logo{
+  height: 60px;
+  width: auto;
+  margin: 0;
+}
