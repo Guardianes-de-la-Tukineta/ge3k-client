@@ -3,6 +3,8 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import SearchBar from '../SearchBar/SearchBar';
 import style from './NavBar.module.css'
+import logo from '../../Images/logoBlanco.svg'
+import { Link } from 'react-router-dom';
 
 const NavBar = () => {
   return (
@@ -10,7 +12,7 @@ const NavBar = () => {
       
       <Container fluid className='d-flex'>
         
-        <Navbar.Brand href="#">GE3KHUB.shop</Navbar.Brand>
+        <Link to='/'> <Navbar.Brand href="#"><img className={style.logo} src={logo} alt="ge3khub shop" /></Navbar.Brand></Link>
           
           <div className="flex-grow-1 d-none d-md-block "><SearchBar /></div>
           
