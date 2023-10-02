@@ -8,6 +8,7 @@ import NavBar from "./components/NavBar/NavBar"
 import Footer from "./components/Footer/Footer"
 import ThemeView from './Views/ThemeView/ThemeView'
 import Category from './Views/Category/Category'
+import SearchResults from "./Views/SearchResults/SearchResults";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/category/:nameCategory" element={<Category />} />
         <Route path="/thematic/:nameThematic" element={<ThemeView />} />
         <Route path="/product/:id" element={<ProductDetails />} />
+        <Route path="/search/:query" element={<SearchResults />} />
         <Route path="/legal" element={<Legal />} />
         <Route path="*" element={<Error404 />} />
       </Routes>
