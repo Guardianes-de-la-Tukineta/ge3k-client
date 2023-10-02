@@ -1,8 +1,10 @@
-.card{       
-    align-items: center;
-    display: flex;
-    justify-content: center;  
-    padding-top:1%;     
+.card{
+    height: 100%;
+    transition: box-shadow 0.5s; /* Agrega una transición suave al efecto de sombra */
+}
+.card:hover {
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Agrega una sombra al hacer hover */
 }
 .addCart{
     background-color: #ff6824 !important;
@@ -13,13 +15,22 @@
     color: aliceblue !important;
 }
 .card i{
-    color: red;
-    padding: 3%;
+    color: red;    
 }
-
 .fav{
-    color: aqua;
     border-radius: 50%;
     border: none;
-    padding: 1%;
+    opacity: 0;
+    transition: all 0.4s ease-in-out;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Agrega una sombra al hacer hover */
+}
+.card:hover .fav{
+    opacity: 1;
+}
+.description {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Número de líneas para mostrar */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

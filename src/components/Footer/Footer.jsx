@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 
 function Footer() {
   return (
-    <div style={{ backgroundColor: "black", color: "white" }}>
-      <Container fluid>
-        <Row>
+    <div style={{ backgroundColor: "black", color: "white", fontSize: '0.9rem' }}>
+      <Container fluid >
+        <Row className="p-2">
           <Col>
             <h5 className={styles.titleH5}>FIND US IN</h5>
             <img
@@ -26,7 +26,7 @@ function Footer() {
           <Col>
             <h5 className={styles.titleH5}>FIND</h5>
             <p>SEARCH</p>
-            <h5>Bustanos en redes</h5>
+            <h5 className={styles.titleH5}>SOCIAL MEDIA</h5> 
 
             <p>
               <i className="bi bi-instagram"></i> Instagram
@@ -41,18 +41,18 @@ function Footer() {
           <Col>
             <h5 className={styles.titleH5}>ABOUT US</h5>
             <p>
-              ¿Estas buscando un regalo inolvidable para alguien especial o para
-              ti mismo?
+            Are you looking for an unforgettable gift for someone special or for yourself?
             </p>
-            <p>¿Quieres demostrar tu fanatismo y pasión ?</p>
+            <p>Do you want to showcase your fandom and passion?</p>
             <p>
-              ¿Estas cansado de no encontrar los artículos de tus personajes
-              favoritos en las tiendas físicas?
+            Are you tired of not finding items featuring your favorite characters in physical stores?
             </p>
-            <p>Disfruta comprando!!!</p>
+            <p>Enjoy shopping at <strong>Ge3kHub.shop</strong>🤓!</p>
           </Col>
         </Row>
+   
       </Container>
+      <div className={`${styles.guardianes} container-fluid text-center`} >Developed with ❤️ by the Guardians of Tukineta</div>
     </div>
   );
 }
