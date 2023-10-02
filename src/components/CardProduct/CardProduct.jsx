@@ -25,7 +25,6 @@ const CardProduct = ({ name, description, id, image, price }) => {
                         {
                             !isFav ? <i className="bi bi-suit-heart"></i> : <i className="bi bi-suit-heart-fill"></i> //para traer el icono de corazon lleno o vació
                         }
-
                     </button>
                     </Card.ImgOverlay>
                     <Button className={style.addCart}><i className="bi bi-cart"></i> Add to cart</Button>
