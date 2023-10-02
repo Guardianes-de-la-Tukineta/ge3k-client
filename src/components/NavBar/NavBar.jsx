@@ -6,7 +6,7 @@ import style from './NavBar.module.css'
 
 const NavBar = () => {
   return (
-    <Navbar expand="md" bg="dark" data-bs-theme="dark" className='pt-3 pb-3'>
+    <Navbar expand="md" data-bs-theme="dark" className={`pt-3 pb-3 ${style.navbarContainer}`}>
       
       <Container fluid className='d-flex'>
         
