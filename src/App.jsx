@@ -1,14 +1,22 @@
 import { Route, Routes } from "react-router";
 import "./App.css";
-import Home from "./Views/Home/Home.jsx";
+
+import NavBar from "./components/NavBar/NavBar";
+import CardContainer from "./components/CardContainer/CardContainer";
+import Home from "./Views/Home.jsx";
+import Legal from "./Views/Legal/Legal";
+import ProductDetail from "./Views/ProductDetails/ProductDetails";
+
 import ProductDetails from "./Views/ProductDetails/ProductDetails";
 import Legal from "./Views/Legal/Legal";
 import Error404 from "./Views/Error404/Error404";
+
 import NavBar from "./components/NavBar/NavBar"
 import Footer from "./components/Footer/Footer"
 import ThemeView from './Views/ThemeView/ThemeView'
 import Category from './Views/Category/Category'
 import SearchResults from "./Views/SearchResults/SearchResults";
+
 
 function App() {
   return (
@@ -24,6 +32,7 @@ function App() {
         <Route path="/legal" element={<Legal />} />
         <Route path="*" element={<Error404 />} />
       </Routes>
+
       </div>
       <Footer />
     </div>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useStore } from "../../zustand/useStore/useStore";
 import CardProduct from "../CardProduct/CardProduct";
+
 import PaginationCards from "../Pagination/PaginationCards";
 import style from './CardContainer.module.css'
 
@@ -44,5 +45,6 @@ const CardContainer = () => {
     )
 
 }
+
 
 export default CardContainer;

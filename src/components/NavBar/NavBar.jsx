@@ -1,3 +1,4 @@
+
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -23,13 +24,15 @@ const NavBar = () => {
           <div className="d-flex flex-row justify-content-between">
               <Nav.Link href="#" className='text-white fw-normal p-2'>Log In</Nav.Link>
               <Nav.Link href="#" className='text-white fw-normal p-2'>Sign Up</Nav.Link>
+
         </div>
-      
       </Container>
-      
-      <div className="flex-grow-1 d-md-none "><SearchBar /></div>
+
+      <div className="flex-grow-1 d-md-none ">
+        <SearchBar />
+      </div>
     </Navbar>
   );
-}
+};
 
 export default NavBar;

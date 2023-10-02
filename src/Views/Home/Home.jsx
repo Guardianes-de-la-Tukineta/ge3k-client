@@ -26,11 +26,13 @@ const Home = () => {
     <div>
       <Silder />
 
+
       <div>
         <h1 className={`card-title ${style.title}`}>
           <span className={style.coloredText}>Products</span> on sale
         </h1>
       </div>
+
 
       <div>
         <Carousel>
@@ -65,3 +67,4 @@ const Home = () => {
 };
 
 export default Home;
+
