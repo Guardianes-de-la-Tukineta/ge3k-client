@@ -4,11 +4,23 @@ import Filters from "../../components/Filters/Filters";
 import SortPriceDropDown from "../../components/SortPriceDropDown/SortPriceDropDown";
 import { useParams  } from "react-router-dom";
 import style from "./SearchResults.module.css";
+import { useStore } from '../../zustand/useStore/useStore';
+import { useEffect } from 'react';
 
 
 const SearchResults = () => {
 
-    const {query} = useParams()
+    const {query} = useParams();
+   const store = useStore();
+
+   const getResults = useStore((state) => state.setSearchResults); //obtain searchByName from zustand
+
+   useEffect(() =>{
+    getResults();
+  },[]) 
+
+  console.log(store.searchResults);
+   
   return (
     <div className="container-fluid p-0">
       

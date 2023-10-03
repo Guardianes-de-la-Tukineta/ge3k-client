@@ -13,6 +13,7 @@ const NavBar = () => {
   const { user, isAuthenticated } = useAuth0();
 
   return (
+    <>
     <Navbar
       expand="md"
       data-bs-theme="dark"
@@ -58,7 +59,27 @@ const NavBar = () => {
         <SearchBar />
       </div>
     </Navbar>
+
+<Navbar expand="md" data-bs-theme="dark" className={style.navigation}>
+<Container>
+<Navbar.Toggle aria-controls="basic-navbar-nav" />
+    <Navbar.Collapse id="basic-navbar-nav">
+      <Nav className={`${style.itemMenuContaianer} w-100 justify-content-between`}>
+      <Link to='/category/T-shirts'> <span >T-shirts</span></Link>
+      <Link to='/category/Mugs'> <span >Mugs</span></Link>
+      <Link to='/category/PC-Accesories'> <span>PC Accesories</span></Link>
+      <Link to='/category/Collectible-figures'> <span >Collectible figures</span></Link>
+      <Link to='/thematic/Video-Games'> <span >Video Games Based</span></Link>
+      <Link to='/thematic/Programming'> <span >Programming</span></Link>
+      <Link to='/thematic/Anime'> <span >Anime Based</span></Link>
+      <Link to='/thematic/Gaming'> <span >Gaming</span></Link>
+      </Nav>
+    </Navbar.Collapse>
+</Container>
+</Navbar>
+</>
   );
 };
 
 export default NavBar;
+

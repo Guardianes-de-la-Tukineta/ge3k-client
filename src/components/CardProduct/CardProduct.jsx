@@ -1,7 +1,7 @@
-
 import React, { useState } from 'react'
 import { Card, Button } from 'react-bootstrap';
 import style from './CardProduct.module.css'
+import { Link } from 'react-router-dom';
 
 const CardProduct = ({ name, description, id, image, price }) => {
     //Estados
@@ -16,7 +16,9 @@ const CardProduct = ({ name, description, id, image, price }) => {
     return (
         <div className={`col-md-6 col-lg-4 d-flex ${style.divCard}`}>
             <Card className={`col-md-12 mb-3 pt-3 mt-3 ${style.card}`}>
-                <Card.Img variant="top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKCkeJVDJ3xsvm_lBaCqZW9FB3-0A1gticFA&usqp=CAU" />
+                <Link to={`/product/:${id}`}>
+                    <Card.Img variant="top" src={image}/>
+                </Link>
                 <Card.Body className='d-flex flex-column justify-content-around'>
                     <Card.Title>{name}</Card.Title>
                     <Card.Text className={style.description}>{description}</Card.Text>

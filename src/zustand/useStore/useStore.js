@@ -5,14 +5,29 @@ import axios from "axios";
 export const useStore = create(zukeeper((set) => ({
     //estados globales, initial state:
     sales: [], //ofertas
+    
     allProducts:[], //productos todos
+    sortedProducts:[], //para darle permanencia al order al combinar filtros
     currentProducts:[], // para categorias
     category:'all', //categoria actual
-    brand:'all', //Theme actual, tiene ahorita brand por que la api que use tiene brand
-    maxPrice:0, //maximo precio
-      productDetails:{}, // HP para el componete detail traer los detalles 
+    theme:'all', //Theme actual, tiene ahorita brand por que la api que use tiene brand
+    initialMaxPrice:0, //Como tope para el input tipo rango
+    maxPrice:0, //para filtrar por precio
+    
+    productDetails:{}, // HP para el componete detail traer los detalles 
 
 
+      //action para obtener todos los productos
+    getAllProducts: async()=>{
+        const {data}=await axios.get('https://ge3k-server.onrender.com/products/')
+        set((state)=>{
+            return {
+                ...state,
+                allProducts:data,
+                sortedProducts:data
+            }
+        })
+    },
 
     //creamos nuestras actions
     // HP agregado por Hernan - este es el json que manda juanpi desde la ruta detail ej: http://localhost:3001/products/85f9a2dd-572f-4716-a36c-aab0cf51fce9
@@ -77,17 +92,25 @@ export const useStore = create(zukeeper((set) => ({
     // Obtiene todos los productos y filtra por categoría
     getAllProductsByCategory: (category) => {
         const fetchProducts = async () => {
+           
             try {
-                const {data} =  await axios.get('https://dummyjson.com/products')
-                const productsByCategory = data.products.filter((product) => product.category === category )
+                let products = [];
+                if (useStore.getState().allProducts.length === 0){
+                    const {data} =  await axios.get('https://ge3k-server.onrender.com/products/')
+                    products = data
+                } else{
+                    products = useStore.getState().allProducts
+                }
+                const productsByCategory = products.filter((product) => product.category === category )
                 const categoryMaxPrice = Math.max(...productsByCategory.map(product => product.price));
-               
-                set(state => {
-                   return { 
-                    ...state, maxPrice: categoryMaxPrice, category:category,
-                    allProducts: data.products, 
-                    currentProducts: productsByCategory}
-                });
+
+              set(state => {
+                        return { 
+                         ...state, maxPrice: categoryMaxPrice, initialMaxPrice:categoryMaxPrice, category:category,
+                         allProducts: products, sortedProducts:products, theme:'all',
+                         currentProducts: productsByCategory}
+                     });
+
             } catch (error) {
                 console.error("Error to get the products: ", error);
                 set(state => ({
@@ -103,17 +126,23 @@ export const useStore = create(zukeeper((set) => ({
 
 
  // Obtiene todos los productos y los filtra por Theme
-    getAllProductsByTheme: (brand) => {
+    getAllProductsByTheme: (theme) => {
         const fetchProducts = async () => {
             try {
-                const {data} =  await axios.get('https://dummyjson.com/products')
-                const productsByCategory = data.products.filter((product) => product.brand === brand)
+            let products = [];
+            if (useStore.getState().allProducts.length === 0){
+                const {data} =  await axios.get('https://ge3k-server.onrender.com/products/')
+                products = data
+            } else{
+                products = useStore.getState().allProducts
+            }
+                const productsByCategory = products.filter((product) => product.theme === theme)
 
                 const categoryMaxPrice = Math.max(...productsByCategory.map(product => product.price));
-               
+               console.log(categoryMaxPrice)
                 set(state => ({
-                    ...state, maxPrice: categoryMaxPrice, brand:brand,
-                    allProducts: data.products, 
+                    ...state, maxPrice: categoryMaxPrice, theme:theme, initialMaxPrice:categoryMaxPrice,
+                    allProducts: products, sortedProducts:products, category:'all',
                     currentProducts: productsByCategory
                 }));
 
@@ -125,28 +154,36 @@ export const useStore = create(zukeeper((set) => ({
                     currentProducts: []
                 }));
             }
-
         }
         fetchProducts()
     },
 
   // Filtra los productos por precio, categoria y tematica
   filterProducts: () => set((state) => {
-    const filtredProducts = state.allProducts.filter((product) => (product.price <= state.maxPrice) && (state.brand === 'all' || product.brand === state.brand)
-    && (state.category === 'all' || product.category === state.category))
+    const filtredProducts = state.sortedProducts.filter((product) => (product.price <= state.maxPrice) && (state.theme === 'all' || product.theme === state.theme)
+    && (state.category ==='all' || product.category === state.category))
     return {
       ...state, currentProducts:filtredProducts
     }
   }),
 
-
   //Actulizar el estado de filtros cuando el usuario hace click en un nuevo filtro, categoria o precio.
   setFilters: (newState) => set((newState)),
 
 
- // Ordena los productos actuales por precio
+ // Ordena los productos de SortedProducts y CurrentProducts por precio
     sortCurrentProductsByPrice: (order) => set((state) => {
-        const sortedProducts = [...state.currentProducts].sort((a, b) => {
+        const sortedAllProducts = [...state.sortedProducts].sort((a, b) => {
+            if (order === 'asc') {
+                return a.price - b.price;
+            } else if (order === 'desc') {
+                return b.price - a.price;
+            } else {
+                return 0;
+            }
+        });
+
+        const sortedCurrentProducts = [...state.currentProducts].sort((a, b) => {
             if (order === 'asc') {
                 return a.price - b.price;
             } else if (order === 'desc') {
@@ -157,8 +194,22 @@ export const useStore = create(zukeeper((set) => ({
         });
     
         return {
-            ...state, 
-            currentProducts: sortedProducts
+            ...state, sortedProducts:sortedAllProducts,
+            currentProducts: sortedCurrentProducts
         }
     }),
+
+    //Resetear  Orden
+
+    resetOrder: () => set((state) => {
+        console.log('holfffis')
+        const filtredProducts = state.allProducts.filter((product) => (product.price <= state.maxPrice) && (state.theme === 'all' || product.theme === state.theme)
+        && (state.category ==='all' || product.category === state.category))
+        console.log(filtredProducts)
+        return {
+          ...state, sortedAllProducts:state.allProducts, currentProducts:filtredProducts
+        }
+      }),
+
 })))
+
