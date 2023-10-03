@@ -8,8 +8,12 @@ import logo from '../../Images/logoBlanco.svg'
 import { Link } from 'react-router-dom';
 
 const NavBar = () => {
+
+  const categoiesAndThematics = ['T-shirts', 'Mugs', 'PC Accesories', 'Collectible figures', 'Video Games', 'Programming', 'Anime', 'Gaming']
+ 
   return (
-    <Navbar expand="md" data-bs-theme="dark" className={`pt-3 pb-3 ${style.navbarContainer}`}>
+    <>
+    <Navbar expand="md" data-bs-theme="dark" className={`pt-2 pb-2 ${style.navbarContainer}`}>
       
       <Container fluid className='d-flex'>
         
@@ -32,6 +36,26 @@ const NavBar = () => {
         <SearchBar />
       </div>
     </Navbar>
+   
+
+    <Navbar expand="md" data-bs-theme="dark" className={style.navigation}>
+    <Container>
+    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className={`${style.itemMenuContaianer} w-100 justify-content-between`}>
+          <Link to='/category/T-shirts'> <span >T-shirts</span></Link>
+          <Link to='/category/Mugs'> <span >Mugs</span></Link>
+          <Link to='/category/PC-Accesories'> <span>PC Accesories</span></Link>
+          <Link to='/category/Collectible-figures'> <span >Collectible figures</span></Link>
+          <Link to='/thematic/Video-Games'> <span >Video Games Based</span></Link>
+          <Link to='/thematic/Programming'> <span >Programming</span></Link>
+          <Link to='/thematic/Anime'> <span >Anime Based</span></Link>
+          <Link to='/thematic/Gaming'> <span >Gaming</span></Link>
+          </Nav>
+        </Navbar.Collapse>
+    </Container>
+    </Navbar>
+    </>
   );
 };
 

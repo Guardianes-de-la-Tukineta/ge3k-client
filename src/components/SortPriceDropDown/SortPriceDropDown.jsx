@@ -15,8 +15,8 @@ function SortPriceDropDown() {
   return (
  
     <Dropdown show={open} onToggle={(isOpen) => setOpen(isOpen)}>
-      <Dropdown.Toggle variant="success" id="dropdown-basic" size="sm" style={{backgroundColor:'#111111'}}>
-        Dropdown Button
+      <Dropdown.Toggle variant="success" id="dropdown-basic" size="sm" style={{backgroundColor:'#111111', padding: '0.2rem 2rem'}}>
+      Sort by price
       </Dropdown.Toggle>
 
       <Dropdown.Menu style={{minWidth: '100%'}}>
