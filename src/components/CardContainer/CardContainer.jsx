@@ -25,6 +25,7 @@ const CardContainer = () => {
                         description={product.description}
                         price={product.price}
                         image={product.image}
+                        id={product.id}
                     />
                 ))
             }

@@ -17,7 +17,7 @@ export const useStore = create(zukeeper((set) => ({
     productDetails:{}, // HP para el componete detail traer los detalles 
 
 
-      //action para obtener todos los productos
+    //action para obtener todos los productos
     getAllProducts: async()=>{
         const {data}=await axios.get('https://ge3k-server.onrender.com/products/')
         set((state)=>{
@@ -46,28 +46,19 @@ export const useStore = create(zukeeper((set) => ({
     //     "ThemeId": null
     //   }
     
-    getProductsDetails: (id) => {
-        const details = {
-            name: 'camiseta github',
-            deletedAt: null,
-            image: 'https://ih1.redbubble.net/image.2563740221.2392/ssrco,slim_fit_t_shirt,flatlay,101010:01c5ca27c6,front,wide_portrait,750x1000-bg,f8f8f8.jpg',
-            //HP. por el momento muestro los codigos de las categorias pero necesito sus nonbres
-            ThemeId: 'IDThemeGit',
-            Theme: 'Git',
-            CategoryId: 'IDcatCamiseta',
-            Category:'Camiseta',
-            stock: 24,
-            price: '17.00',
-            discount: 0,
-            description: 'camiseta talla L para chicos y chicas',
-            id: 1
-        };
+    getProductsDetails: async(id) => {
+        const {data} = await axios.get(`https://ge3k-server.onrender.com/products/${id}`)
         set((state) => ({
             ...state,
-            productDetails: details
+            productDetails: data
         }));
     },
-    
+    deletePorductDetail: (id)=>{
+        set((state)=>({
+            ...state,
+            productDetails: {}
+        }))
+    },    
     
     getSales: () => {
         const sales = [ //esto lo recibimos del back
