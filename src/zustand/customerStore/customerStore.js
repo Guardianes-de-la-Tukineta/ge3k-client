@@ -122,7 +122,7 @@ import axios from "axios";
   
         if (customerIndex !== -1) {
           set(() => ({
-            currentCustomer: initialCustomerData[customerIndex],
+            currentCustomer: customerIndex,
           }));
         } else {
           // Puedes manejar el caso en que no se encuentre el cliente

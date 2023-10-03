@@ -11,3 +11,22 @@ i {
   width: auto;
   margin: 0;
 }
+
+.navigation{
+  background-color: #b1b1b129;
+  padding: 0;
+  margin: 0;
+  color: #000000;
+}
+
+.itemMenuContaianer a {
+color:rgb(0, 0, 0);
+text-decoration: none;
+font-weight: 500;
+font-size: 0.85rem;
+}
+
+.itemMenuContaianer a:hover{
+  color: #000000;
+  text-decoration: none;
+}

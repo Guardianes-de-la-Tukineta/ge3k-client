@@ -8,11 +8,9 @@ import { useEffect } from "react";
 
 const Filters = ({nameCategory, nameThematic}) => {
  
-  const {maxPrice, category, brand, getAllProductsByCategory, getAllProductsByTheme, filterProducts, setFilters } = useStore();
-  const [maxPriceRange, setMaxPriceRange] = useState(0);
-
-
-
+  const {initialMaxPrice, maxPrice, category,theme, getAllProductsByCategory, getAllProductsByTheme, filterProducts, setFilters } = useStore();
+  const [maxPriceRange, setMaxPriceRange] = useState('0');
+  
   useEffect(()=>{
 
     if(nameCategory){
@@ -20,17 +18,14 @@ const Filters = ({nameCategory, nameThematic}) => {
       
     } else if (nameThematic) {
       getAllProductsByTheme(nameThematic)
-
     }
-
-  }, [])
+  }, [nameCategory, nameThematic])
 
 
 useEffect(() => {
-  if(maxPriceRange === 0 || maxPriceRange === '0'){
-    setMaxPriceRange(maxPrice.toString());
-}
-}, [maxPrice]);
+    setMaxPriceRange(initialMaxPrice.toString());
+}, [initialMaxPrice]);
+
 
 
   const handleFilterByCategory = (ev) => {
@@ -46,7 +41,7 @@ useEffect(() => {
 
    setFilters(prevState => ({
        ...prevState, 
-       brand: ev.target.value
+       theme: ev.target.value
    }));
   
    filterProducts()
@@ -74,24 +69,26 @@ useEffect(() => {
         <input type="radio" id="all" name="category" value="all" onChange={handleFilterByCategory} checked={category === 'all'} /> <span>All</span> 
         </label>
 
-        <label htmlFor="laptops">
-        <input type="radio" id="laptops" name="category"  value="laptops" onChange={handleFilterByCategory}/> <span>laptops</span> 
+        <label htmlFor="T-shirts">
+        <input type="radio" id="T-shirts" name="category"  value="T-shirts" onChange={handleFilterByCategory}/> <span>T-shirts</span> 
         </label>
 
-        <label htmlFor="smartphones">
-        <input type="radio" id="smartphones" name="category"  value="smartphones" onChange={handleFilterByCategory}/> <span>smartphones</span>
+        <label htmlFor="Mugs">
+        <input type="radio" id="Mugs" name="category"   value="Mugs" onChange={handleFilterByCategory}/> <span>Mugs</span>
+          
+        </label>
+
+        <label htmlFor="PC-Accesories">
+        <input type="radio" id="PC-Accesories" name="category"  value="PC Accesories" onChange={handleFilterByCategory}/> <span>PC Accesories</span>
       
         </label>
 
-        <label htmlFor="skincare">
-        <input type="radio" id="skincare" name="category"  value="skincare" onChange={handleFilterByCategory}/> <span>skincare</span>
+        <label htmlFor="Collectible figures">
+        <input type="radio" id="Collectible figures" name="category"  value="Collectible figures" onChange={handleFilterByCategory}/> <span>Collectible Figures</span>
          
         </label>
 
-        <label htmlFor="groceries">
-        <input type="radio" id="groceries" name="category"   value="groceries" onChange={handleFilterByCategory}/> <span>groceries</span>
-          
-        </label>
+        
       </div>}
 
       { (nameCategory || !nameThematic ) && <div className="d-flex flex-column align-items-start mb-4">
@@ -99,22 +96,27 @@ useEffect(() => {
         <div className={style.line}></div>
 
         <label htmlFor="all">
-        <input type="radio" id="all"  name="Themes" value="all" onChange={handleFilterByTheme} checked={brand === 'all'}  /> <span>All</span>
+        <input type="radio" id="all"  name="Themes" value="all" onChange={handleFilterByTheme} checked={theme === 'all'}  /> <span>All</span>
           
         </label>
 
-        <label htmlFor="Huawei">
-        <input type="radio" id="Huawei"  name="Themes" value="Huawei" onChange={handleFilterByTheme}/> <span>Huawei</span>
+        <label htmlFor="Programming">
+        <input type="radio" id="Programming"  name="Themes" value="Programming" onChange={handleFilterByTheme}/> <span>Programming</span>
           
         </label>
 
-        <label htmlFor="Apple">
-        <input type="radio" id="Apple"   name="Themes"  value="Apple" onChange={handleFilterByTheme}/>  <span>Apple</span>
+        <label htmlFor="Gaming">
+        <input type="radio" id="Gaming"   name="Themes"  value="Gaming" onChange={handleFilterByTheme}/>  <span>Gaming</span>
           
         </label>
 
-        <label htmlFor="Samsung">
-        <input type="radio" id="Samsung"  name="Themes" value="Samsung" onChange={handleFilterByTheme}/>  <span>Samsung</span>
+        <label htmlFor="Anime">
+        <input type="radio" id="Anime"  name="Themes" value="Anime" onChange={handleFilterByTheme}/>  <span>Anime</span>
+          
+        </label>
+
+        <label htmlFor="Video Games">
+        <input type="radio" id="Video Games"  name="Themes" value="Video Games" onChange={handleFilterByTheme}/>  <span>Video Games Based</span>
           
         </label>
       </div>}

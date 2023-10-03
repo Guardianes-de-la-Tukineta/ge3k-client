@@ -15,7 +15,7 @@ const ThemeView = () => {
       
       
       <h1 className={style.titleH1}>
-        GEEK {nameThematic.toUpperCase()}
+        GEEK PRODUCT {nameThematic.toUpperCase()} BASED
       </h1>
       <div className={style.categoryDescription}>
   
@@ -28,12 +28,12 @@ const ThemeView = () => {
       <div className={`container-fluid ${style.categoryContainer}`}>
 
       <div className={`${style.dropDownContainer} d-flex justify-content-end`}>
-        <SortPriceDropDown />
+        <SortPriceDropDown nameThematic={nameThematic}/>
       </div>
 
       <div className="row p-3">
         <div className="col-md-3">
-          <Filters nameThematic={nameThematic} />
+          <Filters nameThematic={nameThematic.replace("-", " ")} />
         </div>
 
         <div className="col-md-9">

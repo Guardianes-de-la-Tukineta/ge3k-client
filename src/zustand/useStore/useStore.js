@@ -211,11 +211,5 @@ export const useStore = create(zukeeper((set) => ({
         }
       }),
 
-     //Setea resultados de coincidencias en la búsqueda de la searchBar
-    setSearchResults: (results) => set((state) => ({
-        ...state,
-        searchResults: results
-      })),
-
-
 })))
+
