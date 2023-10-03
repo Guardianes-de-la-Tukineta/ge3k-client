@@ -43,3 +43,11 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.customLink{
+    color: inherit; /*quita color azul del Link */
+    text-decoration: none; /*quita subrayado del Link */
+}
+.card:hover .customLink{
+    color: inherit; /*quita color azul del Link */
+    text-decoration: none; /*quita subrayado del Link */
+}

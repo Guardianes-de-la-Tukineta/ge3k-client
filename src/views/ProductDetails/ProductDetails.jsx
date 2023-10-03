@@ -9,10 +9,14 @@ import { Link } from "react-router-dom";
 function ProductDetails() {
   const { id } = useParams();
 
-  const { getProductsDetails, productDetails } = useStore(); // Utiliza el hook useStore para acceder al estado y a la función getProductsDetails
+  const { getProductsDetails, productDetails, deletePorductDetail } = useStore(); // Utiliza el hook useStore para acceder al estado y a la función getProductsDetails
 
   useEffect(() => {
     getProductsDetails(id);
+
+    return (() => {
+      deletePorductDetail(id)
+    })
   }, [id]);
 
   // const productDetail = useSelector((state) => state.detail);
@@ -46,14 +50,14 @@ function ProductDetails() {
           <h1 className={styles.title}>{productDetails.name}</h1>
           <h2 className={styles.stock}>{productDetails.description}</h2>
           {/* HP. muestro el descuento solo si el producto lo tiene */}
-          {productDetails.discount === 0 ? (
-            <h2 className={styles.Price}>Price U$S {productDetails.price}</h2>
+          {productDetails.discount === null ? (
+            <h2 className={styles.Price}>Price ${productDetails.price}</h2>
           ) : (
             <>
               <h2 className={styles.oldPrice}>
                 Price U$S {productDetails.price}
               </h2>
-              <h2 className={styles.price}>Off {productDetails.discount}</h2>
+              <h2 className={styles.price}>Off ${productDetails.price - productDetails.price * (productDetails.discount / 100)}</h2>
             </>
           )}
           <h2 className={styles.stock}>In stock: {productDetails.stock} </h2>
@@ -62,20 +66,20 @@ function ProductDetails() {
           <h2 className={styles.info}>
             Category:{" "}
             <Link
-              to={"/Category/" + productDetails.Category}
+              to={"/Category/" + productDetails.category}
               className={styles.detailsLink}
             >
-              {productDetails.Category}
+              {productDetails.category}
             </Link>
           </h2>
 
           <h2 className={styles.info}>
             Thematic:{" "}
             <Link
-              to={"/thematic/" + productDetails.Theme}
+              to={"/thematic/" + productDetails.theme}
               className={styles.detailsLink}
             >
-              {productDetails.Theme}
+              {productDetails.theme}
             </Link>
           </h2>
 
