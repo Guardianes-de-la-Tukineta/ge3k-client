@@ -5,13 +5,16 @@ import axios from "axios";
 export const useStore = create(zukeeper((set) => ({
     //estados globales, initial state:
     sales: [], //ofertas
+    
     allProducts:[], //productos todos
+    sortedProducts:[], //para darle permanencia al order al combinar filtros
     currentProducts:[], // para categorias
     category:'all', //categoria actual
     theme:'all', //Theme actual, tiene ahorita brand por que la api que use tiene brand
     initialMaxPrice:0, //Como tope para el input tipo rango
     maxPrice:0, //para filtrar por precio
-      productDetails:{}, // HP para el componete detail traer los detalles 
+    
+    productDetails:{}, // HP para el componete detail traer los detalles 
 
 
       //action para obtener todos los productos
@@ -20,7 +23,8 @@ export const useStore = create(zukeeper((set) => ({
         set((state)=>{
             return {
                 ...state,
-                allProducts:data
+                allProducts:data,
+                sortedProducts:data
             }
         })
     },
@@ -103,7 +107,7 @@ export const useStore = create(zukeeper((set) => ({
               set(state => {
                         return { 
                          ...state, maxPrice: categoryMaxPrice, initialMaxPrice:categoryMaxPrice, category:category,
-                         allProducts: products, theme:'all',
+                         allProducts: products, sortedProducts:products, theme:'all',
                          currentProducts: productsByCategory}
                      });
 
@@ -138,7 +142,7 @@ export const useStore = create(zukeeper((set) => ({
                console.log(categoryMaxPrice)
                 set(state => ({
                     ...state, maxPrice: categoryMaxPrice, theme:theme, initialMaxPrice:categoryMaxPrice,
-                    allProducts: products, category:'all',
+                    allProducts: products, sortedProducts:products, category:'all',
                     currentProducts: productsByCategory
                 }));
 
@@ -156,7 +160,7 @@ export const useStore = create(zukeeper((set) => ({
 
   // Filtra los productos por precio, categoria y tematica
   filterProducts: () => set((state) => {
-    const filtredProducts = state.allProducts.filter((product) => (product.price <= state.maxPrice) && (state.theme === 'all' || product.theme === state.theme)
+    const filtredProducts = state.sortedProducts.filter((product) => (product.price <= state.maxPrice) && (state.theme === 'all' || product.theme === state.theme)
     && (state.category ==='all' || product.category === state.category))
     return {
       ...state, currentProducts:filtredProducts
@@ -167,9 +171,19 @@ export const useStore = create(zukeeper((set) => ({
   setFilters: (newState) => set((newState)),
 
 
- // Ordena los productos actuales por precio
+ // Ordena los productos de SortedProducts y CurrentProducts por precio
     sortCurrentProductsByPrice: (order) => set((state) => {
-        const sortedProducts = [...state.currentProducts].sort((a, b) => {
+        const sortedAllProducts = [...state.sortedProducts].sort((a, b) => {
+            if (order === 'asc') {
+                return a.price - b.price;
+            } else if (order === 'desc') {
+                return b.price - a.price;
+            } else {
+                return 0;
+            }
+        });
+
+        const sortedCurrentProducts = [...state.currentProducts].sort((a, b) => {
             if (order === 'asc') {
                 return a.price - b.price;
             } else if (order === 'desc') {
@@ -180,8 +194,20 @@ export const useStore = create(zukeeper((set) => ({
         });
     
         return {
-            ...state, 
-            currentProducts: sortedProducts
+            ...state, sortedProducts:sortedAllProducts,
+            currentProducts: sortedCurrentProducts
         }
     }),
+
+    //Resetear  Orden
+
+    resetOrder: () => set((state) => {
+        console.log('holfffis')
+        const filtredProducts = state.allProducts.filter((product) => (product.price <= state.maxPrice) && (state.theme === 'all' || product.theme === state.theme)
+        && (state.category ==='all' || product.category === state.category))
+        console.log(filtredProducts)
+        return {
+          ...state, sortedAllProducts:state.allProducts, currentProducts:filtredProducts
+        }
+      }),
 })))

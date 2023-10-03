@@ -28,7 +28,7 @@ const ThemeView = () => {
       <div className={`container-fluid ${style.categoryContainer}`}>
 
       <div className={`${style.dropDownContainer} d-flex justify-content-end`}>
-        <SortPriceDropDown />
+        <SortPriceDropDown nameThematic={nameThematic}/>
       </div>
 
       <div className="row p-3">

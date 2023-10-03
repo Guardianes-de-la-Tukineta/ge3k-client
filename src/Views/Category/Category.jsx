@@ -26,7 +26,7 @@ const Category = () => {
       <div className={`container-fluid ${style.categoryContainer}`}>
 
       <div className={`${style.dropDownContainer} d-flex justify-content-end`}>
-        <SortPriceDropDown />
+        <SortPriceDropDown nameCategory={nameCategory} />
       </div>
 
       <div className="row p-3">

@@ -10,9 +10,7 @@ const Filters = ({nameCategory, nameThematic}) => {
  
   const {initialMaxPrice, maxPrice, category,theme, getAllProductsByCategory, getAllProductsByTheme, filterProducts, setFilters } = useStore();
   const [maxPriceRange, setMaxPriceRange] = useState('0');
-
-
-
+  
   useEffect(()=>{
 
     if(nameCategory){
@@ -21,20 +19,11 @@ const Filters = ({nameCategory, nameThematic}) => {
     } else if (nameThematic) {
       getAllProductsByTheme(nameThematic)
     }
-
   }, [nameCategory, nameThematic])
 
 
-
-
 useEffect(() => {
-
-
-  console.log(initialMaxPrice)
-
     setMaxPriceRange(initialMaxPrice.toString());
-
-
 }, [initialMaxPrice]);
 
 
