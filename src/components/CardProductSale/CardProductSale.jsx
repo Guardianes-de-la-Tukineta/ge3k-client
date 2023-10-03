@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import styles from "./CardProductSale.module.css";
+import { Link } from "react-router-dom";
 
 const CardProductSale = ({ name, price, rating, image, id }) => {
   const [isFav, setIsFav] = useState(false);
@@ -21,7 +22,9 @@ const CardProductSale = ({ name, price, rating, image, id }) => {
       <div className="card-body">
         <div className="row">
           <div className="col-md-4">
-            <img src={image} alt="image" className="img-fluid" />
+            <Link style={{ textDecoration: "none" }} to="/product/:id">
+              <img src={image} alt="image" className="img-fluid" />
+            </Link>
           </div>
           <div className="col-md-8">
             <h1 className={`mb-0 ${styles.title}`}>{name}</h1>

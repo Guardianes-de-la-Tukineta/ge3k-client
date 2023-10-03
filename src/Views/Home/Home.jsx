@@ -1,7 +1,7 @@
-
 import React, { useEffect } from "react";
 import { useStore } from "../../zustand/useStore/useStore";
 import { Carousel } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import Silder from "../../components/Slider/Slider";
 import Category from "../../components/Category/Category";
 import CardProductSale from "../../components/CardProductSale/CardProductSale";
@@ -26,13 +26,11 @@ const Home = () => {
     <div>
       <Silder />
 
-
       <div>
         <h1 className={`card-title ${style.title}`}>
           <span className={style.coloredText}>Products</span> on sale
         </h1>
       </div>
-
 
       <div>
         <Carousel>
@@ -67,4 +65,3 @@ const Home = () => {
 };
 
 export default Home;
-
