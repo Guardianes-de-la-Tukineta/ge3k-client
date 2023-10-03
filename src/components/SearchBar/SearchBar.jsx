@@ -13,34 +13,35 @@ const SearchBar = () => {
   const [ suggestions, setSuggestions ] = useState([]);
   const store = useStore();
   const getSales = useStore((state) => state.getSales);  //obtain global state from zustand
+  const getAllProducts = useStore((state) => state.getAllProducts);
 
   useEffect(() =>{
     getSales();
+    getAllProducts();
   },[]) 
   
   const handleChange = (event) => {
     const value = event.target.value;
-
-    console.log(value);
-    console.log(store.sales);
     setFind(value);
    
   }
 
-
   const handleSubmit = (event) => {
      if(find.length > 0){
-      const results = store.sales.filter((sale) => {
+      const results = store.allProducts.filter((all) => {
        return(
-       sale.name.toLowerCase().includes(find.toLowerCase()) ||
-       sale.price.toLowerCase().includes(find.toLowerCase())
+        all.name.toLowerCase().includes(find.toLowerCase()) 
+        || all.description.toLowerCase().includes(find.toLowerCase())
        )}
       )
-      console.log(results[0])
+      console.log(results);
+      console.log(store.allProducts.length)
          if(results.length >0){
-        for(let i =0; i<results.length; i++){
-         window.alert(results[i].name)
-        }
+           store.setSearchResults(results);
+           for(let i =0; i<results.length; i++){
+           window.alert(results[i].name)
+        
+           }
         }
         else{
            window.alert("No se encontraron resultados");
@@ -57,12 +58,13 @@ const SearchBar = () => {
     const inputLength = inputValue.length;
   
 
-    const suggestions = store.sales
-       .filter((sale) => 
-        sale.name.toLowerCase().includes(inputValue) ||
-        sale.price.toLowerCase().includes(inputValue)
+    const suggestions = store.allProducts
+       .filter((all) => 
+        all.name.toLowerCase().includes(inputValue) 
+        || all.description.toLowerCase().includes(inputValue)
        )
-       .map((sale) => sale.name);
+       .slice(0, 10)  //limit de ammount of suggestions
+       .map((all) => all.name);
        setSuggestions(suggestions);
   };
 
@@ -110,7 +112,6 @@ const SearchBar = () => {
 
 
   return (
-    //d-flex align-items-center
     <div className={style.custom}>
       <div>
 

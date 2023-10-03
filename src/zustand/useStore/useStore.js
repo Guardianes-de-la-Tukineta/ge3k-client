@@ -210,4 +210,6 @@ export const useStore = create(zukeeper((set) => ({
           ...state, sortedAllProducts:state.allProducts, currentProducts:filtredProducts
         }
       }),
+
 })))
+
