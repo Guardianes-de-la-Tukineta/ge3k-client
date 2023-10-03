@@ -6,6 +6,10 @@
     cursor: pointer;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Agrega una sombra al hacer hover */
 }
+.card img{
+    aspect-ratio: 1/1; /*sirve para la relacion ancho alto, y para q todas las imagenes ocupen el mismo espacio*/  
+    padding: 5%;
+}
 .addCart{
     background-color: #ff6824 !important;
     cursor:pointer;
@@ -15,14 +19,19 @@
     color: aliceblue !important;
 }
 .card i{
-    color: red;    
+    color: red;
+    font-size: larger;
+    text-align: center;
 }
 .fav{
-    border-radius: 50%;
+    width: 30px;
+    height: 30px; 
+    border-radius: 50%;    
     border: none;
+    background-color: transparent;
     opacity: 0;
     transition: all 0.4s ease-in-out;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Agrega una sombra al hacer hover */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Agrega una sombra al hacer hover */
 }
 .card:hover .fav{
     opacity: 1;
