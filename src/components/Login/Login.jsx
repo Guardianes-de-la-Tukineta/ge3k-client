@@ -8,7 +8,6 @@ function Login() {
 
   return (
     <>
-      Ge3kHub Login
       {isAuthenticated ? <Logout /> : <Button />}
       {isLoading ? (
         <h1>Cargando....</h1>

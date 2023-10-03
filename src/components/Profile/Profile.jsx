@@ -7,16 +7,17 @@ import CustomerDetails from "./CustomerDetaills";
 import CustomerForm from "./CustomerForm";
 import { useAuth0 } from "@auth0/auth0-react";
 
-function Profile(props) {
+function Profile() {
   const { currentCustomer, getCustomerByEmail, createCustomer, customerData } =
     customerStore(); // Utiliza el hook useStore para acceder al estado y a la función getProductsDetails
-  const { email } = props;
+
+  const email = "mail.mail.com";
 
   const { user, isAuthenticated } = useAuth0();
   useEffect(() => {
-    console.log("estudia ");
     getCustomerByEmail(email);
-  }, [email]);
+    console.log("perfil ", currentCustomer);
+  }, []);
 
   const {
     register,
