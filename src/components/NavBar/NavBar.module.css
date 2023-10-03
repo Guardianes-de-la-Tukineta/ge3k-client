@@ -11,3 +11,21 @@ i {
   width: auto;
   margin: 0;
 }
+
+.navigation{
+  background-color: #00000029;
+  padding: 0;
+  margin: 0;
+  color: #000000;
+}
+
+.itemMenuContaianer a {
+color:rgb(0, 0, 0);
+text-decoration: none;
+font-weight: 500;
+}
+
+.itemMenuContaianer a:hover{
+  color: #000000;
+  text-decoration: none;
+}

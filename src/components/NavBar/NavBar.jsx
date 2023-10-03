@@ -27,7 +27,7 @@ const NavBar = () => {
         </Link>
 
         <div className="flex-grow-1 d-none d-md-block ">
-          {/* <SearchBar /> */}
+          <SearchBar />
         </div>
 
         <div className="p-2 ml-1">
@@ -60,5 +60,7 @@ const NavBar = () => {
     </Navbar>
   );
 };
+
+export default NavBar;
 
 export default NavBar;
