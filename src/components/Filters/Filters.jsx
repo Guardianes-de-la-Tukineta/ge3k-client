@@ -8,11 +8,9 @@ import { useEffect } from "react";
 
 const Filters = ({nameCategory, nameThematic}) => {
  
-  const {maxPrice, category, brand, getAllProductsByCategory, getAllProductsByTheme, filterProducts, setFilters } = useStore();
-  const [maxPriceRange, setMaxPriceRange] = useState(0);
-
-
-
+  const {initialMaxPrice, maxPrice, category,theme, getAllProductsByCategory, getAllProductsByTheme, filterProducts, setFilters } = useStore();
+  const [maxPriceRange, setMaxPriceRange] = useState('0');
+  
   useEffect(()=>{
 
     if(nameCategory){
@@ -20,17 +18,14 @@ const Filters = ({nameCategory, nameThematic}) => {
       
     } else if (nameThematic) {
       getAllProductsByTheme(nameThematic)
-
     }
-
-  }, [])
+  }, [nameCategory, nameThematic])
 
 
 useEffect(() => {
-  if(maxPriceRange === 0 || maxPriceRange === '0'){
-    setMaxPriceRange(maxPrice.toString());
-}
-}, [maxPrice]);
+    setMaxPriceRange(initialMaxPrice.toString());
+}, [initialMaxPrice]);
+
 
 
   const handleFilterByCategory = (ev) => {
@@ -46,7 +41,7 @@ useEffect(() => {
 
    setFilters(prevState => ({
        ...prevState, 
-       brand: ev.target.value
+       theme: ev.target.value
    }));
   
    filterProducts()
@@ -101,7 +96,7 @@ useEffect(() => {
         <div className={style.line}></div>
 
         <label htmlFor="all">
-        <input type="radio" id="all"  name="Themes" value="all" onChange={handleFilterByTheme} checked={brand === 'all'}  /> <span>All</span>
+        <input type="radio" id="all"  name="Themes" value="all" onChange={handleFilterByTheme} checked={theme === 'all'}  /> <span>All</span>
           
         </label>
 

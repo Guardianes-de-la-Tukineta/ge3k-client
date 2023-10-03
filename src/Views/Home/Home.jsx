@@ -8,12 +8,19 @@ import CardProductSale from "../../components/CardProductSale/CardProductSale";
 import Themes from "../../components/Theme/Themes";
 import style from "../Home/Home.module.css";
 
+
 const Home = () => {
-  const { getSales } = useStore(); //esto actua como nuestro dispatch, guardamos en la variable la action getSales
+
+  const { allProducts, getAllProducts, getSales } = useStore(); //esto actua como nuestro dispatch, guardamos en la variable la action getSales
   const { sales } = useStore.getState(); // obtenemos del estado global la variable sales(productos en oferta)
 
   //hooks
   useEffect(() => {
+
+    if(allProducts.length === 0 ){
+      getAllProducts()
+    }
+   
     getSales(); //al montar componente ejecutamos la action q modifica nuestro estado global
   }, []);
 
