@@ -13,6 +13,16 @@ export const useStore = create(zukeeper((set) => ({
       productDetails:{}, // HP para el componete detail traer los detalles 
 
 
+      //action para obtener todos los productos
+    getAllProducts: async()=>{
+        const {data}=await axios.get('https://ge3k-server.onrender.com/products/')
+        set((state)=>{
+            return {
+                ...state,
+                allProducts:data
+            }
+        })
+    },
 
     //creamos nuestras actions
     // HP agregado por Hernan - este es el json que manda juanpi desde la ruta detail ej: http://localhost:3001/products/85f9a2dd-572f-4716-a36c-aab0cf51fce9
@@ -86,7 +96,6 @@ export const useStore = create(zukeeper((set) => ({
                 } else{
                     products = useStore.getState().allProducts
                 }
-
                 const productsByCategory = products.filter((product) => product.category === category )
                 const categoryMaxPrice = Math.max(...productsByCategory.map(product => product.price));
 
@@ -125,7 +134,7 @@ export const useStore = create(zukeeper((set) => ({
                 const productsByCategory = products.filter((product) => product.theme === theme)
 
                 const categoryMaxPrice = Math.max(...productsByCategory.map(product => product.price));
-               
+               console.log(categoryMaxPrice)
                 set(state => ({
                     ...state, maxPrice: categoryMaxPrice, theme:theme,
                     allProducts: products, category:'all',
@@ -146,11 +155,8 @@ export const useStore = create(zukeeper((set) => ({
 
   // Filtra los productos por precio, categoria y tematica
   filterProducts: () => set((state) => {
-    console.log(state.theme)
     const filtredProducts = state.allProducts.filter((product) => (product.price <= state.maxPrice) && (state.theme === 'all' || product.theme === state.theme)
     && (state.category ==='all' || product.category === state.category))
-
-    console.log(filtredProducts)
     return {
       ...state, currentProducts:filtredProducts
     }

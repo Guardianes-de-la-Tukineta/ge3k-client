@@ -15,29 +15,26 @@ const Filters = ({nameCategory, nameThematic}) => {
 
   useEffect(()=>{
 
-    console.log(nameCategory)
-
     if(nameCategory){
       getAllProductsByCategory(nameCategory)
       
     } else if (nameThematic) {
       getAllProductsByTheme(nameThematic)
-
     }
 
   }, [nameCategory, nameThematic])
 
 
 useEffect(() => {
+
   if(maxPriceRange === 0 || maxPriceRange === '0'){
     setMaxPriceRange(maxPrice.toString());
 }
 }, [maxPrice]);
 
 
-  const handleFilterByCategory = (ev) => {
 
-    console.log(`esto ante de zustand ${ev.target.value}`)
+  const handleFilterByCategory = (ev) => {
 
     setFilters((prevState) => ({
       ...prevState, category: ev.target.value
@@ -47,8 +44,6 @@ useEffect(() => {
 
 
   const handleFilterByTheme = (ev) => {
-
-    console.log(`esto ante de zustand ${ev.target.value}`)
 
    setFilters(prevState => ({
        ...prevState, 
