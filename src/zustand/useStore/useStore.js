@@ -9,7 +9,8 @@ export const useStore = create(zukeeper((set) => ({
     currentProducts:[], // para categorias
     category:'all', //categoria actual
     theme:'all', //Theme actual, tiene ahorita brand por que la api que use tiene brand
-    maxPrice:0, //maximo precio
+    initialMaxPrice:0, //Como tope para el input tipo rango
+    maxPrice:0, //para filtrar por precio
       productDetails:{}, // HP para el componete detail traer los detalles 
 
 
@@ -101,7 +102,7 @@ export const useStore = create(zukeeper((set) => ({
 
               set(state => {
                         return { 
-                         ...state, maxPrice: categoryMaxPrice, category:category,
+                         ...state, maxPrice: categoryMaxPrice, initialMaxPrice:categoryMaxPrice, category:category,
                          allProducts: products, theme:'all',
                          currentProducts: productsByCategory}
                      });
@@ -136,7 +137,7 @@ export const useStore = create(zukeeper((set) => ({
                 const categoryMaxPrice = Math.max(...productsByCategory.map(product => product.price));
                console.log(categoryMaxPrice)
                 set(state => ({
-                    ...state, maxPrice: categoryMaxPrice, theme:theme,
+                    ...state, maxPrice: categoryMaxPrice, theme:theme, initialMaxPrice:categoryMaxPrice,
                     allProducts: products, category:'all',
                     currentProducts: productsByCategory
                 }));
@@ -161,7 +162,6 @@ export const useStore = create(zukeeper((set) => ({
       ...state, currentProducts:filtredProducts
     }
   }),
-
 
   //Actulizar el estado de filtros cuando el usuario hace click en un nuevo filtro, categoria o precio.
   setFilters: (newState) => set((newState)),

@@ -8,8 +8,8 @@ import { useEffect } from "react";
 
 const Filters = ({nameCategory, nameThematic}) => {
  
-  const {maxPrice, category, theme, getAllProductsByCategory, getAllProductsByTheme, filterProducts, setFilters } = useStore();
-  const [maxPriceRange, setMaxPriceRange] = useState(0);
+  const {initialMaxPrice, maxPrice, category,theme, getAllProductsByCategory, getAllProductsByTheme, filterProducts, setFilters } = useStore();
+  const [maxPriceRange, setMaxPriceRange] = useState('0');
 
 
 
@@ -25,12 +25,17 @@ const Filters = ({nameCategory, nameThematic}) => {
   }, [nameCategory, nameThematic])
 
 
+
+
 useEffect(() => {
 
-  if(maxPriceRange === 0 || maxPriceRange === '0'){
-    setMaxPriceRange(maxPrice.toString());
-}
-}, [maxPrice]);
+
+  console.log(initialMaxPrice)
+
+    setMaxPriceRange(initialMaxPrice.toString());
+
+
+}, [initialMaxPrice]);
 
 
 
