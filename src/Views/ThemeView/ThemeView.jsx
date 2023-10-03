@@ -33,7 +33,7 @@ const ThemeView = () => {
 
       <div className="row p-3">
         <div className="col-md-3">
-          <Filters nameThematic={nameThematic} />
+          <Filters nameThematic={nameThematic.replace("-", " ")} />
         </div>
 
         <div className="col-md-9">

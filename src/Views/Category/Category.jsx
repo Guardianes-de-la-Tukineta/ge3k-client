@@ -4,8 +4,11 @@ import Filters from "../../components/Filters/Filters";
 import SortPriceDropDown from "../../components/SortPriceDropDown/SortPriceDropDown";
 import { useParams  } from "react-router-dom";
 import style from "./Category.module.css";
+import { useFieldArray } from "react-hook-form";
+import { User } from "@auth0/auth0-react";
 
 const Category = () => {
+ 
   const {nameCategory} = useParams();
 
   return (
@@ -28,7 +31,7 @@ const Category = () => {
 
       <div className="row p-3">
         <div className="col-md-3">
-          <Filters nameCategory={nameCategory} />
+          <Filters nameCategory={(nameCategory !== 'T-shirts')? nameCategory.replace("-", " ") : nameCategory} />
         </div>
 
         <div className="col-md-9">

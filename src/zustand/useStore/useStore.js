@@ -77,17 +77,26 @@ export const useStore = create(zukeeper((set) => ({
     // Obtiene todos los productos y filtra por categoría
     getAllProductsByCategory: (category) => {
         const fetchProducts = async () => {
+           
             try {
-                const {data} =  await axios.get('https://ge3k-server.onrender.com/products/')
-                const productsByCategory = data.filter((product) => product.category === category )
+                let products = [];
+                if (useStore.getState().allProducts.length === 0){
+                    const {data} =  await axios.get('https://ge3k-server.onrender.com/products/')
+                    products = data
+                } else{
+                    products = useStore.getState().allProducts
+                }
+
+                const productsByCategory = products.filter((product) => product.category === category )
                 const categoryMaxPrice = Math.max(...productsByCategory.map(product => product.price));
-               
-                set(state => {
-                   return { 
-                    ...state, maxPrice: categoryMaxPrice, category:category,
-                    allProducts: data.products, 
-                    currentProducts: productsByCategory}
-                });
+
+              set(state => {
+                        return { 
+                         ...state, maxPrice: categoryMaxPrice, category:category,
+                         allProducts: products, theme:'all',
+                         currentProducts: productsByCategory}
+                     });
+
             } catch (error) {
                 console.error("Error to get the products: ", error);
                 set(state => ({
@@ -106,14 +115,20 @@ export const useStore = create(zukeeper((set) => ({
     getAllProductsByTheme: (theme) => {
         const fetchProducts = async () => {
             try {
+            let products = [];
+            if (useStore.getState().allProducts.length === 0){
                 const {data} =  await axios.get('https://ge3k-server.onrender.com/products/')
-                const productsByCategory = data.filter((product) => product.theme === theme)
+                products = data
+            } else{
+                products = useStore.getState().allProducts
+            }
+                const productsByCategory = products.filter((product) => product.theme === theme)
 
                 const categoryMaxPrice = Math.max(...productsByCategory.map(product => product.price));
                
                 set(state => ({
                     ...state, maxPrice: categoryMaxPrice, theme:theme,
-                    allProducts: data.products, 
+                    allProducts: products, category:'all',
                     currentProducts: productsByCategory
                 }));
 
@@ -125,15 +140,17 @@ export const useStore = create(zukeeper((set) => ({
                     currentProducts: []
                 }));
             }
-
         }
         fetchProducts()
     },
 
   // Filtra los productos por precio, categoria y tematica
   filterProducts: () => set((state) => {
-    const filtredProducts = state.allProducts.filter((product) => (product.price <= state.maxPrice) && (state.brand === 'all' || product.brand === state.brand)
-    && (state.category === 'all' || product.category === state.category))
+    console.log(state.theme)
+    const filtredProducts = state.allProducts.filter((product) => (product.price <= state.maxPrice) && (state.theme === 'all' || product.theme === state.theme)
+    && (state.category ==='all' || product.category === state.category))
+
+    console.log(filtredProducts)
     return {
       ...state, currentProducts:filtredProducts
     }
