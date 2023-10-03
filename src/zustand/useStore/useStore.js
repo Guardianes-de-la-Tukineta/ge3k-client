@@ -8,7 +8,7 @@ export const useStore = create(zukeeper((set) => ({
     allProducts:[], //productos todos
     currentProducts:[], // para categorias
     category:'all', //categoria actual
-    brand:'all', //Theme actual, tiene ahorita brand por que la api que use tiene brand
+    theme:'all', //Theme actual, tiene ahorita brand por que la api que use tiene brand
     maxPrice:0, //maximo precio
       productDetails:{}, // HP para el componete detail traer los detalles 
 
@@ -78,8 +78,8 @@ export const useStore = create(zukeeper((set) => ({
     getAllProductsByCategory: (category) => {
         const fetchProducts = async () => {
             try {
-                const {data} =  await axios.get('https://dummyjson.com/products')
-                const productsByCategory = data.products.filter((product) => product.category === category )
+                const {data} =  await axios.get('https://ge3k-server.onrender.com/products/')
+                const productsByCategory = data.filter((product) => product.category === category )
                 const categoryMaxPrice = Math.max(...productsByCategory.map(product => product.price));
                
                 set(state => {
@@ -103,16 +103,16 @@ export const useStore = create(zukeeper((set) => ({
 
 
  // Obtiene todos los productos y los filtra por Theme
-    getAllProductsByTheme: (brand) => {
+    getAllProductsByTheme: (theme) => {
         const fetchProducts = async () => {
             try {
-                const {data} =  await axios.get('https://dummyjson.com/products')
-                const productsByCategory = data.products.filter((product) => product.brand === brand)
+                const {data} =  await axios.get('https://ge3k-server.onrender.com/products/')
+                const productsByCategory = data.filter((product) => product.theme === theme)
 
                 const categoryMaxPrice = Math.max(...productsByCategory.map(product => product.price));
                
                 set(state => ({
-                    ...state, maxPrice: categoryMaxPrice, brand:brand,
+                    ...state, maxPrice: categoryMaxPrice, theme:theme,
                     allProducts: data.products, 
                     currentProducts: productsByCategory
                 }));
