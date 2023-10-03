@@ -11,12 +11,17 @@ import StrangerThings from "../../Images/Stranger-Things-logo.png";
 const Themes = () => {
   return (
     <div style={{ padding: "20px" }}>
-      <h1
-        className="card-title"
-        style={{ color: "#FC6522", marginBottom: "30px" }}
-      >
-        Themes
-      </h1>
+      <Link style={{ textDecoration: "none" }} to="/thematic/:nameThematic">
+        <h1
+          className="card-title"
+          style={{
+            color: "#FC6522",
+            marginBottom: "30px",
+          }}
+        >
+          Themes
+        </h1>
+      </Link>
       <div className="row align-items-center d-flex justify-content-between">
         <img
           src={Dc}
