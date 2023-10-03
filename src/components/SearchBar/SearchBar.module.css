@@ -19,11 +19,22 @@ margin: 0 1rem;
 
 .suggestionText {
   color: rgba(12, 12, 12, 0.733);
+  width: 150% left;
   text-align: center;
+  font-weight: bold;
   cursor: pointer;
   position: relative;
   z-index: 5;
-  background-color: rgba(254, 255, 255, 0.589);
+  background-color: rgba(255, 123, 0, 0.829);
+  
+  margin: 0;
+  padding: 0;
+}
+
+.suggestionText:hover{
+  background-color: black;
+  color: white;
+
 }
 
 .coincidences {
