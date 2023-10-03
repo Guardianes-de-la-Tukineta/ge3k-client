@@ -15,7 +15,7 @@ const ThemeView = () => {
       
       
       <h1 className={style.titleH1}>
-        GEEK {nameThematic.toUpperCase()}
+        GEEK PRODUCT {nameThematic.toUpperCase()} BASED
       </h1>
       <div className={style.categoryDescription}>
   
