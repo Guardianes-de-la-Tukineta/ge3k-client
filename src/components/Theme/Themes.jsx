@@ -1,12 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Dc from "../../Images/DC_Comics_logo.png";
-import Marvel from "../../Images/Marvel-Comics-logo.png";
-import HarryPotter from "../../Images/harry potter.png";
-import DragonBall from "../../Images/DragonBall.png";
-import StarWars from "../../Images/Star_Wars_Logo.svg.png";
-import GameOfThrones from "../../Images/descarga1.png";
-import StrangerThings from "../../Images/Stranger-Things-logo.png";
+import game from "../../Images/vidio games.jpg";
+import anime_themes from "../../Images/anime_themes.jpg";
+import programming from "../../Images/programmer.jpg";
+import gaming from "../../Images/gamming.jpg";
 
 const Themes = () => {
   return (
@@ -16,55 +13,72 @@ const Themes = () => {
           className="card-title"
           style={{
             color: "#FC6522",
-            marginBottom: "30px",
+            marginBottom: "25px",
           }}
         >
           Themes
         </h1>
       </Link>
-      <div className="row align-items-center d-flex justify-content-between">
-        <img
-          src={Dc}
-          alt="dc"
-          className="img-fluid"
-          style={{ maxWidth: "250px" }}
-        />
-        <img
-          src={Marvel}
-          alt="marvel"
-          className="img-fluid"
-          style={{ maxWidth: "300px" }}
-        />
-        <img
-          src={HarryPotter}
-          alt="harrypotter"
-          className="img-fluid"
-          style={{ maxWidth: "300px" }}
-        />
-        <img
-          src={DragonBall}
-          alt="dragonBall"
-          className="img-fluid"
-          style={{ maxWidth: "300px" }}
-        />
-        <img
-          src={StarWars}
-          alt="StarWars"
-          className="img-fluid"
-          style={{ maxWidth: "300px" }}
-        />
-        <img
-          src={GameOfThrones}
-          alt="GameOfThrones"
-          className="img-fluid"
-          style={{ maxWidth: "300px" }}
-        />
-        <img
-          src={StrangerThings}
-          alt="StrangerThings"
-          className="img-fluid"
-          style={{ maxWidth: "300px" }}
-        />
+
+      <div
+        className="row align-items-center justify-content-center"
+        style={{ marginBottom: "50px" }}
+      >
+        <div className="col-md-3">
+          <div className="text-center">
+            <div className="card-body">
+              <img
+                src={game}
+                alt="game"
+                className="rounded-circle"
+                style={{ width: "250px", height: "250px" }}
+              />
+              <h5 className="card-title">Video Game</h5>
+            </div>
+          </div>
+        </div>
+
+        <div className="col-md-3">
+          <div className="text-center">
+            <div className="card-body">
+              <img
+                src={anime_themes}
+                alt="anime_themes"
+                className="rounded-circle"
+                style={{ width: "250px", height: "250px" }}
+              />
+              <h5 className="card-title">Anime</h5>
+            </div>
+          </div>
+        </div>
+
+        <div className="col-md-3">
+          <div className="text-center">
+            <div className="card-body">
+              <img
+                src={programming}
+                alt="programming"
+                className="rounded-circle"
+                style={{ width: "250px", height: "250px" }}
+              />
+              <h5 className="card-title">Programming</h5>
+            </div>
+          </div>
+        </div>
+
+        <div className="col-md-3">
+          <div className="text-center">
+            <div className="card-body">
+              <img
+                src={gaming}
+                alt="gaming"
+                className="rounded-circle"
+                style={{ width: "250px", height: "250px" }}
+              />
+              <h5 className="card-title">Gaming</h5>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

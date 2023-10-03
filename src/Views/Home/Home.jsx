@@ -39,11 +39,11 @@ const Home = () => {
         </h1>
       </div>
 
-      <div>
+      <div className={style.carousel_container}>
         <Carousel>
           {groupedSales.map((group, index) => (
             <Carousel.Item key={index}>
-              <div className="row">
+              <div className={"row"}>
                 {group.map((product) => (
                   <div key={product.id} className="col-md-4">
                     <CardProductSale

@@ -18,8 +18,8 @@ const CardProductSale = ({ name, price, rating, image, id }) => {
   };
 
   return (
-    <div className="card w-100 h-100">
-      <div className="card-body">
+    <div className="card" style={{ paddingTop: "20px" }}>
+      <div className="card-body w-100 h-100 mb-4">
         <div className="row">
           <div className="col-md-4">
             <Link style={{ textDecoration: "none" }} to="/product/:id">
@@ -31,7 +31,7 @@ const CardProductSale = ({ name, price, rating, image, id }) => {
             <p className={`mb-0 ${styles.rating}`}>{rating}</p>
             <h2 className={`mb-0 ${styles.price}`}>{price}</h2>
 
-            <div className="d-flex justify-content-between align-items-center">
+            <div className="d-flex align-items-center">
               <button
                 className={`${styles.fav} ${isFav ? styles.favActive : ""}`}
                 onClick={handlerIsFav}
