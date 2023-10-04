@@ -152,7 +152,7 @@ export const useStore = create(zukeeper((set) => ({
                 } else{
                     products = useStore.getState().allProducts
                 }
-                const productsByCategory = products.filter((product) => product.category === category )
+                const productsByCategory = products.filter((product) => product.categoryName === category )
                 const categoryMaxPrice = Math.max(...productsByCategory.map(product => product.price));
 
               set(state => {
@@ -187,7 +187,7 @@ export const useStore = create(zukeeper((set) => ({
             } else{
                 products = useStore.getState().allProducts
             }
-                const productsByCategory = products.filter((product) => product.theme === theme)
+                const productsByCategory = products.filter((product) => product.themeName === theme)
 
                 const categoryMaxPrice = Math.max(...productsByCategory.map(product => product.price));
                console.log(categoryMaxPrice)
