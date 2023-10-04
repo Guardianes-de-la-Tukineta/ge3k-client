@@ -15,12 +15,8 @@ const Home = () => {
   const { sales } = useStore.getState(); // obtenemos del estado global la variable sales(productos en oferta)
 
   //hooks
-  useEffect(() => {
-
-    if(allProducts.length === 0 ){
-      getAllProducts()
-    }
-   
+  useEffect(() => {   
+    getAllProducts()  
     getSales(); //al montar componente ejecutamos la action q modifica nuestro estado global
   }, []);
 
