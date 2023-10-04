@@ -211,8 +211,8 @@ export const useStore = create(zukeeper((set) => ({
 
   // Filtra los productos por precio, categoria y tematica
   filterProducts: () => set((state) => {
-    const filtredProducts = state.sortedProducts.filter((product) => (product.price <= state.maxPrice) && (state.theme === 'all' || product.theme === state.theme)
-    && (state.category ==='all' || product.category === state.category))
+    const filtredProducts = state.sortedProducts.filter((product) => (product.price <= state.maxPrice) && (state.theme === 'all' || product.themeName === state.theme)
+    && (state.category ==='all' || product.categoryName === state.category))
     return {
       ...state, currentProducts:filtredProducts
     }
@@ -254,8 +254,8 @@ export const useStore = create(zukeeper((set) => ({
 
     resetOrder: () => set((state) => {
         console.log('holfffis')
-        const filtredProducts = state.allProducts.filter((product) => (product.price <= state.maxPrice) && (state.theme === 'all' || product.theme === state.theme)
-        && (state.category ==='all' || product.category === state.category))
+        const filtredProducts = state.allProducts.filter((product) => (product.price <= state.maxPrice) && (state.theme === 'all' || product.themeName === state.theme)
+        && (state.category ==='all' || product.categoryName === state.category))
         console.log(filtredProducts)
         return {
           ...state, sortedAllProducts:state.allProducts, currentProducts:filtredProducts
