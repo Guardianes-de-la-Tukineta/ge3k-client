@@ -39,6 +39,7 @@ export const useStore = create(zukeeper((set) => ({
             ...state,
             productDetails: {}
         }))
+    },
 // obtiene todos los productos y filtra los que tienen valor no igual a null
     getSales: async () => {
     try {
