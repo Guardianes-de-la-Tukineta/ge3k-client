@@ -95,7 +95,7 @@ export const useStore = create(zukeeper((set) => ({
                 } else{
                     products = useStore.getState().allProducts
                 }
-                const productsByCategory = products.filter((product) => product.category === category )
+                const productsByCategory = products.filter((product) => product.categoryName === category )
                 const categoryMaxPrice = Math.max(...productsByCategory.map(product => product.price));
 
               set(state => {
@@ -130,7 +130,7 @@ export const useStore = create(zukeeper((set) => ({
             } else{
                 products = useStore.getState().allProducts
             }
-                const productsByCategory = products.filter((product) => product.theme === theme)
+                const productsByCategory = products.filter((product) => product.themeName === theme)
 
                 const categoryMaxPrice = Math.max(...productsByCategory.map(product => product.price));
                console.log(categoryMaxPrice)
@@ -154,8 +154,8 @@ export const useStore = create(zukeeper((set) => ({
 
   // Filtra los productos por precio, categoria y tematica
   filterProducts: () => set((state) => {
-    const filtredProducts = state.sortedProducts.filter((product) => (product.price <= state.maxPrice) && (state.theme === 'all' || product.theme === state.theme)
-    && (state.category ==='all' || product.category === state.category))
+    const filtredProducts = state.sortedProducts.filter((product) => (product.price <= state.maxPrice) && (state.theme === 'all' || product.themeName === state.theme)
+    && (state.category ==='all' || product.categoryName === state.category))
     return {
       ...state, currentProducts:filtredProducts
     }
@@ -197,8 +197,8 @@ export const useStore = create(zukeeper((set) => ({
 
     resetOrder: () => set((state) => {
         console.log('holfffis')
-        const filtredProducts = state.allProducts.filter((product) => (product.price <= state.maxPrice) && (state.theme === 'all' || product.theme === state.theme)
-        && (state.category ==='all' || product.category === state.category))
+        const filtredProducts = state.allProducts.filter((product) => (product.price <= state.maxPrice) && (state.theme === 'all' || product.themeName === state.theme)
+        && (state.category ==='all' || product.categoryName === state.category))
         console.log(filtredProducts)
         return {
           ...state, sortedAllProducts:state.allProducts, currentProducts:filtredProducts

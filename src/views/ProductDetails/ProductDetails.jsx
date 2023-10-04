@@ -66,20 +66,20 @@ function ProductDetails() {
           <h2 className={styles.info}>
             Category:{" "}
             <Link
-              to={"/Category/" + productDetails.category}
+              to={"/category/" + productDetails.categoryName}
               className={styles.detailsLink}
             >
-              {productDetails.category}
+              {productDetails.categoryName}
             </Link>
           </h2>
 
           <h2 className={styles.info}>
             Thematic:{" "}
             <Link
-              to={"/thematic/" + productDetails.theme}
+              to={"/thematic/" + productDetails.themeName}
               className={styles.detailsLink}
             >
-              {productDetails.theme}
+              {productDetails.themeName}
             </Link>
           </h2>
 
