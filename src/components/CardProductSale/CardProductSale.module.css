@@ -1,24 +1,12 @@
 .title{
     color: #FC6522;
     text-align: end;
-    font-size: 25px;
-}
-
-.rating {
-    text-align: end;
-    font-size: 30px;
-
+    font-size: 22px;
 }
 
 .price {
     text-align: end;
     font-weight: bold;
-}
-
-.button_sale {
-    background-color:#FC6522;
-    width: 60%;   
-    border: none;   
 }
 
 .hr{

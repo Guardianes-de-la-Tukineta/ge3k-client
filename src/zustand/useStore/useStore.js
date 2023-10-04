@@ -25,22 +25,7 @@ export const useStore = create(zukeeper((set) => ({
             }
         })
     },
-    //creamos nuestras actions
-    // HP agregado por Hernan - este es el json que manda juanpi desde la ruta detail ej: http://localhost:3001/products/85f9a2dd-572f-4716-a36c-aab0cf51fce9
-    // {
-    //     "id": "3c7dbde7-702b-496c-9054-0a725cea2fd6",
-    //     "name": "remera de github",
-    //     "price": "17.00",
-    //     "image": "",
-    //     "description": "remera de git/github",
-    //     "stock": 15,
-    //     "discount": 15,
-    //     "createdAt": "2023-09-30T13:56:15.742Z",
-    //     "updatedAt": "2023-09-30T13:56:15.742Z",
-    //     "deletedAt": null,
-    //     "CategoryId": null,
-    //     "ThemeId": null
-    //   }
+   
     
     getProductsDetails: async(id) => {
         const {data} = await axios.get(`https://ge3k-server.onrender.com/products/${id}`)
@@ -54,8 +39,7 @@ export const useStore = create(zukeeper((set) => ({
             ...state,
             productDetails: {}
         }))
-    },
-    // obtiene todos los productos y filtra los que tienen valor no igual a null
+// obtiene todos los productos y filtra los que tienen valor no igual a null
     getSales: async () => {
     try {
         const { data } = await axios.get(`https://ge3k-server.onrender.com/products/`);
