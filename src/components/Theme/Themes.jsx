@@ -4,11 +4,11 @@ import game from "../../Images/vidio games.jpg";
 import anime_themes from "../../Images/anime_themes.jpg";
 import programming from "../../Images/programmer.jpg";
 import gaming from "../../Images/gamming.jpg";
+import style from './Themes.module.css'
 
 const Themes = () => {
   return (
     <div style={{ padding: "20px" }}>
-      <Link style={{ textDecoration: "none" }} to="/thematic/:nameThematic">
         <h1
           className="card-title"
           style={{
@@ -18,66 +18,73 @@ const Themes = () => {
         >
           Themes
         </h1>
-      </Link>
+   
 
       <div
         className="row align-items-center justify-content-center"
         style={{ marginBottom: "50px" }}
       >
-        <div className="col-md-3">
-          <div className="text-center">
-            <div className="card-body">
+       <div className={`${style.cardContainer} col-md-3`}>
+       <Link to="/thematic/Video-Games" ><div >
+            <div className="card-body" style={{display:'flex', justifyContent:'center', flexDirection: 'column',alignItems: 'center' }}>
+            <div  className="rounded-circle" style={{ width: "250px", height: "250px", overflow:"hidden"}}> 
               <img
                 src={game}
                 alt="game"
-                className="rounded-circle"
-                style={{ width: "250px", height: "250px" }}
+                style={{ height: "250px"}}
               />
-              <h5 className="card-title">Video Game</h5>
+                  </div>
+              <h5 className={style.titleThema} >Video Game</h5>
             </div>
-          </div>
+          </div></Link>
         </div>
 
-        <div className="col-md-3">
+        <div className={`${style.cardContainer} col-md-3`}>
+        <Link to="/thematic/Anime">
           <div className="text-center">
-            <div className="card-body">
+            <div className="card-body" style={{display:'flex', justifyContent:'center', flexDirection: 'column',alignItems: 'center' }}>
+              
+            <div  className="rounded-circle" style={{ width: "250px", height: "250px", overflow:"hidden" }}> 
               <img
                 src={anime_themes}
                 alt="anime_themes"
-                className="rounded-circle"
-                style={{ width: "250px", height: "250px" }}
+                style={{ height: "300px"}}
+
               />
-              <h5 className="card-title">Anime</h5>
+              </div>
+              <h5 className={style.titleThema} >Anime</h5>
             </div>
-          </div>
+          </div></Link>
         </div>
 
-        <div className="col-md-3">
-          <div className="text-center">
-            <div className="card-body">
-              <img
+        <div className={`${style.cardContainer} col-md-3`}>
+        <Link to="/thematic/Programming"><div className="text-center">
+            <div className="card-body" style={{display:'flex', justifyContent:'center', flexDirection: 'column',alignItems: 'center' }}>
+              <div  className="rounded-circle" style={{ width: "250px", height: "250px", overflow:"hidden" }}> <img
                 src={programming}
                 alt="programming"
-                className="rounded-circle"
-                style={{ width: "250px", height: "250px" }}
-              />
-              <h5 className="card-title">Programming</h5>
+                style={{ height: "300px"}}
+    
+              /></div>
+              <h5 className={style.titleThema} >Programming</h5>
             </div>
-          </div>
+          </div></Link>
         </div>
 
-        <div className="col-md-3">
+        <div className={`${style.cardContainer} col-md-3`}>
+        <Link to="/thematic/Gaming" >
           <div className="text-center">
-            <div className="card-body">
+            <div className="card-body" style={{display:'flex', justifyContent:'center', flexDirection: 'column',alignItems: 'center' }}>
+            <div  className="rounded-circle" style={{ width: "250px", height: "250px", overflow:"hidden" }}> 
               <img
                 src={gaming}
                 alt="gaming"
-                className="rounded-circle"
-                style={{ width: "250px", height: "250px" }}
-              />
-              <h5 className="card-title">Gaming</h5>
+
+                style={{ height: "300px"}}
+              /></div>
+              <h5 className={style.titleThema} >Gaming</h5>
             </div>
-          </div>
+          </div></Link>
         </div>
       </div>
     </div>

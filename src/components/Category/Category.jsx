@@ -9,14 +9,12 @@ import { Link } from "react-router-dom";
 const Category = () => {
   return (
     <div className={`container-fluid ${style.textura}`}>
-      <Link to="/category/:nameCategory">
         <button className={style.btnCategory}>Categories</button>
-      </Link>
       <div
         className={`container d-flex justify-content-center align-items-center ${style.cards}`}
       >
         <div className="col-md-3 mb-3 pt-3 mt-3 ">
-          <Link style={{ textDecoration: "none" }} to="/category/:nameCategory">
+          <Link style={{ textDecoration: "none" }} to="/category/Collectible-figures">
             <div className="card mx-3">
               <img
                 src={anime}
@@ -24,14 +22,14 @@ const Category = () => {
                 className={`img-fluid ${style.image}`}
               />
               <div className={`card-body ${style.cardBody}`}>
-                <h5 className={` ${style.cardTitle}`}>Collectible figure</h5>
+                <h5 className={` ${style.cardTitle}`}>Collectible Figure</h5>
               </div>
             </div>
           </Link>
         </div>
 
         <div className="col-md-3 mb-3 pt-3 mt-3">
-          <Link style={{ textDecoration: "none" }} to="/category/:nameCategory">
+          <Link style={{ textDecoration: "none" }} to="/category/PC-Accesories">
             <div className="card mx-3">
               <img src={pc} alt="pc" className={`img-fluid ${style.image}`} />
               <div className={`card-body ${style.cardBody}`}>
@@ -42,7 +40,7 @@ const Category = () => {
         </div>
 
         <div className="col-md-3 mb-3 pt-3 mt-3">
-          <Link style={{ textDecoration: "none" }} to="/category/:nameCategory">
+          <Link style={{ textDecoration: "none" }} to="/category/Mugs">
             <div className="card mx-3">
               <img
                 src={taza}
@@ -57,7 +55,7 @@ const Category = () => {
         </div>
 
         <div className="col-md-3 mb-3 pt-3 mt-3">
-          <Link style={{ textDecoration: "none" }} to="/category/:nameCategory">
+          <Link style={{ textDecoration: "none" }} to="/category/T-shirts">
             <div className="card mx-3">
               <img
                 src={tshirt}

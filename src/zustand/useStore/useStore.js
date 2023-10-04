@@ -63,12 +63,72 @@ export const useStore = create(zukeeper((set) => ({
     getSales: () => {
         const sales = [ //esto lo recibimos del back
 
-            { name: 'Camiseta goku', image: 'https://media.camden.es/product/camiseta-goku-800x800.jpg',  rating: '★  ★ ★ ★ ☆', price: '$23.000', id: 1 },
-            { name: 'Camiseta gohan', image: 'https://media.nauticamilanonline.com/product/camiseta-gohan-dragon-ball-z-adulto-800x800_AapHj6p.jpg', rating: '★  ★ ★ ★ ☆', price: '$23.000', id: 2 },
-            { name: 'Funko Harry Potter', image: 'https://asgardstores.com/664/funko-pop-harry-potter.jpg', rating: '★  ★ ★ ★ ☆', price: '$23.000', id: 3 },
-            { name: 'Kit Gammer', image: 'https://s.yimg.com/os/creatr-uploaded-images/2020-11/1890a840-2f98-11eb-b77f-f5769099341b', rating: '★  ★ ★ ★ ☆', price: '$23.000', id: 4 },
-            { name: 'Mug programmer', image: "https://image.spreadshirtmedia.net/image-server/v1/products/T949A2PA2009PT25X2Y1D160403330W5745H6895/views/3,width=550,height=550,appearanceId=2,backgroundColor=F2F2F2,modelId=1279,crop=list/programmer-funny-geek-mug.jpg", rating: '★  ★ ★ ★ ☆', price: '$23.000', id: 5 },
-            { name: 'Llavero Thor', image: 'https://i0.wp.com/tiendaufun.com/wp-content/uploads/2021/12/Llavero-Thor.jpg?fit=569%2C533&ssl=1', rating: '★  ★ ★ ★ ☆', price: '$23.000', id: 6 }
+        {
+            "id": "8deedfae-91a6-4dfe-95da-c9e2f5c51c34",
+            "name": "Mario Funny T-Shirt Unisex ",
+            "price": "16.00",
+            "image": "https://res.cloudinary.com/dqoi2ez7t/image/upload/v1696188861/GeekHub%20Products/81N3vj4couL._AC_UX522__ftnr3v.jpg",
+            "description": "Nintendo Mens Video Gameboy Shirt - Mario, Luigi, Zelda, Kirby, and Donkey Kong Vintage Tee (Black Super Mario",
+            "stock": 15,
+            "discount": null,
+            "category": "T-shirts",
+            "theme": "Video Games"
+            },
+            {
+                "id": "47ad1a17-77b5-4281-abd4-d2a52a2d4215",
+                "name": "Darling Merch T-Shirts",
+                "price": "16.99",
+                "image": "https://res.cloudinary.com/dqoi2ez7t/image/upload/v1696189225/GeekHub%20Products/61dcwkA8M2L._AC_UX569__x9wfpp.jpg",
+                "description": "Unisex My Dress Up Darling Merch T-Shirts Kitagawa Marin Cotton Short Sleeve Tops Anime Shirts for Adult Youth Mens Womens",
+                "stock": 15,
+                "discount": null,
+                "category": "T-shirts",
+                "theme": "Anime"
+                },
+                {
+                    "id": "7319c565-994b-4ebb-9824-aa7c86a60fe9",
+                    "name": "Programming Coffee Mug",
+                    "price": "13.99",
+                    "image": "https://res.cloudinary.com/dqoi2ez7t/image/upload/v1696192239/GeekHub%20Products/51rbCHGiK2L._AC_SX522__vxbrch.jpg",
+                    "description": "Luxe Gifting Programming Coffee Mug 11oz White - I Hate Coding - Programmer Gift Dad Web Developer Gift Son Cybersecurity Gift Friend Information Technology Gift Coworker Funny Computer",
+                    "stock": 15,
+                    "discount": null,
+                    "category": "Mugs",
+                    "theme": "Programming"
+                    },
+                    {
+                        "id": "a01c7e51-afb4-48cc-836a-7a21c790ba7c",
+                        "name": "Programming Wrist Rest",
+                        "price": "47.75",
+                        "image": "https://res.cloudinary.com/dqoi2ez7t/image/upload/v1696203474/GeekHub%20Products/31Alxns6EtL._AC_SY450__abykvi.jpg",
+                        "description": "DELTAHUB Carpio G2.0 - Right-Handed Truly Ergonomic Programming Wrist Rest for Mouse, Gamer Approved, Pain Relief, Anti-Fatigue, Computer, Laptop, Esports, Silicone Strap, Easy Glide (Large, Right, White)",
+                        "stock": 15,
+                        "discount": null,
+                        "category": "PC Accesories",
+                        "theme": "Programming"
+                        },
+                        {
+                            "id": "ead1118e-4cdf-4679-9cff-170431a424f0",
+                            "name": "Anime Soul Large Mouse Pad",
+                            "price": "32.00",
+                            "image": "https://res.cloudinary.com/dqoi2ez7t/image/upload/v1696204511/GeekHub%20Products/61prrGr3rkL._AC_SY450__cwoacs.jpg",
+                            "description": "Anime Soul Eater Large Gaming Mouse Pad Extended Mousepad Non-Slip Rubber Base Mouse Pads Mat for Laptop Computer 11.8 x 31.5 in",
+                            "stock": 15,
+                            "discount": null,
+                            "category": "PC Accesories",
+                            "theme": "Anime"
+                            },
+                            {
+                                "id": "4c294172-f7d7-43c4-981d-e41cd5ce0c9d",
+                                "name": "Debugging Duck Code",
+                                "price": "22.15",
+                                "image": "https://res.cloudinary.com/dqoi2ez7t/image/upload/v1696215239/GeekHub%20Products/il_794xN.4963564136_8mio_gmw8gj.jpg",
+                                "description": "Debugging Duck - Gift for Programmers, Collectible Figure for Programmers",
+                                "stock": 15,
+                                "discount": null,
+                                "category": "Collectible figures",
+                                "theme": "Programming"
+                                }
         ]
         set( (state) => ({ //set sirve para modificar el initial state
             ...state,

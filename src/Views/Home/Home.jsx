@@ -30,10 +30,12 @@ const Home = () => {
   } // agrupa los productos en tres para mostrar tres tarjetas por vista del carrusel
 
   return (
-    <div>
+    <div >
       <Silder />
 
-      <div>
+
+<div className ='p-3'>
+      <div >
         <h1 className={`card-title ${style.title}`}>
           <span className={style.coloredText}>Products</span> on sale
         </h1>
@@ -51,6 +53,7 @@ const Home = () => {
                       name={product.name}
                       rating={product.rating}
                       price={product.price}
+                      id={product.id}
                     />
                   </div>
                 ))}
@@ -59,7 +62,7 @@ const Home = () => {
           ))}
         </Carousel>
       </div>
-
+      </div>
       <div>
         <Category />
       </div>
