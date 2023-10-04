@@ -2,7 +2,7 @@
     background-image: url('../../Images/TEXTURA_WEB.jpg')  ;
     background-size: cover;
     margin-top: 80px;
-    margin-bottom: 60px;
+    margin-bottom: 30px;
     height: 550px;   
 }
 
@@ -40,4 +40,8 @@
     border: none;
     padding-bottom: 6px;
     
+}
+
+.btnCategory:hover{
+    cursor:auto ;
 }

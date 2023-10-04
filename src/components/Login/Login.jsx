@@ -10,7 +10,7 @@ function Login() {
     <>
       {isAuthenticated ? <Logout /> : <Button />}
       {isLoading ? (
-        <h1>Cargando....</h1>
+        <span>....</span>
       ) : (
         <>
           <Auth0Profile />

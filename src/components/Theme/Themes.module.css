@@ -1,0 +1,17 @@
+ .cardContainer a{
+    text-decoration: none;
+   
+}
+
+.cardContainer a:hover{
+    text-decoration: none;
+   
+}
+.titleThema{
+    margin-top: 15px;
+  color:black;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+

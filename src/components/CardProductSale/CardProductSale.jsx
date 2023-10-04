@@ -22,7 +22,7 @@ const CardProductSale = ({ name, price, rating, image, id }) => {
       <div className="card-body w-100 h-100 mb-4">
         <div className="row">
           <div className="col-md-4">
-            <Link style={{ textDecoration: "none" }} to="/product/:id">
+            <Link style={{ textDecoration: "none" }} to={`/product/${id}`}>
               <img src={image} alt="image" className="img-fluid" />
             </Link>
           </div>

@@ -1,19 +1,17 @@
 .buttonSearchBar {
   border: none !important;
-  background-color: rgb(218, 140, 76) !important;
+  background-color: #ff6824 !important;
   z-index: 1;
-
+height: 35px;
 }
 
 .buttonSearchBar:hover {
-  background-color: rgb(214, 112, 28) !important;
+  background-color: #ff7d41 !important;
 }
 
 .searhContainer {
 flex: 1 !important;
 margin: 0 1rem;
-
-
 
 }
 
@@ -44,7 +42,7 @@ margin: 0 1rem;
 
 .custom {
   width: 40%; 
-  height: 40px;
+  height: 32px;
   /* background-color: white; */
   /* z-index: 2; */
   display: flex; 
