@@ -4,25 +4,19 @@ import axios from "axios";
 
 export const useStore = create(zukeeper((set) => ({
     //estados globales, initial state:
-    sales: [], //ofertas
-    
+    sales: [], //ofertas    
     allProducts:[], //productos todos
     sortedProducts:[], //para darle permanencia al order al combinar filtros
     currentProducts:[], // para categorias
     category:'all', //categoria actual
     theme:'all', //Theme actual, tiene ahorita brand por que la api que use tiene brand
     initialMaxPrice:0, //Como tope para el input tipo rango
-    maxPrice:0, //para filtrar por precio
-    
+    maxPrice:0, //para filtrar por precio    
     productDetails:{}, // HP para el componete detail traer los detalles 
 
-    
-
-
-
     //action para obtener todos los productos
-    getAllProducts: async()=>{
-        const {data}=await axios.get('https://ge3k-server.onrender.com/products/')
+    getAllProducts: async()=>{        
+        const {data}=await axios.get('https://ge3k-server.onrender.com/products/')        
         set((state)=>{
             return {
                 ...state,
@@ -31,23 +25,7 @@ export const useStore = create(zukeeper((set) => ({
             }
         })
     },
-
-    //creamos nuestras actions
-    // HP agregado por Hernan - este es el json que manda juanpi desde la ruta detail ej: http://localhost:3001/products/85f9a2dd-572f-4716-a36c-aab0cf51fce9
-    // {
-    //     "id": "3c7dbde7-702b-496c-9054-0a725cea2fd6",
-    //     "name": "remera de github",
-    //     "price": "17.00",
-    //     "image": "",
-    //     "description": "remera de git/github",
-    //     "stock": 15,
-    //     "discount": 15,
-    //     "createdAt": "2023-09-30T13:56:15.742Z",
-    //     "updatedAt": "2023-09-30T13:56:15.742Z",
-    //     "deletedAt": null,
-    //     "CategoryId": null,
-    //     "ThemeId": null
-    //   }
+   
     
     getProductsDetails: async(id) => {
         const {data} = await axios.get(`https://ge3k-server.onrender.com/products/${id}`)
@@ -61,40 +39,54 @@ export const useStore = create(zukeeper((set) => ({
             ...state,
             productDetails: {}
         }))
-    },    
-    
-    // obtiene todos los productos y filtra los que tienen valor no igual a null
+// obtiene todos los productos y filtra los que tienen valor no igual a null
     getSales: async () => {
-        try {
-          const { data } = await axios.get(`https://ge3k-server.onrender.com/products/`);
-      
-          const filteredProducts = data.filter(product => product.discount !== null);
-      
-          set((state) => ({
+    try {
+        const { data } = await axios.get(`https://ge3k-server.onrender.com/products/`);
+
+        const filteredProducts = data.filter(product => product.discount !== null);
+
+        set((state) => ({
+        ...state,
+        sales: filteredProducts
+        }));
+    } catch (error) {
+        console.error("Error al obtener las ventas:", error);
+    }
+    },      
+    //para busqueda search
+    setSearchProducts:(currentProducts)=>{
+        const categoryMaxPrice = Math.max(...currentProducts.map(product => product.price));
+        set((state)=>({
             ...state,
-            sales: filteredProducts
-          }));
-        } catch (error) {
-          console.error("Error al obtener las ventas:", error);
-        }
-      },
-
-    
-    getProductDetail:()=>{},
-
-
+            currentProducts:currentProducts,
+            allProducts:currentProducts,
+            sortedProducts:currentProducts,
+            maxPrice: categoryMaxPrice, 
+            initialMaxPrice:categoryMaxPrice
+        }))
+    },
+    // para cuando se desmonte el componente search
+    resetAll:()=>{
+        set((state)=>({
+            ...state,
+            currentProducts:[],
+            allProducts:[],
+            maxPrice: 0, 
+            initialMaxPrice:0            
+        }))
+    },
     // Obtiene todos los productos y filtra por categoría
     getAllProductsByCategory: (category) => {
-        const fetchProducts = async () => {
-           
+        const fetchProducts = async () => {           
             try {
-                let products = [];
-                if (useStore.getState().allProducts.length === 0){
+                let products = [];                
+                if (useStore.getState().allProducts.length === 0){                  
                     const {data} =  await axios.get('https://ge3k-server.onrender.com/products/')
                     products = data
                 } else{
                     products = useStore.getState().allProducts
-                }
+                }                
                 const productsByCategory = products.filter((product) => product.categoryName === category )
                 const categoryMaxPrice = Math.max(...productsByCategory.map(product => product.price));
 
@@ -133,7 +125,7 @@ export const useStore = create(zukeeper((set) => ({
                 const productsByCategory = products.filter((product) => product.themeName === theme)
 
                 const categoryMaxPrice = Math.max(...productsByCategory.map(product => product.price));
-               console.log(categoryMaxPrice)
+               
                 set(state => ({
                     ...state, maxPrice: categoryMaxPrice, theme:theme, initialMaxPrice:categoryMaxPrice,
                     allProducts: products, sortedProducts:products, category:'all',
@@ -195,11 +187,9 @@ export const useStore = create(zukeeper((set) => ({
 
     //Resetear  Orden
 
-    resetOrder: () => set((state) => {
-        console.log('holfffis')
+    resetOrder: () => set((state) => {        
         const filtredProducts = state.allProducts.filter((product) => (product.price <= state.maxPrice) && (state.theme === 'all' || product.themeName === state.theme)
-        && (state.category ==='all' || product.categoryName === state.category))
-        console.log(filtredProducts)
+        && (state.category ==='all' || product.categoryName === state.category))      
         return {
           ...state, sortedAllProducts:state.allProducts, currentProducts:filtredProducts
         }

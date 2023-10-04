@@ -2,55 +2,57 @@ import React from 'react'
 import CardConatiner from "../../components/CardContainer/CardContainer";
 import Filters from "../../components/Filters/Filters";
 import SortPriceDropDown from "../../components/SortPriceDropDown/SortPriceDropDown";
-import { useParams  } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import style from "./SearchResults.module.css";
 import { useStore } from '../../zustand/useStore/useStore';
 import { useEffect } from 'react';
 
-
 const SearchResults = () => {
 
-    const {query} = useParams();
-   const store = useStore();
+  const { query } = useParams();  
+  const { currentProducts} = useStore((state) => ({ //nos traemos la variable global
+    currentProducts: state.currentProducts,
+    allProducts:state.allProducts
+  })) 
+  const {resetAll,setSearchProducts}= useStore() //obtain action from zustand
+  
+  useEffect(() => {    
+    setSearchProducts(currentProducts)  // cuando se monta 
+    return () => { 
+      resetAll()    //cuando desmonta
+    };
+  },[]); 
 
-   const getResults = useStore((state) => state.setSearchResults); //obtain searchByName from zustand
-
-   useEffect(() =>{
-    getResults();
-  },[]) 
-
-  console.log(store.searchResults);
-   
   return (
     <div className="container-fluid p-0">
-      
-      
-    <h1 className={style.titleH1}>
-    🧐 You've found a Ge3k treasure!
-    </h1>
-    <div className={style.categoryDescription}>
-    <p>
-     <strong>Results for "{query}" search:</strong> </p>
-    </div>
-    
-    <div className={`container-fluid ${style.categoryContainer}`}>
 
-    <div className={`${style.dropDownContainer} d-flex justify-content-end`}>
-      <SortPriceDropDown />
-    </div>
 
-    <div className="row p-3">
-      <div className="col-md-3">
-        <Filters/>
+      <h1 className={style.titleH1}>
+        🧐 You've found a Ge3k treasure!
+      </h1>
+      <div className={style.categoryDescription}>
+        <p>
+          <strong>Results for "{query}" search:</strong> </p>
       </div>
 
-      <div className="col-md-9">
-        <CardConatiner />
+      <div className={`container-fluid ${style.categoryContainer}`}>
+
+        <div className={`${style.dropDownContainer} d-flex justify-content-end`}>
+          <SortPriceDropDown />
+        </div>
+
+        <div className="row p-3">
+          <div className="col-md-3">
+            <Filters />
+          </div>
+
+          <div className="col-md-9">
+            <CardConatiner />
+          </div>
+        </div>
       </div>
     </div>
-    </div>
-  </div>
-);
+  );
 }
 
 export default SearchResults
