@@ -74,7 +74,7 @@ const SearchBar = () => {
 
   const inputProps = {
 
-    placeholder: "Search your product",
+    placeholder: "Search your geek product here!",
     value: find,
     onChange: (event) => handleChange(event),
     onKeyPress: (event) => {
@@ -82,19 +82,10 @@ const SearchBar = () => {
         handleSubmit(event);
       }
     },
-    className: "border-0 rounded-0 custom-search-bar",
-    "aria-label": "Search",
-    ["data-bs-theme"]: "light",
-    ["type"]: "search",
-    "aria-label": "Search",
-    ["data-bs-theme"]: "light",
-    style: {
-      backgroundColor: "white",
-      width: "100%",
-      height: "35px",
-      color: "black",
-      textAlign: "center",
-    }
+    className: `${style.inputSearch}`,
+    // "aria-label": "Search",
+    // ["data-bs-theme"]: "light",
+    // ["type"]: "search",
   };
 
 
@@ -102,41 +93,40 @@ const SearchBar = () => {
 
 
   return (
-    <div className={style.custom}>
-      <div>
+    <Form  className={style.custom}>
 
-        <Autosuggest
+
+        <Autosuggest 
           suggestions={suggestions}
           onSuggestionsFetchRequested={onSuggestionsFetchRequested}
           onSuggestionsClearRequested={onSuggestionsClearRequested}
           onSuggestionSelected={onSuggestionSelected}
           getSuggestionValue={(suggestion) => suggestion}
-          renderSuggestion={(suggestion) => <div className={style.suggestionText}>{suggestion}</div>}
+          renderSuggestion={(suggestion) => <p className={`${style.suggestionText}`}>{suggestion}</p>}
           inputProps={inputProps}
           renderSuggestionsContainer={({ containerProps, children }) => (
-            <Form
+            <div
               className={`${style.searhContainer} `}
               {...containerProps}
             >
 
               {children}
-
-
-            </Form>
+            </div>
 
           )}
         />
-      </div>
-      <div>
+        <div>
         <Button
-          className={`${style.buttonSearchBar} rounded-0`}
+          className={`${style.buttonSearchBar}`}
           onClick={(event) => handleSubmit(event)}
           type="submit"
         >
           <i className="bi bi-search"></i>
         </Button>
       </div>
-    </div>
+
+      
+    </Form>
 
 
   )
