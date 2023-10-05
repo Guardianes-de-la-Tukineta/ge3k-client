@@ -8,24 +8,18 @@ import { useStore } from '../../zustand/useStore/useStore';
 import { useEffect } from 'react';
 
 const SearchResults = () => {
-
-  const { query } = useParams();  
-  const { currentProducts} = useStore((state) => ({ //nos traemos la variable global
-    currentProducts: state.currentProducts,
-    allProducts:state.allProducts
-  })) 
-  const {resetAll,setSearchProducts}= useStore() //obtain action from zustand
+  const { query } = useParams();   
+  const {resetAll,getSuggestionsFromBack}= useStore() //obtain action from zustand
   
-  useEffect(() => {    
-    setSearchProducts(currentProducts)  // cuando se monta 
+  useEffect(() => { 
+    getSuggestionsFromBack(query)   //cuando monta componente 
     return () => { 
       resetAll()    //cuando desmonta
     };
-  },[]); 
+  },[query]); 
 
   return (
     <div className="container-fluid p-0">
-
 
       <h1 className={style.titleH1}>
         🧐 You've found a Ge3k treasure!

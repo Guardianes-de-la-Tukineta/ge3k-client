@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState} from 'react';
 import { Form, Button } from 'react-bootstrap';
 import style from './SearchBar.module.css';
 import { useStore } from "../../zustand/useStore/useStore";
@@ -7,74 +7,47 @@ import Autosuggest from 'react-autosuggest';
 import { useNavigate } from 'react-router-dom';
 
 const SearchBar = () => {
+  //Hooks y estados
   const navigate = useNavigate()
   const [find, setFind] = useState("");
   const [suggestions, setSuggestions] = useState([]);
-  const store = useStore();
-  const {getSuggestionsFromBack, currentProducts} = store
-
-  // const getSales = useStore((state) => state.getSales);  //obtain global state from zustand
-  // const getAllProducts = useStore((state) => state.getAllProducts);
-
-  // useEffect(() => {
-  //   getSales();
-  //   getAllProducts();
-  // }, [])
-
-
-
+  const { allProducts } = useStore((state) => ({ //nos traemos la variable global
+    allProducts: state.allProducts
+  }))  
+  //Handlers
   const handleChange = (event) => {
-    const value = event.target.value;
+    const { value } = event.target;
     setFind(value);
-  }
-
-  const handleSubmit = (event) => {
-    if (find.length > 0) {
-      const results = store.allProducts.filter((all) => {
-        return (
-          all.name.toLowerCase().includes(find.toLowerCase())
-          || all.description.toLowerCase().includes(find.toLowerCase())
-        )
-      }
-      )     
-      if (results.length > 0) {
-        store.setSearchProducts(results) // si encontramos resultados ejecutamos la action, para modificar las variables globales con los datos encontrados
-        navigate(`/search/${find}`)
-      }
-      else {
-        window.alert("No se encontraron resultados");
-      }
-    }
-    else {
+    getSuggestions(value)   
+  }  
+  const handleSubmit = () => {    
+    if (find.length > 0) {      
+      navigate(`/search/${find}`)
+    } else {
       window.alert("No se ha ingresado ningún dato");
     }
-    setFind("");
+    setFind("");   
   }
 
   const getSuggestions = (value) => {
     const inputValue = value.trim().toLowerCase();
-    const inputLength = inputValue.length;
-    const suggestions = store.allProducts
+    const suggestions = allProducts
       .filter((all) =>
         all.name.toLowerCase().includes(inputValue)
-        || all.description.toLowerCase().includes(inputValue)
+         || all.description.toLowerCase().includes(inputValue)
       )
       .slice(0, 10)  //limit de ammount of suggestions
       .map((all) => all.name);
     setSuggestions(suggestions);
   };
 
-
-  // const getSuggestions = (value) => {
-  //   getSuggestionsFromBack(value) //Pido las coincidencias al back y seteo los estados globales con las coincidencias
-  //   setSuggestions(currentProducts); //Seteo como sugerencia locales currentProducts
+  // const getSuggestions = async (value) => {
+  //   await getSuggestionsFromBack(value) //Pido las coincidencias al back y seteo los estados globales con las coincidencias
+  //   setSuggestions(allProducts.slice(0,10).map((all)=>all.name)); //Seteo como sugerencia locales currentProducts
   // };
-
-
   const onSuggestionsFetchRequested = ({ value }) => {
     getSuggestions(value);
   };
-
   const onSuggestionsClearRequested = () => {
     setSuggestions([]);
   };
@@ -99,34 +72,28 @@ const SearchBar = () => {
     ["type"]: "search",
   };
 
-
-
-
-
   return (
-    <div  className={style.custom}>
+    <div className={style.custom}>
+      <Autosuggest
+        suggestions={suggestions}
+        onSuggestionsFetchRequested={onSuggestionsFetchRequested}
+        onSuggestionsClearRequested={onSuggestionsClearRequested}
+        onSuggestionSelected={onSuggestionSelected}
+        getSuggestionValue={(suggestion) => suggestion}
+        renderSuggestion={(suggestion) => <p className={`${style.suggestionText}`}>{suggestion}</p>}
+        inputProps={inputProps}
+        renderSuggestionsContainer={({ containerProps, children }) => (
+          <Form
+            className={`${style.searhContainer} `}
+            {...containerProps}
+          >
 
+            {children}
+          </Form>
 
-        <Autosuggest 
-          suggestions={suggestions}
-          onSuggestionsFetchRequested={onSuggestionsFetchRequested}
-          onSuggestionsClearRequested={onSuggestionsClearRequested}
-          onSuggestionSelected={onSuggestionSelected}
-          getSuggestionValue={(suggestion) => suggestion}
-          renderSuggestion={(suggestion) => <p className={`${style.suggestionText}`}>{suggestion}</p>}
-          inputProps={inputProps}
-          renderSuggestionsContainer={({ containerProps, children }) => (
-            <Form
-              className={`${style.searhContainer} `}
-              {...containerProps}
-            >
-
-              {children}
-            </Form>
-
-          )}
-        />
-        <div>
+        )}
+      />
+      <div>
         <Button
           className={`${style.buttonSearchBar}`}
           onClick={(event) => handleSubmit(event)}
@@ -135,11 +102,7 @@ const SearchBar = () => {
           <i className="bi bi-search"></i>
         </Button>
       </div>
-
-      
     </div>
-
-
   )
 }
 
