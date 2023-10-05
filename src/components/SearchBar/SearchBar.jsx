@@ -83,9 +83,9 @@ const SearchBar = () => {
       }
     },
     className: `${style.inputSearch}`,
-    // "aria-label": "Search",
-    // ["data-bs-theme"]: "light",
-    // ["type"]: "search",
+    "aria-label": "Search",
+    ["data-bs-theme"]: "light",
+    ["type"]: "search",
   };
 
 
@@ -93,7 +93,7 @@ const SearchBar = () => {
 
 
   return (
-    <Form  className={style.custom}>
+    <div  className={style.custom}>
 
 
         <Autosuggest 
@@ -105,13 +105,13 @@ const SearchBar = () => {
           renderSuggestion={(suggestion) => <p className={`${style.suggestionText}`}>{suggestion}</p>}
           inputProps={inputProps}
           renderSuggestionsContainer={({ containerProps, children }) => (
-            <div
+            <Form
               className={`${style.searhContainer} `}
               {...containerProps}
             >
 
               {children}
-            </div>
+            </Form>
 
           )}
         />
@@ -126,7 +126,7 @@ const SearchBar = () => {
       </div>
 
       
-    </Form>
+    </div>
 
 
   )
