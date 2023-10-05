@@ -11,6 +11,8 @@ const SearchBar = () => {
   const [find, setFind] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const store = useStore();
+  const {getSuggestionsFromBack, currentProducts} = store
+
   // const getSales = useStore((state) => state.getSales);  //obtain global state from zustand
   // const getAllProducts = useStore((state) => state.getAllProducts);
 
@@ -18,6 +20,8 @@ const SearchBar = () => {
   //   getSales();
   //   getAllProducts();
   // }, [])
+
+
 
   const handleChange = (event) => {
     const value = event.target.value;
@@ -59,6 +63,13 @@ const SearchBar = () => {
       .map((all) => all.name);
     setSuggestions(suggestions);
   };
+
+
+  // const getSuggestions = (value) => {
+  //   getSuggestionsFromBack(value) //Pido las coincidencias al back y seteo los estados globales con las coincidencias
+  //   setSuggestions(currentProducts); //Seteo como sugerencia locales currentProducts
+  // };
+
 
   const onSuggestionsFetchRequested = ({ value }) => {
     getSuggestions(value);
