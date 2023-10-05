@@ -14,15 +14,25 @@ const SearchBar = () => {
   const { allProducts } = useStore((state) => ({ //nos traemos la variable global
     allProducts: state.allProducts
   }))  
+
+  const {getSuggestionsFromBack, setStateWithSuggestion, suggestion, currentProducts} = useStore()
   //Handlers
+
   const handleChange = (event) => {
+
     const { value } = event.target;
     setFind(value);
-    getSuggestions(value)   
+
+    getSuggestions(value)  
+    getSuggestionsFromBack(value) 
   }  
+
   const handleSubmit = () => {    
-    if (find.length > 0) {      
+    if (find ) {      
+      setStateWithSuggestion()
       navigate(`/search/${find}`)
+
+      
     } else {
       window.alert("No se ha ingresado ningún dato");
     }
@@ -45,6 +55,7 @@ const SearchBar = () => {
   //   await getSuggestionsFromBack(value) //Pido las coincidencias al back y seteo los estados globales con las coincidencias
   //   setSuggestions(allProducts.slice(0,10).map((all)=>all.name)); //Seteo como sugerencia locales currentProducts
   // };
+
   const onSuggestionsFetchRequested = ({ value }) => {
     getSuggestions(value);
   };

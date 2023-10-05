@@ -5,18 +5,34 @@ import SortPriceDropDown from "../../components/SortPriceDropDown/SortPriceDropD
 import { useParams } from "react-router-dom";
 import style from "./SearchResults.module.css";
 import { useStore } from '../../zustand/useStore/useStore';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 const SearchResults = () => {
   const { query } = useParams();   
-  const {resetAll,getSuggestionsFromBack}= useStore() //obtain action from zustand
+  const {resetAll,getSuggestionsFromBack,setStateWithSuggestion, suggestion}= useStore() //obtain action from zustand
+  const firstUpdate = useRef(true);
+  const firstSuggestionInCurrentProductd = useRef(true);
   
   useEffect(() => { 
-    getSuggestionsFromBack(query)   //cuando monta componente 
-    return () => { 
-      resetAll()    //cuando desmonta
-    };
-  },[query]); 
+
+    if(suggestion.length < 1){ 
+      getSuggestionsFromBack(query)
+    } else if (suggestion.length > 1 && firstSuggestionInCurrentProductd.current){
+      setStateWithSuggestion()
+      firstSuggestionInCurrentProductd.current = false;
+    }
+
+  },[suggestion]); 
+
+useEffect(() => {
+  if (firstUpdate.current) {
+    firstUpdate.current = false;
+    return;
+  }
+  return () => {
+    resetAll();
+  };
+}, []);
 
   return (
     <div className="container-fluid p-0">
