@@ -3,7 +3,7 @@ import zukeeper from 'zukeeper' //poder usar la extension de chrome para zustand
 import axios from "axios";
 
 export const useStore = create(zukeeper((set) => ({
-    //estados globales, initial state:
+    //estados globales, initial state:    
     sales: [], //ofertas    
     allProducts:[], //productos todos
     sortedProducts:[], //para darle permanencia al order al combinar filtros
@@ -13,6 +13,7 @@ export const useStore = create(zukeeper((set) => ({
     initialMaxPrice:0, //Como tope para el input tipo rango
     maxPrice:0, //para filtrar por precio    
     productDetails:{}, // HP para el componete detail traer los detalles 
+    suggestion:[],
 
     //action para obtener todos los productos
     getAllProducts: async()=>{        
@@ -21,11 +22,42 @@ export const useStore = create(zukeeper((set) => ({
             return {
                 ...state,
                 allProducts:data,
-                sortedProducts:data
+                sortedProducts:data,                
             }
         })
     },
-   
+
+    getSuggestionsFromBack: async (search)=>{        
+        const URL = 'https://ge3k-server.onrender.com/products?name='
+        const {data}=await axios.get(URL+search)           
+        if(data.length > 0) {
+            set((state)=>{
+                return {
+                    ...state,
+                    suggestion:data,
+                }
+            })
+        } else{
+            set((state)=>{
+                console.log(state.suggestion)
+                return {
+                    ...state,
+                    suggestion:data,
+                }
+            })
+        }
+    },  
+
+    setStateWithSuggestion: () => set((state) => {
+        const categoryMaxPrice = Math.ceil(Math.max(...state.suggestion.map(product => product.price)));
+return{
+    ...state, allProducts:state.suggestion,
+        sortedProducts:state.suggestion,
+        currentProducts:state.suggestion,
+        maxPrice: categoryMaxPrice, 
+        initialMaxPrice:categoryMaxPrice
+}      
+    } ),
     
     getProductsDetails: async(id) => {
         const {data} = await axios.get(`https://ge3k-server.onrender.com/products/${id}`)
@@ -40,7 +72,7 @@ export const useStore = create(zukeeper((set) => ({
             productDetails: {}
         }))
     },
-// obtiene todos los productos y filtra los que tienen valor no igual a null
+    // obtiene todos los productos y filtra los que tienen valor no igual a null
     getSales: async () => {
     try {
         const { data } = await axios.get(`https://ge3k-server.onrender.com/products/`);
@@ -54,19 +86,7 @@ export const useStore = create(zukeeper((set) => ({
     } catch (error) {
         console.error("Error al obtener las ventas:", error);
     }
-    },      
-    //para busqueda search
-    setSearchProducts:(currentProducts)=>{
-        const categoryMaxPrice = Math.max(...currentProducts.map(product => product.price));
-        set((state)=>({
-            ...state,
-            currentProducts:currentProducts,
-            allProducts:currentProducts,
-            sortedProducts:currentProducts,
-            maxPrice: categoryMaxPrice, 
-            initialMaxPrice:categoryMaxPrice
-        }))
-    },
+    },  
     // para cuando se desmonte el componente search
     resetAll:()=>{
         set((state)=>({
@@ -74,7 +94,8 @@ export const useStore = create(zukeeper((set) => ({
             currentProducts:[],
             allProducts:[],
             maxPrice: 0, 
-            initialMaxPrice:0            
+            initialMaxPrice:0,
+            suggestion:[]            
         }))
     },
     // Obtiene todos los productos y filtra por categoría
@@ -89,8 +110,7 @@ export const useStore = create(zukeeper((set) => ({
                     products = useStore.getState().allProducts
                 }                
                 const productsByCategory = products.filter((product) => product.categoryName === category )
-                const categoryMaxPrice = Math.max(...productsByCategory.map(product => product.price));
-
+                const categoryMaxPrice = Math.ceil(Math.max(...productsByCategory.map(product => product.price)));
               set(state => {
                         return { 
                          ...state, maxPrice: categoryMaxPrice, initialMaxPrice:categoryMaxPrice, category:category,
@@ -125,7 +145,7 @@ export const useStore = create(zukeeper((set) => ({
             }
                 const productsByCategory = products.filter((product) => product.themeName === theme)
 
-                const categoryMaxPrice = Math.max(...productsByCategory.map(product => product.price));
+                const categoryMaxPrice = Math.ceil(Math.max(...productsByCategory.map(product => product.price)));
                
                 set(state => ({
                     ...state, maxPrice: categoryMaxPrice, theme:theme, initialMaxPrice:categoryMaxPrice,
