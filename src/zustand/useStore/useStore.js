@@ -30,8 +30,16 @@ export const useStore = create(zukeeper((set) => ({
     getSuggestionsFromBack: async (search)=>{        
         const URL = 'https://ge3k-server.onrender.com/products?name='
         const {data}=await axios.get(URL+search)           
-        if(data) {
+        if(data.length > 0) {
             set((state)=>{
+                return {
+                    ...state,
+                    suggestion:data,
+                }
+            })
+        } else{
+            set((state)=>{
+                console.log(state.suggestion)
                 return {
                     ...state,
                     suggestion:data,

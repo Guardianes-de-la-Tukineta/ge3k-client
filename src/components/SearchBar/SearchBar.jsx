@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState} from 'react';
 import { Form, Button } from 'react-bootstrap';
 import style from './SearchBar.module.css';
@@ -15,46 +15,40 @@ const SearchBar = () => {
     allProducts: state.allProducts
   }))  
 
-  const {getSuggestionsFromBack, setStateWithSuggestion, suggestion, currentProducts} = useStore()
+  const {getSuggestionsFromBack, setStateWithSuggestion, suggestion} = useStore()
   //Handlers
 
   const handleChange = (event) => {
 
     const { value } = event.target;
     setFind(value);
-
-    getSuggestions(value)  
+ 
     getSuggestionsFromBack(value) 
   }  
+
+  useEffect(()=>{
+    getSuggestions()  
+  }, [suggestion])
+
 
   const handleSubmit = () => {    
     if (find ) {      
       setStateWithSuggestion()
       navigate(`/search/${find}`)
-
-      
     } else {
       window.alert("No se ha ingresado ningún dato");
     }
     setFind("");   
   }
 
-  const getSuggestions = (value) => {
-    const inputValue = value.trim().toLowerCase();
-    const suggestions = allProducts
-      .filter((all) =>
-        all.name.toLowerCase().includes(inputValue)
-         || all.description.toLowerCase().includes(inputValue)
-      )
-      .slice(0, 10)  //limit de ammount of suggestions
-      .map((all) => all.name);
-    setSuggestions(suggestions);
-  };
 
-  // const getSuggestions = async (value) => {
-  //   await getSuggestionsFromBack(value) //Pido las coincidencias al back y seteo los estados globales con las coincidencias
-  //   setSuggestions(allProducts.slice(0,10).map((all)=>all.name)); //Seteo como sugerencia locales currentProducts
-  // };
+  const getSuggestions = () => {
+    if(suggestion.length > 0){
+    const arrayJustName = suggestion.map(product => product.name);
+    setSuggestions(arrayJustName)} else{
+      setSuggestions([])
+    }
+  };
 
   const onSuggestionsFetchRequested = ({ value }) => {
     getSuggestions(value);
