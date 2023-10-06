@@ -52,7 +52,7 @@ export const useStore = create(zukeeper((set) => ({
         sales: filteredProducts
         }));
     } catch (error) {
-        console.error("Error al obtener las ventas:", error);
+        console.error("Error getting sales:", error);
     }
     },      
     //para busqueda search
