@@ -2,15 +2,22 @@
     background-image: url('../../Images/TEXTURA_WEB.jpg')  ;
     background-size: cover;
     margin-top: 80px;
-    margin-bottom: 30px;
-    height: 550px;   
+    margin-bottom: 30px;  
+    height: fit-content;
 }
 
-.cards {
-    
-    display: flex;
-    flex-direction: row;
-    
+
+.responsiveCard img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1);
+    filter: brightness(0.8); /* Aplica un filtro de brillo del 50% y desenfoque de 4px por defecto */
+    transition: transform 0.1s, filter 0.3s ease; /* Transiciones suaves para transform y filtro */
+}
+.responsiveCard img:hover {
+    object-fit: cover;    
+    filter: none; /* Elimina el filtro de brillo y desenfoque al hacer hover */
 }
 
 .cardBody {
@@ -45,6 +52,21 @@
 .btnCategory:hover{
     cursor:auto ;
 }
+
+/* Estilos para cuando la pantalla es menor a 576px */
+@media screen and (max-width: 575px) {
+    .textura {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 800px;   
+    } 
+    .containDivs{
+      overflow-x: auto; /* Esto habilita el desplazamiento horizontal */
+      white-space: nowrap; /* Esto evita que las imágenes se rompan en varias líneas */
+    }       
+}
+  
 
 
  
