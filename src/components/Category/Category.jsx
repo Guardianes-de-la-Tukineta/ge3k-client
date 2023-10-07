@@ -9,13 +9,14 @@ import { Link } from "react-router-dom";
 const Category = () => {
   return (
     <div className={`container-fluid ${style.textura}`}>
-        <button className={style.btnCategory}>Categories</button>
-      <div
-        className={`container d-flex justify-content-center align-items-center ${style.cards}`}
-      >
-        <div className="col-md-3 mb-3 pt-3 mt-3 ">
-          <Link style={{ textDecoration: "none" }} to="/category/Collectible-figures">
-            <div className="card mx-3">
+      <button className={style.btnCategory}>Categories</button>
+      <div className="row">
+        <div className="col-md-3 col-sm-5 col-6 mb-3 pt-3 mt-3">
+          <Link
+            style={{ textDecoration: "none" }}
+            to="/category/Collectible-figures"
+          >
+            <div className={`card mx-3 ${style.responsiveCard}`}>
               <img
                 src={anime}
                 alt="anime"
@@ -28,9 +29,9 @@ const Category = () => {
           </Link>
         </div>
 
-        <div className="col-md-3 mb-3 pt-3 mt-3">
+        <div className="col-md-3 col-sm-5 col-6 mb-3 pt-3 mt-3">
           <Link style={{ textDecoration: "none" }} to="/category/PC-Accesories">
-            <div className="card mx-3">
+            <div className={`card mx-3 ${style.responsiveCard}`}>
               <img src={pc} alt="pc" className={`img-fluid ${style.image}`} />
               <div className={`card-body ${style.cardBody}`}>
                 <h5 className={` ${style.cardTitle}`}>Pc Accessory</h5>
@@ -39,9 +40,9 @@ const Category = () => {
           </Link>
         </div>
 
-        <div className="col-md-3 mb-3 pt-3 mt-3">
+        <div className="col-md-3 col-sm-5 col-6 mb-3 pt-3 mt-3">
           <Link style={{ textDecoration: "none" }} to="/category/Mugs">
-            <div className="card mx-3">
+            <div className={`card mx-3 ${style.responsiveCard}`}>
               <img
                 src={taza}
                 alt="taza"
@@ -54,9 +55,9 @@ const Category = () => {
           </Link>
         </div>
 
-        <div className="col-md-3 mb-3 pt-3 mt-3">
+        <div className="col-md-3 col-sm-5 col-6 mb-3 pt-3 mt-3">
           <Link style={{ textDecoration: "none" }} to="/category/T-shirts">
-            <div className="card mx-3">
+            <div className={`card mx-3 ${style.responsiveCard}`}>
               <img
                 src={tshirt}
                 alt="tshirt"

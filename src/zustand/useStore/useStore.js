@@ -35,6 +35,13 @@ export const useStore = create(zukeeper((set) => ({
                 return {
                     ...state,
                     suggestion: data,
+                } 
+            })
+        } else{
+            set((state) => {
+                return {
+                    ...state,
+                    suggestion: [],
                 }
             })
         }
@@ -70,13 +77,12 @@ export const useStore = create(zukeeper((set) => ({
             const { data } = await axios.get(`https://ge3k-server.onrender.com/products/`);
 
             const filteredProducts = data.filter(product => product.discount !== null);
-
             set((state) => ({
                 ...state,
                 sales: filteredProducts
             }));
         } catch (error) {
-            console.error("Error al obtener las ventas:", error);
+            console.error("Error getting sales:", error);
         }
     },
     // para cuando se desmonte el componente search
