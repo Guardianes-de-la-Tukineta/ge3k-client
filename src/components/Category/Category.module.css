@@ -16,6 +16,7 @@
     transition: transform 0.1s, filter 0.3s ease; /* Transiciones suaves para transform y filtro */
 }
 .responsiveCard img:hover {
+    transform: scale(1.05);
     object-fit: cover;    
     filter: none; /* Elimina el filtro de brillo y desenfoque al hacer hover */
 }
