@@ -21,8 +21,7 @@ const NavBar = () => {
     >
       <Container fluid className="d-flex">
         <Link to="/">
-          {" "}
-          <Navbar.Brand href="#">
+          <Navbar.Brand>
             <img className={style.logo} src={logo} alt="ge3khub shop" />
           </Navbar.Brand>
         </Link>

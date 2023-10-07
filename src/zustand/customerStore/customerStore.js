@@ -134,7 +134,7 @@ import axios from "axios";
     }))
   );
 
-
+  window.store = customerStore;
 
 // export const customerStore = create(zukeeper((set) => ({
 //     //estados globales, initial state:
