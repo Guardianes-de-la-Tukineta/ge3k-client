@@ -3,7 +3,7 @@ import zukeeper from 'zukeeper' //poder usar la extension de chrome para zustand
 import axios from "axios";
 
 export const cartStore = create(zukeeper((set) => ({
-    cart:[], // productos en carrito de compra
+    cart:[{product:{name:'camiseta goku', price:50,id:1},quantity:5},{product:{name:'pantalon goku', price:25,id:2},quantity:10}], // productos en carrito de compra
 
     //obtiene los productos q hay en carrito
     getCartProducts: async()=>{
@@ -26,6 +26,31 @@ export const cartStore = create(zukeeper((set) => ({
                 cart:[...prevState.cart,{product:newProduct,quantity:1}]
             }))
         }
+    },
+    //eliminar producto de cart
+    deleteProductCart:(id)=>{        
+        const cart=cartStore.getState().cart;        
+        const result=cart.filter(({product})=>product.id!==id)        
+        set(prevState=>({
+            ...prevState,
+            cart:result
+        }))        
+    },
+    //modificar cantidad de producto en carrito
+    setQuantity:(id,cant)=>{
+        const cart=cartStore.getState().cart; 
+        const newCart=cart.map(({product,quantity})=>{
+            if(product.id===id){
+                quantity=cant
+            }
+            return {product,quantity}
+        })
+        console.log(newCart);
+        set(prevState=>({
+            ...prevState,
+            cart:newCart          
+        }))
     }
 
 })))
+window.store=cartStore
