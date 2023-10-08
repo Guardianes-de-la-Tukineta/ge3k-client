@@ -90,7 +90,6 @@ import axios from "axios";
           }));
         },
         
-    
         getCustomerByEmail: (email) => {
           const customers = customerStore.getState().customerData;
           const customer = customers.filter(
