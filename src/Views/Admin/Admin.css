@@ -1,0 +1,125 @@
+
+:root{
+  --white: #383838;
+  --grey: #e5e5e5;
+  --black:#f9f9f9;
+  --green:#ff6824;
+  --gray1:#1b1d21;
+  --gray2:#222222;
+  --grayLetter: #dfe2eb;
+}
+
+body{
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  background-color: var(--black);
+}
+
+.App{
+  position: relative;
+  width: 100%;
+  background-color: var(--green);
+}
+
+.main{
+  position: absolute;
+  width: calc(100% - 300px);
+  left: 300px;
+  min-height: 100vh;
+  background-color: var(--black);
+  transition: 0.5s;
+}
+
+.main.active{
+  width: calc(100% - 80px);
+  left: 80px;
+}
+
+.topbar{
+  
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  color: #383838;
+}
+
+.topbar i{
+  color: #383838;
+}
+
+.toggle{
+  position: relative;
+  top: 0;
+  height: 60px;
+  width: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5em;
+  cursor:pointer;
+  transition: 0.2s;
+  color: var(--white);
+}
+
+
+.search{
+  position:relative;
+  width:400px;
+  margin: 0 auto;
+  transition: 0.5s;
+}
+
+
+
+.user{
+  position: relative;
+  height: 40px;
+  width: 40px;
+  overflow: hidden;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #383838;
+}
+
+.user img{
+  position: absolute;
+  top:0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+}
+
+@media (max-width: 991px){
+
+  .main{
+      width: 100%;
+      left: 0;
+  }
+  .main.active{
+      width: calc(100% - 300px);
+      left: 300px;
+  }
+}
+
+@media (max-width: 480px){
+
+  .main.active{
+      width: 100%;
+      left:0;
+  }
+  .toggle{
+      z-index: 1006;
+  }
+  .main.active .toggle{
+      position: fixed;
+      color: var(--black);
+      right: 0;
+  }
+}
+
