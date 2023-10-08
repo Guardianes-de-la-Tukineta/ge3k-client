@@ -1,3 +1,6 @@
+.cartItem{
+    max-width: 200px;
+}
 .cartItem img{
-    width: 200px;
+    width: 170px;
 }

@@ -5,9 +5,16 @@
     position: fixed;
     right: 0;
     top: 0;
-    height: 100%;
-    max-width:15%!important;
+    height: 100%;    
     width: fit-content;
     background-color: #fff; /* Ajusta el color de fondo según tus necesidades */
     z-index: 999; /* Ajusta la capa z-index según tus necesidades */
+    overflow-y: auto;
 }
+.buttonCart{
+    --bs-btn-bg: #ff6824 !important;
+    --bs-btn-hover-bg: #ff6824 !important;
+    --bs-btn-border-color:#ff6824 !important;
+    color: #fff !important;
+}
+  
