@@ -1,6 +1,8 @@
 import React from 'react'
 import style from './DashBoard.module.css'
 import { Link } from 'react-router-dom'
+import ProductsPanel from '../ProductsPanel/ProductsPanel'
+import UsersPanel from '../UsersPanel/UsersPanel'
 
 const DashBoard = () => {
   return (
@@ -30,151 +32,8 @@ const DashBoard = () => {
 
             
         </div>
-
-
-        <div className='row'>
-           
-            <div className={`col-md-4 `} style={{padding:'0 '}}>
-            <Link to='/admin/products'>   <div className={`${style.cardCreateProduct} ` }  style={{margin:'1.5rem 2.5rem',}}>
-              <div className={`container-fluid  `}> 
-                <div className={`row`}>
-                 <div className= {`col-9 ${style.itemCreateProduct}`} >
-            
-                 <i class="bi bi-bag-plus-fill"></i>
-                 <span>CREATE NEW PRODUCT</span>
-                 </div>
-                 <div className={`col-3 ${style.arrowContainer}`}>
-                 <i class="bi bi-arrow-right"></i>
-              </div>
-
-
-                </div>
-                </div>
-                </div>
-                </Link>
-              </div>
-
-
-
-
-        
-            <div className={`col-md-4 `} style={{padding:'0 '}}>
-            <Link to='/admin/products'>    <div className={`${style.cardCreateProduct} ` }  style={{margin:'1.5rem 2.5rem',}}>
-              <div className={`container-fluid  `}> 
-                <div className={`row`}>
-                 <div className= {`col-9 ${style.itemCreateProduct}`} >
-            
-                 <i class="bi bi-bag-dash-fill"></i>
-                 <span>EDIT PRODUCT</span>
-                 </div>
-                 <div className={`col-3 ${style.arrowContainer} p-4`}>
-                 <i class="bi bi-arrow-right"></i>
-              </div>
-
-
-                </div>
-                </div>
-                </div>
-                </Link>
-              </div>
-
-
-
-
-
-
-            <div className={`col-md-4 `} style={{padding:'0 '}}>
-            <Link to='/admin/products'>  <div className={`${style.cardCreateProduct} ` }  style={{margin:'1.5rem 2.5rem',}}>
-              <div className={`container-fluid  `}> 
-                <div className={`row`}>
-                 <div className= {`col-9 ${style.itemCreateProduct}`} >
-            
-                 <i class="bi bi-bag-x-fill"></i>
-             <span>DELETE PRODUCT</span>
-                 </div>
-                 <div className={`col-3 ${style.arrowContainer} p-4`}>
-                 <i class="bi bi-arrow-right"></i>
-              </div>
-
-
-                </div>
-                </div>
-                </div>
-                </Link>
-              </div>
-              
-        </div>
-
-
-        <div className='row'>
-           
-            <div className={`col-md-4 `} style={{padding:'0 '}}>
-            <Link to='/admin/users'>
-                <div className={`${style.cardForUsers} ` }  style={{margin:'1.5rem 2.5rem',}}>
-              <div className={`container-fluid  `}> 
-                <div className={`row`}>
-                 <div className= {`col-9 ${style.itemCreateProduct}`} >
-            
-                 <i class="bi bi-person-fill-gear"></i>
-                 <span>MANAGE USERS</span>
-                 </div>
-                 <div className={`col-3 ${style.arrowContainer} p-4`}>
-                 <i class="bi bi-arrow-right"></i>
-              </div>
-
-
-                </div>
-                </div>
-                </div>
-                </Link>
-              </div>
-
-
-
-
-            <div className={`col-md-4 `} style={{padding:'0 '}}>
-            <Link to='/admin/users'> <div className={`${style.cardForUsers} ` }  style={{margin:'1.5rem 2.5rem',}}>
-              <div className={`container-fluid  `}> 
-                <div className={`row`}>
-                 <div className= {`col-9 ${style.itemCreateProduct}`} >
-            
-                 <i class="bi bi-person-fill-lock"></i>
-             <span>MANAGE ADMINISTRATORS</span>
-                 </div>
-                 <div className={`col-3 ${style.arrowContainer} p-4`}>
-                 <i class="bi bi-arrow-right"></i>
-              </div>
-
-
-                </div>
-                </div>
-                </div>
-                </Link>
-              </div>
-
-              <div className={`col-md-4 `} style={{padding:'0 '}}>
-              <Link to='/admin/users'>  <div className={`${style.cardForUsers} ` }  style={{margin:'1.5rem 2.5rem',}}>
-              <div className={`container-fluid  `}> 
-                <div className={`row`}>
-                 <div className= {`col-9 ${style.itemCreateProduct}`} >
-            
-                 <i class="bi bi-person-plus-fill"></i>
-             <span>ADD NEW ADMINISTRATOR</span>
-                 </div>
-                 <div className={`col-3 ${style.arrowContainer} p-4`}>
-                 <i class="bi bi-arrow-right"></i>
-              </div>
-
-
-                </div>
-                </div>
-                </div>
-                </Link>
-              </div>
-
-        </div>
-
-
+       <ProductsPanel/>
+       <UsersPanel/>
     </div>
   )
 }

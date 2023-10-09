@@ -19,7 +19,7 @@ export default function AdminNav({toggleState, handleLogOut}) {
           <li>
           <Link to='/admin'>
               <span className="icon">
-              <i class="bi bi-file-bar-graph"></i>
+              <i className="bi bi-file-bar-graph"></i>
               </span>
               <span className="title">Dashboard</span>
               </Link>
@@ -27,7 +27,7 @@ export default function AdminNav({toggleState, handleLogOut}) {
           <li>
             <Link to='/admin/products'>
               <span className="icon">
-              <i class="bi bi-shop"></i>
+              <i className="bi bi-shop"></i>
               </span>
               <span className="title">Product Management</span>
             </Link>
@@ -35,7 +35,7 @@ export default function AdminNav({toggleState, handleLogOut}) {
           <li>
           <Link to='/admin/users'>
               <span className="icon">
-              <i class="bi bi-people"></i>
+              <i className="bi bi-people"></i>
               </span>
               <span className="title">User Management</span>
           </Link>
@@ -44,7 +44,7 @@ export default function AdminNav({toggleState, handleLogOut}) {
           <li>
           <Link to='/admin/auth' onClick={handleLogOut}>
               <span className="icon">
-              <i class="bi bi-box-arrow-right"></i>
+              <i className="bi bi-box-arrow-right"></i>
               </span>
               <span className="title">Log Out</span>
               </Link>

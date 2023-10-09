@@ -5,7 +5,7 @@ export default function TopBar({toggle, handleToggle}){
     return(
         <div className="topbar">
           <div className={(toggle)? 'toggle active' : 'toggle'} onClick={handleToggle}>
-          <i class="bi bi-list"></i>
+          <i className="bi bi-list"></i>
           </div>
         
           <div className="user">
