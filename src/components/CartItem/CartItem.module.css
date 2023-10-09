@@ -1,0 +1,16 @@
+.cartItem{
+    max-width: 100%
+}
+.img{
+    max-width: 100%;
+    transition: all 0.3s ease-in-out;
+}
+.img:hover{
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
+    opacity: 0.8; 
+    transition: opacity 0.3s; /* Transición suave */   
+}
+.inputCant{
+    width: 50px;
+    margin-bottom: 2px;
+}
