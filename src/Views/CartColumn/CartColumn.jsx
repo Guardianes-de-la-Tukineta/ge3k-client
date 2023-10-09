@@ -5,7 +5,7 @@ import { cartStore } from '../../zustand/cartStore/cartStore';
 
 const CartColumn = () => {
     const {cart,subTotal,getSubTotal,updateLocalStorage} = cartStore() // estados y variables de zustand
-    console.log(cart);
+    
     //hooks      
     useEffect(()=>{
         getSubTotal() // obtenemos el subtotal para mostrar   
