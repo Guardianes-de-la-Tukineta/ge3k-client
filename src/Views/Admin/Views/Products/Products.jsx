@@ -7,7 +7,7 @@ import ProductsPanel from '../../Components/ProductsPanel/ProductsPanel'
 
 const Products = () => {
   return (
-    <div>
+    <div className='container d-flex flex-column flex-grow-1 justify-content-around' style={{paddingBottom:'1rem'}}>
 
     <div>
   <ProductsPanel/>

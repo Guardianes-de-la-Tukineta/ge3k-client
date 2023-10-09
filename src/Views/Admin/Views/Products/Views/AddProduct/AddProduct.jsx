@@ -1,8 +1,10 @@
 import React from 'react'
+import FormAddProduct from '../../../../Components/FormAddProduct/FormAddProduct'
 
 const AddProduct = () => {
   return (
-    <div>El form para cargar un nuevo producto
+    <div className='flex-grow-1'>
+    <FormAddProduct />
     </div>
   )
 }
