@@ -1,8 +1,8 @@
 import "./AdminNav.css";
-import { NavLink, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import logo from '../../../../Images/gray Ge3k Logo.svg'
 
-export default function AdminNav({toggleState}) {
+export default function AdminNav({toggleState, handleLogOut}) {
 
   return (
     <>
@@ -42,12 +42,12 @@ export default function AdminNav({toggleState}) {
           </li>
          
           <li>
-          <a href="">
+          <Link to='/admin/auth' onClick={handleLogOut}>
               <span className="icon">
               <i class="bi bi-box-arrow-right"></i>
               </span>
               <span className="title">Log Out</span>
-              </a>
+              </Link>
           </li>
       
         </ul>

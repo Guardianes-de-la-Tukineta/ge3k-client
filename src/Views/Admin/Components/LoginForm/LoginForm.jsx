@@ -3,10 +3,10 @@ import { useForm } from 'react-hook-form';
 import style from './LoginForm.module.css'
 import logo from '../../../../Images/adminLogo.svg'
 
-const Login = () => {
+const Login = ({handleLogin, loader}) => {
   const { register, handleSubmit, formState: { errors, isValid } } = useForm({ mode: 'onChange' });
 
-  const onSubmit = data => console.log(data);
+  const onSubmit = data => handleLogin(data);
 
   return (
     <div className={style.loginContainer}>
@@ -42,7 +42,7 @@ const Login = () => {
       </div>
       
       <div>
-      <button disabled={!isValid}> Log In</button>
+      <button disabled={!isValid}> {!loader ? 'Log In' : 'Sending...'}</button>
       </div>
     </form>
     </div>

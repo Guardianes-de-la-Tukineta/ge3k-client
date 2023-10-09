@@ -1,5 +1,6 @@
 import React from 'react'
 import style from './DashBoard.module.css'
+import { Link } from 'react-router-dom'
 
 const DashBoard = () => {
   return (
@@ -34,7 +35,7 @@ const DashBoard = () => {
         <div className='row'>
            
             <div className={`col-md-4 `} style={{padding:'0 '}}>
-                <div className={`${style.cardCreateProduct} ` }  style={{margin:'1.5rem 2.5rem',}}>
+            <Link to='/admin/products'>   <div className={`${style.cardCreateProduct} ` }  style={{margin:'1.5rem 2.5rem',}}>
               <div className={`container-fluid  `}> 
                 <div className={`row`}>
                  <div className= {`col-9 ${style.itemCreateProduct}`} >
@@ -50,6 +51,7 @@ const DashBoard = () => {
                 </div>
                 </div>
                 </div>
+                </Link>
               </div>
 
 
@@ -57,7 +59,7 @@ const DashBoard = () => {
 
         
             <div className={`col-md-4 `} style={{padding:'0 '}}>
-                <div className={`${style.cardCreateProduct} ` }  style={{margin:'1.5rem 2.5rem',}}>
+            <Link to='/admin/products'>    <div className={`${style.cardCreateProduct} ` }  style={{margin:'1.5rem 2.5rem',}}>
               <div className={`container-fluid  `}> 
                 <div className={`row`}>
                  <div className= {`col-9 ${style.itemCreateProduct}`} >
@@ -73,6 +75,7 @@ const DashBoard = () => {
                 </div>
                 </div>
                 </div>
+                </Link>
               </div>
 
 
@@ -81,7 +84,7 @@ const DashBoard = () => {
 
 
             <div className={`col-md-4 `} style={{padding:'0 '}}>
-                <div className={`${style.cardCreateProduct} ` }  style={{margin:'1.5rem 2.5rem',}}>
+            <Link to='/admin/products'>  <div className={`${style.cardCreateProduct} ` }  style={{margin:'1.5rem 2.5rem',}}>
               <div className={`container-fluid  `}> 
                 <div className={`row`}>
                  <div className= {`col-9 ${style.itemCreateProduct}`} >
@@ -97,13 +100,16 @@ const DashBoard = () => {
                 </div>
                 </div>
                 </div>
+                </Link>
               </div>
+              
         </div>
 
 
         <div className='row'>
            
             <div className={`col-md-4 `} style={{padding:'0 '}}>
+            <Link to='/admin/users'>
                 <div className={`${style.cardForUsers} ` }  style={{margin:'1.5rem 2.5rem',}}>
               <div className={`container-fluid  `}> 
                 <div className={`row`}>
@@ -120,13 +126,14 @@ const DashBoard = () => {
                 </div>
                 </div>
                 </div>
+                </Link>
               </div>
 
 
 
 
             <div className={`col-md-4 `} style={{padding:'0 '}}>
-                <div className={`${style.cardForUsers} ` }  style={{margin:'1.5rem 2.5rem',}}>
+            <Link to='/admin/users'> <div className={`${style.cardForUsers} ` }  style={{margin:'1.5rem 2.5rem',}}>
               <div className={`container-fluid  `}> 
                 <div className={`row`}>
                  <div className= {`col-9 ${style.itemCreateProduct}`} >
@@ -142,10 +149,11 @@ const DashBoard = () => {
                 </div>
                 </div>
                 </div>
+                </Link>
               </div>
 
               <div className={`col-md-4 `} style={{padding:'0 '}}>
-                <div className={`${style.cardForUsers} ` }  style={{margin:'1.5rem 2.5rem',}}>
+              <Link to='/admin/users'>  <div className={`${style.cardForUsers} ` }  style={{margin:'1.5rem 2.5rem',}}>
               <div className={`container-fluid  `}> 
                 <div className={`row`}>
                  <div className= {`col-9 ${style.itemCreateProduct}`} >
@@ -161,6 +169,7 @@ const DashBoard = () => {
                 </div>
                 </div>
                 </div>
+                </Link>
               </div>
 
         </div>
