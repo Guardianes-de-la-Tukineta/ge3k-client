@@ -29,9 +29,13 @@ body{
   min-height: 100vh;
   background-color: var(--black);
   transition: 0.5s;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
 }
 
 .main.active{
+
   width: calc(100% - 80px);
   left: 80px;
 }

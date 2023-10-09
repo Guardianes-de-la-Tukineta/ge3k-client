@@ -12,7 +12,7 @@
 }
 
 .cardInfoContainer span i{
-    font-size: 1.2rem;
+    font-size: 1.6rem;
 }
 
 .number{
@@ -33,17 +33,16 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 1rem;
-    font-weight: 500;
-    gap:10px
+    font-size: 0.75rem;
+    font-weight: 700;
+    gap:10px;
+    padding: 2rem 1rem;
 }
 
 .cardCreateProduct i{
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     color: #383838;
-}
-.itemCreateProduct i{
-    font-size: 1.3rem;
+    font-weight: 700;
 }
 
 .arrowContainer{
@@ -58,3 +57,28 @@
     color: #f9f9f9;
     margin:  0 0 0 5px;
 }
+
+.cardForUsers{
+    border: 3px solid #383838;
+    border-right: none;
+    background-color: white;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.cardForUsers i{
+    font-size: 1.8rem;
+    color: #383838;
+    font-weight: 700;
+}
+
+
+.cardForUsers .arrowContainer{
+    background-color:#ff6824;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius:100% 0 0 100%/50% 0 0 50%;
+    border: 3px solid #383838;
+}
+
