@@ -17,14 +17,14 @@ const DashBoard = () => {
             </div>
             <div className='col-md-4 '>
               <div className={style.cardInfoContainer}>
-                <span><i class="bi bi-credit-card-fill"></i></span>
+                <span><i className="bi bi-credit-card-fill"></i></span>
                 <span className={style.number}>150</span>
                 <span>Total Sales</span>
               </div>
             </div>
             <div className='col-md-4 '>
               <div className={style.cardInfoContainer}>
-                <span><i class="bi bi-person-fill-check"></i></span>
+                <span><i className="bi bi-person-fill-check"></i></span>
                 <span className={style.number}>72</span>
                 <span>Registered Users</span>
               </div>
