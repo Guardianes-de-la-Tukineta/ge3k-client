@@ -36,10 +36,6 @@ const NavBar = () => {
             </Navbar.Brand>
           </Link>
 
-          {/* <Nav.Link href="/" className="text-white fw-normal p-2">
-            <img className={style.logo} src={logo} alt="ge3khub shop" />
-          </Nav.Link> */}
-
           <div className="flex-grow-1 d-none d-md-block ">
             <SearchBar />
           </div>
@@ -75,7 +71,6 @@ const NavBar = () => {
                     <i
                       className={`bi bi-exclamation-diamond ${style.alertIcon}`}
                     />
-                    {/* <Button variant="success">Hover me to see</Button> */}
                   </OverlayTrigger>
                 )}
               </Link>

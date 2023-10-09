@@ -1,9 +1,18 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { customerStore } from "../../zustand/customerStore/customerStore";
+import { useEffect } from "react";
 
 export default function Logout() {
-  const { logout } = useAuth0();
-  // const { delCurrentCustomer } = customerStore();
+  const { logout, user, isAuthenticated } = useAuth0();
+  const { getCustomerByEmail } = customerStore();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      // Verificar si el usuario está autenticado
+      const email = user.email; // Obtener el correo electrónico del usuario autenticado
+      getCustomerByEmail(email);
+    }
+  }, [user]);
 
   // delCurrentCustomer();
   return (
