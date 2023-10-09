@@ -7,6 +7,7 @@ import "./Admin.css";
 import Products from './Views/Products/Products';
 import Users from './Views/Users/User';
 import DashBoard from './Components/DashBoard/DashBoard';
+import Auth from './Views/Auth/Auth';
 
 const Admin = () => {
 
@@ -22,19 +23,27 @@ const Admin = () => {
   return (
     <div className="App">
 
-      <AdminNav toggleState={toggle} />
+   {(location.pathname !== '/admin/auth' )? <AdminNav toggleState={toggle} /> : undefined}
+
 
       <div className={(toggle) ? 'main active' : 'main'}>
 
-        <TopBar toggle={toggle} handleToggle={handleToggle} />
 
-        {(location.pathname === '/admin')?<DashBoard /> : undefined }
+      {(location.pathname !== '/admin/auth' )? <TopBar toggle={toggle} handleToggle={handleToggle} /> : undefined}
+        
 
+        {(location.pathname === '/admin' )?<DashBoard /> : undefined}
+        
         <Routes>
+        <Route path='auth' element={<Auth />} />
           <Route path='products' element={<Products />} />
           <Route path='users' element={<Users />} />
         </Routes>
       </div>
+
+
+
+      
     </div>
 
 
