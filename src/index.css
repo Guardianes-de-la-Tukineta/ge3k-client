@@ -26,3 +26,20 @@ position: relative;
 .react-autosuggest__container{
   flex: 1;
 }
+
+/* Estilos para la barra de desplazamiento en WebKit */
+::-webkit-scrollbar {
+  width: 10px; /* Ancho de la barra */
+  background-color: #f5f5f5; /* Color de fondo de la barra */
+}
+
+/* Estilos para el control deslizante (thumb) de la barra de desplazamiento en WebKit */
+::-webkit-scrollbar-thumb {
+  background-color: #555; /* Color del control deslizante */
+  border-radius: 5px; /* Bordes redondeados del control deslizante */
+}
+
+/* Estilos cuando se pasa el mouse sobre la barra de desplazamiento en WebKit */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #333; /* Cambio de color cuando se pasa el mouse sobre el control deslizante */
+}
