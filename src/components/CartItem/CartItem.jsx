@@ -6,15 +6,14 @@ import { Link } from 'react-router-dom';
 
 const CartItem = ({name,price,image,id}) => {
     //estados y actions
-    const {deleteProductCart,setQuantity,cart} = cartStore() //nos traemos estados de zustand    
-    
+    const {deleteProductCart,setQuantity,cart,updateLocalStorage} = cartStore() //nos traemos estados de zustand      
     const cantidadActual= cart.find(({product})=>product.id===id).quantity // sabremos que cantidad tiene cada product
     const[isType,setIsType]=useState(false) //para cambiar a visualizar el input
     const[inputValue,setInputValue]=useState(11) //para guardar lo q el user digite como cantidad, empieza con 11
     
     //handlers
     const handlerDeleteProduct =()=>{
-        deleteProductCart(id)
+        deleteProductCart(id)        
     }
     const handlerChangeQuantity=(e)=>{
         const value = Number(e.target.innerText)          
@@ -32,12 +31,12 @@ const CartItem = ({name,price,image,id}) => {
     }
 
     // Generar las opciones del menú desplegable usando un bucle for
-     const dropdownOptions = [];
-     for (let i = 1; i < 11; i++) {
-         dropdownOptions.push(
-             <Dropdown.Item key={i} onClick={(e) => handlerChangeQuantity(e)}>{i}</Dropdown.Item>
-         );
-     }
+    const dropdownOptions = [];
+    for (let i = 1; i < 11; i++) {
+        dropdownOptions.push(
+            <Dropdown.Item key={i} onClick={(e) => handlerChangeQuantity(e)}>{i}</Dropdown.Item>
+        );
+    } 
 
     return (
         <div className={`card ${style.cartItem}`}>

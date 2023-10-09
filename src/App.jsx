@@ -34,8 +34,12 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<Error404 />} />
         </Routes>
-      </div>      
-      <CartColumn/>     
+      </div>
+
+      {
+        cart.length>0 && <CartColumn/> //solo renderiza si tenemos articulos en el cart
+      }
+      
       <Footer />
     </div>
   );

@@ -10,6 +10,8 @@
     background-color: #fff; /* Ajusta el color de fondo según tus necesidades */
     z-index: 999; /* Ajusta la capa z-index según tus necesidades */
     overflow-y: auto;
+    /* background-color: black;
+    color: #fff  */
 }
 .buttonCart{
     --bs-btn-bg: #ff6824 !important;
@@ -20,11 +22,11 @@
   
 /* efectos de animacion */
 .fadeIn {
-    animation: fadeIn 0.5s ease-in-out forwards;
+    animation: fadeIn 0.8s ease-in-out forwards;
 }
   
 .fadeOut {
-animation: fadeOut 0.5s ease-in-out forwards;
+animation: fadeOut 0.8s ease-in-out forwards;
 }
   
 @keyframes fadeIn {
