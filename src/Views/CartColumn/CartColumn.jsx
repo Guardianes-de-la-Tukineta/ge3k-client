@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import CartItem from '../../components/CartItem/CartItem';
 import style from './CartColumn.module.css'
 import { cartStore } from '../../zustand/cartStore/cartStore';
@@ -9,13 +9,20 @@ const CartColumn = () => {
         subTotal:state.subTotal,
         getSubTotal:state.getSubTotal
     }))
+    const [isVisible, setIsVisible] = useState(true); //para aplicar animacion
+   
     //hooks      
     useEffect(()=>{
         getSubTotal() // obtenemos el subtotal para mostrar
+        if (cart.length === 0) {
+            setIsVisible(false);
+          } else {
+            setIsVisible(true);
+          }
     },[cart])
 
     return (
-        <div className={`${style.cartColumn}`}>
+        <div className={`col-md-1 ${style.cartColumn} ${isVisible ? style.fadeIn : style.fadeOut}`}>
             <strong className='text-center'>
                 Subtotal
                 <br></br> 

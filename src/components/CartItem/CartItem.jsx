@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import style from './CartItem.module.css'
 import Dropdown from 'react-bootstrap/Dropdown';
 import { cartStore } from '../../zustand/cartStore/cartStore';
+import { Link } from 'react-router-dom';
 
 const CartItem = ({name,price,image,id}) => {
     //estados y actions
@@ -9,7 +10,7 @@ const CartItem = ({name,price,image,id}) => {
     
     const cantidadActual= cart.find(({product})=>product.id===id).quantity // sabremos que cantidad tiene cada product
     const[isType,setIsType]=useState(false) //para cambiar a visualizar el input
-    const[inputValue,setInputValue]=useState(cantidadActual) //para guardar lo q el user digite como cantidad
+    const[inputValue,setInputValue]=useState(11) //para guardar lo q el user digite como cantidad, empieza con 11
     
     //handlers
     const handlerDeleteProduct =()=>{
@@ -19,7 +20,7 @@ const CartItem = ({name,price,image,id}) => {
         const value = Number(e.target.innerText)          
         if(isNaN(value)){ // si la opcion es digitar manualmente llegara como NaN
             setIsType(true) // cambiamos el estado para renderizar un input y que user digite la cantidad manualmente           
-        } else {            
+        } else {                 
             setQuantity(id,value)
             setIsType(false)
         }
@@ -41,10 +42,13 @@ const CartItem = ({name,price,image,id}) => {
     return (
         <div className={`card ${style.cartItem}`}>
             <div className='card-body d-flex flex-column w-100 h-100 '>
-                <img
-                    src={image}
-                    alt={name}
-                />
+                <Link to={`/product/${id}`}>
+                    <img
+                        src={image}
+                        alt={name}
+                        className={style.img}
+                    />
+                </Link>
                 <div className='text-center'>
                     ${price}
                 </div>
@@ -62,11 +66,12 @@ const CartItem = ({name,price,image,id}) => {
                                 </Dropdown.Menu>
                             </Dropdown>                            
                         :
-                        <form className=''>
+                        <form>
                             <input
                                 type='text'
                                 value={inputValue}
-                                onChange={(e)=>setInputValue(e.target.value)}                                
+                                onChange={(e)=>setInputValue(e.target.value)} 
+                                className={style.inputCant}                               
                             />
                             <button onClick={(e)=>handlerSubmit(e)} className='btn btn-success' type='submit'>Update</button>
                         </form> 

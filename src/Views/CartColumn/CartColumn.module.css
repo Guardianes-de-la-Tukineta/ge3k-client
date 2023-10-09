@@ -18,3 +18,34 @@
     color: #fff !important;
 }
   
+/* efectos de animacion */
+.fadeIn {
+    animation: fadeIn 0.5s ease-in-out forwards;
+}
+  
+.fadeOut {
+animation: fadeOut 0.5s ease-in-out forwards;
+}
+  
+@keyframes fadeIn {
+from {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+to {
+    opacity: 1;
+    transform: translateY(0);
+}
+}
+
+@keyframes fadeOut {
+from {
+    opacity: 1;
+    transform: translateY(0);
+}
+to {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+}
+  

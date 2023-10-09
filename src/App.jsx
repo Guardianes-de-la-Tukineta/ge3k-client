@@ -13,12 +13,15 @@ import Login from "./components/Login/Login";
 import Logout from "./components/Login/Logout";
 import Profile from "./components/Profile/Profile";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop"; //Para poder ir al inicio (arriba) de la pagina al cambiar de vista
+import CartColumn from "./Views/CartColumn/CartColumn";
+import { cartStore } from "./zustand/cartStore/cartStore";
 
 function App() {
+  const{cart}=cartStore() //traemos el estado de zustand  
   return (
-    <div className="vh-100 d-flex flex-column">
+    <div className={`${cart.length > 0 ? 'col-md-11 ': 'col-md-12' } vh-100 d-flex flex-column`}>
       <NavBar />
-      <ScrollToTop/> 
+      <ScrollToTop/>       
       <div className="flex-grow-1">
         <Routes>
           <Route path="/" element={<Home />} />
@@ -31,7 +34,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<Error404 />} />
         </Routes>
-      </div>
+      </div>      
+      <CartColumn/>     
       <Footer />
     </div>
   );
