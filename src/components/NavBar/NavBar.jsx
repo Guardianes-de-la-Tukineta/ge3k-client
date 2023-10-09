@@ -23,18 +23,17 @@ const NavBar = () => {
 
   return (
     <>
-      <Navbar
-        expand="md"
-        data-bs-theme="dark"
-        className={`pt-3 pb-3 ${style.navbarContainer}`}
-      >
-        <Container fluid className="d-flex">
-          <Link to="/">
-            {" "}
-            <Navbar.Brand>
-              <img className={style.logo} src={logo} alt="ge3khub shop" />
-            </Navbar.Brand>
-          </Link>
+    <Navbar
+      expand="md"
+      data-bs-theme="dark"
+      className={`pt-3 pb-3 ${style.navbarContainer}`}
+    >
+      <Container fluid className="d-flex">
+        <Link to="/">
+          <Navbar.Brand>
+            <img className={style.logo} src={logo} alt="ge3khub shop" />
+          </Navbar.Brand>
+        </Link>
 
           <div className="flex-grow-1 d-none d-md-block ">
             <SearchBar />

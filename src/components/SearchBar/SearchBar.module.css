@@ -2,37 +2,45 @@
   border: none !important;
   background-color: #ff6824 !important;
   z-index: 1;
-height: 35px;
+  height: 100%;
+  margin: 0;
+  border-radius: 0 !important;
+  border-top-right-radius: 6px !important;
+  border-bottom-right-radius: 6px !important;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+
 
 .buttonSearchBar:hover {
   background-color: #ff7d41 !important;
 }
 
-.searhContainer {
+.searhContainer{
 flex: 1 !important;
 margin: 0 1rem;
-
+width: 100%;
+overflow: hidden;
 }
 
 .suggestionText {
-  color: rgba(12, 12, 12, 0.733);
-  width: 150% left;
-  text-align: center;
-  font-weight: bold;
+  color: rgba(12, 12, 12);
+  font-weight: 600;
+  font-size: 0.9rem;
   cursor: pointer;
   position: relative;
-  z-index: 5;
-  background-color: rgba(255, 123, 0, 0.829);
-  
+  z-index: 100;
+  background-color: rgba(255, 255, 255);
   margin: 0;
-  padding: 0;
+  padding: 8px 15px;
 }
 
 .suggestionText:hover{
-  background-color: black;
+  background-color: #ff7d41;
   color: white;
-
 }
 
 .coincidences {
@@ -41,10 +49,47 @@ margin: 0 1rem;
 }
 
 .custom {
-  width: 40%; 
-  height: 32px;
+  width: 60%; 
+  height: 45px;
   /* background-color: white; */
   /* z-index: 2; */
   display: flex; 
-  
+  position: relative;
+  border-radius: 10px;
+  padding: 0;
+
+  border: 2px solid #000000; /* Borde predeterminado */
+  transition: border-color 0.3s;
+  margin: 0 auto;
 }
+
+.custom:focus-within {
+  border-color: #FC6522; /* Cambia el color del borde al enfocar */
+}
+
+
+.custom:focus-visible{
+  outline: 2px solid #ff6824;
+ 
+}
+.custom:focus{
+  outline: 2px solid #ff6824;
+}
+
+
+.inputSearch{
+
+display: block;
+
+padding: 0 10px;
+background-color: white;
+height: 100%;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px; 
+  color: black;
+  border: none;
+  outline: none;
+  width: 100%;
+}
+
+
