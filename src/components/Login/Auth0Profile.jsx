@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import Profile from "../Profile/Profile";
+import Profile from "../../Views/Profile/Profile";
 import { customerStore } from "../../zustand/customerStore/customerStore";
 
 function Auth0Profile() {

@@ -30,3 +30,28 @@ font-size: 0.85rem;
   color: #000000;
   text-decoration: none;
 }
+
+.alertIcon {
+  color: red; /* Color rojo */
+  animation: blink 1s infinite; /* Efecto de parpadeo */
+  font-size: 2;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.roundedProfileImg {
+  width: 3rem; /* Ajusta el tamaño según tus necesidades */
+  height: 3rem; /* Ajusta el tamaño según tus necesidades */
+  border: 6px solid #ff6824; /* Borde de 1px naranja */
+  border-radius: 50%; /* Hace que la imagen sea redonda */
+}
