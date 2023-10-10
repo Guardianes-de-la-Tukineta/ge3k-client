@@ -11,43 +11,44 @@ const SearchBar = () => {
   const navigate = useNavigate()
   const [find, setFind] = useState("");
   const [suggestions, setSuggestions] = useState([]);
-  const { allProducts } = useStore((state) => ({ //nos traemos la variable global
-    allProducts: state.allProducts
-  }))  
+  const [selectedSuggestion, setSelectedSuggestion] = useState(""); // Nuevo estado para la sugerencia seleccionada
+ 
+
+  const [inputValue, setInputValue] = useState("");
 
   const {getSuggestionsFromBack, setStateWithSuggestion, suggestion} = useStore()
   //Handlers
 
-  const handleChange = (event) => {
+  
+  useEffect(()=>{
+    setFind(inputValue)
+    if(inputValue && inputValue.length  > 2){
+    getSuggestionsFromBack(inputValue)}
 
-    const { value } = event.target;
-    setFind(value);
- 
-    getSuggestionsFromBack(value) 
-  }  
+  },[inputValue])
 
   useEffect(()=>{
-    getSuggestions()  
-  }, [suggestion])
+    setFind(selectedSuggestion)
 
-
-  const handleSubmit = () => {    
-    if (find ) {      
-      setStateWithSuggestion()
-      navigate(`/search/${find}`)
-    } else {
-      window.alert("No se ha ingresado ningún dato");
-    }
-    setFind("");   
+    if(selectedSuggestion.length  > 2){
+    getSuggestionsFromBack(selectedSuggestion)
   }
+  },[selectedSuggestion])
+
+  useEffect(()=>{
+    const arrayJustName = suggestion.map(product => product.name);
+    setSuggestions(arrayJustName)
+  },[suggestion])
+
 
 
   const getSuggestions = () => {
-    if(suggestion.length > 0){
-    const arrayJustName = suggestion.map(product => product.name);
-    setSuggestions(arrayJustName)} else{
-      setSuggestions([])
-    }
+  //   if(suggestion.length > 0){
+  //   const arrayJustName = suggestion.map(product => product.name);
+  //   setSuggestions(arrayJustName)
+  // } else{
+  //     setSuggestions([])
+  //   }
   };
 
   const onSuggestionsFetchRequested = ({ value }) => {
@@ -57,9 +58,28 @@ const SearchBar = () => {
     setSuggestions([]);
   };
 
+
   const onSuggestionSelected = (event, { suggestionValue }) => {
-    setFind(suggestionValue);
+    setSelectedSuggestion(suggestionValue); // Establece la sugerencia seleccionada primero
   };
+
+
+  const handleChange = (event) => {
+    // Actualiza el estado inputValue al escribir en el SearchBar
+    setInputValue(event.target.value);
+    console.log(event.target.value)
+  };
+
+  const handleSubmit = () => {    
+    if (find ) {      
+      setStateWithSuggestion()
+      navigate(`/search/${find}`)
+      setSuggestions([])
+    } else {
+      window.alert("No se ha ingresado ningún dato");
+    }
+    setFind("");   
+  }
 
   const inputProps = {
 

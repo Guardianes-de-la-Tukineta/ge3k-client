@@ -28,27 +28,48 @@ export const useStore = create(zukeeper((set) => ({
     },
 
     getSuggestionsFromBack: async (search) => {
-        const URL = 'https://ge3k-server.onrender.com/products?name='
-        const { data } = await axios.get(URL + search)
-        if (data.length > 0) {
-            set((state) => {
-                return {
-                    ...state,
-                    suggestion: data,
-                } 
-            })
-        } else{
+        console.log(search)
+        
+
+        if(search === '') {
             set((state) => {
                 return {
                     ...state,
                     suggestion: [],
                 }
-            })
+            }) 
+        } else if(search === undefined){
+            console.log('entre al undefined')
+return
+        } else{
+console.log('entro desde el store')
+console.log(search)
+
+            const URL = 'https://ge3k-server.onrender.com/products?name=';
+            console.log(`voy a buscar esto: ${URL + search}`)
+            const { data } = await axios.get(URL + search)
+            console.log(data)
+            if (data.length > 0) {
+                set((state) => {
+                    return {
+                        ...state,
+                        suggestion: data,
+                    } 
+                })
+            } else if(data.length === 0){
+                set((state) => {
+                    return {
+                        ...state,
+                        suggestion: [],
+                    } 
+                })
+            }
         }
     },
 
     setStateWithSuggestion: () => set((state) => {
         const categoryMaxPrice = Math.ceil(Math.max(...state.suggestion.map(product => product.price)));
+        console.log(state.suggestion)
         return {
             ...state, allProducts: state.suggestion,
             sortedProducts: state.suggestion,
