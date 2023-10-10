@@ -8,6 +8,8 @@ import NavBar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
 import ThemeView from "./Views/ThemeView/ThemeView";
 import PaymentGateway from "./Views/PaymentGateway/PaymentGateway"
+import Success from "./Views/PaymentGateway/Success";
+import Cancel from "./Views/PaymentGateway/Cancel";
 import Category from "./Views/Category/Category";
 import SearchResults from "./Views/SearchResults/SearchResults";
 import Login from "./components/Login/Login";
@@ -15,8 +17,13 @@ import Logout from "./components/Login/Logout";
 import Profile from "./components/Profile/Profile";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop"; //Para poder ir al inicio (arriba) de la pagina al cambiar de vista
 
+
+import CartProvider from "./Views/PaymentGateway/CartContext";
+
 function App() {
   return (
+
+      <CartProvider>
     <div className="vh-100 d-flex flex-column">
       <NavBar />
       <ScrollToTop/> 
@@ -25,7 +32,11 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/category/:nameCategory" element={<Category />} />
           <Route path="/thematic/:nameThematic" element={<ThemeView />} />
+        
           <Route path="/payment" element={< PaymentGateway/>} />
+          <Route path="/success" element={< Success/>} />
+          <Route path="/cancel" element={< Cancel/>} /> 
+          
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/search/:query" element={<SearchResults />} />
           <Route path="/legal" element={<Legal />} />
@@ -36,6 +47,7 @@ function App() {
       </div>
       <Footer />
     </div>
+    </CartProvider>
   );
 }
 
