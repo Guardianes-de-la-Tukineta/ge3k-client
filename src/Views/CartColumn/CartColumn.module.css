@@ -1,0 +1,53 @@
+.cartColumn{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    right: 0;
+    top: 0;
+    height: 100%;    
+    width: fit-content;
+    background-color: #fff; /* Ajusta el color de fondo según tus necesidades */
+    z-index: 999; /* Ajusta la capa z-index según tus necesidades */
+    overflow-y: auto;
+    /* background-color: black;
+    color: #fff  */
+}
+.buttonCart{
+    --bs-btn-bg: #ff6824 !important;
+    --bs-btn-hover-bg: #ff6824 !important;
+    --bs-btn-border-color:#ff6824 !important;
+    color: #fff !important;
+}
+  
+/* efectos de animacion */
+.fadeIn {
+    animation: fadeIn 0.8s ease-in-out forwards;
+}
+  
+.fadeOut {
+animation: fadeOut 0.8s ease-in-out forwards;
+}
+  
+@keyframes fadeIn {
+from {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+to {
+    opacity: 1;
+    transform: translateY(0);
+}
+}
+
+@keyframes fadeOut {
+from {
+    opacity: 1;
+    transform: translateY(0);
+}
+to {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+}
+  

@@ -4,13 +4,14 @@ import { useParams } from "react-router-dom";
 import { Container, Col, Row, Button } from "react-bootstrap";
 import { useStore } from "../../zustand/useStore/useStore";
 import { Link } from "react-router-dom";
+import { cartStore } from "../../zustand/cartStore/cartStore";
 
 //HP el componente de llama ProductDetails  ya que podemos tener otros details ej, RatingDetails
 function ProductDetails() {
   const { id } = useParams();
-
   const { getProductsDetails, productDetails, deletePorductDetail } = useStore(); // Utiliza el hook useStore para acceder al estado y a la función getProductsDetails
-
+  const {addProductToCart}=cartStore() //cart store de zustand
+  
   useEffect(() => {
     getProductsDetails(id);
 
@@ -36,6 +37,10 @@ function ProductDetails() {
     return id == "TUKI" || id == "tuki";
   }; //esto por ahora hace cualquier mentira
 
+  //handlers
+  const handlerAddToCart = ()=>{
+    addProductToCart(productDetails)
+  }
   return (
     <Container className={styles.productDetailsConteiner}>
       <Row>
@@ -83,7 +88,7 @@ function ProductDetails() {
             </Link>
           </h2>
 
-          <Button style={buttonStyle}>
+          <Button onClick={()=>handlerAddToCart()} style={buttonStyle}>
             <i
               className="bi bi-cart4"
               style={{ color: "black", fontSize: "1.2rem", padding: "5px" }}
