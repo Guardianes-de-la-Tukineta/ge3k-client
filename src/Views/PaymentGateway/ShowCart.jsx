@@ -1,4 +1,4 @@
-import { Button } from "react-bootstrap";
+import  Button  from "react-bootstrap/Button";
 import { CartTest } from "./CartContext";
 import { useContext } from "react";
 import { getProductData } from "./PaymentGateway";

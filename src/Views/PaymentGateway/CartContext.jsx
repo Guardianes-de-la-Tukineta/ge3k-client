@@ -18,24 +18,24 @@ export const CartProvider = ({children}) => {
 
     //id: 234jffj56-2133421rf, quantity: 3
 
-    const getProductQuantity = (stripe) => {
-
-       const quantity = cartProducts.find(product => product.stripe === stripe)?.quantity
+    const getProductQuantity = (id) => {
+       const quantity = cartProducts.find(product => product.id === id)?.quantity
 
        if(quantity === undefined){
         return 0;
        }
+       console.log(quantity);
        return quantity;
     }
 
-    const addOneToCart = (stripe) => {
-        const quantity = getProductQuantity(stripe);
+    const addOneToCart = (id) => {
+        const quantity = getProductQuantity(id);
         if(quantity === 0) { //product is not in the cart
             setCartProducts(
            [
             ...cartProducts, 
             {
-                id: stripe,
+                id: id, ////-----------------------
                 quantity: quantity +1
             }
            ]
@@ -44,7 +44,7 @@ export const CartProvider = ({children}) => {
             setCartProducts(
                   cartProducts.map(
                     product =>
-                     product.stripe=== stripe ? {...product, quantity: product.quantity + 1 } : product
+                     product.id=== id ? {...product, quantity: product.quantity + 1 } : product
 
                    )
                 
@@ -54,28 +54,28 @@ export const CartProvider = ({children}) => {
 
     }
 
-    const removeOneFromCart = (stripe) => {
-        const quantity = getProductQuantity(stripe);
+    const removeOneFromCart = (id) => {
+        const quantity = getProductQuantity(id);
 
         if(quantity == 1){
-            deleteFromCart(stripe);
+            deleteFromCart(id);
         }
         else {
             setCartProducts(
                 cartProducts.map(
                   product =>
-                   product.stripe === stripe ? {...product, quantity: product.quantity - 1 } : product
+                   product.id === id? {...product, quantity: product.quantity - 1 } : product
 
                  )
           )
         }
     }
 
-    const deleteFromCart = (stripe) => {
+    const deleteFromCart = (id) => {
         setCartProducts(
             cartProducts =>
             cartProducts.filter(currentProduct => {
-                return currentProduct.stripe !== stripe;
+                return currentProduct.id !== id;
             })
         )
     }
