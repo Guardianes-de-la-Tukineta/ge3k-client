@@ -1,0 +1,22 @@
+.cardInfoContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1rem 2rem;
+    background-color: #383838;
+    padding: 1rem;
+    border-radius: 4px;
+    color: white;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.cardInfoContainer span i{
+    font-size: 1.6rem;
+}
+
+.number{
+    color: #ff6824;
+    font-size: 1.8rem;
+    font-weight: 600;
+}

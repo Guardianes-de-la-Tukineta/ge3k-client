@@ -14,14 +14,16 @@ import Login from "./components/Login/Login";
 import Logout from "./components/Login/Logout";
 import Profile from "./Views/Profile/Profile";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop"; //Para poder ir al inicio (arriba) de la pagina al cambiar de vista
+import Admin from "./Views/Admin/Admin";
 import CartColumn from "./Views/CartColumn/CartColumn";
 import { cartStore } from "./zustand/cartStore/cartStore";
+
 
 function App() {
   const{cart}=cartStore() //traemos el estado de zustand  
   return (
     <div className={`${cart.length > 0 ? 'col-md-11 ': 'col-md-12' } vh-100 d-flex flex-column`}>
-      <NavBar />
+      {location.pathname.startsWith('/admin') ? undefined : <NavBar />}
       <ScrollToTop/>       
       <div className="flex-grow-1">
         <Routes>
@@ -34,14 +36,14 @@ function App() {
           <Route path="/legal" element={<Legal />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/admin/*" element={<Admin />} />
           <Route path="*" element={<Error404 />} />
         </Routes>
       </div>
       {
         cart.length>0 && <CartColumn/> //solo renderiza si tenemos articulos en el cart
       }
-      
-      <Footer />
+     {location.pathname.startsWith('/admin') ? undefined :  <Footer />}
     </div>
   );
 }
