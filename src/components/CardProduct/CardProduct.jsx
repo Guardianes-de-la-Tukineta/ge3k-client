@@ -8,7 +8,7 @@ const CardProduct = ({ name, description, id, image, price }) => {
     //Estados
     const [isFav, setIsFav] = useState(false); // para cambiar el estado de fav y no fav
     const navigate = useNavigate(); // para re dirigir a /detail por ejemplo
-    const {addProductToCart}=cartStore() //cart store de zustand
+    const {addProductToCart,setVisibility}=cartStore() //cart store de zustand
     
     //handlers
     const handlerIsFav = (e) => {
@@ -20,6 +20,7 @@ const CardProduct = ({ name, description, id, image, price }) => {
     const handlerCart = (e) => {
         e.stopPropagation(); // evita q el click se propague al elemento padre        
         addProductToCart({ name, description, id, image, price })
+        setVisibility(true)
     }
     const handlerNavigate = () => {        
         navigate(`/product/${id}`)        

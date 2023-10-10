@@ -55,3 +55,7 @@ font-size: 0.85rem;
   border: 6px solid #ff6824; /* Borde de 1px naranja */
   border-radius: 50%; /* Hace que la imagen sea redonda */
 }
+
+.divCart:hover{
+  cursor: pointer !important;
+}

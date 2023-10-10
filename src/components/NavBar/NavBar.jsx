@@ -11,16 +11,19 @@ import Logout from "../Login/Logout";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Button from "react-bootstrap/Button";
 import Tooltip from "react-bootstrap/Tooltip";
+import { cartStore } from "../../zustand/cartStore/cartStore";
 
 const NavBar = () => {
   const { user, isAuthenticated } = useAuth0();
-
+  const {setVisibility}=cartStore() // llamamos de zustand cart
   const renderTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props}>
       email is not verified!
     </Tooltip>
   );
-
+  const handlerCart =()=>{
+    setVisibility()
+  }
   return (
     <>
     <Navbar
@@ -39,11 +42,11 @@ const NavBar = () => {
             <SearchBar />
           </div>
 
-          <div className="p-2 ml-1">
+          <div className={`p-2 ml-1`}>
             <i className="bi bi-heart-fill"></i>
           </div>
-
-          <div className="p-2 ml-1">
+          
+          <div onClick={handlerCart} className={`${style.divCart} p-2 ml-1`}>
             <i className="bi bi-cart-fill"></i>
           </div>
 

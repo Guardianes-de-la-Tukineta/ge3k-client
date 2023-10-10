@@ -3,13 +3,14 @@ import style from './CartItem.module.css'
 import Dropdown from 'react-bootstrap/Dropdown';
 import { cartStore } from '../../zustand/cartStore/cartStore';
 import { Link } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 
 const CartItem = ({name,price,image,id}) => {
     //estados y actions
-    const {deleteProductCart,setQuantity,cart,updateLocalStorage} = cartStore() //nos traemos estados de zustand      
+    const {deleteProductCart,setQuantity,cart} = cartStore() //nos traemos estados de zustand      
     const cantidadActual= cart.find(({product})=>product.id===id).quantity // sabremos que cantidad tiene cada product
-    const[isType,setIsType]=useState(false) //para cambiar a visualizar el input
-    const[inputValue,setInputValue]=useState(11) //para guardar lo q el user digite como cantidad, empieza con 11
+    const[isType,setIsType]=useState(false) //para cambiar a visualizar el input    
+    const {register,formState:{errors},handleSubmit}=useForm()
     
     //handlers
     const handlerDeleteProduct =()=>{
@@ -24,15 +25,14 @@ const CartItem = ({name,price,image,id}) => {
             setIsType(false)
         }
     }
-    const handlerSubmit=(e)=>{        
-        e.preventDefault();       
-        setQuantity(id,Number(inputValue))  //mandamos la info del input
+    const onSubmit=(data)=>{                 
+        setQuantity(id,Number(data.cantidad))  //mandamos la info del input
         setIsType(false)     
     }
 
     // Generar las opciones del menú desplegable usando un bucle for
     const dropdownOptions = [];
-    for (let i = 1; i < 11; i++) {
+    for (let i = 1; i < 6; i++) {
         dropdownOptions.push(
             <Dropdown.Item key={i} onClick={(e) => handlerChangeQuantity(e)}>{i}</Dropdown.Item>
         );
@@ -40,14 +40,15 @@ const CartItem = ({name,price,image,id}) => {
 
     return (
         <div className={`card ${style.cartItem}`}>
-            <div className='card-body d-flex flex-column w-100 h-100 '>
+            <div className='card-body d-flex flex-column w-100 h-100 '>                
                 <Link to={`/product/${id}`}>
                     <img
                         src={image}
                         alt={name}
-                        className={style.img}
+                        className={`${style.img}`}
                     />
                 </Link>
+                
                 <div className='text-center'>
                     ${price}
                 </div>
@@ -65,19 +66,26 @@ const CartItem = ({name,price,image,id}) => {
                                 </Dropdown.Menu>
                             </Dropdown>                            
                         :
-                        <form>
+                        <form onSubmit={handleSubmit(onSubmit)}>
                             <input
-                                type='text'
-                                value={inputValue}
-                                onChange={(e)=>setInputValue(e.target.value)} 
-                                className={style.inputCant}                               
+                                type='text'                                
+                                defaultValue='11'                               
+                                className={`form-control ${style.inputCant}`}
+                                {...register('cantidad',{
+                                    required:true,
+                                    min:1,
+                                    max:100,                                                                           
+                                })}
                             />
-                            <button onClick={(e)=>handlerSubmit(e)} className='btn btn-success' type='submit'>Update</button>
+                            {errors.cantidad?.type==='required' && <p className="text-danger ">Required </p>}
+                            {(errors.cantidad?.type==='min' || errors.cantidad?.type==='max') && <p className="text-danger ">1~100</p>}
+                            {!errors.cantidad ?.type &&
+                                <button className='btn btn-success' type='submit'>Update</button>
+                            }
                         </form> 
-                    } 
-
-                    <button onClick={()=>handlerDeleteProduct()} className='btn btn-dark'>
-                        <i className="bi bi-trash3"></i>
+                    }                     
+                    <button onClick={()=>handlerDeleteProduct()} className={`btn btn-dark ${style.btnDelete}`}>
+                        <i className={`bi bi-trash3 ${style.iconTrash}`}></i>
                     </button>
                 </div>
             </div>          
