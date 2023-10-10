@@ -5,7 +5,7 @@ import style from './CardProductAdmin.module.css'
 const CardProductAdmin= ({ name, description, image, price, discount, stock, category, theme }) => {
 
     return (
-        <div className={`d-flex ${style.divCard}`}>
+        <div className={`d-flex ${style.divCard} justify-content-center aling-item-center`}>
 
             <Card className={`col-md-12 mb-3 p-2 mt-3 ${style.card}`}>
            

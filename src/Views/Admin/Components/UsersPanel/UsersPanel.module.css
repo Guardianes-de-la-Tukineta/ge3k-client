@@ -1,9 +1,10 @@
 .cardForUsers{
-    border: 3px solid #383838;
+    border: 2px solid #383838;
     border-right: none;
-    background-color: white;
+    background-color: #383838;
     border-radius: 4px;
     overflow: hidden;
+    color: white;
 }
 
 .cardForUsers:hover{
@@ -20,7 +21,7 @@
 
 
 .cardForUsers .arrowContainer{
-    background-color:#ff6824;
+    background-color:#ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -63,8 +64,16 @@ a:hover{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 700;
     gap:10px;
-    padding: 2rem 1rem;
+    padding: 2rem 0.5rem;
+}
+
+i.create{
+    color:#58ff3b;
+}
+
+i.edit{
+    color:#fdf747;
 }

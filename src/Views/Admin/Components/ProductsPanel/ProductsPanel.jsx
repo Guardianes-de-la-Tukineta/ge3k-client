@@ -6,17 +6,17 @@ const ProductsPanel = () => {
   return (
     <div className='row'>
            
-    <div className={`col-md-4 `} style={{padding:'0 '}}>
+    <div className={`col-lg-4 `} style={{padding:'0 '}}>
     <Link to='/admin/products/add'>   <div className={`${style.cardCreateProduct} ` }  style={{margin:'1.5rem 2.5rem',}}>
       <div className={`container-fluid  `}> 
         <div className={`row`}>
-         <div className= {`col-9 ${style.itemCreateProduct}`} >
+         <div className= {`col-10 ${style.itemCreateProduct}`} >
     
-         <i class="bi bi-bag-plus-fill"></i>
+         <i className={`bi bi-bag-plus-fill ${style.create}`}></i>
          <span>ADD NEW PRODUCT</span>
          </div>
-         <div className={`col-3 ${style.arrowContainer}`}>
-         <i class="bi bi-arrow-right"></i>
+         <div className={`col-2 ${style.arrowContainer}`}>
+         <i className="bi bi-arrow-right" ></i>
       </div>
 
 
@@ -30,16 +30,17 @@ const ProductsPanel = () => {
 
 
 
-    <div className={`col-md-4 `} style={{padding:'0 '}}>
+    <div className={`col-lg-4 `} style={{padding:'0 '}}>
     <Link to='/admin/products/edit'>    <div className={`${style.cardCreateProduct} ` }  style={{margin:'1.5rem 2.5rem',}}>
       <div className={`container-fluid  `}> 
         <div className={`row`}>
-         <div className= {`col-9 ${style.itemCreateProduct}`} >
+         <div className= {`col-10 ${style.itemCreateProduct}`} >
     
-         <i class="bi bi-bag-dash-fill"></i>
+         <i className={`bi bi-bag-dash-fill ${style.edit}`}></i>
+         
          <span>EDIT PRODUCT</span>
          </div>
-         <div className={`col-3 ${style.arrowContainer} p-4`}>
+         <div className={`col-2 ${style.arrowContainer}`}>
          <i class="bi bi-arrow-right"></i>
       </div>
 
@@ -55,16 +56,17 @@ const ProductsPanel = () => {
 
 
 
-    <div className={`col-md-4 `} style={{padding:'0 '}}>
+    <div className={`col-lg-4 `} style={{padding:'0 '}}>
     <Link to='/admin/products/delete'>  <div className={`${style.cardCreateProduct} ` }  style={{margin:'1.5rem 2.5rem',}}>
       <div className={`container-fluid  `}> 
         <div className={`row`}>
-         <div className= {`col-9 ${style.itemCreateProduct}`} >
+         <div className= {`col-10 ${style.itemCreateProduct}`} >
     
-         <i class="bi bi-bag-x-fill"></i>
+         <i className={`bi bi-bag-x-fill ${style.delete}`}></i>
+         
      <span>DELETE PRODUCT</span>
          </div>
-         <div className={`col-3 ${style.arrowContainer} p-4`}>
+         <div className={`col-2 ${style.arrowContainer}`}>
          <i class="bi bi-arrow-right"></i>
       </div>
 

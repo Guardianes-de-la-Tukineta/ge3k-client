@@ -2,8 +2,11 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import style from './LoginForm.module.css'
 import logo from '../../../../Images/adminLogo.svg'
+import Spinner from 'react-bootstrap/Spinner';
 
-const Login = ({handleLogin, loader}) => {
+const Login = ({handleLogin, spinner}) => {
+
+ 
   const { register, handleSubmit, formState: { errors, isValid } } = useForm({ mode: 'onChange' });
 
   const onSubmit = data => handleLogin(data);
@@ -42,7 +45,7 @@ const Login = ({handleLogin, loader}) => {
       </div>
       
       <div>
-      <button disabled={!isValid}> {!loader ? 'Log In' : 'Sending...'}</button>
+      <button>{(!spinner) ? 'Create new product':  <Spinner animation="border" variant="light" />}</button>
       </div>
     </form>
     </div>

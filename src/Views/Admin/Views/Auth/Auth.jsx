@@ -10,7 +10,7 @@ const login = async (email, password) => {
     // Simulación de la función login
     await new Promise((resolve) => setTimeout(resolve, 3000));
   
-    if (email === 'kevin@gmail.com' && password === '123456') {
+    if (email === 'paola@gmail.com' && password === '123456') {
       return 'token-de-autenticacion';
     } else {
       throw new Error('Credenciales incorrectas');
@@ -22,23 +22,22 @@ const login = async (email, password) => {
 
 const Auth = () => {
 const navigate = useNavigate();
-const [loading, setLoading] = useState(false)
-
+const [spinner, setSpinner] = useState(false)
 
 
    const handleLogin = async ({email, password}) => {
    
     try {
-        setLoading(true)
+      setSpinner(true)
         const token = await login(email,password )
         localStorage.setItem('token', token);
         navigate('/admin');
         console.log('done')
-        setLoading(false)
+        setSpinner(false)
     } catch (error) {
         console.error('Error al iniciar sesión:', error);
         console.log('ups!!')
-        setLoading(false)
+        setSpinner(false)
     }
    } 
 
@@ -46,7 +45,7 @@ const [loading, setLoading] = useState(false)
 
   return (
     <div>
-      <Login handleLogin={handleLogin} loader={loading} />
+      <Login handleLogin={handleLogin} spinner={spinner} />
     </div>
   )
 }
