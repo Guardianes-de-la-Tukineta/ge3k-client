@@ -1,9 +1,10 @@
 .cardCreateProduct{
-    background-color: #ff6824;
+    background-color: #383838;
     border-radius: 4px;
-    color:#383838;
+    color:#ffffff;
   overflow: hidden;
   transition: box-shadow 0.2s ease;
+  border: 2px solid #383838;
 }
 
 .cardCreateProduct:hover{
@@ -33,7 +34,7 @@
 }
 
 .arrowContainer{
-    background-color: #383838;
+    background-color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -41,7 +42,7 @@
 }
 
 .arrowContainer i{
-    color: #f9f9f9;
+    color: #383838;
     transform: translateX(-0px); 
     transition: transform 0.2s ease;
 }
@@ -53,4 +54,17 @@ a {
 
 a:hover{
     text-decoration: none !important;
+}
+
+
+i.create{
+    color:#58ff3b;
+}
+
+i.edit{
+    color:#fdf747;
+}
+
+i.delete{
+    color:#ff4848;
 }

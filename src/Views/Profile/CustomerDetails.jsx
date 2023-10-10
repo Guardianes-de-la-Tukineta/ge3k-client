@@ -16,6 +16,7 @@ function CustomerDetails(props) {
           margin: "10px",
           display: "flex",
           justifyContent: "center",
+          alignItems:'center'
         }}
       >
         <Col className="text-center">

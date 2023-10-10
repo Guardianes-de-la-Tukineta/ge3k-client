@@ -8,17 +8,18 @@ const UsersPanel = () => {
   return (
     <div className='row'>
            
-            <div className={`col-md-4 `} style={{padding:'0 '}}>
+            <div className={`col-lg-4 `} style={{padding:'0 '}}>
             <Link to='/admin/users/manage'>
                 <div className={`${style.cardForUsers} ` }  style={{margin:'1.5rem 2.5rem',}}>
               <div className={`container-fluid  `}> 
                 <div className={`row`}>
-                 <div className= {`col-9 ${style.itemCreateProduct}`} >
+                 <div className= {`col-10 ${style.itemCreateProduct}`} >
             
-                 <i class="bi bi-person-fill-gear"></i>
+                 <i className={`bi bi-person-fill-gear ${style.edit}`}></i>
+
                  <span>MANAGE USERS</span>
                  </div>
-                 <div className={`col-3 ${style.arrowContainer} p-4`}>
+                 <div className={`col-2 ${style.arrowContainer}`}>
                  <i class="bi bi-arrow-right"></i>
               </div>
 
@@ -32,16 +33,17 @@ const UsersPanel = () => {
 
 
 
-            <div className={`col-md-4 `} style={{padding:'0 '}}>
+            <div className={`col-lg-4 `} style={{padding:'0 '}}>
             <Link to='/admin/users/manage-admin'> <div className={`${style.cardForUsers} ` }  style={{margin:'1.5rem 2.5rem',}}>
               <div className={`container-fluid  `}> 
                 <div className={`row`}>
-                 <div className= {`col-9 ${style.itemCreateProduct}`} >
+                 <div className= {`col-10 ${style.itemCreateProduct}`} >
             
-                 <i class="bi bi-person-fill-lock"></i>
+  
+                 <i className={`bi bi-person-fill-lock ${style.edit}`}></i>
              <span>MANAGE ADMINISTRATORS</span>
                  </div>
-                 <div className={`col-3 ${style.arrowContainer} p-4`}>
+                 <div className={`col-2 ${style.arrowContainer}`}>
                  <i class="bi bi-arrow-right"></i>
               </div>
 
@@ -52,16 +54,17 @@ const UsersPanel = () => {
                 </Link>
               </div>
 
-              <div className={`col-md-4 `} style={{padding:'0 '}}>
+              <div className={`col-lg-4 `} style={{padding:'0 '}}>
               <Link to='/admin/users/add-admin'>  <div className={`${style.cardForUsers} ` }  style={{margin:'1.5rem 2.5rem',}}>
               <div className={`container-fluid  `}> 
                 <div className={`row`}>
-                 <div className= {`col-9 ${style.itemCreateProduct}`} >
+                 <div className= {`col-10 ${style.itemCreateProduct}`} >
             
-                 <i class="bi bi-person-plus-fill"></i>
+          
+                 <i className={`bi bi-person-plus-fill ${style.create}`}></i>
              <span>ADD NEW ADMINISTRATOR</span>
                  </div>
-                 <div className={`col-3 ${style.arrowContainer} p-4`}>
+                 <div className={`col-2 ${style.arrowContainer}`}>
                  <i class="bi bi-arrow-right"></i>
               </div>
 

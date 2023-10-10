@@ -9,6 +9,7 @@ import { useEffect, useRef } from "react";
 
 const SearchResults = () => {
   const { query } = useParams();
+
   const {
     resetAll,
     getSuggestionsFromBack,
@@ -19,20 +20,6 @@ const SearchResults = () => {
   const firstUpdate = useRef(true);
   const firtsRequest = useRef(true)
   const firstSuggestionInCurrentProductd = useRef(true);
-
-  useEffect(() => {
-    if (suggestion.length < 1 && firtsRequest.current) {
-      getSuggestionsFromBack(query);
-      firtsRequest.current = false;
-    } else if (
-      suggestion.length > 0 &&
-      firstSuggestionInCurrentProductd.current
-    ) {
-      setStateWithSuggestion();
-      firstSuggestionInCurrentProductd.current = false;
-    }
-  }, [suggestion]);
-
 
   useEffect(() => {
     if (firstUpdate.current) {

@@ -1,23 +1,20 @@
 .formContainer{
     background-color: black;
     color:white;
-    /* border-radius: 20px; */
-    /* margin: 20px; */
-    /* border: solid 4px orangered; */
-    /* padding: 30px; */
+    height: 100%;
+
+    padding: 2rem;
 }
-.messajeContainer{
-    display: flex;
-    background-color: black;
+.messajeContainer h3{
+
     color: #ff6824;
-    justify-content: center;
-    padding-top: 4em;
-    padding-bottom: 10em;
+text-align: center;
+    font-size: 1.5rem !important;
+margin: 3rem;
 }
 .customDatePicker {
     border-radius: 6px; /* Redondear los bordes */
     padding: 5px; /* Agregar padding */
-   
   }
   .error{
     color:#ff6824

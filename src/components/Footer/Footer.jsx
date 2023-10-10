@@ -3,11 +3,12 @@ import { Container, Row, Col } from "react-bootstrap";
 import styles from "./Footer.module.css";
 import { Link } from "react-router-dom";
 
+
 function Footer() {
   return (
     <div style={{ backgroundColor: "black", color: "white", fontSize: '0.9rem' }}>
       <Container fluid >
-        <Row className="p-2">
+        <Row className="p-3 pb-4">
           <Col>
             <h5 className={styles.titleH5}>FIND US IN</h5>
             <img

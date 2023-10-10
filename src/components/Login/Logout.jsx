@@ -17,14 +17,7 @@ export default function Logout() {
   // delCurrentCustomer();
   return (
     <button
-      style={{
-        borderRadius: "10px",
-        padding: "5px 8px",
-        margin: "0px",
-        backgroundColor: "#ff6824",
-        border: "none",
-        fontWeight: "600",
-      }}
+      style={{display:'flex', justifyContent:'center', alignItems:'center', borderRadius:'10px', padding:'7.5px 15px', margin:'10px 3px 0px 3px', backgroundColor:'#ff6824', border:'none', fontWeight:'600', height:'30%'}}
       onClick={() => logout()}
     >
       {" "}
