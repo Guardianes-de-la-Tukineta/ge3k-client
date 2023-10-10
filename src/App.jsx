@@ -46,7 +46,9 @@ function App() {
           </Routes>
         </div>
         {
-          cart.length>0 && <CartColumn/> //solo renderiza si tenemos articulos en el cart
+
+          cart.length>0 && location.pathname!=='/admin' && <CartColumn/> //solo renderiza si tenemos articulos en el cart
+
         }
       {location.pathname.startsWith('/admin') ? undefined :  <Footer />}
       </div>
