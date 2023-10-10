@@ -1,0 +1,70 @@
+.cardForUsers{
+    border: 3px solid #383838;
+    border-right: none;
+    background-color: white;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.cardForUsers:hover{
+    box-shadow: 0px 0px 5px #383838;
+  }
+
+.cardForUsers i{
+    font-size: 1.8rem;
+    color: #383838;
+    font-weight: 700;
+    transform: translateX(-0px); 
+    transition: transform 0.2s ease;
+}
+
+
+.cardForUsers .arrowContainer{
+    background-color:#ff6824;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius:100% 0 0 100%/50% 0 0 50%;
+    border: 3px solid #383838;
+}
+
+
+.cardForUsers:hover .arrowContainer i{
+    transform: translateX(13px); 
+    transition: transform 0.2s ease;
+}
+
+a {
+    color: inherit !important;
+    text-decoration: none !important;
+}
+
+a:hover{
+    text-decoration: none !important;
+}
+
+.arrowContainer{
+    background-color: #383838;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius:100% 0 0 100%/50% 0 0 50%;
+}
+
+.arrowContainer i{
+    color: #383838;
+    transform: translateX(-0px); 
+    transition: transform 0.2s ease;
+}
+
+
+.itemCreateProduct{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.85rem;
+    font-weight: 700;
+    gap:10px;
+    padding: 2rem 1rem;
+}
