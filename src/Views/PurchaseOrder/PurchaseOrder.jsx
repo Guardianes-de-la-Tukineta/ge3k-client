@@ -2,53 +2,55 @@ import React, { useEffect, useState } from "react";
 import { customerStore } from "../../zustand/customerStore/customerStore";
 import { Button } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
+import { cartStore } from "../../zustand/cartStore/cartStore";
 
 const PurchaseOrder = () => {
-  const selectedProducts = [
-    {
-      id: "0552d9dc-3def-4e4b-946f-d82e1daeb9a1",
-      name: "World of Warcraft T-Shirt",
-      price: "11.00",
-      image:
-        "https://res.cloudinary.com/dqoi2ez7t/image/upload/b_rgb:ffffff,c_pad,h_500,w_500/v1696188929/GeekHub%20Products/61PIC7zpqKL._AC_UY550__gdzvvp.jpg",
-      description:
-        "JINX World of Warcraft: Legion Logo Men's Gamer Graphic T-Shirt",
-      stock: 15,
-      discount: null,
-      categoryName: "T-shirts",
-      themeName: "Video Games",
-      quantity: "1",
-    },
-    {
-      id: "8440fd70-4d41-47e2-ae96-60640f21e450",
-      name: "Vegeta T-Shirt",
-      price: "12.00",
-      image:
-        "https://res.cloudinary.com/dqoi2ez7t/image/upload/b_rgb:ffffff,c_pad,h_500,w_500/v1696188948/GeekHub%20Products/71bSuYq1gfL._AC_UX569__uocug3.jpg",
-      description:
-        "Legends are Born in July - Vegeta - T-Shirt - Comfortable Fit",
-      stock: 15,
-      discount: null,
-      categoryName: "T-shirts",
-      themeName: "Anime",
-      quantity: "1",
-    },
-    {
-      id: "f31c442a-938e-4995-91fb-8369cb3723e9",
-      name: "Funny Hacker T-Shirt",
-      price: "19.99",
-      image:
-        "https://res.cloudinary.com/dqoi2ez7t/image/upload/b_rgb:ffffff,c_pad,h_500,w_500/v1696188969/GeekHub%20Products/61wB_IDPF0L._AC_UX522__roylui.jpg",
-      description: "Kings Of NY Hacker Computer Programmer Mens T-Shirt",
-      stock: 15,
-      discount: null,
-      categoryName: "T-shirts",
-      themeName: "Programming",
-      quantity: "1",
-    },
-  ];
+  // const selectedProducts = [
+  //   {
+  //     id: "0552d9dc-3def-4e4b-946f-d82e1daeb9a1",
+  //     name: "World of Warcraft T-Shirt",
+  //     price: "11.00",
+  //     image:
+  //       "https://res.cloudinary.com/dqoi2ez7t/image/upload/b_rgb:ffffff,c_pad,h_500,w_500/v1696188929/GeekHub%20Products/61PIC7zpqKL._AC_UY550__gdzvvp.jpg",
+  //     description:
+  //       "JINX World of Warcraft: Legion Logo Men's Gamer Graphic T-Shirt",
+  //     stock: 15,
+  //     discount: null,
+  //     categoryName: "T-shirts",
+  //     themeName: "Video Games",
+  //     quantity: "1",
+  //   },
+  //   {
+  //     id: "8440fd70-4d41-47e2-ae96-60640f21e450",
+  //     name: "Vegeta T-Shirt",
+  //     price: "12.00",
+  //     image:
+  //       "https://res.cloudinary.com/dqoi2ez7t/image/upload/b_rgb:ffffff,c_pad,h_500,w_500/v1696188948/GeekHub%20Products/71bSuYq1gfL._AC_UX569__uocug3.jpg",
+  //     description:
+  //       "Legends are Born in July - Vegeta - T-Shirt - Comfortable Fit",
+  //     stock: 15,
+  //     discount: null,
+  //     categoryName: "T-shirts",
+  //     themeName: "Anime",
+  //     quantity: "1",
+  //   },
+  //   {
+  //     id: "f31c442a-938e-4995-91fb-8369cb3723e9",
+  //     name: "Funny Hacker T-Shirt",
+  //     price: "19.99",
+  //     image:
+  //       "https://res.cloudinary.com/dqoi2ez7t/image/upload/b_rgb:ffffff,c_pad,h_500,w_500/v1696188969/GeekHub%20Products/61wB_IDPF0L._AC_UX522__roylui.jpg",
+  //     description: "Kings Of NY Hacker Computer Programmer Mens T-Shirt",
+  //     stock: 15,
+  //     discount: null,
+  //     categoryName: "T-shirts",
+  //     themeName: "Programming",
+  //     quantity: "1",
+  //   },
+  // ];
   const { user, isAuthenticated } = useAuth0();
-
+  const {cart,subTotal}=cartStore() // estado conectado con localStorage
+  console.log(cart);
   const [userData, setUserData] = useState({
     name: "",
     surname: "",
@@ -208,7 +210,7 @@ const PurchaseOrder = () => {
         <div className="card col-md-3 mx-5">
           <h2 className="text-center mt-3">Purchase detail</h2>
           <div className="colunm ">
-            {selectedProducts.map((product) => (
+            {cart.map(({product,quantity}) => (
               <div key={product.id} className="col-md-10 mb-2 mx-auto">
                 <div className="card">
                   <div style={{ display: "flex", alignItems: "center" }}>
@@ -245,7 +247,7 @@ const PurchaseOrder = () => {
                         Price: ${product.price}
                       </p>
                       <p style={{ fontSize: "12px", fontWeight: "700" }}>
-                        Quantity: {product.quantity}
+                        Quantity: {quantity}
                       </p>
                     </div>
                   </div>
@@ -266,7 +268,7 @@ const PurchaseOrder = () => {
                 marginBottom: "100px",
               }}
             >
-              $42.99
+              {subTotal}
             </p>
           </div>
           <Button

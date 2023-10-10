@@ -6,10 +6,11 @@
     right: 0;
     top: 0;
     height: 100%;    
-    width: fit-content;
+    width: 12vw;
     background-color: #fff; /* Ajusta el color de fondo según tus necesidades */
     z-index: 999; /* Ajusta la capa z-index según tus necesidades */
     overflow-y: auto;
+    overflow-x: hidden;
     /* background-color: black;
     color: #fff  */
 }
@@ -17,7 +18,9 @@
     --bs-btn-bg: #ff6824 !important;
     --bs-btn-hover-bg: #ff6824 !important;
     --bs-btn-border-color:#ff6824 !important;
-    color: #fff !important;
+    color: #ffff !important;
+    height: 30px !important;
+    font-size: 16px !important;
 }
   
 /* efectos de animacion */
@@ -31,7 +34,7 @@ animation: fadeOut 0.8s ease-in-out forwards;
   
 @keyframes fadeIn {
 from {
-    opacity: 0;
+    opacity: 0;    
     transform: translateY(-10px);
 }
 to {
@@ -47,6 +50,7 @@ from {
 }
 to {
     opacity: 0;
+    display: none;
     transform: translateY(-10px);
 }
 }

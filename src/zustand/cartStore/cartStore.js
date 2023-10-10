@@ -1,12 +1,27 @@
 import { create } from "zustand"; // crear estados globales y actions
 import zukeeper from 'zukeeper' //poder usar la extension de chrome para zustand("zustand dev-tools")
 import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
+import { customerStore } from "../customerStore/customerStore";
 
 export const cartStore = create(zukeeper((set) => ({
     cart: JSON.parse(window.localStorage.getItem("cart")) || [], // productos en carrito de compra
     subTotal: 0, // guarda el subTotal en el carrito
+    visibility:true, // para cuando se le da al icono del carrito del navBar
     
-    
+  
+    //cambiar de visibilidad
+    setVisibility: (atribute) => {
+        !atribute ?  //si no mandamos atributo
+        set(prevState=>({
+            visibility:prevState.visibility?false:true //cambiamos la visibilidad 
+        }))    
+        : 
+        set(prevState=>({
+            visibility:atribute //cambiamos la visibilidad con el true o false que venga 
+        })) 
+
+    },
     //update localStorage con estado global
     updateLocalStorage: (newState) => {
         window.localStorage.setItem("cart",JSON.stringify(newState))
@@ -71,18 +86,25 @@ export const cartStore = create(zukeeper((set) => ({
             subTotal:subTotal.toFixed(2) // fixed da decimales maximos para mostrar
         }))        
     },
-
-    //  middleware para q cada que cambien cart primero actualice el localstorage
-    // onSet: (getState, setState, fn) => {
-    //     // Intercepta el cambio de 'cart'
+      //conectar con back
+      syncByBack:()=>{
+        try {
+            const { user, isAuthenticated } = useAuth0()
+            const {currentCustomer}=customerStore()
+            
+            if(isAuthenticated) {
+                console.log('estoy logueado');
+                console.log(user.email);           
+                console.log(currentCustomer);
+                
+            }
+            
+        } catch (error) {
+            console.log(error);
+        }
         
-    //         // Actualiza el Local Storage con el nuevo valor de 'cart'
-    //         console.log(fn.cart);
-    //         window.localStorage.setItem("cart", JSON.stringify(fn.cart));
-        
-    //     // Continúa con la actualización del estado
-    //     setState(fn);
-    // },
+    },
+    
 })))
 
 window.store = cartStore

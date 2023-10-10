@@ -1,16 +1,29 @@
 .cartItem{
-    max-width: 100%
+    max-width: 100%;
+    height: 400px;
+    margin: 4px;
+    font-weight: 600;
 }
 .img{
-    max-width: 100%;
-    transition: all 0.3s ease-in-out;
+    max-width: 100%;   
+    padding: 5px !important;
 }
-.img:hover{
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
-    opacity: 0.8; 
-    transition: opacity 0.3s; /* Transición suave */   
+.img:hover{   
+    opacity: 0.8;   
+    transition: opacity 0.3s; /* Transición suave */      
 }
 .inputCant{
-    width: 50px;
-    margin-bottom: 2px;
+    width: 55px !important;
+    margin-bottom: 2px; 
+}
+.inputCant ~ p{
+    width: 100%;
+}
+.btnDelete{
+    width: fit-content !important;
+    max-height: 40px;      
+}
+.iconTrash{
+    font-size: small;
+    
 }
