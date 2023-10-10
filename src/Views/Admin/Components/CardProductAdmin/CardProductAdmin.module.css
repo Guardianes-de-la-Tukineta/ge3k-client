@@ -1,28 +1,33 @@
 .card{
-   
-    transition: box-shadow 0.5s; /* Agrega una transición suave al efecto de sombra */
+    border: 1px solid #383838 !important;
+background-color:  #383838 !important;;
+color: white !important;
 }
 
 .divCard{
-    height: 420px;
-    width: 220px;
+    min-height: 400px;
+    width: 280px;
+
 }
 
 .imgContainer{
-width: 210px;
-height: 210px;
-border: 1px solid rgba(179, 179, 179, 0.5);
+ 
+background-color: white;
+height: 260px;
 
 border-radius: 4px;
 
 display: flex;
 justify-content: center;
 align-items: center;
+border: 1px solid #383838 !important;
+
 }
 
 .imgContainer img{
     width: 100%;
     object-fit: contain;
+    border-radius: 4px !important;
 }
 
 .imgContainer i{
@@ -36,10 +41,6 @@ justify-content: center;
 align-items: center;
 }
 
-.card:hover {
-    cursor: pointer;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Agrega una sombra al hacer hover */
-}
 .card img{
     aspect-ratio: 1/1; /*sirve para la relacion ancho alto, y para q todas las imagenes ocupen el mismo espacio*/  
     padding: 5%;
