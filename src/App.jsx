@@ -14,6 +14,7 @@ import Login from "./components/Login/Login";
 import Logout from "./components/Login/Logout";
 import Profile from "./Views/Profile/Profile";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop"; //Para poder ir al inicio (arriba) de la pagina al cambiar de vista
+import PurchaseOrder from "./Views/PurchaseOrder/PurchaseOrder";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route path="/legal" element={<Legal />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/PurchaseOrder" element={<PurchaseOrder />} />;
           <Route path="*" element={<Error404 />} />
         </Routes>
       </div>
