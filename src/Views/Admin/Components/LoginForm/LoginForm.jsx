@@ -45,7 +45,7 @@ const Login = ({handleLogin, spinner}) => {
       </div>
       
       <div>
-      <button>{(!spinner) ? 'Create new product':  <Spinner animation="border" variant="light" />}</button>
+      <button>{(!spinner) ? 'Login':  <Spinner animation="border" variant="light" />}</button>
       </div>
     </form>
     </div>

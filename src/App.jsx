@@ -26,7 +26,7 @@ function App() {
 
   return (
     <CartProvider>
-      <div style={{ width: (cart.length > 0 && visibility) ? '87vw' : '100vw' }} className={`vh-100 d-flex flex-column`}>
+      <div style={{ width: (cart.length > 0 && visibility && !location.pathname.startsWith('/admin')) ? '87vw' : '100vw' }} className={`vh-100 d-flex flex-column`}>
         {location.pathname.startsWith('/admin') ? undefined : <NavBar />}
         <ScrollToTop/>       
         <div className="flex-grow-1">
@@ -47,7 +47,7 @@ function App() {
         </div>
         {
 
-          cart.length>0 && location.pathname!=='/admin' && <CartColumn/> //solo renderiza si tenemos articulos en el cart
+cart.length>0 && !location.pathname.startsWith('/admin') && <CartColumn/>  //solo renderiza si tenemos articulos en el cart
 
         }
       {location.pathname.startsWith('/admin') ? undefined :  <Footer />}
