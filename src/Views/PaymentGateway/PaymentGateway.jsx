@@ -10,14 +10,14 @@ import CardTest from "./CardTest";
 import { useState } from "react";
 import { useContext } from "react";
 import { CartTest } from "./CartContext";
-import ShowCart from "./showCart";
+import ShowCart from "./ShowCart";
 
 
  //-----------------------------------------------------------------
 
  export const products = [        //products for testing of the payment
  {
-     id: "abcd3493",  
+     id:"abcd3493",  
      title: "Mario T-Shirt",
      price: 20.5,
      stripe: "price_1NzU8BHRnrIZF2AajpUxg184"
