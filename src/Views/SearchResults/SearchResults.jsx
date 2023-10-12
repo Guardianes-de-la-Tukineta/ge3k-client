@@ -5,27 +5,18 @@ import SortPriceDropDown from "../../components/SortPriceDropDown/SortPriceDropD
 import { useParams } from "react-router-dom";
 import style from "./SearchResults.module.css";
 import { useStore } from "../../zustand/useStore/useStore";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 
 const SearchResults = () => {
   const { query } = useParams();
 
   const {
     resetAll,
-    getSuggestionsFromBack,
-    setStateWithSuggestion,
-    suggestion,
     currentProducts
   } = useStore(); //obtain action from zustand
-  const firstUpdate = useRef(true);
-  const firtsRequest = useRef(true)
-  const firstSuggestionInCurrentProductd = useRef(true);
 
   useEffect(() => {
-    if (firstUpdate.current) {
-      firstUpdate.current = false;
-      return;
-    }
+   
     return () => {
       resetAll();
     };

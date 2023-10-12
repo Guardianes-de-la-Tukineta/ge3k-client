@@ -41,7 +41,7 @@ const ProductsPanel = () => {
          <span>EDIT PRODUCT</span>
          </div>
          <div className={`col-2 ${style.arrowContainer}`}>
-         <i class="bi bi-arrow-right"></i>
+         <i className="bi bi-arrow-right"></i>
       </div>
 
 
@@ -67,7 +67,7 @@ const ProductsPanel = () => {
      <span>DELETE PRODUCT</span>
          </div>
          <div className={`col-2 ${style.arrowContainer}`}>
-         <i class="bi bi-arrow-right"></i>
+         <i className="bi bi-arrow-right"></i>
       </div>
 
 

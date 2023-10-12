@@ -42,13 +42,10 @@ export const useStore = create(zukeeper((set) => ({
             console.log('entre al undefined')
 return
         } else{
-console.log('entro desde el store')
-console.log(search)
 
             const URL = 'https://ge3k-server.onrender.com/products?name=';
-            console.log(`voy a buscar esto: ${URL + search}`)
             const { data } = await axios.get(URL + search)
-            console.log(data)
+
             if (data.length > 0) {
                 set((state) => {
                     return {
@@ -110,8 +107,9 @@ console.log(search)
     resetAll: () => {
         set((state) => ({
             ...state,
+            allProducts: [], //productos todos
+            sortedProducts: [], 
             currentProducts: [],
-            allProducts: [],
             maxPrice: 0,
             initialMaxPrice: 0,
             suggestion: []
