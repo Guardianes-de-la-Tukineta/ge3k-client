@@ -1,15 +1,67 @@
+/* Contenedor de la tabla con desplazamiento horizontal */
+.tableContainer {
+  overflow-x: auto; /* Agrega una barra de desplazamiento horizontal si es necesario */
+  max-width: 100%; /* Limita el ancho máximo al 100% del contenedor padre */
+}
+
 .table {
-    width: 100%;
-    border-collapse: collapse;
-    border: 1px solid #ccc;
-  }
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ccc;
+}
+
+.table th, .table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+  overflow: hidden;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+text-align: center;
+}
+
+.table td img{
+  width: 50px;
+  height: 50px;
   
-  .table th, .table td {
-    border: 1px solid #ccc;
-    padding: 8px;
-    text-align: left;
-  }
-  
-  .table th {
-    background-color: #f2f2f2;
-  }
+}
+
+.table th {
+  background-color: #f2f2f2;
+}
+
+
+
+button.editButton {
+  height:100%;
+  border-radius: 4px;
+  margin-left: 2px;
+  padding: 5px 16px;
+  background-color: #383838;
+  outline: none;
+  color: white;
+  border: none;
+  font-weight: 600;
+}
+
+button.editButton:hover {
+ 
+  background-color: #ff6824;
+
+}
+
+button.editButton:active{
+ 
+  background-color: #b65d34;
+
+}
+
+.editButton i{
+  color: #fdf747;
+}
+
+button.editButton:hover  i{
+  color: #383838;
+}
