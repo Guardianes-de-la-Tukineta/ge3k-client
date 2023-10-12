@@ -6,11 +6,12 @@
     right: 0;
     top: 0;
     height: 100%;    
-    width: 12vw;
+    width: 13vw;
     background-color: #fff; /* Ajusta el color de fondo según tus necesidades */
     z-index: 999; /* Ajusta la capa z-index según tus necesidades */
     overflow-y: auto;
     overflow-x: hidden;
+    border-left:1px solid  rgba(92, 85, 85, 0.168);
     /* background-color: black;
     color: #fff  */
 }

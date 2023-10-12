@@ -6,16 +6,17 @@ import { useNavigate } from 'react-router-dom';
 
 const CartColumn = () => {
     //hooks y estados    
-    const {cart,subTotal,getSubTotal,updateLocalStorage,visibility,setVisibility,syncByBack} = cartStore() // estados y variables de zustand
+    const {cart,subTotal,getSubTotal,updateLocalStorage,visibility,setVisibility} = cartStore() // estados y variables de zustand       
     const navigate=useNavigate()
-    useEffect(()=>{
-        //syncByBack()
+
+    useEffect(()=>{       
         getSubTotal() // obtenemos el subtotal para mostrar   
         updateLocalStorage(cart) // cada q cambia cart del zustand actualizamos local storage
         return()=>{
             updateLocalStorage([]) // cuando se desmonta el componente sin ningun producto en cart limpiamos el local storage
         }    
     },[cart])
+   
     //handlers
     const handlerPay=()=>{
         navigate('/purchaseOrder')

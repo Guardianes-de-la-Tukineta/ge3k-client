@@ -4,29 +4,33 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { cartStore } from '../../zustand/cartStore/cartStore';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { useAuth0 } from "@auth0/auth0-react";
+import { customerStore } from '../../zustand/customerStore/customerStore';
 
-const CartItem = ({name,price,image,id}) => {
+const CartItem = ({name,price,image,id:idProduct}) => {
     //estados y actions
     const {deleteProductCart,setQuantity,cart} = cartStore() //nos traemos estados de zustand      
-    const cantidadActual= cart.find(({product})=>product.id===id).quantity // sabremos que cantidad tiene cada product
+    const cantidadActual= cart.find(({product})=>product.id===idProduct).quantity // sabremos que cantidad tiene cada product
     const[isType,setIsType]=useState(false) //para cambiar a visualizar el input    
     const {register,formState:{errors},handleSubmit}=useForm()
+    const { isAuthenticated } = useAuth0() // para saber si estoy logueado
+    const {currentCustomer}=customerStore()
     
     //handlers
-    const handlerDeleteProduct =()=>{
-        deleteProductCart(id)        
+    const handlerDeleteProduct =()=>{   //para borrar product     
+        deleteProductCart(isAuthenticated || false,currentCustomer.id,idProduct)        
     }
     const handlerChangeQuantity=(e)=>{
         const value = Number(e.target.innerText)          
         if(isNaN(value)){ // si la opcion es digitar manualmente llegara como NaN
             setIsType(true) // cambiamos el estado para renderizar un input y que user digite la cantidad manualmente           
         } else {                 
-            setQuantity(id,value)
+            setQuantity(isAuthenticated || false,currentCustomer.id, idProduct,value)
             setIsType(false)
         }
     }
-    const onSubmit=(data)=>{                 
-        setQuantity(id,Number(data.cantidad))  //mandamos la info del input
+    const onSubmit=(data)=>{      //para cambiar cantidad desde input            
+        setQuantity(isAuthenticated || false,currentCustomer.id,idProduct,Number(data.cantidad))  //mandamos la info del input
         setIsType(false)     
     }
 
@@ -41,7 +45,7 @@ const CartItem = ({name,price,image,id}) => {
     return (
         <div className={`card ${style.cartItem}`}>
             <div className='card-body d-flex flex-column w-100 h-100 '>                
-                <Link to={`/product/${id}`}>
+                <Link to={`/product/${idProduct}`}>
                     <img
                         src={image}
                         alt={name}
