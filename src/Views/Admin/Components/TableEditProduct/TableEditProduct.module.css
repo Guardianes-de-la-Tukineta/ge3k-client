@@ -33,6 +33,11 @@ text-align: center;
 }
 
 
+.table input {
+width: 100px;
+margin: 0;
+}
+
 
 button.editButton {
   height:100%;
