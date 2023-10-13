@@ -14,6 +14,11 @@ const TableEditProduct = ({data, HandleUpdate}) => {
     setInputValues((prevState) =>({...prevState, [e.target.name]: e.target.value}))
   };
 
+  const handleCancel = () => {
+    setInputValues({})
+    setIDSelected(null)
+  }
+
   return (
     <div className={styles.tableContainer}>
      {(data && data.length > 0)? <table className={styles.table}>
@@ -25,7 +30,7 @@ const TableEditProduct = ({data, HandleUpdate}) => {
           <th>Stock</th>
           <th>Price</th>
           <th>Discount</th>
-          <th>Catgory</th>
+          <th>Category</th>
           <th>Theme</th>
           <th>Description</th>
           <th>Action</th>
@@ -53,7 +58,7 @@ const TableEditProduct = ({data, HandleUpdate}) => {
             <td><input type="text" name='categoryName'  value={ (inputValues.hasOwnProperty('categoryName'))? inputValues.categoryName : product.categoryName} onChange={handleInputChange}/></td>
             <td><input type="text" name='themeName'  value={ (inputValues.hasOwnProperty('themeName'))? inputValues.themeName : product.themeName} onChange={handleInputChange}/></td>
             <td><input type="text" name='description'  value={ (inputValues.hasOwnProperty('description'))? inputValues.description : product.description} onChange={handleInputChange}/></td>
-            <td><button className={styles.editButton}>OK</button><button className={styles.editButton}>Cancel</button></td>
+            <td><button className={styles.saveButton}><i className="bi bi-check-lg"></i></button><button className={styles.cancelButton} onClick={handleCancel}><i class="bi bi-x-lg"></i></button></td>
                 </tr>
               )
             }

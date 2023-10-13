@@ -100,7 +100,7 @@ const FormAddProduct = () => {
 
 
   return (
-    <div className={`${style.formAddProductContainer} container`}>
+    <div className={`container-fluid`} style={{padding:'1rem 2.4rem'}}>
 <div className={`row ${style.rowContainer}`}>
 
        
