@@ -42,18 +42,22 @@ export const useStore = create(zukeeper((set) => ({
             console.log('entre al undefined')
 return
         } else{
-console.log('entro desde el store')
-console.log(search)
+// console.log('entro desde el store')
+// console.log(search)
 
             const URL = 'https://ge3k-server.onrender.com/products?name=';
-            console.log(`voy a buscar esto: ${URL + search}`)
+            // console.log(`voy a buscar esto: ${URL + search}`)
             const { data } = await axios.get(URL + search)
-            console.log(data)
+            // console.log(data)
             if (data.length > 0) {
+                // HP tambien seteo los fitros de theme y category en ALL
+                
                 set((state) => {
                     return {
                         ...state,
                         suggestion: data,
+                        category: "all",
+                        theme: 'all',
                     } 
                 })
             } else if(data.length === 0){
