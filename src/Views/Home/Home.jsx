@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useStore } from "../../zustand/useStore/useStore";
 import { Carousel } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -7,16 +7,33 @@ import Category from "../../components/Category/Category";
 import CardProductSale from "../../components/CardProductSale/CardProductSale";
 import Themes from "../../components/Theme/Themes";
 import style from "../Home/Home.module.css";
+import { cartStore } from "../../zustand/cartStore/cartStore";
+import { useAuth0 } from "@auth0/auth0-react";
+import { customerStore } from "../../zustand/customerStore/customerStore";
 
 const Home = () => {
-  const { allProducts, getAllProducts, getSales } = useStore(); //esto actua como nuestro dispatch, guardamos en la variable la action getSales
+  const { getAllProducts, getSales } = useStore(); //esto actua como nuestro dispatch, guardamos en la variable la action getSales
   const { sales } = useStore.getState(); // obtenemos del estado global la variable sales(productos en oferta)
+  const {cart,syncByBack,getCartProducts}=cartStore() 
+  const { user, isAuthenticated } = useAuth0() // para saber si estoy logueado
+  const {currentCustomer}=customerStore()
+  const firstRender=useRef(true)
 
   //hooks
-  useEffect(() => {
+  useEffect(() => {    
+    if(isAuthenticated){         
+      if(cart.length>0 && firstRender.current && currentCustomer.email){    //el currentCustomer tarda un poco en cargar los datos del user    
+        console.log('syncronización');
+        syncByBack(currentCustomer.id) 
+        firstRender.current=false  // cambiamos afalse para q solo se renderice una vez
+      } else if(currentCustomer.email){
+        getCartProducts(currentCustomer.id) // para pedir al back el carrito del usuario
+      }
+    }
     getAllProducts();
     getSales(); //al montar componente ejecutamos la action q modifica nuestro estado global
-  }, []);
+  }, [user,currentCustomer]);
+
 
   const groupedSales = [];
   for (let i = 0; i < sales.length; i += 3) {

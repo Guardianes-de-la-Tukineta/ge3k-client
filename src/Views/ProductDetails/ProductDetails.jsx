@@ -5,13 +5,17 @@ import { Container, Col, Row, Button } from "react-bootstrap";
 import { useStore } from "../../zustand/useStore/useStore";
 import { Link } from "react-router-dom";
 import { cartStore } from "../../zustand/cartStore/cartStore";
+import { useAuth0 } from "@auth0/auth0-react";
+import { customerStore } from '../../zustand/customerStore/customerStore';
 
 //HP el componente de llama ProductDetails  ya que podemos tener otros details ej, RatingDetails
 function ProductDetails() {
   const { id } = useParams();
   const { getProductsDetails, productDetails, deletePorductDetail } = useStore(); // Utiliza el hook useStore para acceder al estado y a la función getProductsDetails
   const {addProductToCart}=cartStore() //cart store de zustand
-  
+  const { isAuthenticated } = useAuth0() // para saber si estoy logueado
+  const {currentCustomer}=customerStore() 
+
   useEffect(() => {
     getProductsDetails(id);
 
@@ -39,7 +43,7 @@ function ProductDetails() {
 
   //handlers
   const handlerAddToCart = ()=>{
-    addProductToCart(productDetails)
+    addProductToCart(isAuthenticated || false,currentCustomer.id,productDetails)    
   }
   return (
     <Container className={styles.productDetailsConteiner}>
