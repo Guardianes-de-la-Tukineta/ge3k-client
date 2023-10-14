@@ -14,13 +14,13 @@ import { format } from "date-fns";
   
     export const customerStore = create(
       zukeeper((set) => ({
-        customerData: [],
+        // customerData: [],
         currentCustomer: {}, // es undefined o talves se colocara el perfil de invitado
         
         createCustomer: async (customer) => {
           const fecha = customer.birthdate; 
           // Convierte el objeto Date en una cadena de fecha en formato "AAAA-MM-DD"
-          customer.birthdate= format(fecha, "yyyy-MM-dd");
+          // customer.birthdate= format(fecha, "yyyy-MM-dd");
           console.log("creo el cusotmer ",customer);
           try {
               const response = await axios.post('https://ge3k-server.onrender.com/customers/', customer, {
@@ -30,12 +30,12 @@ import { format } from "date-fns";
             });
         
             // Verifica si la solicitud fue exitosa y obtén los datos de la respuesta
-            if (response.status === 201) {
+            if (response.status > 199 && response.status < 300) {
                 const data = response.data;
             
                 set((state) => ({
                 ...state,
-                currentCustomer: data,
+                currentCustomer: customer,
               }));
             } else {
                 // Maneja el caso en el que la solicitud no fue exitosa
@@ -48,20 +48,29 @@ import { format } from "date-fns";
               customer.birthdate= fecha;// cambio otra vez el formato de la fecha para que no rompa todo
             },
 
-            updateteCustomer: async (customer) => {
+        
+            
+
+            updateCustomer: async (customer,email) => {
+              // Define la URL de la solicitud PUT
+              const url = `https://ge3k-server.onrender.com/customers/email/${email}`;
               const fecha = customer.birthdate; 
-              // Convierte el objeto Date en una cadena de fecha en formato "AAAA-MM-DD"
-              customer.birthdate= format(fecha, "yyyy-MM-dd");
-              console.log("cUpdateo el cusotmer ",customer);
+              delete customer.createdAt;
+              delete customer.email;
+              delete customer.deletedAt;
+              delete customer.id;
+              delete customer.password;
+              
               try {
-                  const response = await axios.put(`https://ge3k-server.onrender.com/customers/email/${email}`, customer, {
-                      headers: {
-                          'Content-Type': 'application/json', // Indica que estás enviando datos en formato JSON
+                  // Realiza la solicitud PUT con los datos del cliente en el cuerpo
+                // console.log(url, customerUp)
+                const response = await axios.put(url, customer, {
+                  headers: {
+                    'Content-Type': 'application/json', // Indica que estás enviando datos en formato JSON
                   },
                 });
-            
-                // Verifica si la solicitud fue exitosa y obtén los datos de la respuesta
-                if (response.status === 201) {
+                
+                if (response.status === 200) {
                     // const data = response.data;
                 
                     set((state) => ({
@@ -83,7 +92,7 @@ import { format } from "date-fns";
         
         /*la action que sigue busca un customer en el back con su id*/      
         getCustomerByEmail: async (email) => {
-          console.log("CUSTOMER get email", email);
+          
           try {
             const response = await axios.get(`https://ge3k-server.onrender.com/customers/email/${email}`);
         
@@ -107,21 +116,6 @@ import { format } from "date-fns";
         },  
      
 
-        // getAllCustomer: () => {
-        //   const customers = customerStore.getState().customerData;
-        //   set((state) => ({
-        //     ...state,
-        //     customerData: customers,
-        //   }));
-        // },
-      
-      /*no esta implementado el delete*/
-      //   deleteCustomer: (id)=>{
-      //     set((state)=>({
-      //         ...state,
-      //         currentCustomer: {}
-      //     }))
-      // },
   }))
 );
 window.store = customerStore;
