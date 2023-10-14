@@ -9,22 +9,13 @@ function useGetSuggestionFromBack() {
   const [keywordUsed, setKeywordUsed] = useState('')
 
 
-  const [orderByName, setOrderByName] = useState({})
-  const [orderByPrice, setOrderByPrice] = useState({})
+  const [order, setOrder] = useState({})
   const [byCategory, setByCategory] = useState(false)
   const [byThema,setByThema] = useState(false)
   const [pageNum, setPageNum] = useState(1)
-  const [productByPage, setProductByPage] = useState(12)
+  const [productByPage, setProductByPage] = useState(10)
 
 
-  const reset = ()=>{
-    setOrderByName({})
-    setOrderByPrice({})
-    setByCategory(false)
-    setByThema(false)
-    setPageNum(1)
-  }
-  
   const handleGetSuggestions = async (keyword) => {
     const uuidPattern =
     /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/;
@@ -34,7 +25,11 @@ function useGetSuggestionFromBack() {
       try {
         const URL = "https://ge3k-server.onrender.com/products/";
         const {data} = await axios.get(URL + keyword);
-        reset()
+        setOrder({})
+      setByCategory(false)
+      setByThema(false)
+      setPageNum(1)
+      setKeywordUsed('')
         if(data.length === 0){
           setNotSuggestion(true)
         } else{
@@ -60,7 +55,6 @@ function useGetSuggestionFromBack() {
         } else{
           setNotSuggestion(false)
         }
-        reset()
         setProducts(data)
         setLoading(false);
         console.log(data)
@@ -78,20 +72,47 @@ function useGetSuggestionFromBack() {
 
 
   const getProducts = async (pattern) =>{
-
-    console.log('sgdsgagsgfgadfgadfgadfgdfagadf')
-    console.log(pattern)
+    console.log('entro al get producto')
+    console.log(byCategory)
 
     setLoading(true);
     const URL = 'https://ge3k-server.onrender.com/products?'
+
+
+    if(pattern === 'Reset'){
+      setOrder({})
+      setByCategory(false)
+      setByThema(false)
+      setPageNum(1)
+      setKeywordUsed('')
+
+      try {
+        const {data} = await axios.get(URL+'pageNumber=1&unitsPerPage=12');
+        console.log(URL+'pageNumber=1&unitsPerPage=12')
+        console.log(data)
+        setProducts(data)
+       setLoading(false);
+      } catch (error) {
+        console.error(error)
+        setLoading(false);
+      }
+
+    } else{
+
+
+
+
+    
+
+   
 
     let pageNumber =`pageNumber=${pageNum}`;
     let unitsPerPage = `&unitsPerPage=${productByPage}`;
     let keyword = (keywordUsed)?`&name=${keywordUsed}`:'';
     let category = (byCategory) ? `&categoryName=${byCategory}` : '';
     let thema = (byThema) ? `&themeName=${byThema}` : '';
-    let orderName = (orderByName.active) ? `&nameOrder=${orderByName.order}` : '';
-    let orderPrice = (orderByPrice.active) ? `&priceOrder=${orderByPrice.order}` : '';
+    let orderName = (order.type === 'name') ? `&nameOrder=${order.order}` : '';
+    let orderPrice = (order.type === 'price') ? `&priceOrder=${order.order}` : '';
 
     if (pattern){
     
@@ -116,32 +137,41 @@ function useGetSuggestionFromBack() {
       setByThema((pattern.thema !== 'Reset')?pattern.thema:false)
     }
 
-    if(pattern.name){
-      if(pattern.name === 'A-Z'){
-        orderName = `&nameOrder=ASC`
-        setOrderByName({active:true, order:'ASC'})
-      } else if(pattern.name === 'Z-A'){
-        orderName = `&nameOrder=DESC`
-        setOrderByName({active:true, order:'DESC'})
-      } else{
-        orderName =''
-        setOrderByName({})
-      }
-      }
-      
 
-    if(pattern.price){
-      if(pattern.price === 'Highest price first'){
-        orderPrice = `&priceOrder=DESC`
-        setOrderByPrice({active:true, order:'DESC'})
-      } else if(pattern.price === 'Lowest price first'){
-        orderPrice = `&priceOrder=ASC`
-        setOrderByPrice({active:true, order:'ASC'})
-      } else{
-        orderPrice =''
-        setOrderByPrice({})
+    if(pattern.order){
+
+
+      //Ordenado por nombre
+      if(pattern.order === 'A-Z' || pattern.order === 'Z-A'){
+        if(pattern.order === 'A-Z'){
+          orderName = `&nameOrder=ASC`
+          setOrder({type:'name', order:'ASC'})
+        } else if(pattern.order === 'Z-A'){
+          orderName = `&nameOrder=DESC`
+          setOrder({type:'name', order:'DESC'})
+        } 
+        }
+        
+    //Ordenado por precio
+      if(pattern.order === 'Highest price first' || pattern.order === 'Lowest price first'){
+        if(pattern.order === 'Highest price first'){
+          orderPrice = `&priceOrder=DESC`
+          setOrder({active:'price', order:'DESC'})
+        } else if(pattern.order === 'Lowest price first'){
+          orderPrice = `&priceOrder=ASC`
+          setOrder({active:'price', order:'ASC'})
+        } 
       }
+
+       //Resetear el orden
+      if(pattern.order === 'Reset' ){
+        orderName = '';
+        orderPrice = '';
+        setOrder({})
+      }
+
     }
+
   }
 
   try {
@@ -154,12 +184,12 @@ function useGetSuggestionFromBack() {
     console.error(error)
     setLoading(false);
   }
-
+}
   }
 
 
 
-  return { keywordUsed, products, notSuggestion, loading, error, handleGetSuggestions, getProducts};
+  return { products, notSuggestion, loading, error, handleGetSuggestions, getProducts};
 }
 
 export default useGetSuggestionFromBack;

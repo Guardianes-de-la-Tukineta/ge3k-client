@@ -1,5 +1,6 @@
 import { useEffect, useState} from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
+import styles from './DropDownAdmin.module.css'
 
 function DropDownAdmin({title, options, reset, getProducts}) {
 
@@ -25,15 +26,15 @@ useEffect(()=>{
   return (
  
     <Dropdown show={open} onToggle={(isOpen) => setOpen(isOpen)}>
-      <Dropdown.Toggle variant="secundary" id="dropdown-basic" size="m" style={{ padding: '0.2rem 2rem'}}>
+      <Dropdown.Toggle size="m" className={styles.dropDown} >
        {(!currentTitle)? title: currentTitle}
       </Dropdown.Toggle>
 
-      <Dropdown.Menu style={{minWidth: '100%'}}>
+      <Dropdown.Menu  className={styles.containerOptions} >
         {options && options.map(option => {
 
          
-return (<div  onClick={()=> {handleSelect(option)}} style={{cursor: 'pointer', padding: '8px 16px', fontSize: '0.85rem'}}>{option}</div>)
+return (<div  onClick={()=> {handleSelect(option)}} style={{cursor: 'pointer', padding: '8px 16px', fontSize: '1rem'}}>{option}</div>)
         })}
       </Dropdown.Menu>
     </Dropdown>

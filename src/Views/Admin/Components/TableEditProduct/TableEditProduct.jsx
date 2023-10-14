@@ -4,11 +4,15 @@ import ModalAdmin from "../ModalAdmin/ModalAdmin";
 import Spinner from 'react-bootstrap/Spinner';
 
 
-const TableEditProduct = ({ data, handleUpdate }) => {
+
+const TableEditProduct = ({ data, handleUpdate, handleDelete }) => {
   const [idSelected, setIDSelected] = useState(null);
+  const [productForDelete, setProductForDelete] = useState('');
   const [inputValues, setInputValues] = useState({});
   const [modal, setModal] = useState(false);
-  const [modalResponse, setModalResponse] = useState('');
+  const [modalDelete, setModalDelete] = useState(false);
+  const [modalResponseEdit, setModalResponseEdit] = useState('');
+  const [modalResponseDelete, setModalResponseDelete] = useState('');
   const [loading, setLoading] = useState(false);
 
 
@@ -32,26 +36,54 @@ const TableEditProduct = ({ data, handleUpdate }) => {
     setModal(true);
   };
 
-  //Controlar la respuesta del Modal
+  //Cuando el admin presiona el boton de elimnar producto
+  const handleDeleteProduct = (product) => {
+    setProductForDelete(product)
+    setModalDelete(true);
+  };
+
+  //Controlar la respuesta del Modal de Edicion
   useEffect(() => {
     setModal(false);
-    
 
     //Si la respuesta del modal es afirmativa hacemos la petición al back
-    if (modalResponse) {
+    if (modalResponseEdit) {
       setLoading(true);
       handleUpdate(idSelected, inputValues)
         .then(() => {
           setLoading(false);
-          setInputValues({});
           setIDSelected(null);
           
         })
         .catch((error) => console.error(error));
     } 
 
-    setModalResponse('') //Reestablece la respuesta del modal
-  }, [modalResponse]);
+    setModalResponseEdit('') //Reestablece la respuesta del modal
+  }, [modalResponseEdit]);
+
+
+
+   //Controlar la respuesta del Modal de Eliminación
+  useEffect(() => {
+    setModalDelete(false);
+
+    //Si la respuesta del modal es afirmativa hacemos la petición al back
+    if (modalResponseDelete) {
+      setLoading(true);
+    
+      handleDelete(productForDelete.id)
+        .then(() => {
+          setLoading(false);
+          setProductForDelete('');
+        })
+        .catch((error) => console.error(error));
+    } 
+
+    setModalResponseDelete('') //Reestablece la respuesta del modal
+  }, [modalResponseDelete]);
+
+
+
 
   return (
     <div className={styles.tableContainer}>
@@ -210,13 +242,13 @@ const TableEditProduct = ({ data, handleUpdate }) => {
                       onClick={() => setIDSelected(product.id)}
                       className={styles.editButton}
                     >
-                      <i className="bi bi-pencil-square"></i>{" "}
+                      <i className="bi bi-pencil-square"></i>
                     </button>
                     <button
-                      onClick={() => setIDSelected(product.id)}
-                      className={styles.editButton}
+                      onClick={() => handleDeleteProduct(product)}
+                      className={styles.deletetButton}
                     >
-                      <i className="bi bi-pencil-square"></i>{" "}
+                      <i class="bi bi-trash"></i>
                     </button>
                     </div>
                   </td>
@@ -230,10 +262,18 @@ const TableEditProduct = ({ data, handleUpdate }) => {
       )}
         <ModalAdmin
          show={modal}
-          setModalResponse={setModalResponse}
+          setModalResponse={setModalResponseEdit}
           title={"Are you sure?"}
           message={
             "You are about to edit the product information"
+          }
+        />
+        <ModalAdmin
+         show={modalDelete}
+          setModalResponse={setModalResponseDelete}
+          title={"Caution!"}
+          message={
+            `You're about to delete "${productForDelete.name}" product. Are you sure?`
           }
         />
     </div>
