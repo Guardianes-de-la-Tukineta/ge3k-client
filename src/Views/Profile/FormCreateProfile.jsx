@@ -12,7 +12,7 @@ import { format } from "date-fns";
 
 function FormCreateProfile(props) {
   const { currentCustomer, user, haveProfile } = props;
-  console.log("tiene perfil:", haveProfile, currentCustomer);
+  const [isLoading, setIsLoading] = useState(false);
   const [editing, setEditing] = useState(!haveProfile);
   const [updatedCustomer, setUpdatedCustomer] = useState({
     ...currentCustomer,
@@ -20,10 +20,12 @@ function FormCreateProfile(props) {
     paymentMethod: "tarjeta de débito",
     category: "premium",
     email: user.email,
-    birthdate: currentCustomer.birthdate
-      ? parseISO(currentCustomer.birthdate)
-      : null, // Convierte la fecha a un objeto Date
   });
+
+  const strToDate = (str) => {
+    const date = str ? parseISO(str) : null; // Convierte la fecha a un objeto Date
+    return date;
+  };
 
   const [formErrors, setFormErrors] = useState({
     name: "",
@@ -33,41 +35,59 @@ function FormCreateProfile(props) {
     address: "",
   });
 
-  const { createCustomer } = customerStore();
+  const { createCustomer, updateCustomer } = customerStore();
 
   const handleEditClick = () => {
     setEditing(true);
-    // console.log("!!cstomr DATA: ", customerData);
   };
 
-  const handleSaveClick = () => {
-    haveProfile
-      ? console.log("UPDATEAR PROFILE")
-      : createCustomer(updatedCustomer);
-    // updatedCustomer(updatedCustomer)
+  // const handleSaveClick = () => {
+  //   haveProfile
+  //     ? updateCustomer(updatedCustomer, user.email)
+  //     : createCustomer(updatedCustomer);
+  //   setEditing(false);
+  // };
 
-    setEditing(false);
+  const handleSaveClick = async () => {
+    try {
+      if (haveProfile) {
+        await updateCustomer(updatedCustomer, user.email);
+      } else {
+        await createCustomer(updatedCustomer);
+      }
+
+      setIsLoading(false); // Cuando la operación se completa, se detiene la carga.
+      setEditing(false);
+    } catch (error) {
+      console.error("Error:", error);
+      setIsLoading(false); // Asegúrate de detener la carga en caso de error.
+      // Aquí puedes manejar el error de acuerdo a tus necesidades.
+    }
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormErrors(validate({ ...updatedCustomer, [name]: value }));
-    // console.log("Errores", formErrors);
     setUpdatedCustomer({
       ...updatedCustomer,
       [name]: value,
     });
+    setIsLoading(true);
   };
 
   const handleDateChange = (date) => {
-    //console.log("Date", date); // Actualiza la fecha de nacimiento con la nueva fecha seleccionada
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const formattedDate = `${year}-${month}-${day}`;
+
+    console.log("Formatted Date", formattedDate);
+    setIsLoading(true);
     setUpdatedCustomer({
       ...updatedCustomer,
-      birthdate: date,
+      birthdate: formattedDate,
     });
   };
-
-  //defino estilos para el button
 
   return (
     <Container>
@@ -99,7 +119,7 @@ function FormCreateProfile(props) {
                 <Form.Label>Birthdate </Form.Label>
                 <br />
                 <DatePicker
-                  selected={updatedCustomer.birthdate}
+                  selected={strToDate(updatedCustomer.birthdate)}
                   onChange={handleDateChange}
                   dateFormat="yyyy-MM-dd"
                   className={styles.customDatePicker}
@@ -110,7 +130,7 @@ function FormCreateProfile(props) {
                 <Form.Control
                   type="text"
                   name="email"
-                  value={updatedCustomer.email}
+                  value={user.email}
                   disabled={true}
                 />
               </Form.Group>
@@ -139,19 +159,15 @@ function FormCreateProfile(props) {
         </>
       ) : (
         <>
+          {isLoading ? <h2>Loading..</h2> : " "}
           <p>Name: {currentCustomer.name}</p>
           <p>Surname: {currentCustomer.surname}</p>
-          <p>Email: {currentCustomer.email}</p>
-          <p>
-            Birthdate:{" "}
-            {currentCustomer.birthdate ? currentCustomer.birthdate : ""}
-          </p>
-
+          <p>Email: {user.email}</p>
+          <p>Birthdate: {currentCustomer.birthdate}</p>
           <p>Phone: {currentCustomer.phone}</p>
           <p>Address: {currentCustomer.address}</p>
         </>
       )}
-
       {editing ? (
         haveProfile ? (
           <Button
@@ -163,7 +179,6 @@ function FormCreateProfile(props) {
             onClick={handleSaveClick}
             disabled={Object.values(formErrors).some((error) => error !== "")}
           >
-            {console.log(currentCustomer)}
             Uptade
           </Button>
         ) : (
@@ -176,7 +191,6 @@ function FormCreateProfile(props) {
             onClick={handleSaveClick}
             disabled={Object.values(formErrors).some((error) => error !== "")}
           >
-            {console.log(currentCustomer)}
             Create
           </Button>
         )

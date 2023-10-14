@@ -5,11 +5,12 @@ import style from "./Profile.module.css";
 import CustomerDetails from "./CustomerDetails"; // Cambiado el nombre del import
 
 function Profile() {
-  const { currentCustomer, getCustomerByEmail } = customerStore();
+  const { currentCustomer, getCustomerByEmail } = customerStore(); //este current customer se actualiza con el boton logout
   const { customerData } = customerStore((state) => ({
     customerData: state.customerData,
   }));
   const { user, isAuthenticated } = useAuth0();
+  // user ? getCustomerByEmail(user.email) : null; //actualizo el currentCustomer
 
   const newCustomer = {
     name: "",
@@ -23,19 +24,6 @@ function Profile() {
     Category: "",
   };
 
-  // useEffect(() => {
-  //   if (isAuthenticated) {
-  //     // Verificar si el usuario está autenticado
-  //     const email = user.email; // Obtener el correo electrónico del usuario autenticado
-  //     getCustomerByEmail(email);
-  //     newCustomer.email = email;
-  //   }
-  // }, [user, isAuthenticated]);
-
-  // recargo el customer
-
-  console.log("customer", currentCustomer.name);
-  // console.log("log", user);
   return (
     <div className={style.formContainer}>
       {isAuthenticated ? (
@@ -68,6 +56,7 @@ function Profile() {
       ) : (
         <h2>No Authenticated User. Please register</h2>
       )}
+      <button>Reload data</button>
     </div>
   );
 }
