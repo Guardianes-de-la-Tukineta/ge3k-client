@@ -28,7 +28,6 @@ export const useStore = create(zukeeper((set) => ({
     },
 
     getSuggestionsFromBack: async (search) => {
-        console.log(search)
         
 
         if(search === '') {
@@ -39,7 +38,6 @@ export const useStore = create(zukeeper((set) => ({
                 }
             }) 
         } else if(search === undefined){
-            console.log('entre al undefined')
 return
         } else{
 
@@ -120,6 +118,7 @@ return
         const fetchProducts = async () => {
             try {
                 let products = [];
+               
                 if (useStore.getState().allProducts.length === 0) {
                     const { data } = await axios.get('https://ge3k-server.onrender.com/products/')
                     products = data

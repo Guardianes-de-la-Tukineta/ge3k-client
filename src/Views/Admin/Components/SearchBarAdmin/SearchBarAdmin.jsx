@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import styles from './SearchBarAdmin.module.css'
 
 
-const SearchBarAdmin = ({handleSearch, placeholder}) => {
+const SearchBarAdmin = ({handleSearch, placeholder, setResetDropDowns}) => {
 
   const [value, setValue] = useState('')
 
@@ -13,7 +13,7 @@ const SearchBarAdmin = ({handleSearch, placeholder}) => {
     }
     e.preventDefault()
     handleSearch(value)
-    setValue('')
+    setResetDropDowns(true)
   }
 
   return (

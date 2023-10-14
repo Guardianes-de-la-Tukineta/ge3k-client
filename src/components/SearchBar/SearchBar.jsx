@@ -27,6 +27,7 @@ const SearchBar = () => {
 
   },[inputValue])
 
+
   useEffect(()=>{
     setFind(selectedSuggestion)
 
@@ -35,10 +36,12 @@ const SearchBar = () => {
   }
   },[selectedSuggestion])
 
+
   useEffect(()=>{
     const arrayJustName = suggestion.map(product => product.name);
     setSuggestions(arrayJustName)
   },[suggestion])
+  
 
 
 

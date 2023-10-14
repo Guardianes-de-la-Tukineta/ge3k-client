@@ -5,7 +5,6 @@ import { useStore } from "../../zustand/useStore/useStore";
 import { useEffect } from "react";
 
 
-
 const Filters = ({nameCategory, nameThematic}) => {
  
   const {initialMaxPrice, maxPrice, category,theme, getAllProductsByCategory, getAllProductsByTheme, filterProducts, setFilters } = useStore();

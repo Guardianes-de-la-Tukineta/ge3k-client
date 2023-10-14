@@ -91,7 +91,7 @@ button.editButton:hover  i{
 }
 
 
-.saveButton, .cancelButton{
+.saveButton, .cancelButton, .saveButtonOff{
   height:100%;
   border-radius: 4px;
   margin-left: 2px;
@@ -107,6 +107,13 @@ button.editButton:hover  i{
   color: #58ff3b;
   background-color: #383838;
   border: 2px solid #383838;
+}
+
+.saveButtonOff{
+  color: #ffffff;
+  background-color: #808080;
+  border: 2px solid #383838;
+ cursor:default !important;
 }
 
 .saveButton:hover{
@@ -140,6 +147,12 @@ button.editButton:hover  i{
     font-size: 1.2rem;
   }
 
+  .saveButtonOff i{
+    color: #cbfdc2;
+    font-size: 1.2rem;
+  }
+
   .saveButton:hover i{
     color: #383838;
   }
+
