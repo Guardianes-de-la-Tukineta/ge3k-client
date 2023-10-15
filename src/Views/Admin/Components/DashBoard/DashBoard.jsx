@@ -6,7 +6,7 @@ import UsersPanel from '../UsersPanel/UsersPanel'
 
 const DashBoard = () => {
   return (
-    <div className='container d-flex flex-column flex-grow-1 justify-content-around' style={{paddingBottom:'1rem'}} >
+    <div className='container-fluid d-flex flex-column flex-grow-1 justify-content-around' style={{paddingBottom:'1rem'}} >
         <div className='row'>
             <div className='col-md-4 '>
               <div className={style.cardInfoContainer}>
@@ -32,8 +32,9 @@ const DashBoard = () => {
 
             
         </div>
+        <UsersPanel/>
        <ProductsPanel/>
-       <UsersPanel/>
+       
     </div>
   )
 }

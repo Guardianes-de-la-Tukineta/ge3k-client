@@ -23,8 +23,6 @@ const FormAddProduct = () => {
 
       setSpinner(true)
 
-      console.log(dataFrom)
-
       const bodyRequest = {
         name: dataFrom.name,
         description: dataFrom.description,
@@ -34,10 +32,6 @@ const FormAddProduct = () => {
         categoryName: !showNewCategoryInput ? categoryName : newCategoryName,
         themeName: !showNewThemeInput ? themeName : newThemeName,
       }
-
-      console.log(bodyRequest)
-
-   
     
   if(file){  try {
       const CLOUD_NAME = "dqoi2ez7t"
@@ -58,14 +52,10 @@ const FormAddProduct = () => {
       bodyRequest.image = urlImagen;
     }
 
-  
-    console.log(bodyRequest.image)
-
     const URLBACK = 'https://ge3k-server.onrender.com/products/'
     try {
       const responseFronBack = await axios.post(URLBACK,bodyRequest)
       const dataFromBack = responseFronBack.data
-      console.log(dataFromBack)
       setSpinner(false)
       reset() 
       setImagenSeleccionada(null)
@@ -100,7 +90,7 @@ const FormAddProduct = () => {
 
 
   return (
-    <div className={`${style.formAddProductContainer} container`}>
+    <div className={`container-fluid`} style={{padding:'1rem 2.4rem'}}>
 <div className={`row ${style.rowContainer}`}>
 
        

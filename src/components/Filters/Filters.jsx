@@ -4,6 +4,7 @@ import style from "./Filters.module.css";
 import { useStore } from "../../zustand/useStore/useStore";
 import { useEffect } from "react";
 
+
 const Filters = ({ nameCategory, nameThematic }) => {
   const {
     initialMaxPrice,

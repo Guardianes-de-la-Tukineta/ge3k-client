@@ -29,7 +29,6 @@ const Admin = () => {
       navigate("/admin/auth");
     } else {
       // Si hay un token, puedes realizar otras acciones aquí, como cargar datos de administración, etc.
-      console.log("ingresamos");
     }
   }, []);
 
@@ -52,7 +51,7 @@ const Admin = () => {
 
         <Routes>
           <Route path="auth" element={<Auth />} />
-          <Route path="products/*" element={<Products />} />
+          <Route path="products/*" element={<Products />}/>
           <Route path="users/*" element={<Users />} />
         </Routes>
       </div>
