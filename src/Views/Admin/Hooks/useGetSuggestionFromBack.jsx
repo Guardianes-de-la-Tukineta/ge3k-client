@@ -1,12 +1,13 @@
-import { useEffect, useState} from "react";
+import {useState} from "react";
 import axios from "axios";
 
 function useGetSuggestionFromBack() {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [errorGetProducts, setErrorGetProducts] = useState(false);
   const [products, setProducts] = useState('')
   const [notSuggestion, setNotSuggestion] = useState(false)
   const [keywordUsed, setKeywordUsed] = useState('')
+  const [byId, setById] = useState(false)
 
 
   const [order, setOrder] = useState({})
@@ -20,8 +21,10 @@ function useGetSuggestionFromBack() {
     const uuidPattern =
     /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/;
     setLoading(true);
-    setKeywordUsed(keyword)
+ 
+ 
     if (uuidPattern.test(keyword)) {
+      setById(keyword)
       try {
         const URL = "https://ge3k-server.onrender.com/products/";
         const {data} = await axios.get(URL + keyword);
@@ -37,19 +40,20 @@ function useGetSuggestionFromBack() {
         }
         setProducts([data])
         setLoading(false);
-        console.log(data)
       } catch (error) {
         setLoading(false);
         console.error(error);
-        setError(error)
+        setErrorGetProducts(error)
         setTimeout(() => {
-          setError(false)
+          setErrorGetProducts(false)
         }, 5000);
       }
     } else {
+      if(byId)setById(false)
       try {
         const URL = "https://ge3k-server.onrender.com/products?name=";
         const {data} = await axios.get(URL + keyword);
+        setKeywordUsed(keyword)
         if(data.length === 0){
           setNotSuggestion(true)
         } else{
@@ -57,14 +61,12 @@ function useGetSuggestionFromBack() {
         }
         setProducts(data)
         setLoading(false);
-        console.log(data)
       } catch (error) {
         setLoading(false);
         console.error(error);
-        setError(error)
-        setError(error)
+        setErrorGetProducts(error)
         setTimeout(() => {
-          setError(false)
+          setErrorGetProducts(false)
         }, 5000);
       }
     }
@@ -72,9 +74,8 @@ function useGetSuggestionFromBack() {
 
 
   const getProducts = async (pattern) =>{
-    console.log('entro al get producto')
-    console.log(byCategory)
-
+   
+    if(byId)setById(false)
     setLoading(true);
     const URL = 'https://ge3k-server.onrender.com/products?'
 
@@ -88,24 +89,18 @@ function useGetSuggestionFromBack() {
 
       try {
         const {data} = await axios.get(URL+'pageNumber=1&unitsPerPage=12');
-        console.log(URL+'pageNumber=1&unitsPerPage=12')
-        console.log(data)
         setProducts(data)
        setLoading(false);
       } catch (error) {
         console.error(error)
         setLoading(false);
+        setErrorGetProducts(error)
+        setTimeout(() => {
+          setErrorGetProducts(false)
+        }, 5000);
       }
 
     } else{
-
-
-
-
-    
-
-   
-
     let pageNumber =`pageNumber=${pageNum}`;
     let unitsPerPage = `&unitsPerPage=${productByPage}`;
     let keyword = (keywordUsed)?`&name=${keywordUsed}`:'';
@@ -156,10 +151,10 @@ function useGetSuggestionFromBack() {
       if(pattern.order === 'Highest price first' || pattern.order === 'Lowest price first'){
         if(pattern.order === 'Highest price first'){
           orderPrice = `&priceOrder=DESC`
-          setOrder({active:'price', order:'DESC'})
+          setOrder({type:'price', order:'DESC'})
         } else if(pattern.order === 'Lowest price first'){
           orderPrice = `&priceOrder=ASC`
-          setOrder({active:'price', order:'ASC'})
+          setOrder({type:'price', order:'ASC'})
         } 
       }
 
@@ -169,27 +164,27 @@ function useGetSuggestionFromBack() {
         orderPrice = '';
         setOrder({})
       }
-
     }
-
   }
 
   try {
     const {data} = await axios.get(URL+pageNumber+unitsPerPage+keyword+category+thema+orderName+orderPrice);
-    console.log(URL+pageNumber+unitsPerPage+keyword+category+thema+orderName+orderPrice)
-    console.log(data)
     setProducts(data)
    setLoading(false);
   } catch (error) {
-    console.error(error)
+    console.error(error);
     setLoading(false);
+    setErrorGetProducts(error);
+    setTimeout(() => {
+      setErrorGetProducts(false);
+    }, 5000);
   }
 }
   }
 
 
 
-  return { products, notSuggestion, loading, error, handleGetSuggestions, getProducts};
+  return { products, byId, notSuggestion, loading, setLoading, errorGetProducts, pageNum, productByPage, handleGetSuggestions, getProducts};
 }
 
 export default useGetSuggestionFromBack;

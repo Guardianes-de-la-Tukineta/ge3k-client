@@ -32,11 +32,9 @@ const [spinner, setSpinner] = useState(false)
         const token = await login(email,password )
         localStorage.setItem('token', token);
         navigate('/admin');
-        console.log('done')
         setSpinner(false)
     } catch (error) {
         console.error('Error al iniciar sesión:', error);
-        console.log('ups!!')
         setSpinner(false)
     }
    } 

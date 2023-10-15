@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-function ModalAdmin({title, message, setModalResponse, show}) {
+function ModalEdit({title, product, setModalResponse, show}) {
 
 
   const handleCancel = () => {
@@ -17,12 +17,12 @@ function ModalAdmin({title, message, setModalResponse, show}) {
         <Modal.Header closeButton>
           <Modal.Title>{title}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>{message}</Modal.Body>
+        <Modal.Body>You are about to edit the information of <strong>{product}</strong> product</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCancel}>
-            Close
+            Cancel
           </Button>
-          <Button variant="primary" onClick={handleOk}>
+          <Button variant="warning" onClick={handleOk}>
             Save Changes
           </Button>
         </Modal.Footer>
@@ -31,4 +31,4 @@ function ModalAdmin({title, message, setModalResponse, show}) {
   );
 }
 
-export default ModalAdmin;
+export default ModalEdit;

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./TableEditProduct.module.css";
-import ModalAdmin from "../ModalAdmin/ModalAdmin";
+import ModalEdit from "../ModalEdit/ModalEdit";
+import ModalDelete from "../ModalDelete/ModalDelete";
 import Spinner from 'react-bootstrap/Spinner';
 
 
@@ -8,6 +9,7 @@ import Spinner from 'react-bootstrap/Spinner';
 const TableEditProduct = ({ data, handleUpdate, handleDelete }) => {
   const [idSelected, setIDSelected] = useState(null);
   const [productForDelete, setProductForDelete] = useState('');
+  const [productForEdit, setProductForEdit] = useState('');
   const [inputValues, setInputValues] = useState({});
   const [modal, setModal] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
@@ -32,7 +34,8 @@ const TableEditProduct = ({ data, handleUpdate, handleDelete }) => {
   };
 
   //Cuando el admin confirma que quiere actualizar la información 
-  const handleOK = () => {
+  const handleOK = (name) => {
+    setProductForEdit(name)
     setModal(true);
   };
 
@@ -53,6 +56,7 @@ const TableEditProduct = ({ data, handleUpdate, handleDelete }) => {
         .then(() => {
           setLoading(false);
           setIDSelected(null);
+          setProductForEdit('')
           
         })
         .catch((error) => console.error(error));
@@ -208,14 +212,14 @@ const TableEditProduct = ({ data, handleUpdate, handleDelete }) => {
                     </td>
                     <td>
                     {loading ? <Spinner animation="border" variant="dark" /> : 
-                      <><button className={(Object.keys(inputValues).length === 0)?styles.saveButtonOff :styles.saveButton}   onClick={(Object.keys(inputValues).length !== 0) ? handleOK : null} >
+                      <><button className={(Object.keys(inputValues).length === 0)?styles.saveButtonOff :styles.saveButton}   onClick={(Object.keys(inputValues).length !== 0) ? ()=>handleOK(product.name) : null} >
                         <i className="bi bi-check-lg"></i>
                       </button>
                       <button
                         className={styles.cancelButton}
                         onClick={handleCancel}
                       >
-                        <i class="bi bi-x-lg"></i>
+                        <i className="bi bi-x-lg"></i>
                       </button></>
                       }
                     </td>
@@ -248,7 +252,7 @@ const TableEditProduct = ({ data, handleUpdate, handleDelete }) => {
                       onClick={() => handleDeleteProduct(product)}
                       className={styles.deletetButton}
                     >
-                      <i class="bi bi-trash"></i>
+                      <i className="bi bi-trash"></i>
                     </button>
                     </div>
                   </td>
@@ -260,21 +264,18 @@ const TableEditProduct = ({ data, handleUpdate, handleDelete }) => {
       ) : (
         ""
       )}
-        <ModalAdmin
+        <ModalEdit
          show={modal}
           setModalResponse={setModalResponseEdit}
-          title={"Are you sure?"}
-          message={
-            "You are about to edit the product information"
+          title={"ARE YOU SURE?"}
+          product={ productForEdit
           }
         />
-        <ModalAdmin
+        <ModalDelete
          show={modalDelete}
           setModalResponse={setModalResponseDelete}
-          title={"Caution!"}
-          message={
-            `You're about to delete "${productForDelete.name}" product. Are you sure?`
-          }
+          title={"CAUTION!"}
+          product={productForDelete}
         />
     </div>
   );

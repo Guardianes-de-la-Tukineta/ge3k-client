@@ -32,8 +32,9 @@ const DashBoard = () => {
 
             
         </div>
+        <UsersPanel/>
        <ProductsPanel/>
-       <UsersPanel/>
+       
     </div>
   )
 }

@@ -12,8 +12,15 @@
     gap:1rem;
 }
 
+.messageSection{
+  display: flex;
+  width: 100%;
+  justify-content:flex-start;
+  height: 2.5rem;
+}
+
 .resetButton{
-    height:2.5rem;
+    min-height:2.5rem;
     border-radius: 4px;
     margin-left: 2px;
     padding: 5px 16px;

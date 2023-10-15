@@ -20,7 +20,7 @@ const UsersPanel = () => {
                  <span>MANAGE USERS</span>
                  </div>
                  <div className={`col-2 ${style.arrowContainer}`}>
-                 <i class="bi bi-arrow-right"></i>
+                 <i className="bi bi-arrow-right"></i>
               </div>
 
 
@@ -44,7 +44,7 @@ const UsersPanel = () => {
              <span>MANAGE ADMINISTRATORS</span>
                  </div>
                  <div className={`col-2 ${style.arrowContainer}`}>
-                 <i class="bi bi-arrow-right"></i>
+                 <i className="bi bi-arrow-right"></i>
               </div>
 
 
@@ -65,7 +65,7 @@ const UsersPanel = () => {
              <span>ADD NEW ADMINISTRATOR</span>
                  </div>
                  <div className={`col-2 ${style.arrowContainer}`}>
-                 <i class="bi bi-arrow-right"></i>
+                 <i className="bi bi-arrow-right"></i>
               </div>
 
 
