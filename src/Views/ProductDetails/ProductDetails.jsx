@@ -55,7 +55,7 @@ function ProductDetails() {
 
   return (
     <Container className={styles.productDetailsConteiner}>
-      {!productDetails.image ? (
+      {!productDetails.name ? (
         <Row style={{ padding: "100px", justifyContent: "center" }}>
           <Spinner
             style={{ padding: "100px" }}
