@@ -57,7 +57,8 @@ export const cartStore = create(zukeeper((set) => ({
             console.log(data);
             set(prevState => ({
                 ...prevState,
-                cart: data.products
+                cart: data.products,
+                subTotal:data.total
             }))
         } catch (error) {
             console.log(error);
@@ -65,24 +66,28 @@ export const cartStore = create(zukeeper((set) => ({
     },
     //add producto a cart
     addProductToCart: async(isAuthenticated,customerId,newProduct) => {
-        const cart = cartStore.getState().cart;
-        if (cart.findIndex(({ product }) => product.id === newProduct.id) < 0) {          
-            set(prevState => ({
-                ...prevState,
-                cart: [...prevState.cart, { product: newProduct, quantity: 1 }]
-            }))
-
-            //Add en back  
-            if(isAuthenticated){
-                const URL='https://ge3k-server.onrender.com/'
-                const {data} = await axios.post(`${URL}carts`,{
-                    customerId,
-                    productId:newProduct.id,
-                    quantity:1
-                })
-                console.log(data.message);
-            }
-        }                   
+        try {
+            const cart = cartStore.getState().cart;          
+            if (cart.findIndex(({ product }) => product.id === newProduct.id) < 0) {          
+                set(prevState => ({
+                    ...prevState,
+                    cart: [...prevState.cart, { product: newProduct, quantity: 1 }]
+                }))
+    
+                //Add en back  
+                if(isAuthenticated){
+                    const URL='https://ge3k-server.onrender.com/'
+                    const {data} = await axios.post(`${URL}carts`,{
+                        customerId,
+                        productId:newProduct.id,
+                        quantity:1
+                    })
+                    console.log(data.message);
+                }
+            }               
+        } catch (error) {
+            console.log(error);
+        }
     },
     //eliminar producto de cart
     deleteProductCart: async(isAuthenticated, idCustomer,idproduct) => {
@@ -135,18 +140,20 @@ export const cartStore = create(zukeeper((set) => ({
         }
     },
     //obtener SubTotal en el precio del carrito
-    getSubTotal: () => {
-        const cart = cartStore.getState().cart;        
-        const subTotal = cart.reduce((accumulator, item) => { // calculamos el subtotal de los precios en el carrito
-            const price = item.product.price;
-            const quantity = item.quantity;
-            return accumulator + (price * quantity);
-        }, 0);// inicial valor por si el array esta vacio
-        
-        set(prevState => ({
-            ...prevState,
-            subTotal:subTotal.toFixed(2) // fixed da decimales maximos para mostrar
-        }))        
+    getSubTotal: (isAuthenticated) => {
+        if(!isAuthenticated){  // mientras no este autenticado, trabajamos con esta logica
+            const cart = cartStore.getState().cart;        
+            const subTotal = cart.reduce((accumulator, item) => { // calculamos el subtotal de los precios en el carrito
+                const price = item.product.price;
+                const quantity = item.quantity;
+                return accumulator + (price * quantity);
+            }, 0);// inicial valor por si el array esta vacio
+            
+            set(prevState => ({
+                ...prevState,
+                subTotal:subTotal.toFixed(2) // fixed da decimales maximos para mostrar
+            }))   
+        }
     },   
 })))
 

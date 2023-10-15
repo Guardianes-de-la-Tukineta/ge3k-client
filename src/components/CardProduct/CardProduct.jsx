@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Card, Button } from 'react-bootstrap';
 import style from './CardProduct.module.css'
 import { useNavigate } from 'react-router-dom';
 import { cartStore } from '../../zustand/cartStore/cartStore';
 import { useAuth0 } from "@auth0/auth0-react";
 import { customerStore } from '../../zustand/customerStore/customerStore';
+import { favoriteStore } from '../../zustand/favoriteStore/favoriteStore';
 
 const CardProduct = ({ name, description, id, image, price }) => {
     //Estados
@@ -13,13 +14,17 @@ const CardProduct = ({ name, description, id, image, price }) => {
     const {addProductToCart,setVisibility}=cartStore() //cart store de zustand
     const { isAuthenticated } = useAuth0() // para saber si estoy logueado
     const {currentCustomer}=customerStore() 
-
+    const {favorites,addProductFavorite,deleteProductFavorite,updateLocalStorage} = favoriteStore()
     //handlers
     const handlerIsFav = (e) => {
         e.stopPropagation(); // evita q el click se propague al elemento padre
-        isFav ?
-            setIsFav(false)
-            : setIsFav(true)
+        if(!isFav) { //si no esta en favoritos ya
+            addProductFavorite(isAuthenticated,currentCustomer.id,{ name, description, id, image, price })                        
+            setIsFav(true)
+        } else {
+            deleteProductFavorite(isAuthenticated,currentCustomer.id, id)  
+            setIsFav(false)         
+        }        
     }
     const handlerCart = (e) => {
         e.stopPropagation(); // evita q el click se propague al elemento padre        
@@ -29,6 +34,13 @@ const CardProduct = ({ name, description, id, image, price }) => {
     const handlerNavigate = () => {        
         navigate(`/product/${id}`)        
     }
+    useEffect(()=>{
+        updateLocalStorage(favorites)
+        if(favorites.findIndex((elem)=>elem.id===id)!==-1) { //si esta en favoritos pintamos el corazon
+            setIsFav(true)  
+        } 
+    },[favorites])
+
     return (
         <div className={`col-md-6 col-lg-4 d-flex ${style.divCard}`}>
             <Card className={`col-md-12 mb-3 pt-3 mt-3 ${style.card}`}>
