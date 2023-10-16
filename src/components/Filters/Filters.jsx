@@ -63,9 +63,7 @@ const Filters = ({ nameCategory, nameThematic }) => {
   };
 
   const themeArray = themes;
-  //["all", "Programming", "Gaming", "Anime", "Video Games"];
   const ThemeFilter = () => {
-    // nameThematic || !nameCategory;
     if (!nameThematic || nameCategory) {
       return (
         <div className="d-flex flex-column align-items-start mb-4">
@@ -90,15 +88,7 @@ const Filters = ({ nameCategory, nameThematic }) => {
   };
 
   const categoryArray = categories;
-  // [
-  //   "all",
-  //   "T-shirts",
-  //   "Mugs",
-  //   "PC Accesories",
-  //   "Collectible figures",
-  // ];
   const CategoryFilter = () => {
-    // !nameThematic || nameCategory;
     if (nameThematic || !nameCategory) {
       return (
         <div className="d-flex flex-column align-items-start mb-4">
@@ -122,8 +112,11 @@ const Filters = ({ nameCategory, nameThematic }) => {
     }
   };
 
-  const PirceFilter = () => {
-    return (
+  return (
+    <div>
+      <CategoryFilter />
+      <ThemeFilter />
+      {/* <PirceFilter /> */}
       <div className="d-flex flex-column align-items-start mb-4">
         <span className={style.title}>PRICE RANGE</span>
         <div className={style.line}></div>
@@ -139,14 +132,6 @@ const Filters = ({ nameCategory, nameThematic }) => {
           className="w-100"
         />
       </div>
-    );
-  };
-
-  return (
-    <div>
-      <CategoryFilter />
-      <ThemeFilter />
-      <PirceFilter />
     </div>
   );
 };
