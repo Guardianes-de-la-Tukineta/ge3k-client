@@ -3,8 +3,9 @@ import { useForm } from 'react-hook-form';
 import style from './LoginForm.module.css'
 import logo from '../../../../Images/adminLogo.svg'
 import Spinner from 'react-bootstrap/Spinner';
+import Alert from 'react-bootstrap/Alert';
 
-const Login = ({handleLogin, spinner}) => {
+const Login = ({handleLogin, spinner, error}) => {
 
  
   const { register, handleSubmit, formState: { errors, isValid } } = useForm({ mode: 'onChange' });
@@ -13,7 +14,7 @@ const Login = ({handleLogin, spinner}) => {
 
   return (
     <div className={style.loginContainer}>
-       
+      
     <form onSubmit={handleSubmit(onSubmit)} className={style.loginForm}>
     <img src={logo} className={style.logoForm} />
         <div>
@@ -48,6 +49,9 @@ const Login = ({handleLogin, spinner}) => {
       <button>{(!spinner) ? 'Login':  <Spinner animation="border" variant="light" />}</button>
       </div>
     </form>
+    {error && <Alert key={"danger"} variant={"danger"} style={{height:'2.5rem', display:'flex', alignItems:'center', marginTop:'2rem'}}>
+              {error}
+            </Alert>}
     </div>
   );
 }
