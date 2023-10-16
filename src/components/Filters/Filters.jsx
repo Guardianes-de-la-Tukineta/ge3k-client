@@ -1,9 +1,7 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import style from "./Filters.module.css";
 import { useStore } from "../../zustand/useStore/useStore";
-import { useEffect } from "react";
-
+import axios from "axios";
 
 const Filters = ({ nameCategory, nameThematic }) => {
   const {
@@ -15,6 +13,10 @@ const Filters = ({ nameCategory, nameThematic }) => {
     getAllProductsByTheme,
     filterProducts,
     setFilters,
+    getAllCategories,
+    categories,
+    getAllThemes,
+    themes,
   } = useStore();
   const [maxPriceRange, setMaxPriceRange] = useState("0");
 
@@ -30,6 +32,12 @@ const Filters = ({ nameCategory, nameThematic }) => {
     setMaxPriceRange(initialMaxPrice.toString());
   }, [initialMaxPrice]);
 
+  useEffect(() => {
+    getAllThemes();
+    getAllCategories();
+    console.log("categories", categories);
+  }, []);
+
   const handleFilterByCategory = (ev) => {
     setFilters((prevState) => ({
       ...prevState,
@@ -43,7 +51,6 @@ const Filters = ({ nameCategory, nameThematic }) => {
       ...prevState,
       theme: ev.target.value,
     }));
-
     filterProducts();
   };
 
@@ -52,138 +59,71 @@ const Filters = ({ nameCategory, nameThematic }) => {
       ...prevState,
       maxPrice: parseFloat(ev.target.value),
     }));
-
     filterProducts();
   };
 
-  return (
-    <div>
-      {(nameThematic || !nameCategory) && (
-        <div className="d-flex flex-column align-items-start mb-4">
-          <span className={style.title}>CATEGORIES</span>
-          <div className={style.line}></div>
-
-          <label htmlFor="all">
-            <input
-              type="radio"
-              id="all"
-              name="category"
-              value="all"
-              onChange={handleFilterByCategory}
-              checked={category === "all"}
-            />{" "}
-            <span>All</span>
-          </label>
-
-          <label htmlFor="T-shirts">
-            <input
-              type="radio"
-              id="T-shirts"
-              name="category"
-              value="T-shirts"
-              onChange={handleFilterByCategory}
-            />{" "}
-            <span>T-shirts</span>
-          </label>
-
-          <label htmlFor="Mugs">
-            <input
-              type="radio"
-              id="Mugs"
-              name="category"
-              value="Mugs"
-              onChange={handleFilterByCategory}
-            />{" "}
-            <span>Mugs</span>
-          </label>
-
-          <label htmlFor="PC-Accesories">
-            <input
-              type="radio"
-              id="PC-Accesories"
-              name="category"
-              value="PC Accesories"
-              onChange={handleFilterByCategory}
-            />{" "}
-            <span>PC Accesories</span>
-          </label>
-
-          <label htmlFor="Collectible figures">
-            <input
-              type="radio"
-              id="Collectible figures"
-              name="category"
-              value="Collectible figures"
-              onChange={handleFilterByCategory}
-            />{" "}
-            <span>Collectible Figures</span>
-          </label>
-        </div>
-      )}
-
-      {(nameCategory || !nameThematic) && (
+  const themeArray = themes;
+  //["all", "Programming", "Gaming", "Anime", "Video Games"];
+  const ThemeFilter = () => {
+    // nameThematic || !nameCategory;
+    if (!nameThematic || nameCategory) {
+      return (
         <div className="d-flex flex-column align-items-start mb-4">
           <span className={style.title}>THEMES</span>
           <div className={style.line}></div>
-
-          <label htmlFor="all">
-            <input
-              type="radio"
-              id="all"
-              name="Themes"
-              value="all"
-              onChange={handleFilterByTheme}
-              checked={theme === "all"}
-            />{" "}
-            <span>All</span>
-          </label>
-
-          <label htmlFor="Programming">
-            <input
-              type="radio"
-              id="Programming"
-              name="Themes"
-              value="Programming"
-              onChange={handleFilterByTheme}
-            />{" "}
-            <span>Programming</span>
-          </label>
-
-          <label htmlFor="Gaming">
-            <input
-              type="radio"
-              id="Gaming"
-              name="Themes"
-              value="Gaming"
-              onChange={handleFilterByTheme}
-            />{" "}
-            <span>Gaming</span>
-          </label>
-
-          <label htmlFor="Anime">
-            <input
-              type="radio"
-              id="Anime"
-              name="Themes"
-              value="Anime"
-              onChange={handleFilterByTheme}
-            />{" "}
-            <span>Anime</span>
-          </label>
-
-          <label htmlFor="Video Games">
-            <input
-              type="radio"
-              id="Video Games"
-              name="Themes"
-              value="Video Games"
-              onChange={handleFilterByTheme}
-            />{" "}
-            <span>Video Games Based</span>
-          </label>
+          {themeArray.map((themeItem) => (
+            <label key={themeItem} htmlFor={themeItem}>
+              <input
+                type="radio"
+                id={themeItem}
+                name="Themes"
+                value={themeItem}
+                onChange={handleFilterByTheme}
+                checked={theme === themeItem}
+              />{" "}
+              <span>{themeItem}</span>
+            </label>
+          ))}
         </div>
-      )}
+      );
+    }
+  };
 
+  const categoryArray = categories;
+  // [
+  //   "all",
+  //   "T-shirts",
+  //   "Mugs",
+  //   "PC Accesories",
+  //   "Collectible figures",
+  // ];
+  const CategoryFilter = () => {
+    // !nameThematic || nameCategory;
+    if (nameThematic || !nameCategory) {
+      return (
+        <div className="d-flex flex-column align-items-start mb-4">
+          <span className={style.title}>CATEGORIES</span>
+          <div className={style.line}></div>
+          {categoryArray.map((item) => (
+            <label key={item} htmlFor={item}>
+              <input
+                type="radio"
+                id={item}
+                name="Category"
+                value={item}
+                onChange={handleFilterByCategory}
+                checked={category === item}
+              />{" "}
+              <span>{item}</span>
+            </label>
+          ))}
+        </div>
+      );
+    }
+  };
+
+  const PirceFilter = () => {
+    return (
       <div className="d-flex flex-column align-items-start mb-4">
         <span className={style.title}>PRICE RANGE</span>
         <div className={style.line}></div>
@@ -199,6 +139,14 @@ const Filters = ({ nameCategory, nameThematic }) => {
           className="w-100"
         />
       </div>
+    );
+  };
+
+  return (
+    <div>
+      <CategoryFilter />
+      <ThemeFilter />
+      <PirceFilter />
     </div>
   );
 };
