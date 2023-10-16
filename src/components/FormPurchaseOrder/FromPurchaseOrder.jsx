@@ -130,7 +130,7 @@ const FormPurchaseOrder = () => {
         </div>
       </form>
       <button
-        className={`btn btn-primary ${style.buttonConfirm}`}
+        className={`${style.buttonConfirm}`}
         onClick={handleCreatePurchaseOrder}
       >
         Confirm Purchase
