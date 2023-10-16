@@ -27,7 +27,7 @@ const CardTest = (props) => {   //props.product choosen for sell
                <Button variant="danger" onClick={() => cart.deleteFromCart(product.stripe)} className="my-2">Remove from Cart</Button>
             </>  
             :
-            <Button variant="primary" 
+            <Button variant="warning" 
             onClick={() => cart.addOneToCart(product.stripe)}>Add to Cart</Button>
           }
         </Card.Body>

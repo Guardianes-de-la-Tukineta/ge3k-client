@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { loadStripe } from '@stripe/stripe-js';
 import image from "../../Images/SLIDER_03.jpg"
 import axios from "axios";
 import { Button, Row, Col, Modal } from 'react-bootstrap';
+import { cartStore } from "../../zustand/cartStore/cartStore";
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js'; //each component will have access to stripe payment
 //useStripe its a hook from Stripe directly
 import CardTest from "./CardTest";
@@ -10,14 +11,15 @@ import CardTest from "./CardTest";
 import { useState } from "react";
 import { useContext } from "react";
 import { CartTest } from "./CartContext";
-import ShowCart from "./ShowCart";
+import ShowCart from "./showCart";
+import { useStore } from "zustand";
 
 
  //-----------------------------------------------------------------
 
  export const products = [        //products for testing of the payment
  {
-     id:"abcd3493",  
+     id: "abcd3493",  
      title: "Mario T-Shirt",
      price: 20.5,
      stripe: "price_1NzU8BHRnrIZF2AajpUxg184"
@@ -56,40 +58,75 @@ export const getProductData = (stripe) => {
        console.log("Product data does not exist for ID: " + stripe);
        return undefined;
     }
-    console.log(productData);
     return productData;
 }
 
 
 const PaymentGateway = () => {
 
+    const { buyCart } = useStore(cartStore);
+    console.log(buyCart);
+    
     const [ show, setShow] = useState(false);
     
     const cart = useContext(CartTest);
+   
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    useEffect(() =>{
+      checkout
+      cartStore
+    },[])
+
     const checkout = async () => {
-        await fetch('http://localhost:4000/checkout', {
+        try {
+          const checkoutResponse = await fetch('http://localhost:4000/checkout', {
             method: "POST",
             headers: {
-                'Content-Type' : 'application/json'
+              'Content-Type': 'application/json'
             },
-            body: JSON.stringify({items: cart.items})
-        }).then((response) => {
-            return response.json();
-        }).then((response) => {
-            if(response.url){
-                window.location.assign(response.url);
-            }
-        })
-    }
+            body: JSON.stringify({ items: cart.items })
+          });
+      
+          const checkoutData = await checkoutResponse.json();
+      
+          if (checkoutData.url) {
+            window.location.assign(checkoutData.url);
+          }
+      
+          // const customerResponse = await fetch("http://localhost:4000/customerStripe", {
+          //   method: "POST",
+          //   headers: {
+          //     'Content-Type': 'application/json'
+          //   },
+          //   body: JSON.stringify({data :{ 
+          //     email: "leonardo381@gmail.com", 
+          //     metadata: "reg-lvillarraga",
+          //      name: "Luis Leonardo Villarraga",
+          //     }
+
+                
+          //      })
+          // });
+      
+          const customerData = await customerResponse.json();
+      
+          if (customerData.url) {
+            window.location.assign(customerData.url);
+          }
+        } catch (error) {
+          console.error(error);
+          // Manejar errores, mostrar mensajes de error, etc.
+        }
+      };
+
    
    const productsCount = cart.items.reduce((sum, product) => sum + product.quantity, 0);
-   console.log(cart.items);
+   
 
-   console.log(productsCount);
+  
 
     return(
         <>
@@ -107,9 +144,9 @@ const PaymentGateway = () => {
                       <ShowCart key={index} id={currentProduct.id} quantity={currentProduct.quantity}></ShowCart>
                    ))}
                     <h1>Total: {cart.getTotalCost().toFixed(2)}  </h1>
-                    <button variant="success" onClick={checkout}>
+                    <Button variant="success" onClick={checkout}>
                          Purchase items!
-                    </button>
+                    </Button>
                 </>
                    :
                      <h1>There are not items in your Cart!</h1>
@@ -117,7 +154,7 @@ const PaymentGateway = () => {
                
             </Modal.Body>
         </Modal>
-            <Button onClick={handleShow}>Cart ({productsCount} Items) Items </Button> 
+            <Button onClick={handleShow}>Cart ({productsCount} Items)</Button> 
        
 
 

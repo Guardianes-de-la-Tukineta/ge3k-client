@@ -15,7 +15,7 @@ const ShowCart = (props) => {
           <h3>{productData.title}</h3>
           <p>{quantity} products </p>
           <p>${(quantity * productData.price).toFixed(2)}</p>
-          <Button size="sm" onClick={() => cart.deleteFromCart(id)}>Remove</Button>
+          <Button variant="danger" size="sm"  onClick={() => cart.deleteFromCart(id)}>Remove</Button>
           <hr />
         </>
     )
