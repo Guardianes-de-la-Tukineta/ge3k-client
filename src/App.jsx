@@ -8,8 +8,9 @@ import NavBar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
 import ThemeView from "./Views/ThemeView/ThemeView";
 import PaymentGateway from "./Views/PaymentGateway/PaymentGateway";
-import Cancel from "../src/Views/PaymentGateway/Cancel"
-import Success from "../src/Views/PaymentGateway/Success"
+import Cancel from "../src/Views/PaymentGateway/Cancel";
+import Success from "../src/Views/PaymentGateway/Success";
+import Bill from "./Views/PaymentGateway/bill";
 import Category from "./Views/Category/Category";
 import SearchResults from "./Views/SearchResults/SearchResults";
 import Login from "./components/Login/Login";
@@ -38,6 +39,7 @@ function App() {
             <Route path="/thematic/:nameThematic" element={<ThemeView />} />
             <Route path="/payment" element={<PaymentGateway />} />
             <Route path="/success" element={<Success />} />
+            <Route path="/bill" element={<Bill />} />
             <Route path="/cancel" element={<Cancel />} />
             <Route path="/product/:id" element={<ProductDetails />} />
             <Route path="/search/:query" element={<SearchResults />} />

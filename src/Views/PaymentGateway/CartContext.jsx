@@ -24,7 +24,6 @@ export const CartProvider = ({children}) => {
        if(quantity === undefined){
         return 0;
        }
-       console.log(quantity);
        return quantity;
     }
 
