@@ -16,6 +16,7 @@ import { format } from "date-fns";
       zukeeper((set) => ({
         // customerData: [],
         currentCustomer: {}, // es undefined o talves se colocara el perfil de invitado
+        authenticatedCustomer: null,
         
         createCustomer: async (customer) => {
           const fecha = customer.birthdate; 
@@ -114,7 +115,21 @@ import { format } from "date-fns";
             console.error("Error obteniendo customer:", error);
           }
         },  
-     
+
+        // Función para cargar los datos del usuario actual (autenticado)
+        loadCurrentCustomer: (email) => {
+          axios.get(`https://ge3k-server.onrender.com/customers/email/${email}`)
+            .then((response) => {
+              console.log("response");
+              console.log(response);
+              const customer = response.data;
+              set({ authenticatedCustomer: customer });
+            })
+            .catch((error) => {
+              console.error("Error loading customer:", error);
+              set({ authenticatedCustomer: null });
+            });
+        },
 
   }))
 );
