@@ -14,6 +14,8 @@ export const useStore = create(zukeeper((set) => ({
     maxPrice: 0, //para filtrar por precio    
     productDetails: {}, // HP para el componete detail traer los detalles 
     suggestion: [],
+    categories: ["all"],
+    themes: ["all"],
 
     //action para obtener todos los productos
     getAllProducts: async () => {
@@ -41,8 +43,7 @@ export const useStore = create(zukeeper((set) => ({
 return
         } else{
 
-// console.log('entro desde el store')
-// console.log(search)
+
 
             const URL = 'https://ge3k-server.onrender.com/products?name=';
             // console.log(`voy a buscar esto: ${URL + search}`)
@@ -81,6 +82,42 @@ return
             initialMaxPrice: categoryMaxPrice
         }
     }),
+
+    getAllCategories: async () => {
+        const URLBACK = "https://ge3k-server.onrender.com/categories";
+        const result = ["all"];
+        try {
+          const res = await axios(URLBACK);
+          for (let i = 0; i < res.data.length; i++) {
+            const e = res.data[i];
+            result.push(e.name);
+          }
+          set((state) => ({
+            ...state,
+            categories: result
+          }));
+        } catch (error) {
+          console.log(error);
+        }           
+      },
+     
+    getAllThemes: async () => {
+        const URLBACK = "https://ge3k-server.onrender.com/themes";
+        const result = ["all"];
+        try {
+          const res = await axios(URLBACK);
+          for (let i = 0; i < res.data.length; i++) {
+            const e = res.data[i];
+            result.push(e.name);
+          }
+          set((state) => ({
+            ...state,
+            themes: result
+          }));
+        } catch (error) {
+          console.log(error);
+        }           
+      }, 
 
     getProductsDetails: async (id) => {
         const { data } = await axios.get(`https://ge3k-server.onrender.com/products/${id}`)

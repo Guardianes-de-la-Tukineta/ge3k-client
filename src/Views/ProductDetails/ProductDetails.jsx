@@ -55,7 +55,7 @@ function ProductDetails() {
 
   return (
     <Container className={styles.productDetailsConteiner}>
-      {!productDetails.name ? (
+      {!productDetails.image ? ( //controlo que el estado ya tenga la propiedad imagen
         <Row style={{ padding: "100px", justifyContent: "center" }}>
           <Spinner
             style={{ padding: "100px" }}
