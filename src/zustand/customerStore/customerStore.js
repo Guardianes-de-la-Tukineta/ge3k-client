@@ -14,7 +14,7 @@ import { format } from "date-fns";
   
     export const customerStore = create(
       zukeeper((set) => ({
-        // customerData: [],
+        allCustomers: [],
         currentCustomer: {}, // es undefined o talves se colocara el perfil de invitado
         authenticatedCustomer: null,
         
@@ -22,7 +22,7 @@ import { format } from "date-fns";
           const fecha = customer.birthdate; 
           // Convierte el objeto Date en una cadena de fecha en formato "AAAA-MM-DD"
           // customer.birthdate= format(fecha, "yyyy-MM-dd");
-          console.log("creo el cusotmer ",customer);
+          // console.log("creo el cusotmer ",customer);
           try {
               const response = await axios.post('https://ge3k-server.onrender.com/customers/', customer, {
                   headers: {
@@ -89,7 +89,25 @@ import { format } from "date-fns";
                   customer.birthdate= fecha;// cambio otra vez el formato de la fecha para que no rompa todo
                 },
       
-    
+        /*la action que sigue busca un customer en el back con su id*/      
+        getAllCustomers: async () => {
+          // console.log("entro a getallcustomer");
+          try {
+            const response = await axios.get(`https://ge3k-server.onrender.com/customers/`);
+        
+            if (response.status === 200) { // Cambiado de 201 a 200 para verificar si la respuesta es exitosa
+              const { data } = response;
+              // console.log("getallcustomer",data);
+              set((state) => ({
+                ...state,
+                allCustomers: data,
+              }));
+            } 
+            
+          } catch (error) {
+            console.error("Error obteniendo customer:", error);
+          }
+        },
         
         /*la action que sigue busca un customer en el back con su id*/      
         getCustomerByEmail: async (email) => {

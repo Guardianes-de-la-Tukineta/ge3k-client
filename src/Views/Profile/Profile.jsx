@@ -5,10 +5,10 @@ import style from "./Profile.module.css";
 import CustomerDetails from "./CustomerDetails"; // Cambiado el nombre del import
 
 function Profile() {
-  const { currentCustomer, getCustomerByEmail } = customerStore(); //este current customer se actualiza con el boton logout
-  const { customerData } = customerStore((state) => ({
-    customerData: state.customerData,
-  }));
+  const { currentCustomer } = customerStore(); //este current customer se actualiza con el boton logout
+  // const { customerData } = customerStore((state) => ({
+  //   customerData: state.customerData,
+  // }));
   const { user, isAuthenticated } = useAuth0();
   // user ? getCustomerByEmail(user.email) : null; //actualizo el currentCustomer
 
