@@ -1,0 +1,9 @@
+.buttonConfirm {
+    width: 20%;
+    background-Color: #FC6522;
+    border: none;
+    color: white;
+    border-radius: 30px;
+    font-weight: 500;
+    margin-left: 840px;
+}
