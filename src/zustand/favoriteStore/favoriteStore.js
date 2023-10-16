@@ -57,21 +57,21 @@ export const favoriteStore = create(zukeeper((set) => ({
     //add producto a favoritos
     addProductFavorite: async(isAuthenticated,customerId,newProduct) => {
         try {
+            //Add en back  
+            if(isAuthenticated){
+                const URL='https://ge3k-server.onrender.com/'
+                const {data} = await axios.post(`${URL}favorites`,{
+                    customerId,
+                    productId:newProduct.id,                    
+                })
+                console.log(data.message);
+            }
             const favorites = favoriteStore.getState().favorites;            
             if (favorites.findIndex((product) => product.id === newProduct.id) < 0) {          
                 set(prevState => ({
                     ...prevState,
                     favorites: [...prevState.favorites, newProduct]
                 }))            
-                //Add en back  
-                if(isAuthenticated){
-                    const URL='https://ge3k-server.onrender.com/'
-                    const {data} = await axios.post(`${URL}favorites`,{
-                        customerId,
-                        productId:newProduct.id,                    
-                    })
-                    console.log(data.message);
-                }
             }                   
             
         } catch (error) {
@@ -86,15 +86,17 @@ export const favoriteStore = create(zukeeper((set) => ({
             set(prevState => ({
                 ...prevState,
                 favorites: result
-            }))   
+            }))              
             //borrar en back        
             if(isAuthenticated) { 
                 const URL='https://ge3k-server.onrender.com/'
                 const {data} = await axios.delete(`${URL}favorites`, {
-                    customerId,
-                    productId
-                })                
-                console.log(data.message);
+                    data: {
+                        customerId,
+                        productId
+                    }
+                })             
+                console.log(data);
             } 
             
         } catch (error) {

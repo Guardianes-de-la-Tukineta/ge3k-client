@@ -1,20 +1,18 @@
 import React from 'react'
 import { favoriteStore } from '../../zustand/favoriteStore/favoriteStore';
-import CardProduct from '../../components/CardProduct/CardProduct'
 import CardContainer from '../../components/CardContainer/CardContainer';
+import style from './Favorite.module.css'
 const Favorite = () => {
     const { favorites } = favoriteStore()
     return (
-        <section>
+        <section className='col-md-10'>
             {
                 favorites.length > 0 ?
                      <CardContainer products={favorites}/>
                      : 
-                <p>No hay favoritos</p>
+                    <p>There are not favorites</p>
             }
-
         </section>
     );
 }
-
 export default Favorite;

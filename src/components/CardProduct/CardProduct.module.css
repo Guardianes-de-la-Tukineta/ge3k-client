@@ -1,6 +1,6 @@
 .card{
-    height: 100%;
-    transition: box-shadow 0.5s; /* Agrega una transición suave al efecto de sombra */
+    height: 100%;    
+    transition: box-shadow 0.5s; /* Agrega una transición suave al efecto de sombra */        
 }
 .card:hover {
     cursor: pointer;
@@ -8,8 +8,8 @@
 }
 .card img{
     aspect-ratio: 1/1; /*sirve para la relacion ancho alto, y para q todas las imagenes ocupen el mismo espacio*/  
-    padding: 5%;
-    position: relative;
+    padding: 4%;
+    position: relative;           
 }
 .addCart{
     background-color: #ff6824 !important;
