@@ -20,16 +20,17 @@ import CartColumn from "./Views/CartColumn/CartColumn";
 import { cartStore } from "./zustand/cartStore/cartStore";
 
 import CartProvider from "./Views/PaymentGateway/CartContext";
+import Favorite from "./Views/Favorite/Favorite";
 
 function App() {
-  const{cart,visibility}=cartStore() //traemos el estado de zustand 
+  const { cart, visibility } = cartStore() //traemos el estado de zustand 
 
   return (
     <CartProvider>
       <div style={{ width: (cart.length > 0 && visibility && !location.pathname.startsWith('/admin')) ? '87vw' : '100vw' }} className={`vh-100 d-flex flex-column`}>
         {location.pathname.startsWith('/admin') ? undefined : <NavBar />}
-        <ScrollToTop/>       
-        <div className="flex-grow-1">
+        <ScrollToTop />
+        <div className="flex-grow-1 d-flex justify-content-center">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/category/:nameCategory" element={<Category />} />
@@ -42,15 +43,16 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/PurchaseOrder" element={<PurchaseOrder />} />;
             <Route path="/admin/*" element={<Admin />} />
+            <Route path="/favorites" element={<Favorite/>}/>
             <Route path="*" element={<Error404 />} />
           </Routes>
         </div>
         {
 
-cart.length>0 && !location.pathname.startsWith('/admin') && <CartColumn/>  //solo renderiza si tenemos articulos en el cart
+          cart.length > 0 && !location.pathname.startsWith('/admin') && <CartColumn />  //solo renderiza si tenemos articulos en el cart
 
         }
-      {location.pathname.startsWith('/admin') ? undefined :  <Footer />}
+        {location.pathname.startsWith('/admin') ? undefined : <Footer />}
       </div>
     </CartProvider>
   );
