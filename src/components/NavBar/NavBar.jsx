@@ -38,9 +38,11 @@ const NavBar = () => {
             <SearchBar />
           </div>
 
-          <div className={`p-2 ml-1`}>
-            <i className="bi bi-heart-fill"></i>
-          </div>
+          <Link to='/favorites'>
+            <div className={`p-2 ml-1`}>
+              <i className="bi bi-heart-fill"></i>
+            </div>
+          </Link>
 
           <div onClick={handlerCart} className={`${style.divCart} p-2 ml-1`}>
             <i className="bi bi-cart-fill"></i>
