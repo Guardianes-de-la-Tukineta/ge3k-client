@@ -13,7 +13,7 @@ const SearchBarAdmin = ({handleSearch, placeholder, setResetDropDowns, reset}) =
     }
     e.preventDefault()
     handleSearch(value)
-    setResetDropDowns(true)
+    if(setResetDropDowns)setResetDropDowns(true)
   }
 
   useEffect(()=>{setValue('')},[reset])

@@ -7,9 +7,11 @@ function useGetAdminsFromBack() {
   const [errorGetAdmins, setErrorGetAdmins] = useState(false);
   const [admins, setAdmins] = useState("");
   const [notSuggestion, setNotSuggestion] = useState(false);
-  const [keywordUsed, setKeywordUsed] = useState("");
-  const [byId, setById] = useState(false);
+  const [message, setMessage] = useState('')
+
   const {authToken} = useAuthToken();
+  const [resetSearhBar, setResetSearchBar] = useState(0)
+
 
   useEffect(() => {
     const fetchAdmins = async () => {
@@ -19,92 +21,180 @@ function useGetAdminsFromBack() {
   }, [authToken]);
 
   
-  const handleGetSuggestions = async (keyword) => {
-    const uuidPattern =
-      /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/;
+  const handleGetSuggestions = async (email) => {
+    const emailTest = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
     setLoading(true);
 
-    if (uuidPattern.test(keyword)) {
-      setById(keyword);
-
+    if (emailTest.test(email)) {
       try {
-        const URL = "https://ge3k-server.onrender.com/products/";
-        const { data } = await axios.get(URL + keyword);
-        setOrder({});
-        setByCategory(false);
-        setByThema(false);
-        setPageNum(1);
-        setKeywordUsed("");
+        const URL = "https://ge3k-server.onrender.com/Admin/email/";
+        const { data } = await axios.get(URL + email, {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        });
+        setResetSearchBar((prevState) => prevState + 1);
         if (data.length === 0) {
           setNotSuggestion(true);
         } else {
           setNotSuggestion(false);
         }
-        setProducts([data]);
+        setAdmins([data]);
         setLoading(false);
       } catch (error) {
-        setLoading(false);
-        console.error(error);
-        setErrorGetProducts(error);
-        setTimeout(() => {
-          setErrorGetProducts(false);
-        }, 5000);
+        if (error.response) {
+          setLoading(false);
+          if (error.response.data) {
+            setLoading(false);
+            setErrorGetAdmins(error.response.data.message);
+            setTimeout(() => {
+              setErrorGetAdmins(false);
+            }, 5000);
+          }
+        } else {
+          setLoading(false);
+          setErrorGetAdmins(
+            "Could not retrieve a response from the server. Please check your Internet connection"
+          );
+          setTimeout(() => {
+            setErrorGetAdmins(false);
+          }, 5000);
+        }
       }
     } else {
-      if (byId) setById(false);
-      try {
-        const URL = "https://ge3k-server.onrender.com/products?name=";
-        const { data } = await axios.get(URL + keyword);
-        setKeywordUsed(keyword);
-        if (data.length === 0) {
-          setNotSuggestion(true);
-        } else {
-          setNotSuggestion(false);
-        }
-        setProducts(data);
-        setLoading(false);
-      } catch (error) {
-        setLoading(false);
-        console.error(error);
-        setErrorGetProducts(error);
-        setTimeout(() => {
-          setErrorGetProducts(false);
-        }, 5000);
-      }
-    }
-  };
-
-  const getAdmin = async () => {
-    setLoading(true);
-   
-
-    const URL = "https://ge3k-server.onrender.com/admin/";
-
-    try {
-      const { data } = await axios.get(URL, {
-        headers:{
-          Authorization: `Bearer ${authToken}`
-        }
-      });
-      setAdmins(data);
+      setErrorGetAdmins("Please enter a valid email address");
       setLoading(false);
-    } catch (error) {
-      console.error(error);
-      setLoading(false);
-      setErrorGetAdmins(error);
       setTimeout(() => {
         setErrorGetAdmins(false);
       }, 5000);
     }
   };
 
+  const getAdmin = async () => {
+    setLoading(true);
+
+    const URL = "https://ge3k-server.onrender.com/admin/";
+
+    try {
+      const { data } = await axios.get(URL, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      setAdmins(data);
+
+      setLoading(false);
+    } catch (error) {
+      if (error.response) {
+        setLoading(false);
+        if (error.response.data) {
+          setLoading(false);
+          setErrorGetAdmins(error.response.data.message);
+          setTimeout(() => {
+            setErrorGetAdmins(false);
+          }, 5000);
+        }
+      } else {
+        setLoading(false);
+        setErrorGetAdmins(
+          "Could not retrieve a response from the server. Please check your Internet connection"
+        );
+        setTimeout(() => {
+          setErrorGetAdmins(false);
+        }, 5000);
+      }
+    }
+  };
+
+  const handleBan = async (id) => {
+    setLoading(true);
+
+    const URL = "https://ge3k-server.onrender.com/Admin/";
+
+    try {
+      await axios.delete(URL + id, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      await getAdmin();
+      setLoading(false);
+      setMessage("Admin successfully banned");
+      setTimeout(() => {
+        setMessage("");
+      }, 5000);
+    } catch (error) {
+      if (error.response) {
+        setLoading(false);
+        if (error.response.data) {
+          setLoading(false);
+          setErrorGetAdmins(error.response.data.message);
+          setTimeout(() => {
+            setErrorGetAdmins(false);
+          }, 5000);
+        }
+      } else {
+        setLoading(false);
+        setErrorGetAdmins(
+          "Could not retrieve a response from the server. Please check your Internet connection"
+        );
+        setTimeout(() => {
+          setErrorGetAdmins(false);
+        }, 5000);
+      }
+    }
+  };
+
+  const handleUnban = async (id) => {
+    setLoading(true);
+
+    const URL = "https://ge3k-server.onrender.com/Admin/";
+
+    try {
+      await axios.patch(URL + id, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      await getAdmin();
+      setLoading(false);
+      setMessage("Admin successfully Unbanned");
+      setTimeout(() => {
+        setMessage("");
+      }, 5000);
+    } catch (error) {
+      if (error.response) {
+        setLoading(false);
+        if (error.response.data) {
+          setLoading(false);
+          setErrorGetAdmins(error.response.data.message);
+          setTimeout(() => {
+            setErrorGetAdmins(false);
+          }, 5000);
+        }
+      } else {
+        setLoading(false);
+        setErrorGetAdmins(
+          "Could not retrieve a response from the server. Please check your Internet connection"
+        );
+        setTimeout(() => {
+          setErrorGetAdmins(false);
+        }, 5000);
+      }
+    }
+  };
+
   return {
     admins,
-    byId,
     notSuggestion,
     loading,
+    resetSearhBar,
     setLoading,
     errorGetAdmins,
+    message,
+    handleBan,
+    handleUnban,
     handleGetSuggestions,
     getAdmin,
   };

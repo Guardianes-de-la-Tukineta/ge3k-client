@@ -20,11 +20,12 @@ table.table {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
- min-width: 80px;
-  max-width: 130px;
+
+  width: 150px;
 text-align: center;
 
 background-color: white;
+
 }
 
 .table th{
@@ -98,7 +99,7 @@ button.editButton:hover  i{
 }
 
 
-.saveButton, .cancelButton, .saveButtonOff, .deletetButton{
+.saveButton, .cancelButton, .saveButtonOff, .deletetButton, .deletetButtonOff{
   border-radius: 4px;
   margin-left: 2px;
   padding: 2px 8px;
@@ -118,7 +119,14 @@ button.editButton:hover  i{
 .saveButtonOff{
   color: #ffffff;
   background-color: #808080;
-  border: 2px solid #383838;
+  border: 2px solid #555555;
+ cursor:default !important;
+}
+
+.deletetButtonOff{
+  color: #ffffff;
+  background-color: #808080;
+  border: 2px solid #555555;
  cursor:default !important;
 }
 
@@ -180,6 +188,11 @@ button.editButton:hover  i{
 
   .saveButtonOff i{
     color: #cbfdc2;
+    font-size: 1.2rem;
+  }
+
+  .deletetButtonOff i{
+    color: #fca1a1;
     font-size: 1.2rem;
   }
 
