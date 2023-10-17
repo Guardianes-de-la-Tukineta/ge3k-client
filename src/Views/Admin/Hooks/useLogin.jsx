@@ -8,8 +8,6 @@ const useLogin =  () => {
     const [error,setError] = useState(false)
     const navigate = useNavigate()
 
-
-
 const handleLogin = async({email, password})=>{
 
     setSpinner(true)
@@ -47,8 +45,6 @@ const handleLogin = async({email, password})=>{
     }
 }
 
-
-      
   return ({handleLogin, spinner, error})
 }
 
