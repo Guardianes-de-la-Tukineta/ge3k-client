@@ -5,37 +5,30 @@ import axios from "axios";
 export const favoriteStore = create(zukeeper((set) => ({
     favorites: JSON.parse(window.localStorage.getItem("favorites"))|| [], // favoritos del user
     //conectar con back
-    syncByBack:async (customerId)=>{
+    syncFavByBack:async (customerId)=>{
         try {              
             const URL='https://ge3k-server.onrender.com/'            
-            const favorites = favoriteStore.getState().favorites;            
+            const favorites = favoriteStore.getState().favorites;   
+            const favoritesByBack=favorites.map((product)=>{
+                return {
+                    productId:product.id,                    
+                }
+            })         
             const {data}=await axios.post(`${URL}favorites/bulk`,{
                 customerId,
-                products:favorites
+                products:favoritesByBack
             }) 
             console.log(favorites,data);
             set(prevState => ({
                 ...prevState,
-                favorites: data.products
+                favorites: data
             }))              
         } catch (error) {
             console.log(error);
         }
         
     },
-    //cambiar de visibilidad
-    setVisibility: (atribute) => {
-        !atribute ?  //si no mandamos atributo
-        set(prevState=>({
-            visibility:prevState.visibility?false:true //cambiamos la visibilidad 
-        }))    
-        : 
-        set(prevState=>({
-            visibility:atribute //cambiamos la visibilidad con el true o false que venga 
-        })) 
-
-    },
-    //update localStorage con estado global
+        //update localStorage con estado global
     updateLocalStorage: (newState) => {
         window.localStorage.setItem("favorites",JSON.stringify(newState))
     },      
@@ -48,7 +41,7 @@ export const favoriteStore = create(zukeeper((set) => ({
             console.log(data);
             set(prevState => ({
                 ...prevState,
-                favorites: data.products
+                favorites: data
             }))
         } catch (error) {
             console.log(error);

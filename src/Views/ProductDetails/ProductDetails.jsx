@@ -8,6 +8,7 @@ import { cartStore } from "../../zustand/cartStore/cartStore";
 import { useAuth0 } from "@auth0/auth0-react";
 import { customerStore } from "../../zustand/customerStore/customerStore";
 import Spinner from "react-bootstrap/Spinner";
+import { favoriteStore } from "../../zustand/favoriteStore/favoriteStore";
 
 //HP el componente de llama ProductDetails  ya que podemos tener otros details ej, RatingDetails
 function ProductDetails() {
@@ -17,16 +18,27 @@ function ProductDetails() {
   const { addProductToCart } = cartStore(); //cart store de zustand
   const { isAuthenticated } = useAuth0(); // para saber si estoy logueado
   const { currentCustomer } = customerStore();
+  const { favorites, addProductFavorite, deleteProductFavorite, updateLocalStorage } = favoriteStore()
+  const [isFav, setIsFav] = useState(false); // para cambiar el estado de fav y no fav
+  const [isFavDisabled, setIsFavDisabled] = useState(false); // para deshabilitar momentaneamente el boton de fav
+
 
   useEffect(() => {
-    const fetchData = () => {
-      deletePorductDetail(id); // Elimina los detalles del producto
-      getProductsDetails(id); // Obtiene los nuevos detalles del producto
-    };
-
-    fetchData();
+    const fetchData = async() => {     
+      await getProductsDetails(id); // Obtiene los nuevos detalles del producto      
+    };    
+    fetchData();    
+    return ()=>{
+      deletePorductDetail() //limpiar el deteail cuando se desmonta el componente
+    }
   }, [id]);
 
+  useEffect(() => { // la info de productDetails se demora unos segundos, por eso cuando le llegue la info se renderiza el corazon
+    updateLocalStorage(favorites) 
+    if (productDetails.id && favorites.findIndex((elem) => elem.id === productDetails.id) !== -1) { //si esta en favoritos pintamos el corazon       
+      setIsFav(true)
+    } 
+  }, [favorites,productDetails]);
   // const productDetail = useSelector((state) => state.detail);
   const buttonStyle = {
     backgroundColor: "#ff6824",
@@ -38,12 +50,6 @@ function ProductDetails() {
     marginRight: "20px",
   };
 
-  const isFav = (id) => {
-    // el segundo parametro es el user, hay que ovtenerlo del localstorage
-    // const userId =localstorage,user.id TUKITUKI
-    return id == "TUKI" || id == "tuki";
-  }; //esto por ahora hace cualquier mentira
-
   //handlers
   const handlerAddToCart = () => {
     addProductToCart(
@@ -52,7 +58,23 @@ function ProductDetails() {
       productDetails
     );
   };
-
+  const handlerIsFav = () => {
+    if (isFavDisabled) { //evita q el user haga click dos veces seguidas al fav sin dar tiempo de procesar en back
+      return;
+    }
+    setIsFavDisabled(true);
+    if (!isFav) { //si no esta en favoritos ya      
+      addProductFavorite(isAuthenticated, currentCustomer.id, productDetails)
+      setIsFav(true)
+    } else {
+      deleteProductFavorite(isAuthenticated, currentCustomer.id, productDetails.id)
+      setIsFav(false)
+    }
+    // Habilitar el botón después de 1 seg
+    setTimeout(() => {
+      setIsFavDisabled(false);
+    }, 1000);
+  }
   return (
     <Container className={styles.productDetailsConteiner}>
       {!productDetails.image ? ( //controlo que el estado ya tenga la propiedad imagen
@@ -119,19 +141,14 @@ function ProductDetails() {
                 style={{ color: "black", fontSize: "1.2rem", padding: "5px" }}
               ></i>{" "}
               Add to card
-            </Button>
+            </Button >
             {/* HP muestro el corazon que corresponda si es favorito o no */}
-            {isFav(id) ? (
-              <i
-                className="bi bi-heart-fill"
-                style={{ color: "black", fontSize: "1.2rem", padding: "5px" }}
-              ></i>
-            ) : (
-              <i
-                className="bi bi-heart"
-                style={{ color: "black", fontSize: "1.2rem", padding: "5px" }}
-              ></i>
-            )}
+            <button style={{ border: "none", backgroundColor: "transparent" }} onClick={() => handlerIsFav()}>
+              {
+                !isFav ? <i style={{ color: "red", fontSize: "1.2rem", padding: "5px" }} className="bi bi-suit-heart "></i>
+                  : <i style={{ color: "red", fontSize: "1.2rem", padding: "5px" }} className="bi bi-suit-heart-fill"></i> //para traer el icono de corazon lleno o vació
+              }
+            </button>
           </Col>
         </Row>
       )}
