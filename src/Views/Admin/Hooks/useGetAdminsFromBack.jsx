@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import useAuthToken from "./useAuthToken";
 
 function useGetAdminsFromBack() {
   const [loading, setLoading] = useState(false);
@@ -8,14 +9,14 @@ function useGetAdminsFromBack() {
   const [notSuggestion, setNotSuggestion] = useState(false);
   const [keywordUsed, setKeywordUsed] = useState("");
   const [byId, setById] = useState(false);
+  const {authToken} = useAuthToken();
 
   useEffect(() => {
     const fetchAdmins = async () => {
       await getAdmin();
     };
-    fetchAdmins();
-  }, []);
-
+    if(authToken )fetchAdmins();
+  }, [authToken]);
 
   
   const handleGetSuggestions = async (keyword) => {
@@ -25,6 +26,7 @@ function useGetAdminsFromBack() {
 
     if (uuidPattern.test(keyword)) {
       setById(keyword);
+
       try {
         const URL = "https://ge3k-server.onrender.com/products/";
         const { data } = await axios.get(URL + keyword);
@@ -74,11 +76,16 @@ function useGetAdminsFromBack() {
 
   const getAdmin = async () => {
     setLoading(true);
+   
+
     const URL = "https://ge3k-server.onrender.com/admin/";
 
     try {
-      const { data } = await axios.get(URL);
-      console.log(data)
+      const { data } = await axios.get(URL, {
+        headers:{
+          Authorization: `Bearer ${authToken}`
+        }
+      });
       setAdmins(data);
       setLoading(false);
     } catch (error) {
