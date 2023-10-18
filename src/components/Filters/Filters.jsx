@@ -79,7 +79,7 @@ const Filters = ({ nameCategory, nameThematic }) => {
                 onChange={handleFilterByTheme}
                 checked={theme === themeItem}
               />{" "}
-              <span>{themeItem}</span>
+              <span>{ themeItem.charAt(0).toUpperCase() + themeItem.slice(1) }</span>
             </label>
           ))}
         </div>
@@ -104,7 +104,7 @@ const Filters = ({ nameCategory, nameThematic }) => {
                 onChange={handleFilterByCategory}
                 checked={category === item}
               />{" "}
-              <span>{item}</span>
+              <span>{ item.charAt(0).toUpperCase() + item.slice(1) }</span>
             </label>
           ))}
         </div>

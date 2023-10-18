@@ -29,7 +29,7 @@ function SortPriceDropDown({nameCategory, nameThematic}) {
   return (
  
     <Dropdown show={open} onToggle={(isOpen) => setOpen(isOpen)}>
-      <Dropdown.Toggle variant="success" id="dropdown-basic" size="sm" style={{backgroundColor:'#111111', padding: '0.2rem 2rem'}}>
+      <Dropdown.Toggle variant="success" id="dropdown-basic" size="sm" style={{backgroundColor:'#111111', padding: '0.4rem 2rem', border:'none'}}>
        {(!currentSort)? 'Sort by price': (currentSort === 'asc') ? 'Lowest price first' : 'Highest price first'}
       </Dropdown.Toggle>
 
