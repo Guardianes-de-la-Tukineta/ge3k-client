@@ -5,6 +5,7 @@ import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
 import Alert from "react-bootstrap/Alert";
 import Spinner from "react-bootstrap/Spinner";
+import useAuthToken from '../../Hooks/useAuthToken'
 
 const FormAddProduct = () => {
   const {
@@ -15,6 +16,7 @@ const FormAddProduct = () => {
     formState: { errors },
     reset,
   } = useForm();
+  const {authToken} = useAuthToken()
   const [file, setFile] = useState(null);
   const [alert, setAlert] = useState(false);
   const [spinner, setSpinner] = useState(false);
@@ -58,11 +60,13 @@ const FormAddProduct = () => {
     } else {
       bodyRequest.image = urlImagen;
     }
-
     const URLBACK = "https://ge3k-server.onrender.com/products/";
     try {
-      const responseFronBack = await axios.post(URLBACK, bodyRequest);
-      const dataFromBack = responseFronBack.data;
+      const responseFronBack = await axios.post(URLBACK, bodyRequest, {
+        headers:{
+          Authorization: `Bearer ${authToken}`
+        }
+      });
       setSpinner(false);
       reset();
       setImagenSeleccionada(null);
