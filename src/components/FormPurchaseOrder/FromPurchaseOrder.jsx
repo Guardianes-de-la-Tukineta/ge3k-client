@@ -30,9 +30,17 @@ const FormPurchaseOrder = () => {
   }, [authenticatedCustomer]);
 
   const handleCreatePurchaseOrder = () => {
-    console.log("handleCreatePurchaseOrder called");
-    console.log("userData", userData);
-    CreatedOrder(userData);
+    CreatedOrder({
+      customerId: authenticatedCustomer.id,
+      base_url: "http://localhost:5173/",
+      name: userData.name,
+      surname: userData.surname,
+      birthdate: userData.birthdate,
+      email: userData.email,
+      phone: userData.phone,
+      address: userData.address,
+      status: "",
+    });
   };
 
   return (
@@ -130,10 +138,11 @@ const FormPurchaseOrder = () => {
         </div>
       </form>
       <button
-        className={`${style.buttonConfirm}`}
+        className={style.buttonConfirm}
+        style={{ marginLeft: "843px" }}
         onClick={handleCreatePurchaseOrder}
       >
-        Confirm Purchase
+        Pay
       </button>
     </div>
   );
