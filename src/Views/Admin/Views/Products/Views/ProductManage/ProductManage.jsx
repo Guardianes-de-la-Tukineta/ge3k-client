@@ -18,7 +18,7 @@ const ProductManage = () => {
     setLoading,
     errorGetProducts,
     pageNum,
-    productByPage,
+    totalPages,
     handleGetSuggestions,
     getProducts,
   } = useGetSuggestionFromBack();
@@ -26,12 +26,6 @@ const ProductManage = () => {
   const [searchBarResetCounter, setSearchBarResetCounter] = useState(0);
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
-
-  //Obtenemos 12 productos al carga la pagina
-  useEffect(() => {
-    getProducts();
-  }, []);
-
 
 
   //Para resetear los dropdowns cuando se hace una nueva busqueda
@@ -83,10 +77,12 @@ const ProductManage = () => {
   const handleDelete = async (id) => {
     setLoading(true)
     try {
-      const URL = "https://ge3k-server.onrender.com/products/";
-      await axios.delete(URL + id);
+      const URL = "https://ge3k-server.onrender.com/products?productId=";
+      const type = '&type=hard'
+      await axios.delete(URL + id + type);
       await getProducts("Reset");
       setSearchBarResetCounter((prevCounter) => prevCounter + 1);
+      setResetDropDowns();
       setLoading(false)
       setMessage('Product deleted successfully.')
       setTimeout(() => {
@@ -211,7 +207,7 @@ const ProductManage = () => {
             handleUpdate={handleUpdate}
             handleDelete={handleDelete}
           />
-          {(products.length > 9) && <PaginationAdmin page={pageNum} setPage={getProducts} totalPages={7} />}
+          {(totalPages > 1) && <PaginationAdmin page={pageNum} setPage={getProducts} totalPages={totalPages} />}
           </>
         )}
       </div>
