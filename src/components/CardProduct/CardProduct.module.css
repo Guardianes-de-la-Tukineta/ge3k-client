@@ -1,6 +1,7 @@
 .card{
     height: 100%;    
-    transition: box-shadow 0.5s; /* Agrega una transición suave al efecto de sombra */        
+    transition: box-shadow 0.5s; /* Agrega una transición suave al efecto de sombra */  
+   
 }
 .card:hover {
     cursor: pointer;
@@ -14,7 +15,8 @@
 .addCart{
     background-color: #ff6824 !important;
     cursor:pointer;
-    width: 100%
+    width: 100%;
+    border: none !important;     
 }
 .addCart:hover{
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.8); /* Agrega una sombra al hacer hover */
