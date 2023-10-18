@@ -6,50 +6,35 @@ export const PurchaseStore = create(zukeeper((set) => ({
     order: {},
     
 
-    // CreatedOrder: async (email) => {
-    //     try {
-    //       // Crear un objeto que contenga el correo electrónico del usuario
-    //       const customerData = { email };
-    //         console.log("created order",customerData, email);
-    //       // Realizar una solicitud para crear la nueva orden en el servidor
-    //       const response = await axios.post("https://ge3k-server.onrender.com/orders", customerData);
-    //       if (response.status === 201) { 
-    //         const { data } = response;
-    //         console.log("esta es la respuesta", response);
-    //         set((state) => ({
-    //           ...state,
-    //           order: data,
-    //         }));
-    //         return data; // Retorna la nueva orden creada
-    //       } else {
-    //         console.error('No se pudo crear la orden:', response);
-    //         return null;
-    //       }
-    //     } catch (error) {
-    //       console.error("Error al crear la orden:", error);
-    //       return null;
-    //     }
-    // },
-
-    // Simulación de creación de orden
-    CreatedOrder: async (userData) => {
-        try { 
-          const newOrderData = {
-            orderID: "12345", // ID de la orden simulada
-            ...userData,
-          };
-    
-          set((state) => ({
-            ...state,
-            order: newOrderData,
-          }));
-          
-          return newOrderData; 
+    CreatedOrder: async (customerData) => {
+        try {
+          const response = await axios.post("https://ge3k-server.onrender.com/stripe-session", customerData);
+          if (response.status === 200) { 
+            const { data } = response;
+            set((state) => ({
+              ...state,
+              order: data,
+            }));
+            
+            if (response && response.data && response.data.url) {
+              window.location.href = response.data.url;
+            } else {
+              console.error(
+                "Could not get redirect URL"
+              );
+            }
+            return response;
+          } else {
+            console.error('Could not create order:', response);
+            return null;
+          }
         } catch (error) {
-          console.error("Error al crear la orden:", error);
+          console.error("Error creating order:", error);
           return null;
         }
     },
+
+    
       
 })));
 

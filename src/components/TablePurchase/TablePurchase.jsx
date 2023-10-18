@@ -32,7 +32,8 @@ const TablePurchase = () => {
               <button
                 onClick={toggleCartInfo}
                 style={{
-                  width: "60%",
+                  width: "80%",
+                  padding: "2%",
                   backgroundColor: "#FC6522",
                   border: "none",
                   color: "white",
