@@ -17,8 +17,7 @@ export const favoriteStore = create(zukeeper((set) => ({
             const {data}=await axios.post(`${URL}favorites/bulk`,{
                 customerId,
                 products:favoritesByBack
-            }) 
-            console.log(favorites,data);
+            })            
             set(prevState => ({
                 ...prevState,
                 favorites: data
@@ -37,8 +36,7 @@ export const favoriteStore = create(zukeeper((set) => ({
         try {
             const URL='https://ge3k-server.onrender.com/'
             console.log(idCustomer);
-            const {data} = await axios(`${URL}favorites?customerId=${idCustomer}`)
-            console.log(data);
+            const {data} = await axios(`${URL}favorites?customerId=${idCustomer}`)           
             set(prevState => ({
                 ...prevState,
                 favorites: data
@@ -56,8 +54,7 @@ export const favoriteStore = create(zukeeper((set) => ({
                 const {data} = await axios.post(`${URL}favorites`,{
                     customerId,
                     productId:newProduct.id,                    
-                })
-                console.log(data.message);
+                })                
             }
             const favorites = favoriteStore.getState().favorites;            
             if (favorites.findIndex((product) => product.id === newProduct.id) < 0) {          
@@ -88,8 +85,7 @@ export const favoriteStore = create(zukeeper((set) => ({
                         customerId,
                         productId
                     }
-                })             
-                console.log(data);
+                })              
             } 
             
         } catch (error) {

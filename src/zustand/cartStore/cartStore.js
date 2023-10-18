@@ -6,6 +6,7 @@ export const cartStore = create(zukeeper((set) => ({
     cart: JSON.parse(window.localStorage.getItem("cart")) || [], // productos en carrito de compra
     subTotal: 0, // guarda el subTotal en el carrito
     visibility:true, // para cuando se le da al icono del carrito del navBar
+    errorQuantity:'',
     
     //conectar con back
     syncByBack:async (customerId)=>{
@@ -21,18 +22,17 @@ export const cartStore = create(zukeeper((set) => ({
             const {data}=await axios.post(`${URL}carts/bulk`,{
                 customerId,
                 products:cartByBack
-            }) 
-            console.log(cartByBack,data);
+            })             
             set(prevState => ({
                 ...prevState,
                 cart: data.cart.products,
                 subTotal:data.cart.total
-            }))
+            })) 
+            if(data.message.includes('stock'))          
             alert(data.message)              
         } catch (error) {
             console.log(error);
-        }
-        
+        }        
     },
     //cambiar de visibilidad
     setVisibility: (atribute) => {
@@ -113,8 +113,7 @@ export const cartStore = create(zukeeper((set) => ({
                     ...prevState,
                     subTotal:data.total
                 }))
-            } 
-            
+            }             
         } catch (error) {
             console.log(error);
         }
@@ -133,7 +132,8 @@ export const cartStore = create(zukeeper((set) => ({
                 console.log(data,cant);
                 set(prevState => ({ //actualizamos subtotal con el back
                     ...prevState,
-                    subTotal:data.total
+                    subTotal:data.total,
+                    errorQuantity:''
                 }))
             }
             const cart = cartStore.getState().cart;
@@ -145,13 +145,23 @@ export const cartStore = create(zukeeper((set) => ({
             })        
             set(prevState => ({
                 ...prevState,
-                cart: newCart
-            }))
-    
-            
+                cart: newCart,
+                errorQuantity:''
+            }))            
+
         } catch ({response}) {
-            alert(response.data.error);
+            alert(response.data.error);                      
+            set(prevState => ({
+                ...prevState,
+                errorQuantity: response.data.error // para usar esa info en mi componente de cartItem
+            })) 
         }
+    },
+    clearErrorQuantity:()=>{
+        set(prevState => ({
+            ...prevState,
+            errorQuantity: ""
+        })) 
     },
     //obtener SubTotal en el precio del carrito
     getSubTotal: (isAuthenticated) => {
