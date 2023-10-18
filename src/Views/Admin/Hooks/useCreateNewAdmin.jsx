@@ -1,9 +1,10 @@
 import React, {useState} from 'react'
 import axios from 'axios';
+import useAuthToken from '../Hooks/useAuthToken'
 
 const useCreateNewAdmin = () => {
 
-
+  const {authToken} = useAuthToken()
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('')
   const [message, setMessage] = useState('')
@@ -13,7 +14,11 @@ const useCreateNewAdmin = () => {
     setLoading(true)
     const URL = 'https://ge3k-server.onrender.com/admin/';
     try {
-      await axios.post(URL, formData)
+      await axios.post(URL, formData, {
+        headers:{
+          Authorization: `Bearer ${authToken}`
+        }
+      })
       setLoading(false)
       setMessage(`New admin user ${formData.name} with email ${formData.email} created successfully.`)
       setTimeout(() => {

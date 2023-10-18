@@ -2,14 +2,15 @@ import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import styles from "./Footer.module.css";
 import { Link } from "react-router-dom";
-
+import logo from "../../Images/logoBlanco.svg";
 
 function Footer() {
   return (
-    <div style={{ backgroundColor: "black", color: "white", fontSize: '0.9rem' }}>
+    <>
+    <div style={{ backgroundColor: "black", color: "white", fontSize: '0.9rem', padding:'2rem', color:'rgb(185, 185, 185)'}}>
       <Container fluid >
         <Row className="p-3 pb-4">
-          <Col>
+          <Col className="col-12 col-lg-3">
             <h5 className={styles.titleH5}>FIND US IN</h5>
             <img
               className={styles.map}
@@ -17,14 +18,14 @@ function Footer() {
               alt="localizacion de la tienda"
             />
           </Col>
-          <Col>
+          <Col className="col-12  col-lg-3">
             <h5 className={styles.titleH5}>STORE LEGAL</h5>
             <p>Refund and return policies</p>
             <Link to="/legal" className={styles.footerLink}>
               <p>Terms & Conditions</p>
             </Link>
           </Col>
-          <Col>
+          <Col className="col-12 col-lg-3">
             <h5 className={styles.titleH5}>FIND</h5>
             <p>SEARCH</p>
             <h5 className={styles.titleH5}>SOCIAL MEDIA</h5> 
@@ -39,7 +40,7 @@ function Footer() {
               <i className="bi bi-envelope"></i> Mail
             </p>
           </Col>
-          <Col>
+          <Col className="col-12 col-lg-3">
             <h5 className={styles.titleH5}>ABOUT US</h5>
             <p>
             Are you looking for an unforgettable gift for someone special or for yourself?
@@ -51,10 +52,13 @@ function Footer() {
             <p>Enjoy shopping at <strong>Ge3kHub.shop</strong>🤓!</p>
           </Col>
         </Row>
+        <div className="d-flex align-center justify-content-center"><img className={styles.logo} src={logo} alt="ge3khub shop" /></div>
    
       </Container>
-      <div className={`${styles.guardianes} container-fluid text-center`} >Developed with ❤️ by the Guardians of Tukineta</div>
+    
     </div>
+      <div className={`${styles.guardianes} container-fluid text-center`} >Developed with ❤️ by the <strong>Guardians of Tukineta</strong></div>
+      </>
   );
 }
 

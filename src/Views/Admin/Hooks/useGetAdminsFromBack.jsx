@@ -152,7 +152,7 @@ function useGetAdminsFromBack() {
     const URL = "https://ge3k-server.onrender.com/Admin/";
 
     try {
-      await axios.patch(URL + id, {
+      await axios.patch(URL + id, {}, {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },

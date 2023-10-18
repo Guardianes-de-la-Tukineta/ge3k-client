@@ -43,11 +43,17 @@ function ProductDetails() {
   const buttonStyle = {
     backgroundColor: "#ff6824",
     borderColor: "#ff6824",
-    color: "black", // Cambia el color del texto a blanco o el color deseado
-    paddingRight: "22px",
-    paddingBottom: "2px",
-    paddingTop: "2px",
-    marginRight: "20px",
+    color: "black", 
+    display:"flex",
+    alignItems:"center",
+    justifyContent:"center",
+    gap:'5px',
+    paddingRight:"15px",
+    fontWeight:"500",
+    borderRadius:"10px",
+    height:'44px'
+
+
   };
 
   //handlers
@@ -86,7 +92,7 @@ function ProductDetails() {
           />
         </Row>
       ) : (
-        <Row>
+        <Row className="mt-4 mb-4">
           <Col>
             <img
               className={styles.image}
@@ -94,9 +100,10 @@ function ProductDetails() {
               alt={productDetails.name}
             />
           </Col>
-          <Col>
+          <Col className={styles.dataProduct}>
+            <div className={styles.dataContainer}>
             <h1 className={styles.title}>{productDetails.name}</h1>
-            <h2 className={styles.stock}>{productDetails.description}</h2>
+            <h3 className={styles.stock}>{productDetails.description}</h3>
             {/* HP. muestro el descuento solo si el producto lo tiene */}
             {productDetails.discount === null ? (
               <h2 className={styles.Price}>Price ${productDetails.price}</h2>
@@ -134,21 +141,24 @@ function ProductDetails() {
                 {productDetails.themeName}
               </Link>
             </h2>
-
+            </div>
+               <div className={styles.buttonSection}>
             <Button onClick={() => handlerAddToCart()} style={buttonStyle}>
               <i
                 className="bi bi-cart4"
                 style={{ color: "black", fontSize: "1.2rem", padding: "5px" }}
               ></i>{" "}
-              Add to card
+
+             <span>Add to cart</span> 
             </Button >
             {/* HP muestro el corazon que corresponda si es favorito o no */}
             <button style={{ border: "none", backgroundColor: "transparent" }} onClick={() => handlerIsFav()}>
               {
-                !isFav ? <i style={{ color: "red", fontSize: "1.2rem", padding: "5px" }} className="bi bi-suit-heart "></i>
-                  : <i style={{ color: "red", fontSize: "1.2rem", padding: "5px" }} className="bi bi-suit-heart-fill"></i> //para traer el icono de corazon lleno o vació
+                !isFav ? <i style={{ color: "red", fontSize: "1.4rem"}} className="bi bi-suit-heart "></i>
+                  : <i style={{ color: "red", fontSize: "1.4rem"}} className="bi bi-suit-heart-fill"></i> //para traer el icono de corazon lleno o vació
               }
             </button>
+            </div>
           </Col>
         </Row>
       )}
