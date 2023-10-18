@@ -32,9 +32,8 @@ const CartColumn = () => {
                 <br></br> 
                 ${subTotal}
             </strong>
-            <div className='d-flex justify-content-center'>
-                <button className={`${style.buttonCart} btn btn-warning m-2 pt-0 pb-0`}>Go Cart</button>
-                <button onClick={()=>handlerPay()} className={`${style.buttonCart} btn btn-warning m-2 pt-0 pb-0`}>Pay</button>
+            <div className='d-flex justify-content-center'>                
+                <button onClick={()=>handlerPay()} className={`${style.buttonCart} btn btn-warning m-2 pt-0 pb-0`}>Go Cart</button>
             </div>
             <aside>               
                 {   

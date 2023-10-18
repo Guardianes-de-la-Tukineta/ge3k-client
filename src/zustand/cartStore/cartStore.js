@@ -25,8 +25,10 @@ export const cartStore = create(zukeeper((set) => ({
             console.log(cartByBack,data);
             set(prevState => ({
                 ...prevState,
-                cart: data.products
-            }))              
+                cart: data.cart.products,
+                subTotal:data.cart.total
+            }))
+            alert(data.message)              
         } catch (error) {
             console.log(error);
         }
@@ -82,7 +84,11 @@ export const cartStore = create(zukeeper((set) => ({
                         productId:newProduct.id,
                         quantity:1
                     })
-                    console.log(data.message);
+                    console.log(data.total);
+                    set(prevState => ({
+                        ...prevState,
+                        subTotal:data.total
+                    }))
                 }
             }               
         } catch (error) {
@@ -102,7 +108,11 @@ export const cartStore = create(zukeeper((set) => ({
             if(isAuthenticated) { 
                 const URL='https://ge3k-server.onrender.com/'
                 const {data} = await axios.delete(`${URL}carts?customerId=${idCustomer}&productId=${idproduct}`)                
-                console.log(data.message);
+                console.log(data.total);
+                set(prevState => ({
+                    ...prevState,
+                    subTotal:data.total
+                }))
             } 
             
         } catch (error) {
@@ -112,6 +122,20 @@ export const cartStore = create(zukeeper((set) => ({
     //modificar cantidad de producto en carrito
     setQuantity: async(isAuthenticated,customerId,productId, cant) => {
         try {
+            //modificar cantidad en back  
+            if(isAuthenticated){
+                const URL='https://ge3k-server.onrender.com/'
+                const {data} = await axios.post(`${URL}carts`,{
+                    customerId,
+                    productId,
+                    quantity:cant
+                })
+                console.log(data,cant);
+                set(prevState => ({ //actualizamos subtotal con el back
+                    ...prevState,
+                    subTotal:data.total
+                }))
+            }
             const cart = cartStore.getState().cart;
             const newCart = cart.map(({ product, quantity }) => {
                 if (product.id === productId) {
@@ -124,19 +148,9 @@ export const cartStore = create(zukeeper((set) => ({
                 cart: newCart
             }))
     
-            //modificar cantidad en back  
-            if(isAuthenticated){
-                const URL='https://ge3k-server.onrender.com/'
-                const {data} = await axios.post(`${URL}carts`,{
-                    customerId,
-                    productId,
-                    quantity:cant
-                })
-                console.log(data.message);
-            }
             
         } catch ({response}) {
-            console.log(response.data.error);
+            alert(response.data.error);
         }
     },
     //obtener SubTotal en el precio del carrito

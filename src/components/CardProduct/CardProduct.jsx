@@ -16,6 +16,7 @@ const CardProduct = ({ name, description, id, image, price }) => {
     const { isAuthenticated } = useAuth0() // para saber si estoy logueado
     const {currentCustomer}=customerStore() 
     const {favorites,addProductFavorite,deleteProductFavorite,updateLocalStorage} = favoriteStore()
+    
     //handlers
     const handlerIsFav = (e) => {
         e.stopPropagation(); // evita q el click se propague al elemento padre        
