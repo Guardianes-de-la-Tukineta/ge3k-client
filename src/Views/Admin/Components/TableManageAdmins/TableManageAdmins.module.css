@@ -1,0 +1,202 @@
+/* Contenedor de la tabla con desplazamiento horizontal */
+.tableContainer {
+  overflow-x: auto; /* Agrega una barra de desplazamiento horizontal si es necesario */
+  max-width: 100%; /* Limita el ancho máximo al 100% del contenedor padre */
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.5); 
+  border-radius: 6px !important;
+}
+
+table.table {
+  width: 100%;
+  border-collapse: collapse;
+
+}
+
+.table th, .table td {
+  border: 1px solid #c2c2c2;
+  padding: 8px;
+  text-align: left;
+  overflow: hidden;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  width: 150px;
+text-align: center;
+
+background-color: white;
+
+}
+
+.table th{
+  border-top-right-radius: 4px !important;
+  border-top-left-radius: 4px !important;;
+}
+
+
+.table td img{
+  width: 50px;
+  height: 50px;
+  
+}
+
+.table th {
+  background-color: #383838;
+  color: white;
+  font-weight: 500;
+  font-size: 0.85rem;
+}
+
+
+.table input {
+  min-width: 50px;
+max-width: 100px;
+margin: 0;
+
+padding: 0 0.5rem;
+
+
+outline:none;
+border: 1px solid #c2c2c2;
+background-color: #38383813;
+color: #383838;
+font-size: 1rem;
+}
+
+
+button.editButton {
+  height:100%;
+  border-radius: 4px;
+  margin-left: 2px;
+  padding: 5px 16px;
+  background-color: #383838;
+  outline: none;
+  color: white;
+  border: none;
+  font-weight: 600;
+  border: 2px solid #383838;
+}
+
+button.editButton:hover {
+ 
+  background-color: #fdf747;
+  color: #383838;
+
+}
+
+button.editButton:active{
+ 
+  background-color: #c4bf3f;
+
+}
+
+.editButton i{
+  color: #fdf747;
+}
+
+button.editButton:hover  i{
+  color: #383838;
+}
+
+
+.saveButton, .cancelButton, .saveButtonOff, .deletetButton, .deletetButtonOff{
+  border-radius: 4px;
+  margin-left: 2px;
+  padding: 2px 8px;
+  outline: none;
+  border: none;
+  font-weight: 600;
+  background-color: #383838;
+}
+
+
+.saveButton{
+  color: #58ff3b;
+  background-color: #383838;
+  border: 2px solid #383838;
+}
+
+.saveButtonOff{
+  color: #ffffff;
+  background-color: #808080;
+  border: 2px solid #555555;
+ cursor:default !important;
+}
+
+.deletetButtonOff{
+  color: #ffffff;
+  background-color: #808080;
+  border: 2px solid #555555;
+ cursor:default !important;
+}
+
+.saveButton:hover{
+ color: #383838;
+  background-color: #58ff3b;
+  }
+
+  .cancelButton{
+  background-color: #383838;
+  border: 2px solid #383838;
+  }
+
+  .deletetButton{
+    color: #ff4848;
+  background-color: #383838;
+  border: 2px solid #383838;
+  }
+
+  .cancelButton:hover{
+  background-color: #c9c9c9;
+  }
+
+  .cancelButton i{
+    color: #ffffff;
+    font-size: 1.2rem;
+  }
+
+  .deletetButton i{
+    color: #ff4848;
+    font-size: 1.1rem;
+  }
+
+  .deletetButton:hover i{
+    color: #383838;
+    font-size: 1.1rem;
+  }
+
+
+  .deletetButton:hover{
+    background-color: #ff4848;
+  }
+
+  .deletetButton:active{
+    background-color: #cf4f4f;
+  }
+
+
+  .cancelButton:hover i{
+    color: #383838;
+    font-size: 1.2rem;
+  }
+
+
+  .saveButton i{
+    color: #58ff3b;
+    font-size: 1.2rem;
+  }
+
+  .saveButtonOff i{
+    color: #cbfdc2;
+    font-size: 1.2rem;
+  }
+
+  .deletetButtonOff i{
+    color: #fca1a1;
+    font-size: 1.2rem;
+  }
+
+  .saveButton:hover i{
+    color: #383838;
+  }
+

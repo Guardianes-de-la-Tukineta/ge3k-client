@@ -6,7 +6,7 @@ import ManageAdmins from './Views/ManageAdmins/ManageAdmins'
 import UsersPanel from '../../Components/UsersPanel/UsersPanel'
 const Users = () => {
   return (
-    <div className='container d-flex flex-column flex-grow-1 justify-content-around' style={{paddingBottom:'1rem'}}>
+    <div className='container-fluid d-flex flex-column flex-grow-1 justify-content-around w-100' style={{paddingBottom:'1rem'}}>
     
     <div>
    <UsersPanel/>

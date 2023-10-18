@@ -6,7 +6,7 @@ const ProductsPanel = () => {
   return (
     <div className='row justify-content-around'>
            
-    <div className={`col-lg-4 `} style={{padding:'0 '}}>
+    <div className={`col-md-5 `} style={{padding:'0 '}}>
     <Link to='/admin/products/add'>   <div className={`${style.cardCreateProduct} ` }  style={{margin:'1.5rem 2.5rem',}}>
       <div className={`container-fluid  `}> 
         <div className={`row`}>
@@ -30,7 +30,7 @@ const ProductsPanel = () => {
 
 
 
-    <div className={`col-lg-4 `} style={{padding:'0 '}}>
+    <div className={`col-md-5 `} style={{padding:'0 '}}>
     <Link to='/admin/products/manage'>    <div className={`${style.cardCreateProduct} ` }  style={{margin:'1.5rem 2.5rem',}}>
       <div className={`container-fluid  `}> 
         <div className={`row`}>

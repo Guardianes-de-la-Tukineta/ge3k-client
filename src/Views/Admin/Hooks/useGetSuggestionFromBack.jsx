@@ -1,5 +1,6 @@
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import axios from "axios";
+import useAuthToken from './useAuthToken'
 
 function useGetSuggestionFromBack() {
   const [loading, setLoading] = useState(false);
@@ -8,13 +9,46 @@ function useGetSuggestionFromBack() {
   const [notSuggestion, setNotSuggestion] = useState(false)
   const [keywordUsed, setKeywordUsed] = useState('')
   const [byId, setById] = useState(false)
-
-
   const [order, setOrder] = useState({})
   const [byCategory, setByCategory] = useState(false)
   const [byThema,setByThema] = useState(false)
   const [pageNum, setPageNum] = useState(1)
+  const [totalPages, setTotalPages] = useState('')
   const [productByPage, setProductByPage] = useState(10)
+  const {authToken} = useAuthToken()
+
+
+  useEffect(() => {
+    if(authToken) getProducts();
+  }, [authToken]);
+
+
+
+
+
+//Un controlador que me maneja cuando una petición cae el catch
+const handleCatchError= (error)=>{
+  console.log(error)
+  setLoading(false)
+        if(error.response){
+          if(error.message === "Request failed with status code 404"){
+            setErrorGetProducts("Seems like we're experiencing technical difficulties. Please contact our support for assistance")
+          setTimeout(() => {
+            setErrorGetProducts(false)
+          }, 5000)
+        } else if(error.response.data.message) {
+          setErrorGetProducts(error.response.data.message)
+          setTimeout(() => {
+            setErrorGetProducts(false)
+          }, 5000)
+        }
+        } else {
+          setErrorGetProducts('Could not retrieve a response from the server. Please check your Internet connection')
+          setTimeout(() => {
+            setErrorGetProducts(false)
+          }, 5000);
+        }
+}
 
 
   const handleGetSuggestions = async (keyword) => {
@@ -22,16 +56,20 @@ function useGetSuggestionFromBack() {
     /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/;
     setLoading(true);
  
- 
     if (uuidPattern.test(keyword)) {
       setById(keyword)
       try {
         const URL = "https://ge3k-server.onrender.com/products/";
-        const {data} = await axios.get(URL + keyword);
+        const {data} = await axios.get(URL + keyword, {
+          headers:{
+            Authorization: `Bearer ${authToken}`
+          }
+        });
         setOrder({})
       setByCategory(false)
       setByThema(false)
       setPageNum(1)
+      setTotalPages(1)
       setKeywordUsed('')
         if(data.length === 0){
           setNotSuggestion(true)
@@ -41,45 +79,42 @@ function useGetSuggestionFromBack() {
         setProducts([data])
         setLoading(false);
       } catch (error) {
-        setLoading(false);
-        console.error(error);
-        setErrorGetProducts(error)
-        setTimeout(() => {
-          setErrorGetProducts(false)
-        }, 5000);
+        handleCatchError(error)
       }
     } else {
       if(byId)setById(false)
       try {
         const URL = "https://ge3k-server.onrender.com/products?name=";
-        const {data} = await axios.get(URL + keyword);
+        const {data} = await axios.get(URL + keyword, {
+          headers:{
+            Authorization: `Bearer ${authToken}`
+          }
+        });
         setKeywordUsed(keyword)
         if(data.length === 0){
           setNotSuggestion(true)
         } else{
           setNotSuggestion(false)
         }
+        setPageNum(1)
+        setTotalPages(1)
         setProducts(data)
         setLoading(false);
       } catch (error) {
-        setLoading(false);
-        console.error(error);
-        setErrorGetProducts(error)
-        setTimeout(() => {
-          setErrorGetProducts(false)
-        }, 5000);
+        handleCatchError(error)
       }
     }
   };
 
 
   const getProducts = async (pattern) =>{
-   
+
     if(byId)setById(false)
     setLoading(true);
     const URL = 'https://ge3k-server.onrender.com/products?'
 
 
+    //Si pattern es "Reset" se resetean todo los estados
     if(pattern === 'Reset'){
       setOrder({})
       setByCategory(false)
@@ -88,19 +123,20 @@ function useGetSuggestionFromBack() {
       setKeywordUsed('')
 
       try {
-        const {data} = await axios.get(URL+'pageNumber=1&unitsPerPage=12');
-        setProducts(data)
+        const {data} = await axios.get(URL+'pageNumber=1&unitsPerPage=12',{
+          headers:{
+            Authorization: `Bearer ${authToken}`
+          }
+        });
+        setProducts(data.products)
+        setTotalPages(data.totalPages)
        setLoading(false);
       } catch (error) {
-        console.error(error)
-        setLoading(false);
-        setErrorGetProducts(error)
-        setTimeout(() => {
-          setErrorGetProducts(false)
-        }, 5000);
+        handleCatchError(error)
       }
 
-    } else{
+    } else {
+
     let pageNumber =`pageNumber=${pageNum}`;
     let unitsPerPage = `&unitsPerPage=${productByPage}`;
     let keyword = (keywordUsed)?`&name=${keywordUsed}`:'';
@@ -132,9 +168,7 @@ function useGetSuggestionFromBack() {
       setByThema((pattern.thema !== 'Reset')?pattern.thema:false)
     }
 
-
     if(pattern.order){
-
 
       //Ordenado por nombre
       if(pattern.order === 'A-Z' || pattern.order === 'Z-A'){
@@ -157,7 +191,6 @@ function useGetSuggestionFromBack() {
           setOrder({type:'price', order:'ASC'})
         } 
       }
-
        //Resetear el orden
       if(pattern.order === 'Reset' ){
         orderName = '';
@@ -168,23 +201,21 @@ function useGetSuggestionFromBack() {
   }
 
   try {
-    const {data} = await axios.get(URL+pageNumber+unitsPerPage+keyword+category+thema+orderName+orderPrice);
-    setProducts(data)
+    const {data} = await axios.get(URL+pageNumber+unitsPerPage+keyword+category+thema+orderName+orderPrice,{
+      headers:{
+        Authorization: `Bearer ${authToken}`
+      }
+    });
+    setProducts(data.products)
+    setTotalPages(data.totalPages)
    setLoading(false);
   } catch (error) {
-    console.error(error);
-    setLoading(false);
-    setErrorGetProducts(error);
-    setTimeout(() => {
-      setErrorGetProducts(false);
-    }, 5000);
+    handleCatchError(error)
+  }
   }
 }
-  }
 
-
-
-  return { products, byId, notSuggestion, loading, setLoading, errorGetProducts, pageNum, productByPage, handleGetSuggestions, getProducts};
+  return { products, byId, notSuggestion, loading, setLoading, errorGetProducts, pageNum, totalPages, handleGetSuggestions, getProducts};
 }
 
 export default useGetSuggestionFromBack;
