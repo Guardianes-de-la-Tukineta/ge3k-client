@@ -34,7 +34,7 @@ useEffect(()=>{
         {options && options.map((option, index) => {
 
          
-return (<div  key={index} onClick={()=> {handleSelect(option)}} style={{cursor: 'pointer', padding: '8px 16px', fontSize: '1rem'}}>{option}</div>)
+return (<div  key={option.id || index + 1} onClick={()=> {handleSelect(option.name)}} style={{cursor: 'pointer', padding: '8px 16px', fontSize: '1rem'}}>{option.name}</div>)
         })}
       </Dropdown.Menu>
     </Dropdown>

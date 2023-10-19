@@ -38,18 +38,6 @@ font-weight: 600;
     font-size: 1rem;
 }
 
-.rowContainer label input{
-    padding: 0 0.5rem;
-    width: 100%;
-    height: 2rem;
-    outline:none;
-    border-radius: 4px;
-    border: 1px solid #383838;
-    background-color: #38383813;
-    color: #383838;
-    font-size: 1rem;
-}
-
 .rowContainer button{
 
     width: 100%;
@@ -64,19 +52,41 @@ font-weight: 600;
     font-weight: 600;
 }
 
-.rowContainer label select {
-    padding: 0 0.5rem;
+.rowContainer button:hover{
+    border: 1px solid #ff6824;
+    background-color: #ff6824;
+    color: #ffffff;
+}
+
+.rowContainer button:active{
+    border: 1px solid #bb633a;
+    background-color: #bb633a;
+    color: #ffffff;
+}
+
+
+.rowContainer button:disabled{
+
     width: 100%;
-    height: 2rem;
-    outline: none;
+    height: 2.5rem;
+    outline:none;
     border-radius: 4px;
     border: 1px solid #383838;
-    background-color: #38383813;
-    color: #383838;
+    background-color: #636363;
+    color: #ffffff;
     font-size: 1rem;
-    margin-bottom: 0;
-
+    margin-top: 1rem !important;
+    font-weight: 600;
 }
+
+
+.rowContainer label input:focus{
+    outline:none;
+    border: 1px solid #ff6824;
+    box-shadow: 0px 0px 6px #ff6824;
+    border-radius: 4px;
+}
+
 .error{
     font-size: 0.80rem;
     margin: 0;
@@ -84,4 +94,5 @@ font-weight: 600;
     margin-left: 0.2rem;
     color: #ff3939;
     font-weight: 600;
+    text-align: left;
    }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import style from "./FormAddAdmin.module.css"
 import { useForm } from "react-hook-form";
 import Spinner from "react-bootstrap/Spinner";
@@ -10,7 +10,11 @@ const FormAddAdmin = ({handleCreateNewAdmin, loading}) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
+    trigger,
+    setValue,
+    getValues,
+
     reset,
   } = useForm();
 
@@ -42,6 +46,11 @@ const FormAddAdmin = ({handleCreateNewAdmin, loading}) => {
             <input
               {...register("name", { required: true, maxLength: 100 })}
               placeholder="Juan Pablo"
+              onChange={(e) => {
+                setValue("name", e.target.value);
+                trigger("name");
+      
+              }}
             />
             {errors.name && (
               <span className={style.error}>This field is required</span>
@@ -53,8 +62,13 @@ const FormAddAdmin = ({handleCreateNewAdmin, loading}) => {
             <input
               {...register("surname", { required: true, maxLength: 500 })}
               placeholder="Juanpi83"
+              onChange={(e) => {
+                setValue("surname", e.target.value);
+                trigger("surname");
+      
+              }}
             />
-            {errors.description && (
+            {errors.surname && (
               <span className={style.error}>This field is required</span>
             )}
           </label>
@@ -72,6 +86,11 @@ const FormAddAdmin = ({handleCreateNewAdmin, loading}) => {
             message: "Invalid email address"
           }
         })} 
+        onChange={(e) => {
+          setValue("email", e.target.value);
+          trigger("email");
+
+        }}
       />
       {errors.email && <span className={style.error}>{errors.email.message}</span>}
           </label>
@@ -88,12 +107,36 @@ const FormAddAdmin = ({handleCreateNewAdmin, loading}) => {
             message: 'Use 1 uppercase, 1 number, 1 symbol, and a minimum of 10 characters'
           }
         })}
+        onChange={(e) => {
+          setValue("password", e.target.value);
+          trigger("password");
+
+        }}
       />
-      {errors.password && <span>{errors.password.message}</span>}
+      {errors.password && <span className={style.error}>{errors.password.message}</span>}
+          </label>
+
+          <label>
+            <span>Confirm password:</span>
+            <input 
+               type="password" 
+               placeholder="Confirm the password"
+        {...register('confirmPassword', {
+          required: 'This field is required',
+          validate: value =>
+            value === getValues().password || "The passwords do not match"
+        })}
+        onChange={(e) => {
+          setValue("confirmPassword", e.target.value);
+          trigger("confirmPassword");
+
+        }}
+      />
+      {errors.confirmPassword && <span className={style.error}>{errors.confirmPassword.message}</span>}
           </label>
 
 
-          <button>
+          <button disabled={!isValid}>
             {!loading ? (
               "Create New Admin"
             ) : (

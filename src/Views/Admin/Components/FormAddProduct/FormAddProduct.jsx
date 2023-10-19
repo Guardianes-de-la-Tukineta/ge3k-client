@@ -16,7 +16,7 @@ const FormAddProduct = () => {
     handleSubmit,
     watch,
     trigger,
-    formState: { errors },
+    formState: { errors, isValid },
     reset,
   } = useForm();
   const {categories, themas, errorGetCatgeoryAndThema} = useGetCategoriesAndThemes()
@@ -170,7 +170,7 @@ const FormAddProduct = () => {
                     setFile(null);
                   }}
                 >
-                  <option value="">Image type</option>
+                  <option value="">Upload a image product</option>
                   <option value="url">URL</option>
                   <option value="local">Upload local image</option>
                   
@@ -189,7 +189,16 @@ const FormAddProduct = () => {
                 name="urlImagen"
                 {...register("urlImagen", { required: true })}
                 placeholder="Ingresa la URL de la imagen"
+                onChange={(e) => {
+                  setValue("urlImagen", e.target.value);
+                  trigger("urlImagen");
+  
+                }}
+                
               />
+               {errors.urlImagen && (
+              <span className={style.error}>This field is required</span>
+            )}
             </label>
           )}
 
@@ -201,7 +210,7 @@ const FormAddProduct = () => {
                 name="imagenLocal"
                 {...register("imagenLocal", { required: true })}
                 onChange={handleImageChange}
-              />{" "}
+              />
             </label>
           )}
 
@@ -218,6 +227,12 @@ const FormAddProduct = () => {
                 trigger("price");
 
               }}
+              onKeyPress={(event) => {
+                if (event.key === '-' || event.key === '+') {
+                  event.preventDefault();
+                }
+              }
+            }
             />
             {errors.price && errors.price.type === 'required' && (
               <span className={style.error}>
@@ -237,12 +252,19 @@ const FormAddProduct = () => {
               type="number"
               min="0"
               max="99"
-              {...register("discount", { min: 0, max: 99 })}
+              defaultValue= "0"
+              {...register("discount", { min: 0, max: 99,   })}
               onChange={(e) => {
                 setValue("discount", e.target.value);
                 trigger("discount");
 
               }}
+              onKeyPress={(event) => {
+                if (event.key === '-' || event.key === '+') {
+                  event.preventDefault();
+                }
+              }
+            }
             />
             {errors.discount && (
               <span className={style.error}>
@@ -262,6 +284,12 @@ const FormAddProduct = () => {
                 trigger("stock");
 
               }}
+              onKeyPress={(event) => {
+                if (event.key === '-' || event.key === '+') {
+                  event.preventDefault();
+                }
+              }
+            }
             />
             {errors.stock && (
               <span className={style.error}>

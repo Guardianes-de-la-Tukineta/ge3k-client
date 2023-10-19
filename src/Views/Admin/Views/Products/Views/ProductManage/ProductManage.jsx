@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import SearchBarAdmin from "../../../../Components/SearchBarAdmin/SearchBarAdmin";
 import useGetSuggestionFromBack from "../../../../Hooks/useGetSuggestionFromBack";
-import TableEditProduct from "../../../../Components/TableEditProduct/TableEditProduct";
+import TableManageProducts from "../../../../Components/TableManageProducts/TableManageProducts";
 import Spinner from "react-bootstrap/Spinner";
 import Alert from "react-bootstrap/Alert";
 import styles from './ProductManage.module.css'
 import PaginationAdmin from "../../../../Components/PaginationAdmin/PaginationAdmin";
 import axios from "axios";
 import DropDownAdmin from "../../../../Components/DropDownAdmin/DropDownAdmin";
+import useGetCategoriesAndThemes from "../../../../Hooks/useGetCategoriesAndThemes";
 
 const ProductManage = () => {
   const {
@@ -22,10 +23,12 @@ const ProductManage = () => {
     handleGetSuggestions,
     getProducts,
   } = useGetSuggestionFromBack();
+  const {categories, themas, errorGetCatgeoryAndThema} = useGetCategoriesAndThemes()
   const [resetDropDowns, setResetDropDowns] = useState(false);
   const [searchBarResetCounter, setSearchBarResetCounter] = useState(0);
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
+  
 
 
   //Para resetear los dropdowns cuando se hace una nueva busqueda
@@ -145,24 +148,18 @@ const ProductManage = () => {
               <>
                 <DropDownAdmin
                   title={"Category"}
-                  options={[
-                    "T-shirts",
-                    "Mugs",
-                    "PC Accesories",
-                    "Collectible figures",
-                    "Reset",
+                  options={categories && [
+                    ...categories,
+                    {name:"Reset"},
                   ]}
                   reset={resetDropDowns}
                   getProducts={getProducts}
                 />
                 <DropDownAdmin
                   title={"Thema"}
-                  options={[
-                    "Programming",
-                    "Anime",
-                    "Gaming",
-                    "Video Games",
-                    "Reset",
+                  options={themas && [
+                    ...themas,
+                    {name:"Reset"},
                   ]}
                   reset={resetDropDowns}
                   getProducts={getProducts}
@@ -202,7 +199,7 @@ const ProductManage = () => {
           <div   style={{margin: "5rem" }} >"No matches found, please try another search!"</div>
         ) : (
           <>
-          <TableEditProduct
+          <TableManageProducts
             data={products}
             handleUpdate={handleUpdate}
             handleDelete={handleDelete}
