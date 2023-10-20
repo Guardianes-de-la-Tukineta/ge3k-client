@@ -8,8 +8,8 @@ export default function TopBar({toggle, handleToggle}){
           <i className="bi bi-list"></i>
           </div>
         
-          <div className="user">
-            <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" />
+          <div >
+            Admin <i className="bi bi-person-fill" style={{fontSize:'1.4rem', marginRight:'5px'}}></i>
           </div>
         </div>
     )

@@ -15,9 +15,8 @@ const handleLogin = async({email, password})=>{
     try {
         const URL = 'https://ge3k-server.onrender.com/admin/login'
         const dataUser = {email, password};
-        const {token, adminRole} = (await axios.post(URL,dataUser)).data
+        const {token} = (await axios.post(URL,dataUser)).data
         localStorage.setItem('token', token);
-        localStorage.setItem('role', adminRole);
         navigate('/admin');
         setSpinner(false)
 

@@ -1,83 +1,128 @@
-.notAuthContainer{
-    position: fixed;
-    top:0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
+.notAuthContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.notAuthForm{
-    background-color: rgb(233, 233, 233);
-    position: relative;
-    z-index: 15;
-    width: 350px;
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
-    border-radius: 4px;
+.notAuthForm {
+  background-color: rgb(233, 233, 233);
+  position: relative;
+  z-index: 5000;
+  width: 350px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  border-radius: 4px;
 }
 
-.notAuthForm ul{
-    list-style-type: none;
-    margin-left: 0;
-    padding-left: 0;
+.notAuthForm p{
+ font-weight: 600;
 }
 
-i.auth{
-color:#28a312;
-margin-right: 6px;
-}
-
-i.noAuth{
-    color:#ff4848;
-    margin-right: 6px;
+.notAuthForm ul {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
 }
 
 
 
-.headerAuth{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 1.5rem;
-    gap: 5px;
-    text-align: center;
+
+
+i.noAuth {
+  color: #ff4848;
+  margin-right: 6px;
+}
+
+.headerAuth {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  gap: 5px;
+  text-align: center;
 }
 h3 {
-    font-size: 1.40rem !important;
+  font-size: 1.4rem !important;
 }
-i.alert{
-    background-color: #f5e50e;
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
-    padding: 1rem;
-    color: black;
-    font-size: 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: 2px solid black;
+i.alert {
+  background-color: #f5e50e;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  padding: 1rem;
+  color: black;
+  font-size: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
 }
-
-
-.notAuthForm button{
+.notAuthForm a{
     width: 100%;
-    border-radius: 4px;
-    height: 2.5rem;
-    background-color: #383838;
-    color: white;
-    outline: none;
-    border: none;
-    font-weight: 600;
-   }
+}
+
+.notAuthForm a button {
+  width: 100%;
+  border-radius: 4px;
+  height: 2.5rem;
+  background-color: #383838;
+  color: white;
+  outline: none;
+  border: none;
+  font-weight: 600;
+}
+
+ul.authToDo {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+}
+
+.authToDo li {
+  display: flex;
+  width: 100% !important;
+  border: 1px solid #383838;
+  background-color: white;
+  height: 2.5rem;
+  gap: 5px;
+  align-items: center;
+  padding: 8px;
+  border-radius: 4px;
+
+}
+
+
+.authToDo li i.arrow{
+    color: #383838;
+    font-size: 1.8rem;
+    transition: margin-left 0.2s;
+  }
+
+  .authToDo li i.auth{
+    color: #28a312;
+    margin-right: 6px;
+    font-size: 1rem;
+  }
+
+  .authToDo li:hover i.arrow{
+  margin-left: 65px;
+  transition: margin-left 0.2s;
+  }
+
+
+
+   

@@ -34,7 +34,6 @@ const Admin = () => {
 
   const handleLogOut = ()=>{
     localStorage.removeItem('token');
-    localStorage.removeItem('role');
   }
 
   return (
