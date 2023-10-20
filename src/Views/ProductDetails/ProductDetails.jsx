@@ -9,6 +9,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { customerStore } from "../../zustand/customerStore/customerStore";
 import Spinner from "react-bootstrap/Spinner";
 import { favoriteStore } from "../../zustand/favoriteStore/favoriteStore";
+import ReactStars from 'react-stars';
 
 //HP el componente de llama ProductDetails  ya que podemos tener otros details ej, RatingDetails
 function ProductDetails() {
@@ -82,7 +83,7 @@ function ProductDetails() {
     }, 1000);
   }
   return (
-    <Container className={styles.productDetailsConteiner}>
+    <Container className={styles.productDetailsConteiner}>      
       {!productDetails.image ? ( //controlo que el estado ya tenga la propiedad imagen
         <Row style={{ padding: "100px", justifyContent: "center" }}>
           <Spinner
@@ -162,6 +163,45 @@ function ProductDetails() {
           </Col>
         </Row>
       )}
+      <hr></hr>
+      <div className="d-flex row">
+        <div className="col-md-6">
+          <h2>calificaciones</h2>
+              promedio estrellas
+              <ReactStars
+      count={5}
+      // Asegúrate de tener una función ratingChanged para manejar el cambio de valoración
+      size={24}
+      color2={'#ffd700'}
+    />
+
+        </div>
+
+        <div className="col-md-6">
+          <h2>Principales comentarios </h2>
+          <div className="media">
+            <img src="imagen-usuario.jpg" className="mr-3" alt="..." style={{ width: "64px", height: "64px"}}/>
+            <div className="media-body">
+              <h5 className="mt-0">Nombre de Usuario</h5>
+              Comentario del usuario. Puedes incluir texto, enlaces, etc.
+            </div>
+          </div><div className="media">
+            <img src="imagen-usuario.jpg" className="mr-3" alt="..." style={{ width: "64px", height: "64px"}}/>
+            <div className="media-body">
+              <h5 className="mt-0">Nombre de Usuario</h5>
+              Comentario del usuario. Puedes incluir texto, enlaces, etc.
+            </div>
+          </div>
+          <div className="media">
+            <img src="imagen-usuario.jpg" className="mr-3" alt="..." style={{ width: "64px", height: "64px"}}/>
+            <div className="media-body">
+              <h5 className="mt-0">Nombre de Usuario</h5>
+              Comentario del usuario. Puedes incluir texto, enlaces, etc.
+            </div>
+          </div>
+      </div>
+
+      </div>
     </Container>
   );
 }

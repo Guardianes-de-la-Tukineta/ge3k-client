@@ -1,13 +1,16 @@
 import { create } from "zustand"; // crear estados globales y actions
 import zukeeper from 'zukeeper' //poder usar la extension de chrome para zustand("zustand dev-tools")
 import axios from "axios";
+import Swal from 'sweetalert2'
 
 export const cartStore = create(zukeeper((set) => ({
     cart: JSON.parse(window.localStorage.getItem("cart")) || [], // productos en carrito de compra
     subTotal: 0, // guarda el subTotal en el carrito
     visibility:true, // para cuando se le da al icono del carrito del navBar
-    errorQuantity:'',
-    
+    errorQuantity:{ // para actualizar automaticamente el input al maximo de stock
+        id:null,
+        stock:''
+    },    
     //conectar con back
     syncByBack:async (customerId)=>{
         try {              
@@ -28,8 +31,14 @@ export const cartStore = create(zukeeper((set) => ({
                 cart: data.cart.products,
                 subTotal:data.cart.total
             })) 
-            if(data.message.includes('stock'))          
-            alert(data.message)              
+            if(data.message.includes('stock'))  {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: data.message, 
+                    confirmButtonColor: '#ff6824',                    
+                })  
+            }        
         } catch (error) {
             console.log(error);
         }        
@@ -44,7 +53,6 @@ export const cartStore = create(zukeeper((set) => ({
         set(prevState=>({
             visibility:atribute //cambiamos la visibilidad con el true o false que venga 
         })) 
-
     },
     //update localStorage con estado global
     updateLocalStorage: (newState) => {
@@ -132,8 +140,7 @@ export const cartStore = create(zukeeper((set) => ({
                 console.log(data,cant);
                 set(prevState => ({ //actualizamos subtotal con el back
                     ...prevState,
-                    subTotal:data.total,
-                    errorQuantity:''
+                    subTotal:data.total,                    
                 }))
             }
             const cart = cartStore.getState().cart;
@@ -145,22 +152,32 @@ export const cartStore = create(zukeeper((set) => ({
             })        
             set(prevState => ({
                 ...prevState,
-                cart: newCart,
-                errorQuantity:''
+                cart: newCart,                
             }))            
 
-        } catch ({response}) {
-            alert(response.data.error);                      
+        } catch ({response}) {             
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: response.data.error, 
+                confirmButtonColor: '#ff6824',                    
+            })                      
             set(prevState => ({
                 ...prevState,
-                errorQuantity: response.data.error // para usar esa info en mi componente de cartItem
+                errorQuantity:{ // para usar esa info en mi componente de cartItem
+                    id:productId,
+                    stock:response.data.error 
+                } 
             })) 
         }
     },
     clearErrorQuantity:()=>{
         set(prevState => ({
             ...prevState,
-            errorQuantity: ""
+            errorQuantity: {
+                id:null,
+                stock:''
+            }
         })) 
     },
     //obtener SubTotal en el precio del carrito
