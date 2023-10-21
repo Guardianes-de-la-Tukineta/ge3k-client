@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useJwt } from "react-jwt";
 
 function useAuthToken() {
+
   const [authToken, setAuthToken] = useState(null);
   const [storedRole, setStoredRole] = useState(null);
 

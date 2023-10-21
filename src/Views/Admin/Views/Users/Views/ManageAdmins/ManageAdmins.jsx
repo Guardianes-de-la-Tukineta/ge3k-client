@@ -23,7 +23,7 @@ const ManageAdmins = () => {
  },[storedRole])
 
 
-  const {admins, loading, resetSearhBar, errorGetAdmins, message, handleBan, handleUnban, handleGetSuggestions, getAdmin} = useGetAdminsFromBack()
+  const {admins, loading, resetSearhBar, errorGetAdmins, message, handleBan, handleUnban, handleNewPassword, handleGetSuggestions, getAdmin} = useGetAdminsFromBack()
   return (
     <div
       className="flex-grow-1 m-4 d-flex  flex-column align-items-center text-center rounded mt-2 p-4"
@@ -32,7 +32,7 @@ const ManageAdmins = () => {
         {notAuth && <ModalNoAuth/>}
       <h4 className="mt-2">MANAGAE ADMINS</h4>
       <div className='row  justify-content-center w-100'>
-        <div className='col-lg-8'>
+        <div className='col-lg-10'>
       <div className={styles.messageSection}>
         {errorGetAdmins && (
           <Alert
@@ -73,6 +73,7 @@ const ManageAdmins = () => {
           data={admins}
           handleBan={handleBan}
           handleUnban={handleUnban}
+          handleNewPassword={handleNewPassword}
         /> )
       }
       </div>

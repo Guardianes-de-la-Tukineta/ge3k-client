@@ -34,11 +34,9 @@ const toggleConfirmPasswordVisibility = () => {
   const onSubmit = async (dataFrom) =>{
     try {
       await handleCreateNewAdmin(dataFrom)
-      console.log('fdsfasdfasdfadsf')
       reset();
     } catch (error) {
-      console.log('sdafsdfasd')
-      console.error("Error al crear un nuevo administrador:", error);
+         return
     }
 
   }

@@ -84,7 +84,7 @@ return
     }),
 
     getAllCategories: async () => {
-        const URLBACK = "https://ge3k-server.onrender.com/categories";
+        const URLBACK = "https://ge3k-server.onrender.com/categories?active=yes";
         const result = ["all"];
         try {
           const res = await axios(URLBACK);
@@ -102,7 +102,7 @@ return
       },
      
     getAllThemes: async () => {
-        const URLBACK = "https://ge3k-server.onrender.com/themes";
+        const URLBACK = "https://ge3k-server.onrender.com/themes?active=yes";
         const result = ["all"];
         try {
           const res = await axios(URLBACK);
