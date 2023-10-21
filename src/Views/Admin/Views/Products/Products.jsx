@@ -9,8 +9,6 @@ const Products = () => {
   const location = useLocation();
   const showProductsPanel = location.pathname === "/admin/products";
 
-  console.log(location)
-
   return (
     <div className='container-fluid d-flex flex-column flex-grow-1 justify-content-around w-100' style={{paddingBottom:'1rem'}}>
 

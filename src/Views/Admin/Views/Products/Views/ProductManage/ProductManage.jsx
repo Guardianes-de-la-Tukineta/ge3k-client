@@ -8,7 +8,7 @@ import styles from './ProductManage.module.css'
 import PaginationAdmin from "../../../../Components/PaginationAdmin/PaginationAdmin";
 import axios from "axios";
 import DropDownAdmin from "../../../../Components/DropDownAdmin/DropDownAdmin";
-import useGetCategoriesAndThemes from "../../../../Hooks/useGetCategoriesAndThemes";
+import { useAdminStore } from "../../../../ZustandAdmin/AdminStore";
 
 const ProductManage = () => {
   const {
@@ -23,13 +23,19 @@ const ProductManage = () => {
     handleGetSuggestions,
     getProducts,
   } = useGetSuggestionFromBack();
-  const {categories, themas, errorGetCatgeoryAndThema} = useGetCategoriesAndThemes()
   const [resetDropDowns, setResetDropDowns] = useState(false);
   const [searchBarResetCounter, setSearchBarResetCounter] = useState(0);
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
+  const {categoriesWithProducts, themeWithProducts, getCatgoriesAndThemes} = useAdminStore()
   
-
+  useEffect(()=>{
+    if(categoriesWithProducts.length === 0) {
+     getCatgoriesAndThemes()
+    }
+  },[categoriesWithProducts])
+ 
+  
 
   //Para resetear los dropdowns cuando se hace una nueva busqueda
   useEffect(() => {
@@ -148,8 +154,8 @@ const ProductManage = () => {
               <>
                 <DropDownAdmin
                   title={"Category"}
-                  options={categories && [
-                    ...categories,
+                  options={categoriesWithProducts && [
+                    ...categoriesWithProducts,
                     {name:"Reset"},
                   ]}
                   reset={resetDropDowns}
@@ -157,8 +163,8 @@ const ProductManage = () => {
                 />
                 <DropDownAdmin
                   title={"Thema"}
-                  options={themas && [
-                    ...themas,
+                  options={themeWithProducts && [
+                    ...themeWithProducts,
                     {name:"Reset"},
                   ]}
                   reset={resetDropDowns}

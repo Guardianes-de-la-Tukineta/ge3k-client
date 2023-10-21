@@ -6,7 +6,8 @@ import axios from "axios";
 import Alert from "react-bootstrap/Alert";
 import Spinner from "react-bootstrap/Spinner";
 import useAuthToken from "../../Hooks/useAuthToken";
-import useGetCategoriesAndThemes from "../../Hooks/useGetCategoriesAndThemes";
+import { useAdminStore } from "../../ZustandAdmin/AdminStore";
+
 
 const FormAddProduct = () => {
   const {
@@ -16,10 +17,20 @@ const FormAddProduct = () => {
     handleSubmit,
     watch,
     trigger,
-    formState: { errors, isValid },
+    formState: { errors},
     reset,
   } = useForm();
-  const {categories, themas, errorGetCatgeoryAndThema} = useGetCategoriesAndThemes()
+ const {allCategories, AllThemes, getCatgoriesAndThemes} = useAdminStore()
+
+
+ useEffect(()=>{
+   if(allCategories.length === 0) {
+    getCatgoriesAndThemes()
+   }
+ },[allCategories])
+
+ 
+ 
   const { authToken } = useAuthToken();
   const [file, setFile] = useState(null);
   const [alert, setAlert] = useState(false);
@@ -74,6 +85,7 @@ const FormAddProduct = () => {
       });
       setSpinner(false);
       reset();
+      getCatgoriesAndThemes()
       setImagenSeleccionada(null);
       setAlert(true);
       setTimeout(() => {
@@ -314,7 +326,7 @@ const FormAddProduct = () => {
                   }}
                 >
                   <option value="">Select a category</option>
-                  {categories && [...categories, {name:"New category"}].map((category) => (
+                  {allCategories && [...allCategories, {name:"New category"}].map((category) => (
                     <option key={category.id} value={category.name}>
                       {category.name}
                     </option>
@@ -353,7 +365,7 @@ const FormAddProduct = () => {
                   }}
                 >
                   <option value="">Select a theme</option>
-                  {themas && [...themas, {name:"New Theme"}].map((themas) => (
+                  {AllThemes && [...AllThemes, {name:"New Theme"}].map((themas) => (
                     <option key={themas.id} value={themas.name}>
                       {themas.name}
                     </option>

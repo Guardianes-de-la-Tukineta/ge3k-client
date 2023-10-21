@@ -32,9 +32,8 @@ useEffect(()=>{
 
       <Dropdown.Menu  className={styles.containerOptions} >
         {options && options.map((option, index) => {
-
-         
-return (<div  key={option.id || index + 1} onClick={()=> {handleSelect(option.name)}} style={{cursor: 'pointer', padding: '8px 16px', fontSize: '1rem'}}>{option.name}</div>)
+   
+return (<div  key={option.id || index + 1} onClick={()=> {handleSelect(option.name || option)}} style={{cursor: 'pointer', padding: '8px 16px', fontSize: '1rem'}}>{option.name || option}</div>)
         })}
       </Dropdown.Menu>
     </Dropdown>
