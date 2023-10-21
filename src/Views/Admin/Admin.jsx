@@ -9,6 +9,7 @@ import Users from "./Views/Users/User";
 import DashBoard from "./Components/DashBoard/DashBoard";
 import Auth from "./Views/Auth/Auth";
 import { useNavigate } from "react-router-dom";
+import Orders from "./Views/Orders/Orders";
 
 const Admin = () => {
   const [toggle, setToggle] = useState(true);
@@ -53,6 +54,7 @@ const Admin = () => {
           <Route path="auth" element={<Auth />} />
           <Route path="products/*" element={<Products />}/>
           <Route path="users/*" element={<Users />} />
+          <Route path="orders/*" element={<Orders />} />
         </Routes>
       </div>
     </div>
