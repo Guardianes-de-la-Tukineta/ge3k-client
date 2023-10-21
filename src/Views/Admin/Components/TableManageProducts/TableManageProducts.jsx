@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import styles from "./TableEditProduct.module.css";
+import styles from "./TableManageProducts.module.css";
 import ModalEdit from "../ModalEdit/ModalEdit";
 import ModalDelete from "../ModalDelete/ModalDelete";
 import Spinner from 'react-bootstrap/Spinner';
 
 
 
-const TableEditProduct = ({ data, handleUpdate, handleDelete }) => {
+const TableManageProducts = ({ data, handleUpdate, handleDelete }) => {
   const [idSelected, setIDSelected] = useState(null);
   const [productForDelete, setProductForDelete] = useState('');
   const [productForEdit, setProductForEdit] = useState('');
@@ -18,12 +18,19 @@ const TableEditProduct = ({ data, handleUpdate, handleDelete }) => {
   const [loading, setLoading] = useState(false);
 
 
-
   //Para ir guardado la información del producto que se esta editando y usarla para enviar al back
   const handleInputChange = (e) => {
+
+    const input = e.target.name;
+    const value = e.target.value;
+
+    //No dejamos discount mayor que 99
+    if (input === 'discount' && value > 99) {
+      return 
+    } 
     setInputValues((prevState) => ({
       ...prevState,
-      [e.target.name]: e.target.value,
+      [input]: value,
     }));
   };
 
@@ -145,6 +152,12 @@ const TableEditProduct = ({ data, handleUpdate, handleDelete }) => {
                             : product.stock
                         }
                         onChange={handleInputChange}
+                        onKeyPress={(event) => {
+                          if (event.key === '-' || event.key === '+') {
+                            event.preventDefault();
+                          }
+                        }
+                      }
                       />
                     </td>
                     <td>
@@ -159,6 +172,12 @@ const TableEditProduct = ({ data, handleUpdate, handleDelete }) => {
                             : product.price
                         }
                         onChange={handleInputChange}
+                        onKeyPress={(event) => {
+                          if (event.key === '-' || event.key === '+') {
+                            event.preventDefault();
+                          }
+                        }
+                      }
                       />
                     </td>
                     <td>
@@ -166,12 +185,19 @@ const TableEditProduct = ({ data, handleUpdate, handleDelete }) => {
                         type="number"
                         name="discount"
                         min='0'
+                        max='99'
                         value={
                           inputValues.hasOwnProperty("discount")
                             ? inputValues.discount
                             : product.discount || "0"
                         }
                         onChange={handleInputChange}
+                        onKeyPress={(event) => {
+                          if (event.key === '-' || event.key === '+') {
+                            event.preventDefault();
+                          }
+                        }
+                      }
                       />{" "}
                     </td>
                     <td>
@@ -281,4 +307,4 @@ const TableEditProduct = ({ data, handleUpdate, handleDelete }) => {
   );
 };
 
-export default TableEditProduct;
+export default TableManageProducts;

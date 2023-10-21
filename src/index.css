@@ -43,3 +43,8 @@ position: relative;
 ::-webkit-scrollbar-thumb:hover {
   background-color: #333; /* Cambio de color cuando se pasa el mouse sobre el control deslizante */
 }
+
+/* estilos para controlar el desplazamiento del body al aparecer un scroll*/
+.no-scroll {
+  overflow: hidden !important;
+}

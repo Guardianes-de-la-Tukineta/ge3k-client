@@ -11,7 +11,7 @@ import CardTest from "./CardTest";
 import { useState } from "react";
 import { useContext } from "react";
 import { CartTest } from "./CartContext";
-import ShowCart from "./showCart";
+import ShowCart from "./ShowCart";
 import { useStore } from "zustand";
 
 

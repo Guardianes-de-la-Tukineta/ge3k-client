@@ -2,16 +2,24 @@ import React, { useEffect, useState } from "react";
 import styles from "./TableManageAdmins.module.css"
 import ModalEnable from "../ModalsManageAdmin/ModalEnable";
 import ModalBan from "../ModalsManageAdmin/ModalBan";
+import ModalNewPassWord from "../ModalsManageAdmin/ModalNewPassWord"
+import NewPasswordForm from "../NewPasswordForm/NewPasswordForm";
 
 
-const TableManageAdmins = ({ data, handleUnban, handleBan }) => {
+const TableManageAdmins = ({ data, handleUnban, handleBan, handleNewPassword }) => {
   const [adminForUnban, setAdminForUnban] = useState('');
-  const [adminForBan, setAdminForBan] = useState('');
   const [modalUnBan, setModalUnban] = useState(false);
-  const [modalBan, setModalBan] = useState(false);
   const [modalResponseUnban, setModalResponseUnban] = useState('');
+  
+  const [adminForBan, setAdminForBan] = useState('');
+  const [modalBan, setModalBan] = useState(false);
   const [modalResponseBan, setModalResponseBan] = useState('');
 
+  const [modalPassword, setModalPassword] = useState(false);
+  const [modalResponsePassword, setModalResponsePassword] = useState('');
+  const [adminNewPassword, setAdminNewPassword] = useState('')
+
+  const [showFormPassword, setShowFormPassword] = useState(false)
 
   //Cuando el admin presiona el boton de rehabilitar usuario
   const handleUnbanAdmin = (admin) => {
@@ -24,6 +32,16 @@ const TableManageAdmins = ({ data, handleUnban, handleBan }) => {
     setAdminForBan(admin)
     setModalBan(true);
   };
+
+  const handleModalPassword = (admin) => {
+    setAdminNewPassword(admin)
+    setModalPassword(true);
+  };
+
+  const handleClosePassModal = () => {
+    setShowFormPassword(false)
+  };
+
 
 
   //Controlar la respuesta del Modal de Unban
@@ -60,8 +78,23 @@ const TableManageAdmins = ({ data, handleUnban, handleBan }) => {
   }, [modalResponseBan]);
 
 
+
+  useEffect(() => {
+    setModalPassword(false);
+
+    //Si la respuesta del modal es afirmativa mostramos el form para la nueva password
+    if (modalResponsePassword) {
+      console.log('jijijijiji')
+      setShowFormPassword(true)
+    } 
+
+    setModalResponsePassword('') //Reestablece la respuesta del modal
+  }, [modalResponsePassword]);
+
+
   return (
     <div className={styles.tableContainer}>
+    { showFormPassword && <NewPasswordForm admin={adminNewPassword} handleNewPassword={handleNewPassword} handleClosePassModal={handleClosePassModal} />}
       {data && data.length > 0 ? (
         <table className={styles.table}>
           <thead>
@@ -104,6 +137,12 @@ const TableManageAdmins = ({ data, handleUnban, handleBan }) => {
                     >
                   <i className="bi bi-person-slash"></i>
                     </button>
+                    <button
+                      onClick={() => handleModalPassword(admin)}
+                      className={ styles.passwordButton}
+                    >
+                 New Password
+                    </button>
                     </div>
                   </td>
                 </tr>
@@ -126,6 +165,12 @@ const TableManageAdmins = ({ data, handleUnban, handleBan }) => {
           setModalResponse={setModalResponseBan}
           title={"CAUTION!"}
           admin={adminForBan}
+        />
+        <ModalNewPassWord
+         show={modalPassword}
+          setModalResponse={setModalResponsePassword}
+          title={"ARE YOU SURE?"}
+          admin={adminNewPassword}
         />
     </div>
   );
