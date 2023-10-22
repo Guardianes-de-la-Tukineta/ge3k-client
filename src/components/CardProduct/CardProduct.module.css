@@ -44,6 +44,20 @@
     left: 0;
     margin: 10px;
 }
+.fav2{   
+    position: absolute;
+    width: 35px;
+    height: 35px; 
+    border-radius: 50%;    
+    border: none;
+    background-color: transparent;
+    opacity: 1;
+    transition: all 0.4s ease-in-out;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Agrega una sombra al hacer hover */
+    top: 0;
+    left: 0;
+    margin: 10px;
+}
 .fav i{
     font-size: 20px;
 }
