@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form'
 import ReactStars from 'react-stars';
 import style from './FormRating.module.css'
 
-const FormRating = ({name,setShowFormRating}) => {
+const FormRating = ({name,setShowFormRating,showFormRating}) => {
     const [validated, setValidated] = useState(false);
     const [rate,setRate] = useState(0) // para guardar la calificacion en estrellas  
         
@@ -20,9 +20,9 @@ const FormRating = ({name,setShowFormRating}) => {
     }
 
     return (
-        <div className={`${style.container}`}>
-            <h3>Rate the product</h3>
-            <h3 className='mb-3'>{name}</h3>              
+        <div className={`${style.container} ${showFormRating? style.fadeIn : style.fadeOut}`}>
+            {/* <h3>Rate the product</h3>
+            <h3 className='mb-3'>{name}</h3>               */}
             <h4>How many stars would you give it?</h4>
             <div className='d-flex mb-3'>
                 <ReactStars

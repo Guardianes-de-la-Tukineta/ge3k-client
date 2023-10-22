@@ -10,7 +10,6 @@ import style from "../Home/Home.module.css";
 import { cartStore } from "../../zustand/cartStore/cartStore";
 import { useAuth0 } from "@auth0/auth0-react";
 import { customerStore } from "../../zustand/customerStore/customerStore";
-import whatsApp from "../../Images/124034.png";
 import { favoriteStore } from "../../zustand/favoriteStore/favoriteStore";
 
 const Home = () => {
@@ -73,6 +72,7 @@ const Home = () => {
                         rating={product.rating}
                         price={product.price}
                         id={product.id}
+                        description={product.description}
                       />
                     </div>
                   ))}
@@ -88,16 +88,7 @@ const Home = () => {
 
       <div>
         <Themes />
-      </div>
-      <div className={style.whatsappButton}>
-        <a
-          href="https://wa.me/573182101430"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src={whatsApp} alt="WhatsApp" />
-        </a>
-      </div>
+      </div>     
     </div>
   );
 };

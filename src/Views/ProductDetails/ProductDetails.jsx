@@ -28,7 +28,8 @@ function ProductDetails() {
     const fetchData = async() => {     
       await getProductsDetails(id); // Obtiene los nuevos detalles del producto      
     };    
-    fetchData();    
+    fetchData(); 
+    setShowFormRating(false)   
     return ()=>{
       deletePorductDetail() //limpiar el deteail cuando se desmonta el componente
     }
@@ -38,8 +39,9 @@ function ProductDetails() {
     updateLocalStorage(favorites) 
     if (productDetails.id && favorites.findIndex((elem) => elem.id === productDetails.id) !== -1) { //si esta en favoritos pintamos el corazon       
       setIsFav(true)
-    } 
+    }    
   }, [favorites,productDetails]);
+ 
   // const productDetail = useSelector((state) => state.detail);
   const buttonStyle = {
     backgroundColor: "#ff6824",
@@ -169,8 +171,8 @@ function ProductDetails() {
         </Row>
       )}
       <hr></hr>
-      <div className={`d-flex row ${styles.containerReviews}`}>
-        <div className="col-md-4">
+      <div className={`d-flex row  ${styles.containerReviews}`}>
+        <div className={`col-md-4  ${showFormRating && styles.blurBackground}`}>
           <div>
             <h3>Customer reviews</h3>            
             <ReactStars
@@ -188,7 +190,7 @@ function ProductDetails() {
           </div>
         </div>
 
-        <div className="col-md-8">
+        <div className={`col-md-8  ${showFormRating && styles.blurBackground}`}>
           <h3>Top reviews </h3>
           <div className="media">
             <img src="imagen-usuario.jpg" className="mr-3" alt="..." style={{ width: "64px", height: "64px"}}/>
@@ -210,10 +212,17 @@ function ProductDetails() {
               Comentario del usuario. Puedes incluir texto, enlaces, etc.
             </div>
           </div>
+          <div className="media">
+            <img src="imagen-usuario.jpg" className="mr-3" alt="..." style={{ width: "64px", height: "64px"}}/>
+            <div className="media-body">
+              <h5 className="mt-0">Nombre de Usuario</h5>
+              Comentario del usuario. Puedes incluir texto, enlaces, etc.
+            </div>
+          </div>
       </div>
 
       {
-        showFormRating && <FormRating name={productDetails.name} setShowFormRating={setShowFormRating}/>
+       <FormRating name={productDetails.name} showFormRating={showFormRating} setShowFormRating={setShowFormRating}/>
       }
 
       </div>

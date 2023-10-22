@@ -11,7 +11,7 @@ import { useEffect } from 'react';
 
 const CartItem = ({ name, price, image, id: idProduct }) => {
     //estados y actions
-    const { deleteProductCart, setQuantity, cart,showAlert} = cartStore() //nos traemos estados de zustand      
+    const { deleteProductCart, setQuantity, cart,borderAlert} = cartStore() //nos traemos estados de zustand      
     const cantidadActual=cart.find(({ product }) => product.id === idProduct).quantity// sabremos que cantidad tiene cada product
     const [isType, setIsType] = useState(false) //para cambiar a visualizar el input    
     const { register, formState: { errors}, handleSubmit } = useForm()
@@ -52,11 +52,11 @@ const CartItem = ({ name, price, image, id: idProduct }) => {
 
     useEffect(() => {
         isLoading && setIsLoading(false)                
-        if(inputValue>cantidadActual && showAlert){            
+        if(inputValue>cantidadActual && borderAlert){            
             setErrorQuantity(true)           
             setInputValue(0)  
         } else setErrorQuantity(false) 
-    }, [cart,showAlert])
+    }, [cart,borderAlert])
     
     return (
         <div className={`card ${style.cartItem}`}>

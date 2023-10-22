@@ -1,39 +1,72 @@
 .container{
-    background-color: rgb(128, 125, 120);
+    background-color: rgba(112, 106, 102, 0.42);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 40vw !important;
-    height: 320px !important;
+    height: 280px !important;
     border-radius: 20px;
     position: absolute;
     top: 0;
-    left: 35%;    
-    /* opacity: 0;
-    display: none; */
+    left: 35%; 
+    filter: drop-shadow(1px 2px 13px black);
+    box-shadow: 17px 5px rgba(1, 2, 0, 0.7);
+    backdrop-filter: blur(7px);      
 }
 .buttonSubmit{   
-    position: absolute;
+    /* position: absolute;
     top: 0;
-    left:80%;
-    margin-top: 2%;  
+    left:80%; */
+    margin-top: 3%;  
     padding: 0% !important; 
     width: 40px;    
 }
 .buttonSubmit i, .buttonCancel i{
-    font-size: 22px;
+    font-size: 20px;
 }
 .buttonCancel{
     position: absolute;
     top: 0;
-    left:90%;
+    left:92%;
     margin-top: 2%;  
     padding: 0% !important; 
-    width: 45px;      
+    width: 30px;      
 }
 .formRate{
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+/* efectos de animacion */
+.fadeIn {
+    animation: fadeIn 0.8s ease-in-out forwards;
+}
+  
+.fadeOut {
+animation: fadeOut 0.8s ease-in-out forwards;
+}
+  
+@keyframes fadeIn {
+from {
+    opacity: 0;    
+    transform: translateY(-10px);
+}
+to {
+    opacity: 1;
+    transform: translateY(0);
+}
+}
+
+@keyframes fadeOut {
+from {
+    opacity: 1;
+    transform: translateY(0);
+}
+to {
+    opacity: 0;
+    display: none;
+    transform: translateY(-10px);
+}
 }
