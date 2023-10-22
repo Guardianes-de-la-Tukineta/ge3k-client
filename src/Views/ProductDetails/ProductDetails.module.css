@@ -73,3 +73,11 @@
     align-items: center;
     gap: 15px;
   }
+
+  .containerReviews{
+    position: relative;
+  }
+
+  .blurBackground {
+    filter: blur(5px); /* Ajusta el valor de desenfoque según tus preferencias */
+  }
