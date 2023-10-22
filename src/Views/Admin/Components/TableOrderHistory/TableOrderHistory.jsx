@@ -1,7 +1,17 @@
 import React from 'react'
 import styles from './TableOrderHistory.module.css'
+import { useNavigate } from 'react-router-dom'
 
 const TableOrderHistory = ({data}) => {
+
+  const navigate = useNavigate()
+
+
+
+ const handleMoreDetails = (id)=>{
+  navigate(`/admin/orders/id/${id}`);
+ }
+
   return (
     <div className={styles.tableContainer} >
       <table className={styles.table}>
@@ -35,7 +45,7 @@ function cutID(id) {
                         <td>{order.email}</td>
                         <td>{dateFormated}</td>
                         <td>{order.status}</td>
-                        <td><button>Marcar Completada</button> </td>
+                        <td><button>Completed</button> <button onClick={()=> handleMoreDetails(order.id)} >Details</button> </td>
                     </tr>
                 )
             })}

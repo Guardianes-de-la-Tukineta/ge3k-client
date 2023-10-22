@@ -38,22 +38,27 @@ export const useAdminStore = create((set) => ({
       console.log(error);
     }
   },
-   
 
-   getOrdersFromBack : async ()=>{
-      const URL = 'https://ge3k-server.onrender.com/orders'
-      try {
-        const {data} = await axios.get(URL)
-        set((state) => {
-          return {
-            ...state, allOrders:data
-          };
-        });
-        // Ahora puedes acceder a los datos de cada petición
-      } catch (error) {
-        throw Error(error)
-      }
-   }
+  getOrdersFromBack: async () => {
+    const URL = "https://ge3k-server.onrender.com/orders";
+    try {
+      const { data } = await axios.get(URL);
 
+      const initialSorted = data.sort((a, b) => {
+        const aDate = new Date(a.createdAt);
+        const bDate = new Date(b.createdAt);
+        return bDate - aDate;
+      });
 
+      set((state) => {
+        return {
+          ...state,
+          allOrders: initialSorted,
+        };
+      });
+      // Ahora puedes acceder a los datos de cada petición
+    } catch (error) {
+      throw Error(error);
+    }
+  },
 }));
