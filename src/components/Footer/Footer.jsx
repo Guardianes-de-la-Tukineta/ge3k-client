@@ -3,7 +3,6 @@ import { Container, Row, Col } from "react-bootstrap";
 import styles from "./Footer.module.css";
 import { Link } from "react-router-dom";
 import logo from "../../Images/logoBlanco.svg";
-
 function Footer() {
   return (
     <>
@@ -24,11 +23,19 @@ function Footer() {
             <Link to="/legal" className={styles.footerLink}>
               <p>Terms & Conditions</p>
             </Link>
+
+            <h5 className={styles.titleH5}>CONTACT</h5>
+            <Link to="/send-email" className={styles.footerLink}>
+              <p>Contact Us </p>
+            </Link>
+            {/* <Link to="/legal" className={styles.footerLink}>
+              <p>Terms & Conditions</p>
+            </Link> */}
           </Col>
           <Col className="col-12 col-lg-3">
             <h5 className={styles.titleH5}>FIND</h5>
             <p>SEARCH</p>
-            <h5 className={styles.titleH5}>SOCIAL MEDIA</h5> 
+            <h5 className={styles.titleH5}>SOCIAL MEDIA</h5>
 
             <p>
               <i className="bi bi-instagram"></i> Instagram
@@ -43,19 +50,25 @@ function Footer() {
           <Col className="col-12 col-lg-3">
             <h5 className={styles.titleH5}>ABOUT US</h5>
             <p>
-            Are you looking for an unforgettable gift for someone special or for yourself?
+              Are you looking for an unforgettable gift for someone special or
+              for yourself?
             </p>
             <p>Do you want to showcase your fandom and passion?</p>
             <p>
-            Are you tired of not finding items featuring your favorite characters in physical stores?
+              Are you tired of not finding items featuring your favorite
+              characters in physical stores?
             </p>
-            <p>Enjoy shopping at <strong>Ge3kHub.shop</strong>🤓!</p>
+            <p>
+              Enjoy shopping at <strong>Ge3kHub.shop</strong>🤓!
+            </p>
           </Col>
         </Row>
+
         <div className="d-flex align-center justify-content-center"><img className={styles.logo} src={logo} alt="ge3khub shop" /></div>
    
       </Container>
     
+
     </div>
       <div className={`${styles.guardianes} container-fluid text-center`} >Developed with ❤️ by the <strong>Guardians of Tukineta</strong></div>
       </>

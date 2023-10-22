@@ -21,8 +21,8 @@ import PurchaseOrder from "./Views/PurchaseOrder/PurchaseOrder";
 import Admin from "./Views/Admin/Admin";
 import CartColumn from "./Views/CartColumn/CartColumn";
 import { cartStore } from "./zustand/cartStore/cartStore";
-
 import CartProvider from "./Views/PaymentGateway/CartContext";
+import ContactForm from "./Views/Admin/Components/ContactForm/ContactForm";
 import Favorite from "./Views/Favorite/Favorite";
 import WhatsAppButton from "./components/whatsAppButton/whatsAppButton";
 
@@ -62,7 +62,8 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/PurchaseOrder" element={<PurchaseOrder />} />;
             <Route path="/admin/*" element={<Admin />} />
-            <Route path="/favorites" element={<Favorite />} />
+            <Route path="/send-email" element={<ContactForm />} />
+            <Route path="/favorites" element={<Favorite/>}/>
             <Route path="*" element={<Error404 />} />
           </Routes>
         </div>
@@ -72,6 +73,7 @@ function App() {
           ) //solo renderiza si tenemos articulos en el cart
         }
         {location.pathname.startsWith("/admin") ? undefined : <Footer />}
+
       </div>
     </CartProvider>
   );

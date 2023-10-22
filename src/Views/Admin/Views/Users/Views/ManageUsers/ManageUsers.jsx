@@ -3,18 +3,27 @@ import { customerStore } from "../../../../../../zustand/customerStore/customerS
 import { Button } from "react-bootstrap";
 import styles from "./ManageUsers.module.css";
 import Spinner from "react-bootstrap/Spinner";
+import { Link } from "react-router-dom";
 
 const ManageUsers = () => {
+  // const history = useHistory();
+  const [updateOnChanges, setUpdateOnChanges] = useState(true); //cuando realizo un cambio en este estado se realizara el useefect
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(8);
   const [activeFilter, setActiveFilter] = useState(true); // true para activos, false para inactivos
   const [searchTerm, setSearchTerm] = useState("");
-  const { allCustomers, getAllCustomers, delCustomer, activateCustomer } =
-    customerStore();
+  const {
+    allCustomers,
+    getAllCustomers,
+    delAllCustomers,
+    delCustomer,
+    activateCustomer,
+  } = customerStore();
 
   useEffect(() => {
+    console.log("actualizo");
     getAllCustomers();
-  }, [allCustomers]);
+  }, [updateOnChanges]);
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -39,15 +48,28 @@ const ManageUsers = () => {
     }
   };
 
-  const hamdlerActivate = (id) => {
-    console.log("activando ", id);
-    activateCustomer(id);
+  const hamdlerActivate = async (id) => {
+    // console.log("activando ", id);
+    delAllCustomers();
+    await activateCustomer(id);
+    await getAllCustomers();
+    setUpdateOnChanges(!updateOnChanges);
+    setCurrentPage(1);
   };
 
-  const hamdlerDel = (id) => {
-    console.log("deleteando ", id);
-    delCustomer(id);
+  const hamdlerDel = async (id) => {
+    delAllCustomers();
+    await delCustomer(id);
+    await getAllCustomers();
+    setUpdateOnChanges(!updateOnChanges);
+    setCurrentPage(1);
   };
+
+  // const hamdlerContact = (email) => {
+  //   // Llama a la función sendEmail directamente en ContactButton
+  //   console.log("Ejecutando el handler contact", email);
+  //   getCustomerByEmail(email);
+  // };
 
   return (
     <div>
@@ -68,7 +90,7 @@ const ManageUsers = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
-      {!currentItems.length > 0 && searchTerm == "" ? (
+      {!currentItems.length > 0 && searchTerm === "" ? (
         <div style={{ padding: "100px", justifyContent: "center" }}>
           <Spinner
             style={{ padding: "100px" }}
@@ -81,7 +103,7 @@ const ManageUsers = () => {
           <table className={styles.table}>
             <thead>
               <tr>
-                <th>ID</th>
+                {/* <th>ID</th> */}
                 <th>Name</th>
                 <th>Surname</th>
                 <th>Email</th>
@@ -90,12 +112,12 @@ const ManageUsers = () => {
                 <th>Registred Date</th>
                 <th>Activo</th>
                 <th>Acciones</th>
+                <th>Contact</th>
               </tr>
             </thead>
             <tbody>
               {currentItems.map((customer, index) => (
                 <tr key={customer.id}>
-                  <td>{index + 1}</td>
                   <td>{customer.name}</td>
                   <td>{customer.surname}</td>
                   <td>{customer.email}</td>
@@ -113,7 +135,19 @@ const ManageUsers = () => {
                         Delete
                       </Button>
                     )}
-                    <Button>Contact</Button>
+                  </td>
+                  <td>
+                    <Link
+                      to={{
+                        pathname: `/admin/send-email/${customer.id}`,
+                        // state: {
+                        //   nombre: "Ejemplo",
+                        //   email: "ejemplo@example.com",
+                        // },
+                      }}
+                    >
+                      Enviar Email
+                    </Link>
                   </td>
                 </tr>
               ))}
