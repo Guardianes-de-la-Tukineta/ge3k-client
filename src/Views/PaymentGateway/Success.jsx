@@ -1,42 +1,57 @@
 import React from "react";
-import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom"; 
-import { PurchaseStore }  from "../../zustand/PurchaseOrder/PurchaseStore";
+import { Button, ProgressBar } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
+import { PurchaseStore } from "../../zustand/PurchaseOrder/PurchaseStore";
 import { useEffect } from "react";
 
-
 const PaymentSuccessView = () => {
+  const navigate = useNavigate();
 
-    //-
-
-     const purchaseStore = PurchaseStore();
-
-     useEffect(()=> {
-      if (order) {
-     const stripeOrder = order;
-     console.log(stripeOrder);
-      }
-     },[ PurchaseStore]) 
-
+  const purchaseStore = PurchaseStore();
   const order = purchaseStore.order;
-  console.log(order);
-        
 
-     
+  useEffect(() => {
+    const delay = 5000; // 5 segundos (en milisegundos)
+
+    const timeoutId = setTimeout(() => {
+      navigate("/bill"); // Redirige al usuario a la página de factura
+    }, delay);
+
+    return () => {
+      clearTimeout(timeoutId); // Limpia el temporizador en caso de que el componente se desmonte antes del tiempo de espera
+    };
+  }, [history]);
+
+  useEffect(() => {
+    if (order) {
+      const stripeOrder = order;
+      console.log(stripeOrder);
+    }
+  }, [order]);
+
   return (
-    <div  className="text-center my-5">
+    <div className="text-center my-5">
       <h1>¡The purchase has been successful!</h1>
-      <p className="my-5">Thank you for your purchase and we hope to have the pleasure of serving you again.</p>
-      
-      
-      <Link to="/bill">
-        <Button style={{borderRadius:'10px', padding:'10px 5px', margin:'0 3px', backgroundColor:'#ff6824', border:'none', fontWeight:'600'}}>Please click here for obtain your purchase Bill</Button>
-      </Link>
-
-     
+      <p className="my-5">Thanks for your purchase!!</p>
+      <p className="my-5">
+        Your invoice is being generated, please wait a moment
+      </p>
+      <br />
+      <ProgressBar animated now={100} label="Procesando..." />
+      <br />
       <Link to="/">
-        <Button  style={{borderRadius:'10px', padding:'10px 5px', margin:'0 3px', backgroundColor:'#ff6824', border:'none', fontWeight:'600'}}  className="ml-3">
-            Back to Home
+        <Button
+          style={{
+            borderRadius: "10px",
+            padding: "10px 5px",
+            margin: "0 3px",
+            backgroundColor: "#ff6824",
+            border: "none",
+            fontWeight: "600",
+          }}
+          className="ml-3"
+        >
+          Back to Home
         </Button>
       </Link>
     </div>
@@ -44,25 +59,3 @@ const PaymentSuccessView = () => {
 };
 
 export default PaymentSuccessView;
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const Success = () => {
-
-//     return(
-//         <h1> Thank you for your purchase! </h1>
-//     )
-
-// }
-
-// export default Success;
