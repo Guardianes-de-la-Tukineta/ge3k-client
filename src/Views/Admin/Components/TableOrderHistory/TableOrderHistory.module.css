@@ -1,94 +1,93 @@
 /* Contenedor de la tabla con desplazamiento horizontal */
 .tableContainer {
-    overflow-x: auto; /* Agrega una barra de desplazamiento horizontal si es necesario */
-    max-width: 100%; /* Limita el ancho máximo al 100% del contenedor padre */
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5); 
-    border-radius: 6px !important;
-  }
-  
-  table.table {
-    width: 100%;
-    border-collapse: collapse;
-  
-  }
-  
-  .table th, .table td {
-    border: 1px solid #c2c2c2;
-    padding: 8px;
-    text-align: left;
-    overflow: hidden;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  
-  
-  text-align: center;
-  
-  background-color: white;
-  width: auto; /* Ajusta el ancho al contenido */
-  min-width: 60px; /* Establece el ancho mínimo a 60px */
-  
-  }
-  
-  .table th{
-    border-top-right-radius: 4px !important;
-    border-top-left-radius: 4px !important;;
-  }
-  
-  
-  .table td img{
-    width: 50px;
-    height: 50px;
-    
-  }
-  
-  .table th {
-    background-color: #383838;
-    color: white;
-    font-weight: 500;
-    font-size: 0.85rem;
-  }
-  
-  
-  .table input {
-    min-width: 50px;
-  max-width: 50px;
-  margin: 0;
-  
-  padding: 0 0.5rem;
-  
-  
-  outline:none;
-  border: 1px solid #c2c2c2;
-  background-color: #38383813;
-  color: #383838;
-  font-size: 1rem;
-  }
-  
-  
-  button.editButton {
-    height:100%;
-    border-radius: 4px;
-    margin-left: 2px;
-    padding: 5px 16px;
-    background-color: #383838;
-    outline: none;
-    color: white;
-    border: none;
-    font-weight: 600;
-    border: 2px solid #383838;
-  }
-  
+  overflow-x: auto; /* Agrega una barra de desplazamiento horizontal si es necesario */
+ width: 100%; /* Limita el ancho máximo al 100% del contenedor padre */
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.5); 
+  border-radius: 6px !important;
+}
 
+table.table {
+  width: 100%;
+  border-collapse: collapse;
+
+}
+
+.table th, .table td {
+  border: 1px solid #c2c2c2;
+  padding: 8px;
+  text-align: left;
+  overflow: hidden;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+
+text-align: center;
+
+background-color: white;
+width: auto; /* Ajusta el ancho al contenido */
+min-width: 60px; /* Establece el ancho mínimo a 60px */
+
+}
+
+.table th{
+  border-top-right-radius: 4px !important;
+  border-top-left-radius: 4px !important;;
+}
+
+
+.table td img{
+  width: 50px;
+  height: 50px;
   
-  .saveButton, .cancelButton, .saveButtonOff, .deletetButton, .deletetButtonOff, .passwordButton{
-    border-radius: 4px;
-    margin-left: 2px;
-    padding: 2px 8px;
-    outline: none;
-    border: none;
-    font-weight: 600;
-    background-color: #383838;
-  }
-  
-  
+}
+
+.table th {
+  background-color: #383838;
+  color: white;
+  font-weight: 500;
+  font-size: 0.85rem;
+}
+
+
+.table input {
+  min-width: 50px;
+max-width: 50px;
+margin: 0;
+
+padding: 0 0.5rem;
+
+
+outline:none;
+border: 1px solid #c2c2c2;
+background-color: #38383813;
+color: #383838;
+font-size: 1rem;
+}
+
+
+button.editButton {
+  height:100%;
+  border-radius: 4px;
+  margin-left: 2px;
+  padding: 5px 16px;
+  background-color: #383838;
+  outline: none;
+  color: white;
+  border: none;
+  font-weight: 600;
+  border: 2px solid #383838;
+}
+
+
+
+.saveButton, .cancelButton, .saveButtonOff, .deletetButton, .deletetButtonOff, .passwordButton{
+  border-radius: 4px;
+  margin-left: 2px;
+  padding: 2px 8px;
+  outline: none;
+  border: none;
+  font-weight: 600;
+  background-color: #383838;
+}
+

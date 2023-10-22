@@ -74,12 +74,13 @@ const handleResetButton = ()=>{
           /> */}
         </div>
 
+<div className={styles.spinerContainer} >
        {loading? <Spinner
             animation="border"
             variant="dark"
             style={{ height: "50px", width: "50px", margin: "5rem" }}
           /> : <TableOrderHistory data={data} />}
-       
+</div>
     </div>
     </div>
     {(totalPages > 1 && !loading) && <PaginationAdminOrders page={pageNum} setPage={setPageNum} totalPages={totalPages} />}
