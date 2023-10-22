@@ -185,6 +185,55 @@ function useGetAdminsFromBack() {
     }
   };
 
+
+  const handleNewPassword = async(admin, password)=>{
+
+    console.log('entrando al hook')
+    setLoading(true);
+
+    const URL = "https://ge3k-server.onrender.com/admin/cc/";
+
+    const adminDataForBody = {
+      email:admin.email,
+      password
+    }
+console.log(adminDataForBody)
+    try {
+      await axios.put(URL + admin.id, adminDataForBody, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      await getAdmin();
+      setLoading(false);
+      setMessage("Password uploaded successfully");
+      setTimeout(() => {
+        setMessage("");
+      }, 5000);
+    } catch (error) {
+      if (error.response) {
+        setLoading(false);
+        if (error.response.data) {
+          setLoading(false);
+          setErrorGetAdmins(error.response.data.message);
+          setTimeout(() => {
+            setErrorGetAdmins(false);
+          }, 5000);
+        }
+      } else {
+        setLoading(false);
+        setErrorGetAdmins(
+          "Could not retrieve a response from the server. Please check your Internet connection"
+        );
+        setTimeout(() => {
+          setErrorGetAdmins(false);
+        }, 5000);
+      }
+    }
+
+
+  }
+
   return {
     admins,
     notSuggestion,
@@ -195,6 +244,7 @@ function useGetAdminsFromBack() {
     message,
     handleBan,
     handleUnban,
+    handleNewPassword,
     handleGetSuggestions,
     getAdmin,
   };

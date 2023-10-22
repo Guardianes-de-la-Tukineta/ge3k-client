@@ -59,7 +59,7 @@ const CardProduct = ({ name, description, id, image, price }) => {
                     <Card.Title  >{name}</Card.Title>
                     <Card.Text className={style.description}>{description}</Card.Text>
                     <Card.Text >$ {price}</Card.Text>                    
-                    <button className={style.fav} onClick={(e)=>handlerIsFav(e)}>
+                    <button className={!isFav?style.fav:style.fav2} onClick={(e)=>handlerIsFav(e)}>
                         {
                             !isFav ? <i className="bi bi-suit-heart "></i> : <i className="bi bi-suit-heart-fill"></i> //para traer el icono de corazon lleno o vació
                         }

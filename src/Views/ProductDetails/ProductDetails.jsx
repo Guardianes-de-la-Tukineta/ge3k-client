@@ -9,25 +9,27 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { customerStore } from "../../zustand/customerStore/customerStore";
 import Spinner from "react-bootstrap/Spinner";
 import { favoriteStore } from "../../zustand/favoriteStore/favoriteStore";
+import ReactStars from 'react-stars';
+import FormRating from "../../components/FormRating/FormRating";
 
 //HP el componente de llama ProductDetails  ya que podemos tener otros details ej, RatingDetails
 function ProductDetails() {
   const { id } = useParams();
-  const { getProductsDetails, productDetails, deletePorductDetail } =
-    useStore(); // Utiliza el hook useStore para acceder al estado y a la función getProductsDetails
+  const { getProductsDetails, productDetails, deletePorductDetail } =useStore(); // Utiliza el hook useStore para acceder al estado y a la función getProductsDetails
   const { addProductToCart } = cartStore(); //cart store de zustand
   const { isAuthenticated } = useAuth0(); // para saber si estoy logueado
   const { currentCustomer } = customerStore();
   const { favorites, addProductFavorite, deleteProductFavorite, updateLocalStorage } = favoriteStore()
   const [isFav, setIsFav] = useState(false); // para cambiar el estado de fav y no fav
   const [isFavDisabled, setIsFavDisabled] = useState(false); // para deshabilitar momentaneamente el boton de fav
-
+  const[showFormRating,setShowFormRating]=useState(false)
 
   useEffect(() => {
     const fetchData = async() => {     
       await getProductsDetails(id); // Obtiene los nuevos detalles del producto      
     };    
-    fetchData();    
+    fetchData(); 
+    setShowFormRating(false)   
     return ()=>{
       deletePorductDetail() //limpiar el deteail cuando se desmonta el componente
     }
@@ -37,8 +39,9 @@ function ProductDetails() {
     updateLocalStorage(favorites) 
     if (productDetails.id && favorites.findIndex((elem) => elem.id === productDetails.id) !== -1) { //si esta en favoritos pintamos el corazon       
       setIsFav(true)
-    } 
+    }    
   }, [favorites,productDetails]);
+ 
   // const productDetail = useSelector((state) => state.detail);
   const buttonStyle = {
     backgroundColor: "#ff6824",
@@ -52,8 +55,6 @@ function ProductDetails() {
     fontWeight:"500",
     borderRadius:"10px",
     height:'44px'
-
-
   };
 
   //handlers
@@ -81,8 +82,15 @@ function ProductDetails() {
       setIsFavDisabled(false);
     }, 1000);
   }
+  const handlerWriteReview=()=>{ //mostrar form para valorar producto
+    setShowFormRating(true)
+  }
+  const ratingChanged=(e)=>{
+    console.log(e);
+  }
+
   return (
-    <Container className={styles.productDetailsConteiner}>
+    <Container className={styles.productDetailsConteiner}>      
       {!productDetails.image ? ( //controlo que el estado ya tenga la propiedad imagen
         <Row style={{ padding: "100px", justifyContent: "center" }}>
           <Spinner
@@ -162,6 +170,62 @@ function ProductDetails() {
           </Col>
         </Row>
       )}
+      <hr></hr>
+      <div className={`d-flex row  ${styles.containerReviews}`}>
+        <div className={`col-md-4  ${showFormRating && styles.blurBackground}`}>
+          <div>
+            <h3>Customer reviews</h3>            
+            <ReactStars
+              count={5}
+              onChange={ratingChanged}// para manejar el cambio de valoración
+              size={24}
+              color2={'#ffd700'}
+            />
+          </div>
+          <hr></hr>
+          <div>
+            <h3>Review this product</h3>            
+            Share your thoughts with other customers
+            <button onClick={()=>handlerWriteReview()} className="btn btn-dark">Write a customer review</button>
+          </div>
+        </div>
+
+        <div className={`col-md-8  ${showFormRating && styles.blurBackground}`}>
+          <h3>Top reviews </h3>
+          <div className="media">
+            <img src="imagen-usuario.jpg" className="mr-3" alt="..." style={{ width: "64px", height: "64px"}}/>
+            <div className="media-body">
+              <h5 className="mt-0">Nombre de Usuario</h5>
+              Comentario del usuario. Puedes incluir texto, enlaces, etc.
+            </div>
+          </div><div className="media">
+            <img src="imagen-usuario.jpg" className="mr-3" alt="..." style={{ width: "64px", height: "64px"}}/>
+            <div className="media-body">
+              <h5 className="mt-0">Nombre de Usuario</h5>
+              Comentario del usuario. Puedes incluir texto, enlaces, etc.
+            </div>
+          </div>
+          <div className="media">
+            <img src="imagen-usuario.jpg" className="mr-3" alt="..." style={{ width: "64px", height: "64px"}}/>
+            <div className="media-body">
+              <h5 className="mt-0">Nombre de Usuario</h5>
+              Comentario del usuario. Puedes incluir texto, enlaces, etc.
+            </div>
+          </div>
+          <div className="media">
+            <img src="imagen-usuario.jpg" className="mr-3" alt="..." style={{ width: "64px", height: "64px"}}/>
+            <div className="media-body">
+              <h5 className="mt-0">Nombre de Usuario</h5>
+              Comentario del usuario. Puedes incluir texto, enlaces, etc.
+            </div>
+          </div>
+      </div>
+
+      {
+       <FormRating name={productDetails.name} showFormRating={showFormRating} setShowFormRating={setShowFormRating}/>
+      }
+
+      </div>
     </Container>
   );
 }

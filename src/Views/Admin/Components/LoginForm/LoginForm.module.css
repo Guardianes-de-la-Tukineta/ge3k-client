@@ -82,3 +82,37 @@
     color: #ff3939;
     font-weight: 600;
    }
+
+   .passwordInput {
+    width: 100%;
+    position: relative;
+  }
+  
+  .passwordInput input {
+    /* Estilos para el campo de contraseña */
+    width: 100%;
+  }
+  
+  button.showPasswordButton {
+    width: 20px;
+    height: 20px;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    position: absolute;
+    right: 10px; /* Ajusta esto según tu diseño */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 9px;
+  }
+  
+  button.showPasswordButton i {
+    color: #383838;
+  }
+  
+  button.showPasswordButton:hover {
+      background-color: transparent;
+      border: none;
+    }
+  

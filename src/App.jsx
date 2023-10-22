@@ -10,7 +10,7 @@ import ThemeView from "./Views/ThemeView/ThemeView";
 import PaymentGateway from "./Views/PaymentGateway/PaymentGateway";
 import Cancel from "../src/Views/PaymentGateway/Cancel";
 import Success from "../src/Views/PaymentGateway/Success";
-import Bill from "./Views/PaymentGateway/bill";
+import Bill from "./Views/PaymentGateway/Bill";
 import Category from "./Views/Category/Category";
 import SearchResults from "./Views/SearchResults/SearchResults";
 import Login from "./components/Login/Login";
