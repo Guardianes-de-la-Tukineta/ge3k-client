@@ -27,8 +27,8 @@ export const PurchaseStore = create(zukeeper((set) => ({
 
             }));
             if (response && response.data && response.data.url) {
-              window.open(response.data.url, '_blank');
-
+              // window.open(response.data.url, '_blank');
+              window.location.href = response.data.url;
             } else {
               console.error(
                 "Could not get redirect URL"

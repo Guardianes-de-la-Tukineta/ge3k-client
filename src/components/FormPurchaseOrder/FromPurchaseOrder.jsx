@@ -34,7 +34,7 @@ const FormPurchaseOrder = () => {
   const handleCreatePurchaseOrder = () => {
     CreatedOrder({
       customerId: authenticatedCustomer.id,
-      base_url: "http://localhost:5173/",
+      base_url: "http://localhost:5173",
       name: userData.name,
       surname: userData.surname,
       birthdate: userData.birthdate,
