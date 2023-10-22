@@ -209,8 +209,6 @@ import { Alert } from "react-bootstrap";
         loadCurrentCustomer: (email) => {
           axios.get(`https://ge3k-server.onrender.com/customers/email/${email}`)
             .then((response) => {
-              console.log("response");
-              console.log(response);
               const customer = response.data;
               set({ authenticatedCustomer: customer });
             })

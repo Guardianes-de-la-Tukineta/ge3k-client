@@ -3,14 +3,16 @@ import CartItem from '../../components/CartItem/CartItem';
 import style from './CartColumn.module.css'
 import { cartStore } from '../../zustand/cartStore/cartStore';
 import { useNavigate } from 'react-router-dom';
+import { useAuth0 } from "@auth0/auth0-react";
 
 const CartColumn = () => {
     //hooks y estados    
     const {cart,subTotal,getSubTotal,updateLocalStorage,visibility,setVisibility} = cartStore() // estados y variables de zustand       
     const navigate=useNavigate()
+    const {isAuthenticated } = useAuth0() // para saber si estoy logueado
 
-    useEffect(()=>{       
-        getSubTotal() // obtenemos el subtotal para mostrar   
+    useEffect(()=>{  
+        if(!isAuthenticated) getSubTotal() // obtenemos el subtotal para mostrar si no esta autenticado   
         updateLocalStorage(cart) // cada q cambia cart del zustand actualizamos local storage
         return()=>{
             updateLocalStorage([]) // cuando se desmonta el componente sin ningun producto en cart limpiamos el local storage
@@ -30,9 +32,8 @@ const CartColumn = () => {
                 <br></br> 
                 ${subTotal}
             </strong>
-            <div className='d-flex justify-content-center'>
-                <button className={`${style.buttonCart} btn btn-warning m-2 pt-0 pb-0`}>Go Cart</button>
-                <button onClick={()=>handlerPay()} className={`${style.buttonCart} btn btn-warning m-2 pt-0 pb-0`}>Pay</button>
+            <div className='d-flex justify-content-center'>                
+                <button onClick={()=>handlerPay()} className={`${style.buttonCart} btn btn-warning m-2 pt-0 pb-0`}>Go Cart</button>
             </div>
             <aside>               
                 {   

@@ -3,6 +3,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { customerStore } from "../../zustand/customerStore/customerStore";
 import { PurchaseStore } from "../../zustand/PurchaseOrder/PurchaseStore";
 import style from "./FormPurchase.module.css";
+import logo from "../../Images/FavicoinGe3k.png";
+import { Link } from "react-router-dom";
 
 const FormPurchaseOrder = () => {
   const { loadCurrentCustomer, authenticatedCustomer } = customerStore();
@@ -30,18 +32,26 @@ const FormPurchaseOrder = () => {
   }, [authenticatedCustomer]);
 
   const handleCreatePurchaseOrder = () => {
-    console.log("handleCreatePurchaseOrder called");
-    console.log("userData", userData);
-    CreatedOrder(userData);
+    CreatedOrder({
+      customerId: authenticatedCustomer.id,
+      base_url: "http://localhost:5173/",
+      name: userData.name,
+      surname: userData.surname,
+      birthdate: userData.birthdate,
+      email: userData.email,
+      phone: userData.phone,
+      address: userData.address,
+      status: "",
+    });
   };
 
   return (
-    <div className="mb-3">
-      <form className=" col-6">
+    <div className="row mb-3">
+      <form className={`col-8 ${style.form}`}>
         <div className="row mb-2">
           <div className="col-md-6">
             <div className="form-group mb-3">
-              <label htmlFor="name" className="mr-2">
+              <label htmlFor="name" className={` ${style.formLabel}`}>
                 Name
               </label>
               <input
@@ -55,7 +65,7 @@ const FormPurchaseOrder = () => {
               />
             </div>
             <div className="form-group mb-3">
-              <label htmlFor="address" className="mr-2">
+              <label htmlFor="address" className={` ${style.formLabel}`}>
                 Address
               </label>
               <input
@@ -69,7 +79,7 @@ const FormPurchaseOrder = () => {
               />
             </div>
             <div className="form-group mb-3">
-              <label htmlFor="email" className>
+              <label htmlFor="email" className={`${style.formLabel}`}>
                 Email
               </label>
               <input
@@ -85,7 +95,7 @@ const FormPurchaseOrder = () => {
           </div>
           <div className="col-md-6">
             <div className="form-group mb-3">
-              <label htmlFor="surname" className>
+              <label htmlFor="surname" className={` ${style.formLabel}`}>
                 Surname
               </label>
               <input
@@ -99,7 +109,7 @@ const FormPurchaseOrder = () => {
               />
             </div>
             <div className="form-group mb-3">
-              <label htmlFor="phone" className>
+              <label htmlFor="phone" className={` ${style.formLabel}`}>
                 Phone
               </label>
               <input
@@ -113,7 +123,7 @@ const FormPurchaseOrder = () => {
               />
             </div>
             <div className="form-group mb-3">
-              <label htmlFor="birthdate" className>
+              <label htmlFor="birthdate" className={` ${style.formLabel}`}>
                 Birthdate
               </label>
               <input
@@ -129,12 +139,19 @@ const FormPurchaseOrder = () => {
           </div>
         </div>
       </form>
-      <button
-        className={`btn btn-primary ${style.buttonConfirm}`}
-        onClick={handleCreatePurchaseOrder}
-      >
-        Confirm Purchase
-      </button>
+      <div className="col-md-2 mx-5">
+        <Link to="/">
+          <img className={style.logo} src={logo} alt="" />
+        </Link>
+      </div>
+      <div className="col-12 text-end ">
+        <button
+          className={style.buttonConfirm}
+          onClick={handleCreatePurchaseOrder}
+        >
+          Pay
+        </button>
+      </div>
     </div>
   );
 };

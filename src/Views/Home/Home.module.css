@@ -13,7 +13,29 @@
     margin-top: 30px;
   }
  
+  .whatsappButton {
+    position: fixed;
+    bottom: 20px; 
+    right: 20px; 
+    z-index: 1000;
+  }
   
+  .whatsappButton a {
+    display: flex;
+    align-items: center;
+    background-color: #25D366;
+    color: #fff;
+    padding: 10px;
+    border-radius: 50%;
+    text-decoration: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .whatsappButton img {
+    width: 50px; 
+    margin: 0;
+    border-radius: 50%;
+  }
   
   
   

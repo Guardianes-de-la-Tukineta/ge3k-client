@@ -1,0 +1,39 @@
+.messageSection{
+    display: flex;
+  width: 100%;
+  justify-content:flex-start;
+  height: 2.5rem;
+}
+
+.resetButton{
+  min-height:2.5rem;
+  border-radius: 4px;
+  margin-left: 2px;
+  padding: 5px 16px;
+  background-color: #383838;
+  outline: none;
+  color: white;
+  border: none;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.resetButton:hover {
+   
+  background-color: #ff6824;
+
+}
+
+.resetButton:active{
+ 
+  background-color: #b65d34;
+
+}
+
+
+.navBar{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+}

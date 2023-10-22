@@ -2,12 +2,30 @@ import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import styles from "./CardProductSale.module.css";
 import { Link } from "react-router-dom";
+import { cartStore } from "../../zustand/cartStore/cartStore";
+import { useAuth0 } from "@auth0/auth0-react";
+import { customerStore } from "../../zustand/customerStore/customerStore";
 
 const CardProductSale = ({ name, price, image, id }) => {
   const [isFav, setIsFav] = useState(false);
+  const { addProductToCart, setVisibility } = cartStore();
+  const { isAuthenticated } = useAuth0();
+  const { currentCustomer } = customerStore();
 
-  const handlerIsFav = () => {
+  const handlerIsFav = (e) => {
+    e.stopPropagation();
     isFav ? setIsFav(false) : setIsFav(true);
+  };
+
+  const handlerCart = (e) => {
+    e.stopPropagation();
+    addProductToCart(isAuthenticated || false, currentCustomer.id, {
+      name,
+      id,
+      image,
+      price,
+    });
+    setVisibility(true);
   };
 
   const buttonStyle = {
@@ -37,7 +55,7 @@ const CardProductSale = ({ name, price, image, id }) => {
             >
               {name}
             </h1>
-            <h2 className={`mb-3 ${styles.price}`}>{price}</h2>
+            <h2 className={`mb-3 ${styles.price}`}>${price}</h2>
 
             <div className="d-flex align-items-center">
               <button
@@ -51,7 +69,7 @@ const CardProductSale = ({ name, price, image, id }) => {
                 ></i>
               </button>
               <hr className={styles.hr} />
-              <Button style={buttonStyle}>
+              <Button onClick={(e) => handlerCart(e)} style={buttonStyle}>
                 <i className="bi bi-cart me-3"></i>Add to cart
               </Button>
             </div>

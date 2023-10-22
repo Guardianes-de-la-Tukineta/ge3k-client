@@ -23,7 +23,7 @@ const SearchResults = () => {
   }, []);
 
   return (
-    <>
+    <div className="d-flex flex-column w-100">
       {currentProducts.length === 0 ? (
         <div className="container-fluid p-0">
           <h1 className={style.titleH1}>😥 Oops!, no Ge3k matches...</h1>
@@ -59,9 +59,7 @@ const SearchResults = () => {
           </div>
         </div>
       </div>
-      {/* </div> */}
-      {/* )} */}
-    </>
+    </div>
   );
 };
 

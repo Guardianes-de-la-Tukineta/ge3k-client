@@ -21,6 +21,7 @@ const Users = () => {
         <Route path="add-admin" element={<AddNewAdmin />} />
         <Route path="send-email/:id" element={<ContactForm />} />
       </Routes>
+
     </div>
   );
 };

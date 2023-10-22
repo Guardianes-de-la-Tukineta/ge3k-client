@@ -10,7 +10,7 @@ import ThemeView from "./Views/ThemeView/ThemeView";
 import PaymentGateway from "./Views/PaymentGateway/PaymentGateway";
 import Cancel from "../src/Views/PaymentGateway/Cancel";
 import Success from "../src/Views/PaymentGateway/Success";
-import Bill from "./Views/PaymentGateway/bill";
+import Bill from "./Views/PaymentGateway/Bill";
 import Category from "./Views/Category/Category";
 import SearchResults from "./Views/SearchResults/SearchResults";
 import Login from "./components/Login/Login";
@@ -23,26 +23,17 @@ import CartColumn from "./Views/CartColumn/CartColumn";
 import { cartStore } from "./zustand/cartStore/cartStore";
 import CartProvider from "./Views/PaymentGateway/CartContext";
 import ContactForm from "./Views/Admin/Components/ContactForm/ContactForm";
+import Favorite from "./Views/Favorite/Favorite";
 
 function App() {
-  const { cart, visibility } = cartStore(); //traemos el estado de zustand
+  const { cart, visibility } = cartStore() //traemos el estado de zustand 
 
   return (
     <CartProvider>
-      <div
-        style={{
-          width:
-            cart.length > 0 &&
-            visibility &&
-            !location.pathname.startsWith("/admin")
-              ? "87vw"
-              : "100vw",
-        }}
-        className={`vh-100 d-flex flex-column`}
-      >
-        {location.pathname.startsWith("/admin") ? undefined : <NavBar />}
+      <div style={{ width: (cart.length > 0 && visibility && !location.pathname.startsWith('/admin')) ? '87vw' : '100vw' }} className={`vh-100 d-flex flex-column`}>
+        {location.pathname.startsWith('/admin') ? undefined : <NavBar />}
         <ScrollToTop />
-        <div className="flex-grow-1">
+        <div className="flex-grow-1 d-flex justify-content-center">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/category/:nameCategory" element={<Category />} />
@@ -59,15 +50,18 @@ function App() {
             <Route path="/PurchaseOrder" element={<PurchaseOrder />} />;
             <Route path="/admin/*" element={<Admin />} />
             <Route path="/send-email" element={<ContactForm />} />
+            <Route path="/favorites" element={<Favorite/>}/>
             <Route path="*" element={<Error404 />} />
           </Routes>
         </div>
         {
-          cart.length > 0 && !location.pathname.startsWith("/admin") && (
-            <CartColumn />
-          ) //solo renderiza si tenemos articulos en el cart
+
+
+          cart.length > 0 && !location.pathname.startsWith('/admin') && <CartColumn />  //solo renderiza si tenemos articulos en el cart
+
         }
-        {location.pathname.startsWith("/admin") ? undefined : <Footer />}
+        {location.pathname.startsWith('/admin') ? undefined : <Footer />}
+
       </div>
     </CartProvider>
   );

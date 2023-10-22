@@ -10,30 +10,36 @@ import style from "../Home/Home.module.css";
 import { cartStore } from "../../zustand/cartStore/cartStore";
 import { useAuth0 } from "@auth0/auth0-react";
 import { customerStore } from "../../zustand/customerStore/customerStore";
+import whatsApp from "../../Images/124034.png";
+import { favoriteStore } from "../../zustand/favoriteStore/favoriteStore";
 
 const Home = () => {
   const { getAllProducts, getSales } = useStore(); //esto actua como nuestro dispatch, guardamos en la variable la action getSales
   const { sales } = useStore.getState(); // obtenemos del estado global la variable sales(productos en oferta)
-  const {cart,syncByBack,getCartProducts}=cartStore() 
-  const { user, isAuthenticated } = useAuth0() // para saber si estoy logueado
-  const {currentCustomer}=customerStore()
-  const firstRender=useRef(true)
+  const { cart, syncByBack, getCartProducts } = cartStore();
+  const {syncFavByBack,getFavorites,favorites,updateLocalStorage}=favoriteStore()
+  const { user, isAuthenticated } = useAuth0(); // para saber si estoy logueado
+  const { currentCustomer } = customerStore();
+  const firstRender = useRef(true);
 
   //hooks
-  useEffect(() => {    
-    if(isAuthenticated){         
-      if(cart.length>0 && firstRender.current && currentCustomer.email){    //el currentCustomer tarda un poco en cargar los datos del user    
-        console.log('syncronización');
-        syncByBack(currentCustomer.id) 
-        firstRender.current=false  // cambiamos afalse para q solo se renderice una vez
-      } else if(currentCustomer.email){
-        getCartProducts(currentCustomer.id) // para pedir al back el carrito del usuario
+  useEffect(() => {
+    if (isAuthenticated) {
+      if ((cart.length > 0 || favorites.length>0)&& firstRender.current && currentCustomer.email) {
+        //el currentCustomer tarda un poco en cargar los datos del user
+        console.log("syncronización");
+        syncByBack(currentCustomer.id); // solicitamos la syncronizacion de cart
+        syncFavByBack(currentCustomer.id) // solicitamos la syncronizacion de favoritos
+        firstRender.current = false; // cambiamos afalse para q solo se renderice una vez
+      } else if (currentCustomer.email) {
+        getCartProducts(currentCustomer.id); // para pedir al back el carrito del usuario
+        getFavorites(currentCustomer.id); // para pedir al back los fav del usuario
       }
     }
+    updateLocalStorage(favorites)
     getAllProducts();
     getSales(); //al montar componente ejecutamos la action q modifica nuestro estado global
-  }, [user,currentCustomer]);
-
+  }, [user, currentCustomer]);
 
   const groupedSales = [];
   for (let i = 0; i < sales.length; i += 3) {
@@ -79,6 +85,15 @@ const Home = () => {
 
       <div>
         <Themes />
+      </div>
+      <div className={style.whatsappButton}>
+        <a
+          href="https://wa.me/573182101430"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img src={whatsApp} alt="WhatsApp" />
+        </a>
       </div>
     </div>
   );

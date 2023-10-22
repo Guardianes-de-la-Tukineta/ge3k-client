@@ -1,13 +1,14 @@
 
 .titleH5 {
-    border-bottom: 1px solid rgb(250, 250, 250);
     padding-top: 10px;
     padding-bottom: 8px;
-    font-size: 1rem;
+    font-size: 1.2rem;
+    color: #ffffff;
   }
 
 .map{
     width: 300px;
+    border-radius: 10px;
 }
 .footerLink{
   color: white;
@@ -20,8 +21,15 @@
 
 .guardianes{
   margin: 0;
-  padding: 0.65rem 0;
-  background-color: #707070;
+  padding: 0.45rem 0;
+  background-color: #ffffff;
   position: relative;
   bottom: 0;
+  color: black;
+  font-size: 0.8rem;
+}
+
+.logo{
+  height: 60px;
+  width: auto;
 }
