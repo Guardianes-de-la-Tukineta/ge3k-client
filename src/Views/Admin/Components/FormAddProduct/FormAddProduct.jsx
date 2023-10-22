@@ -1,22 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import style from "./FormAddProduct.module.css";
 import CardProductAdmin from "../CardProductAdmin/CardProductAdmin";
 import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
 import Alert from "react-bootstrap/Alert";
 import Spinner from "react-bootstrap/Spinner";
-import useAuthToken from '../../Hooks/useAuthToken'
+import useAuthToken from "../../Hooks/useAuthToken";
+import { useAdminStore } from "../../ZustandAdmin/AdminStore";
+
 
 const FormAddProduct = () => {
   const {
     register,
+    setValue,
     control,
     handleSubmit,
     watch,
-    formState: { errors },
+    trigger,
+    formState: { errors},
     reset,
   } = useForm();
-  const {authToken} = useAuthToken()
+ const {allCategories, AllThemes, getCatgoriesAndThemes} = useAdminStore()
+
+
+ useEffect(()=>{
+   if(allCategories.length === 0) {
+    getCatgoriesAndThemes()
+   }
+ },[allCategories])
+
+ 
+ 
+  const { authToken } = useAuthToken();
   const [file, setFile] = useState(null);
   const [alert, setAlert] = useState(false);
   const [spinner, setSpinner] = useState(false);
@@ -25,6 +40,7 @@ const FormAddProduct = () => {
   const [showNewCategoryInput, setShowNewCategoryInput] = useState(false);
   const [showNewThemeInput, setShowNewThemeInput] = useState(false);
   const [imagenSeleccionada, setImagenSeleccionada] = useState(null);
+
 
   const onSubmit = async (dataFrom) => {
     setSpinner(true);
@@ -63,12 +79,13 @@ const FormAddProduct = () => {
     const URLBACK = "https://ge3k-server.onrender.com/products/";
     try {
       const responseFronBack = await axios.post(URLBACK, bodyRequest, {
-        headers:{
-          Authorization: `Bearer ${authToken}`
-        }
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
       });
       setSpinner(false);
       reset();
+      getCatgoriesAndThemes()
       setImagenSeleccionada(null);
       setAlert(true);
       setTimeout(() => {
@@ -94,17 +111,6 @@ const FormAddProduct = () => {
     seleccion,
     urlImagen,
   } = watch();
-  const watchAllFields = watch();
-
-  // Tus opciones para categoryName y themeName
-  const categories = [
-    "T-shirts",
-    "Mugs",
-    "PC Accesories",
-    "Collectible figures",
-    "New category",
-  ];
-  const themes = ["Video Games", "Programming", "Anime", "Gaming", "New Theme"];
 
   const handleImageChange = (e) => {
     setFile(e.target.files[0]);
@@ -124,20 +130,39 @@ const FormAddProduct = () => {
             <input
               {...register("name", { required: true, maxLength: 100 })}
               placeholder="Mario T-Shirt"
+              onChange={(e) => {
+                setValue("name", e.target.value);
+                trigger("name");
+
+              }}
             />
-            {errors.name && (
+            {errors.name && errors.name.type === "required" && (
               <span className={style.error}>This field is required</span>
+            )}
+            {errors.name && errors.name.type === "maxLength" && (
+              <span className={style.error}>
+                Name must contain a maximum of 100 characters
+              </span>
             )}
           </label>
 
           <label>
             <span>Description:</span>
-            <input
-              {...register("description", { required: true, maxLength: 500 })}
+            <textarea
+               rows="4"
+              {...register("description", { required: true, maxLength: 250 })}
               placeholder="Mens Video Gameboy Shirt..."
+              onChange={(e) => {
+                setValue("description", e.target.value);
+                trigger("description");
+
+              }}
             />
-            {errors.description && (
+            {errors.description && errors.description.type === "required" && (
               <span className={style.error}>This field is required</span>
+            )}
+            {errors.description && errors.description.type === "maxLength" && (
+              <span className={style.error}>Description must contain a maximum of 250 characters</span>
             )}
           </label>
 
@@ -157,9 +182,10 @@ const FormAddProduct = () => {
                     setFile(null);
                   }}
                 >
-                  <option value="">Image type</option>
+                  <option value="">Upload a image product</option>
                   <option value="url">URL</option>
                   <option value="local">Upload local image</option>
+                  
                 </select>
               )}
             />
@@ -175,7 +201,16 @@ const FormAddProduct = () => {
                 name="urlImagen"
                 {...register("urlImagen", { required: true })}
                 placeholder="Ingresa la URL de la imagen"
+                onChange={(e) => {
+                  setValue("urlImagen", e.target.value);
+                  trigger("urlImagen");
+  
+                }}
+                
               />
+               {errors.urlImagen && (
+              <span className={style.error}>This field is required</span>
+            )}
             </label>
           )}
 
@@ -187,7 +222,7 @@ const FormAddProduct = () => {
                 name="imagenLocal"
                 {...register("imagenLocal", { required: true })}
                 onChange={handleImageChange}
-              />{" "}
+              />
             </label>
           )}
 
@@ -195,23 +230,57 @@ const FormAddProduct = () => {
             <span>Price:</span>
             <input
               type="number"
+              min="0"
               {...register("price", { required: true, min: 0 })}
               placeholder="0"
               step="any"
+              onChange={(e) => {
+                setValue("price", e.target.value);
+                trigger("price");
+
+              }}
+              onKeyPress={(event) => {
+                if (event.key === '-' || event.key === '+') {
+                  event.preventDefault();
+                }
+              }
+            }
             />
-            {errors.price && (
+            {errors.price && errors.price.type === 'required' && (
               <span className={style.error}>
-                This field is required and must be a positive number
+                This field is required
+              </span>
+            )}
+            {errors.price && errors.price.type === 'min' && (
+              <span className={style.error}>
+                The price must be at least 0
               </span>
             )}
           </label>
 
           <label>
             <span>Discount:</span>
-            <input type="number" {...register("discount", { min: 0 })} />
+            <input
+              type="number"
+              min="0"
+              max="99"
+              defaultValue= "0"
+              {...register("discount", { min: 0, max: 99,   })}
+              onChange={(e) => {
+                setValue("discount", e.target.value);
+                trigger("discount");
+
+              }}
+              onKeyPress={(event) => {
+                if (event.key === '-' || event.key === '+') {
+                  event.preventDefault();
+                }
+              }
+            }
+            />
             {errors.discount && (
               <span className={style.error}>
-                This field must be a positive number or zero
+                Discount must be a number between 0 and 99
               </span>
             )}
           </label>
@@ -219,13 +288,24 @@ const FormAddProduct = () => {
           <label>
             <span>Stock:</span>
             <input
-              type="number"
-              {...register("stock", { required: true, min: 0 })}
-              placeholder="0"
+              type="number" min="1"
+              {...register("stock", { required: true, min: 1 })}
+              placeholder="15"
+              onChange={(e) => {
+                setValue("stock", e.target.value);
+                trigger("stock");
+
+              }}
+              onKeyPress={(event) => {
+                if (event.key === '-' || event.key === '+') {
+                  event.preventDefault();
+                }
+              }
+            }
             />
             {errors.stock && (
               <span className={style.error}>
-                This field is required and must be a positive number
+                 Stock must be at least 1
               </span>
             )}
           </label>
@@ -246,9 +326,9 @@ const FormAddProduct = () => {
                   }}
                 >
                   <option value="">Select a category</option>
-                  {categories.map((category, index) => (
-                    <option key={index} value={category}>
-                      {category}
+                  {allCategories && [...allCategories, {name:"New category"}].map((category) => (
+                    <option key={category.id} value={category.name}>
+                      {category.name}
                     </option>
                   ))}
                 </select>
@@ -285,22 +365,22 @@ const FormAddProduct = () => {
                   }}
                 >
                   <option value="">Select a theme</option>
-                  {themes.map((category, index) => (
-                    <option key={index} value={category}>
-                      {category}
+                  {AllThemes && [...AllThemes, {name:"New Theme"}].map((themas) => (
+                    <option key={themas.id} value={themas.name}>
+                      {themas.name}
                     </option>
                   ))}
                 </select>
               )}
             />
-            {errors.themeName && <p>This field is required</p>}
+            {errors.themeName && <span className={style.error}>This field is required</span>}
           </label>
 
           {showNewThemeInput && (
             <label>
               <span>New Theme:</span>
               <input {...register("newThemeName", { required: true })} />
-              {errors.categoryName && <p>This field is required</p>}
+              {errors.categoryName && <span className={style.error}>This field is required</span>}
             </label>
           )}
 

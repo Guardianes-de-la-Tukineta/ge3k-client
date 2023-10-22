@@ -99,7 +99,7 @@ button.editButton:hover  i{
 }
 
 
-.saveButton, .cancelButton, .saveButtonOff, .deletetButton, .deletetButtonOff{
+.saveButton, .cancelButton, .saveButtonOff, .deletetButton, .deletetButtonOff, .passwordButton{
   border-radius: 4px;
   margin-left: 2px;
   padding: 2px 8px;
@@ -197,6 +197,18 @@ button.editButton:hover  i{
   }
 
   .saveButton:hover i{
+    color: #383838;
+  }
+
+
+  .passwordButton{
+    font-size: 0.85rem ;
+    color: rgb(111, 196, 252);
+    border: 2px solid #383838;
+  }
+
+  .passwordButton:hover{
+    background-color:  rgb(111, 196, 252);
     color: #383838;
   }
 

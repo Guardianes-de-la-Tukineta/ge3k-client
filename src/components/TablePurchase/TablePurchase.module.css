@@ -1,8 +1,9 @@
 .table {
-    background-color: #111 !important; /* Establece el color de fondo y utiliza !important */
-    color: rgb(250, 249, 249); /* Cambia el color del texto si es necesario */
- 
-} 
+    border-collapse: collapse;
+    border-radius: 10px;
+  }
+
+
   
   
   

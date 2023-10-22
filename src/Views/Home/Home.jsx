@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useStore } from "../../zustand/useStore/useStore";
 import { Carousel } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -10,7 +10,6 @@ import style from "../Home/Home.module.css";
 import { cartStore } from "../../zustand/cartStore/cartStore";
 import { useAuth0 } from "@auth0/auth0-react";
 import { customerStore } from "../../zustand/customerStore/customerStore";
-import whatsApp from "../../Images/124034.png";
 import { favoriteStore } from "../../zustand/favoriteStore/favoriteStore";
 
 const Home = () => {
@@ -20,22 +19,25 @@ const Home = () => {
   const {syncFavByBack,getFavorites,favorites,updateLocalStorage}=favoriteStore()
   const { user, isAuthenticated } = useAuth0(); // para saber si estoy logueado
   const { currentCustomer } = customerStore();
-  const firstRender = useRef(true);
-
+ 
   //hooks
   useEffect(() => {
-    if (isAuthenticated) {
-      if ((cart.length > 0 || favorites.length>0)&& firstRender.current && currentCustomer.email) {
-        //el currentCustomer tarda un poco en cargar los datos del user
-        console.log("syncronización");
-        syncByBack(currentCustomer.id); // solicitamos la syncronizacion de cart
-        syncFavByBack(currentCustomer.id) // solicitamos la syncronizacion de favoritos
-        firstRender.current = false; // cambiamos afalse para q solo se renderice una vez
+    if (isAuthenticated) {      
+      if ((cart.length > 0 || favorites.length>0) && currentCustomer.email) {     //el currentCustomer tarda un poco en cargar los datos del user   
+        const syncCompleted = localStorage.getItem('syncCompleted'); // Verificamos si la sincronización ya se ha completado 1 vez, para q no hagamos lo mismo muchas veces
+        if(syncCompleted==='false'){
+          console.log("syncronización");
+          syncByBack(currentCustomer.id); // solicitamos la syncronizacion de cart
+          syncFavByBack(currentCustomer.id) // solicitamos la syncronizacion de favoritos      
+          localStorage.setItem('syncCompleted', 'true');  // Marcamos la sincronización como completada en localStorage
+        }
       } else if (currentCustomer.email) {
         getCartProducts(currentCustomer.id); // para pedir al back el carrito del usuario
         getFavorites(currentCustomer.id); // para pedir al back los fav del usuario
       }
-    }
+    } else {
+      localStorage.setItem('syncCompleted', 'false');  // Marcamos la sincronización como no completada en localStorage
+    } 
     updateLocalStorage(favorites)
     getAllProducts();
     getSales(); //al montar componente ejecutamos la action q modifica nuestro estado global
@@ -70,6 +72,7 @@ const Home = () => {
                         rating={product.rating}
                         price={product.price}
                         id={product.id}
+                        description={product.description}
                       />
                     </div>
                   ))}
@@ -85,16 +88,7 @@ const Home = () => {
 
       <div>
         <Themes />
-      </div>
-      <div className={style.whatsappButton}>
-        <a
-          href="https://wa.me/573182101430"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src={whatsApp} alt="WhatsApp" />
-        </a>
-      </div>
+      </div>     
     </div>
   );
 };
