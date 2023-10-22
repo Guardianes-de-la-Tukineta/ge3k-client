@@ -1,8 +1,28 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom"; 
+import { PurchaseStore }  from "../../zustand/PurchaseOrder/PurchaseStore";
+import { useEffect } from "react";
+
 
 const PaymentSuccessView = () => {
+
+    //-
+
+     const purchaseStore = PurchaseStore();
+
+     useEffect(()=> {
+      if (order) {
+     const stripeOrder = order;
+     console.log(stripeOrder);
+      }
+     },[ PurchaseStore]) 
+
+  const order = purchaseStore.order;
+  console.log(order);
+        
+
+     
   return (
     <div  className="text-center my-5">
       <h1>¡The purchase has been successful!</h1>
