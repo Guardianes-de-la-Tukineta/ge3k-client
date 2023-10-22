@@ -9,8 +9,9 @@ const Bill = () => {
   const [url, setUrl] = useState('');
 
  const order = useStore(PurchaseStore, (state) => state.order);
-    
-  console.log(order);
+   
+ const stripeOrderId = sessionStorage.getItem('propiedad');
+  console.log(stripeOrderId);
 
 
   const getBill = async () => {
@@ -22,7 +23,7 @@ const Bill = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ stripeOrderId: "cs_test_a1Ynrn9wtlLr9sNAJTcFZHwjx4F8KkrASOjBM60yAaxQd4lZb6KHPXGZap" }),
+      body: JSON.stringify({ stripeOrderId }),
     });
 
     if (response.ok) {
