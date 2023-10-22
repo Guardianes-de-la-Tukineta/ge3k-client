@@ -11,13 +11,15 @@ import { useEffect } from 'react';
 
 const CartItem = ({ name, price, image, id: idProduct }) => {
     //estados y actions
-    const { deleteProductCart, setQuantity, cart, errorQuantity, clearErrorQuantity } = cartStore() //nos traemos estados de zustand      
-    const [cantidadActual, setCantidadActual] = useState(cart.find(({ product }) => product.id === idProduct).quantity)// sabremos que cantidad tiene cada product
+    const { deleteProductCart, setQuantity, cart,showAlert} = cartStore() //nos traemos estados de zustand      
+    const cantidadActual=cart.find(({ product }) => product.id === idProduct).quantity// sabremos que cantidad tiene cada product
     const [isType, setIsType] = useState(false) //para cambiar a visualizar el input    
-    const { register, formState: { errors }, handleSubmit } = useForm()
+    const { register, formState: { errors}, handleSubmit } = useForm()
     const { isAuthenticated } = useAuth0() // para saber si estoy logueado
     const { currentCustomer } = customerStore()
     const [isLoading, setIsLoading] = useState(false); // Nuevo estado para controlar el spinner
+    const [errorQuantity,setErrorQuantity]=useState(false)
+    const [inputValue,setInputValue]=useState(cantidadActual)
 
     //handlers
     const handlerDeleteProduct = () => {   //para borrar product     
@@ -34,6 +36,7 @@ const CartItem = ({ name, price, image, id: idProduct }) => {
         }
     }
     const onSubmit = (data) => {      //para cambiar cantidad desde input    
+        setInputValue(Number(data.cantidad))
         setIsLoading(true); // Mostrar spinner
         setQuantity(isAuthenticated || false, currentCustomer.id, idProduct, Number(data.cantidad))  //mandamos la info del input
         setIsType(false)
@@ -48,21 +51,13 @@ const CartItem = ({ name, price, image, id: idProduct }) => {
     }
 
     useEffect(() => {
-        isLoading && setIsLoading(false)
-        console.log(errorQuantity.id);
-        setCantidadActual(cart.find(({ product }) => product.id === idProduct).quantity)
-        if (errorQuantity.id) {          
-            const maxStock=Number(errorQuantity.stock.match(/\d+/g).join(''))
-            console.log(maxStock,cantidadActual);
-            if (errorQuantity.id === idProduct) {
-                setCantidadActual(maxStock)
-            }
-            //clearErrorQuantity()
-        } else {
-            setCantidadActual(cart.find(({ product }) => product.id === idProduct).quantity)
-        }
-    }, [cart, errorQuantity])
-
+        isLoading && setIsLoading(false)                
+        if(inputValue>cantidadActual && showAlert){            
+            setErrorQuantity(true)           
+            setInputValue(0)  
+        } else setErrorQuantity(false) 
+    }, [cart,showAlert])
+    
     return (
         <div className={`card ${style.cartItem}`}>
             <div className='card-body d-flex flex-column w-100 h-100 '>
@@ -80,8 +75,8 @@ const CartItem = ({ name, price, image, id: idProduct }) => {
                 <div className='d-flex justify-content-between'>
                     {
                         !isType ?
-                            <Dropdown>
-                                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                            <Dropdown className={errorQuantity && style.errorQuantity}>
+                                <Dropdown.Toggle   variant="success" id="dropdown-basic">
                                     {
                                         isLoading && isAuthenticated ? (
                                             <Spinner
@@ -99,11 +94,12 @@ const CartItem = ({ name, price, image, id: idProduct }) => {
                                 </Dropdown.Menu>
                             </Dropdown>
                             :
-                            <form onSubmit={handleSubmit(onSubmit)}>
+                            <form className='needs-validation' onSubmit={handleSubmit(onSubmit)} novalidate>
                                 <input
-                                    type='text'
-                                    defaultValue='11'
-                                    className={`form-control ${style.inputCant}`}
+                                    type='number'
+                                    defaultValue='10'
+                                    required                                    
+                                    className={`form-control ${errors.cantidad?style.inputCantError:style.inputCant}`}
                                     {...register('cantidad', {
                                         required: true,
                                         min: 1,

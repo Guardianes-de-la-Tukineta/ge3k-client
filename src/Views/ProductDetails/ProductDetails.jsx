@@ -10,19 +10,19 @@ import { customerStore } from "../../zustand/customerStore/customerStore";
 import Spinner from "react-bootstrap/Spinner";
 import { favoriteStore } from "../../zustand/favoriteStore/favoriteStore";
 import ReactStars from 'react-stars';
+import FormRating from "../../components/FormRating/FormRating";
 
 //HP el componente de llama ProductDetails  ya que podemos tener otros details ej, RatingDetails
 function ProductDetails() {
   const { id } = useParams();
-  const { getProductsDetails, productDetails, deletePorductDetail } =
-    useStore(); // Utiliza el hook useStore para acceder al estado y a la función getProductsDetails
+  const { getProductsDetails, productDetails, deletePorductDetail } =useStore(); // Utiliza el hook useStore para acceder al estado y a la función getProductsDetails
   const { addProductToCart } = cartStore(); //cart store de zustand
   const { isAuthenticated } = useAuth0(); // para saber si estoy logueado
   const { currentCustomer } = customerStore();
   const { favorites, addProductFavorite, deleteProductFavorite, updateLocalStorage } = favoriteStore()
   const [isFav, setIsFav] = useState(false); // para cambiar el estado de fav y no fav
   const [isFavDisabled, setIsFavDisabled] = useState(false); // para deshabilitar momentaneamente el boton de fav
-
+  const[showFormRating,setShowFormRating]=useState(false)
 
   useEffect(() => {
     const fetchData = async() => {     
@@ -53,8 +53,6 @@ function ProductDetails() {
     fontWeight:"500",
     borderRadius:"10px",
     height:'44px'
-
-
   };
 
   //handlers
@@ -82,6 +80,13 @@ function ProductDetails() {
       setIsFavDisabled(false);
     }, 1000);
   }
+  const handlerWriteReview=()=>{ //mostrar form para valorar producto
+    setShowFormRating(true)
+  }
+  const ratingChanged=(e)=>{
+    console.log(e);
+  }
+
   return (
     <Container className={styles.productDetailsConteiner}>      
       {!productDetails.image ? ( //controlo que el estado ya tenga la propiedad imagen
@@ -164,21 +169,27 @@ function ProductDetails() {
         </Row>
       )}
       <hr></hr>
-      <div className="d-flex row">
-        <div className="col-md-6">
-          <h2>calificaciones</h2>
-              promedio estrellas
-              <ReactStars
-      count={5}
-      // Asegúrate de tener una función ratingChanged para manejar el cambio de valoración
-      size={24}
-      color2={'#ffd700'}
-    />
-
+      <div className={`d-flex row ${styles.containerReviews}`}>
+        <div className="col-md-4">
+          <div>
+            <h3>Customer reviews</h3>            
+            <ReactStars
+              count={5}
+              onChange={ratingChanged}// para manejar el cambio de valoración
+              size={24}
+              color2={'#ffd700'}
+            />
+          </div>
+          <hr></hr>
+          <div>
+            <h3>Review this product</h3>            
+            Share your thoughts with other customers
+            <button onClick={()=>handlerWriteReview()} className="btn btn-dark">Write a customer review</button>
+          </div>
         </div>
 
-        <div className="col-md-6">
-          <h2>Principales comentarios </h2>
+        <div className="col-md-8">
+          <h3>Top reviews </h3>
           <div className="media">
             <img src="imagen-usuario.jpg" className="mr-3" alt="..." style={{ width: "64px", height: "64px"}}/>
             <div className="media-body">
@@ -200,6 +211,10 @@ function ProductDetails() {
             </div>
           </div>
       </div>
+
+      {
+        showFormRating && <FormRating name={productDetails.name} setShowFormRating={setShowFormRating}/>
+      }
 
       </div>
     </Container>

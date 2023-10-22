@@ -1,0 +1,39 @@
+.container{
+    background-color: rgb(128, 125, 120);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 40vw !important;
+    height: 320px !important;
+    border-radius: 20px;
+    position: absolute;
+    top: 0;
+    left: 35%;    
+    /* opacity: 0;
+    display: none; */
+}
+.buttonSubmit{   
+    position: absolute;
+    top: 0;
+    left:80%;
+    margin-top: 2%;  
+    padding: 0% !important; 
+    width: 40px;    
+}
+.buttonSubmit i, .buttonCancel i{
+    font-size: 22px;
+}
+.buttonCancel{
+    position: absolute;
+    top: 0;
+    left:90%;
+    margin-top: 2%;  
+    padding: 0% !important; 
+    width: 45px;      
+}
+.formRate{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

@@ -7,10 +7,7 @@ export const cartStore = create(zukeeper((set) => ({
     cart: JSON.parse(window.localStorage.getItem("cart")) || [], // productos en carrito de compra
     subTotal: 0, // guarda el subTotal en el carrito
     visibility:true, // para cuando se le da al icono del carrito del navBar
-    errorQuantity:{ // para actualizar automaticamente el input al maximo de stock
-        id:null,
-        stock:''
-    },    
+    showAlert:false,  // para pintar de rojo el borde de los botones de cantidades
     //conectar con back
     syncByBack:async (customerId)=>{
         try {              
@@ -25,19 +22,47 @@ export const cartStore = create(zukeeper((set) => ({
             const {data}=await axios.post(`${URL}carts/bulk`,{
                 customerId,
                 products:cartByBack
-            })             
+            })
+            console.log(data);             
             set(prevState => ({
                 ...prevState,
                 cart: data.cart.products,
                 subTotal:data.cart.total
             })) 
-            if(data.message.includes('stock'))  {
+            if(data.message)  {
                 Swal.fire({
                     position: 'center',
                     icon: 'success',
                     title: data.message, 
-                    confirmButtonColor: '#ff6824',                    
+                    confirmButtonColor: '#ff6824',
+                    allowOutsideClick: false                     
                 })  
+            }else if(data.stockLimit){
+                set(prevState => ({ //actualizamos subtotal con el back
+                    ...prevState,
+                    showAlert:true                    
+                }))
+                const msg='The quantities in the cart of the following products were updated to the maximum available stock'
+                Swal.fire({
+                    position: 'center',
+                    iconHtml: '<i class="bi bi-cart-x-fill" style="color: #000;"></i>',
+                    html: `<div style="text-align: left;">${msg}<br><ul>${data.stockLimit.map((elem) => `<li>${elem}</li>`).join('')}</ul></div>`,
+                    confirmButtonColor: '#ff6824'
+                }).then((result)=>{
+                    if(result.isConfirmed){
+                        set(prevState => ({ //cuando el user da al boton de o ocultamos el borde rojo
+                            ...prevState,
+                            showAlert:false                    
+                        }))
+                        Swal.fire({
+                            position: 'center',
+                            icon:'success',
+                            html: `<div style="text-align: left;">${msg}<br><ul>${data.stockLimit.map((elem) => `<li>${elem}</li>`).join('')}</ul></div>`,
+                            showConfirmButton: false,
+                            timer: 2000
+                        })
+                    }
+                })                
             }        
         } catch (error) {
             console.log(error);
@@ -130,56 +155,63 @@ export const cartStore = create(zukeeper((set) => ({
     setQuantity: async(isAuthenticated,customerId,productId, cant) => {
         try {
             //modificar cantidad en back  
+            const cart = cartStore.getState().cart;
             if(isAuthenticated){
                 const URL='https://ge3k-server.onrender.com/'
                 const {data} = await axios.post(`${URL}carts`,{
                     customerId,
                     productId,
                     quantity:cant
-                })
-                console.log(data,cant);
+                })                
+                if(data.message){
+                    set(prevState => ({ //actualizamos subtotal con el back
+                        ...prevState,
+                        showAlert:true                    
+                    }))
+                    Swal.fire({  //mostramos alerta
+                        position: 'center',
+                        icon: 'error',
+                        title:data.message, 
+                        confirmButtonColor: '#ff6824', 
+                        allowOutsideClick: false                   
+                    }).then((result)=>{
+                        if(result.isConfirmed) {
+                            set(prevState => ({ //cuando el user da al boton de o ocultamos el borde rojo
+                                ...prevState,
+                                showAlert:false                    
+                            }))
+                        }
+                    })  
+                }
+                const newCart = cart.map(({ product, quantity }) => {
+                    if (product.id === productId) {
+                        quantity=data.stock || cant
+                    }
+                    return { product, quantity }
+                })  
                 set(prevState => ({ //actualizamos subtotal con el back
                     ...prevState,
-                    subTotal:data.total,                    
+                    subTotal:data.total,
+                    cart:newCart                    
                 }))
-            }
-            const cart = cartStore.getState().cart;
-            const newCart = cart.map(({ product, quantity }) => {
-                if (product.id === productId) {
-                    quantity=cant
-                }
-                return { product, quantity }
-            })        
-            set(prevState => ({
-                ...prevState,
-                cart: newCart,                
-            }))            
+            } else {
+                const newCart = cart.map(({ product, quantity }) => {
+                    if (product.id === productId) {
+                        quantity=cant
+                    }
+                    return { product, quantity }
+                })        
+                set(prevState => ({
+                    ...prevState,
+                    cart: newCart,                
+                }))                       
 
-        } catch ({response}) {             
-            Swal.fire({
-                position: 'center',
-                icon: 'error',
-                title: response.data.error, 
-                confirmButtonColor: '#ff6824',                    
-            })                      
-            set(prevState => ({
-                ...prevState,
-                errorQuantity:{ // para usar esa info en mi componente de cartItem
-                    id:productId,
-                    stock:response.data.error 
-                } 
-            })) 
+            }       
+
+        } catch (error) {            
+            console.log(error);
         }
-    },
-    clearErrorQuantity:()=>{
-        set(prevState => ({
-            ...prevState,
-            errorQuantity: {
-                id:null,
-                stock:''
-            }
-        })) 
-    },
+    },   
     //obtener SubTotal en el precio del carrito
     getSubTotal: (isAuthenticated) => {
         if(!isAuthenticated){  // mientras no este autenticado, trabajamos con esta logica
