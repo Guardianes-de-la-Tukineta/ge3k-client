@@ -11,13 +11,25 @@ export const PurchaseStore = create(zukeeper((set) => ({
           const response = await axios.post("https://ge3k-server.onrender.com/stripe-session", customerData);
           if (response.status === 200) { 
             const { data } = response;
+            console.log(data);
             set((state) => ({
               ...state,
-              order: data,
-            }));
-            
+              order: data
+            }))
+          
+            setTimeout(() => {
+              console.log("esperando la data", data);
+              
+            }, 5000);
+            console.log(state.order);
             if (response && response.data && response.data.url) {
-              window.location.href = response.data.url;
+             
+              window.open(response.data.url, '_blank');
+              setTimeout(() => {
+                console.log("esperando la data numero 2", data);
+                
+              }, 5000);
+              // window.location.href = response.data.url;
             } else {
               console.error(
                 "Could not get redirect URL"

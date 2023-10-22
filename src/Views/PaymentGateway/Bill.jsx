@@ -2,24 +2,40 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
+import { useStore } from 'zustand';
+import { PurchaseStore } from "../../zustand/PurchaseOrder/PurchaseStore.js";
 
 const Bill = () => {
   const [url, setUrl] = useState('');
 
+ const order = useStore(PurchaseStore, (state) => state.order);
+    
+  console.log(order);
+
+
   const getBill = async () => {
-    try {
-      const response = await fetch('http://localhost:4000/bill');
-      if (response.ok) {
-        const data = await response.json();
-        setUrl(data);
-        console.log(url.data);
-      } else {
-        console.error('Error al obtener la factura');
-      }
-    } catch (error) {
-      console.error('Error al obtener la factura:', error);
+ 
+   
+  try {
+    const response = await fetch('https://ge3k-server.onrender.com/stripe-session/bill', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ stripeOrderId: "cs_test_a1Ynrn9wtlLr9sNAJTcFZHwjx4F8KkrASOjBM60yAaxQd4lZb6KHPXGZap" }),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      setUrl(data.url);
+      console.log(data.url);
+    } else {
+      console.error('Error al obtener la factura');
     }
-  };
+  } catch (error) {
+    console.error('Error al obtener la factura:', error);
+  }
+};
 
   useEffect(() => {
     getBill();
