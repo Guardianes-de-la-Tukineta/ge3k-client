@@ -7,7 +7,7 @@ import { useEffect } from "react";
 
 const PaymentSuccessView = () => {
 
-    
+    //-
 
      const purchaseStore = PurchaseStore();
 

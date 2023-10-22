@@ -15,7 +15,7 @@ export const PurchaseStore = create(zukeeper((set) => ({
           if (response.status === 200) { 
             const { data } = response;
             const orderId = data.stripeOrderId;
-            //------
+            //-------
             sessionStorage.setItem( "propiedad" ,  orderId );
             //------
             console.log(data);
