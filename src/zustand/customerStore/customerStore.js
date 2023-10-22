@@ -21,13 +21,7 @@ import { Alert } from "react-bootstrap";
         
         createCustomer: async (customer) => {
           const fecha = customer.birthdate; 
-          // Convierte el objeto Date en una cadena de fecha en formato "AAAA-MM-DD"
-          // customer.birthdate= format(fecha, "yyyy-MM-dd");
-          console.log("creo el cusotmer ",customer);
-          // set((state) => ({
-          //   ...state,
-          //   currentCustomer: {blocked:true},
-          // }));
+    
           try {
               const response = await axios.post('https://ge3k-server.onrender.com/customers/', customer, {
                   headers: {
@@ -53,10 +47,7 @@ import { Alert } from "react-bootstrap";
                 // console.error('Error al crear el cliente:', error);
               }
               customer.birthdate= fecha;// cambio otra vez el formato de la fecha para que no rompa todo
-            },
-
-        
-            
+            },    
 
             updateCustomer: async (customer,email) => {
               // Define la URL de la solicitud PUT
@@ -97,7 +88,7 @@ import { Alert } from "react-bootstrap";
       
         /*la action que sigue busca un customer en el back con su id*/      
         getAllCustomers: async () => {
-          // console.log("entro a getallcustomer");
+          //  console.log("entro a getallcustomer");
           try {
             const response = await axios.get(`https://ge3k-server.onrender.com/customers/`);
         
@@ -115,13 +106,21 @@ import { Alert } from "react-bootstrap";
           }
         },
 
+        delAllCustomers: () => {
+           console.log("entro a delAllcustomer");
+              set((state) => ({
+                ...state,
+                allCustomers: [],
+              }));
+          },
+
         delCustomer: async (id) => {
           try {
             const response = await axios.delete(`https://ge3k-server.onrender.com/customers/${id}`);
         
             if (response.status === 200) { // Cambiado de 201 a 200 para verificar si la respuesta es exitosa
               const { data } = response;
-              console.log("deleted... ", data);
+              // console.log("deleted... ", data);
 
             } else {
               // Maneja el caso en el que el perfil no esté registrado
@@ -134,24 +133,46 @@ import { Alert } from "react-bootstrap";
         },  
 
         activateCustomer: async (id) => {
+          console.log("a ver si demora");
           try {
             const response = await axios.patch(`https://ge3k-server.onrender.com/customers/${id}`);
         
             if (response.status === 204) { 
-              
               console.log("Activated... ");
-
             } else {
               // Maneja el caso no exista el ID
               console.error('Se recido una respuesta inadecuada');
-         
+              
             }
           } catch (error) {
             console.error("Error obteniendo customer:", error);
           }
-        },  
+        }, 
+
+        getCustomerById: async (id) => {
+          console.log("get con id ",id);
+          try {
+            const response = await axios.get(`https://ge3k-server.onrender.com/customers/${id}`);
         
-        /*la action que sigue busca un customer en el back con su id*/      
+            if (response.status === 200) { // Cambiado de 201 a 200 para verificar si la respuesta es exitosa
+              const { data } = response;
+              set((state) => ({
+                ...state,
+                currentCustomer: data,
+              }));
+            } else {
+              // Maneja el caso en el que el perfil no esté registrado
+              console.error('El id no fue encontrado en la base de datos:');
+              set((state) => ({
+                ...state,
+                currentCustomer: {},
+              }));
+            }
+          } catch (error) {
+            console.error("Error obteniendo customer:", error);
+          }
+        },         
+            
         getCustomerByEmail: async (email) => {
           
           try {
@@ -175,6 +196,14 @@ import { Alert } from "react-bootstrap";
             console.error("Error obteniendo customer:", error);
           }
         },  
+        //borra el currentCustomer 
+        restoreCurrentCustomer: () => {
+        console.log("restauro");
+        set((state) => ({
+          ...state,
+          currentCustomer: {},
+        }));
+        },
 
         // Función para cargar los datos del usuario actual (autenticado)
         loadCurrentCustomer: (email) => {

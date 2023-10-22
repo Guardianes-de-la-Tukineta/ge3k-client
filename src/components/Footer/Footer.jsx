@@ -3,11 +3,12 @@ import { Container, Row, Col } from "react-bootstrap";
 import styles from "./Footer.module.css";
 import { Link } from "react-router-dom";
 
-
 function Footer() {
   return (
-    <div style={{ backgroundColor: "black", color: "white", fontSize: '0.9rem' }}>
-      <Container fluid >
+    <div
+      style={{ backgroundColor: "black", color: "white", fontSize: "0.9rem" }}
+    >
+      <Container fluid>
         <Row className="p-3 pb-4">
           <Col>
             <h5 className={styles.titleH5}>FIND US IN</h5>
@@ -23,11 +24,19 @@ function Footer() {
             <Link to="/legal" className={styles.footerLink}>
               <p>Terms & Conditions</p>
             </Link>
+
+            <h5 className={styles.titleH5}>CONTACT</h5>
+            <Link to="/send-email" className={styles.footerLink}>
+              <p>Contact Us </p>
+            </Link>
+            {/* <Link to="/legal" className={styles.footerLink}>
+              <p>Terms & Conditions</p>
+            </Link> */}
           </Col>
           <Col>
             <h5 className={styles.titleH5}>FIND</h5>
             <p>SEARCH</p>
-            <h5 className={styles.titleH5}>SOCIAL MEDIA</h5> 
+            <h5 className={styles.titleH5}>SOCIAL MEDIA</h5>
 
             <p>
               <i className="bi bi-instagram"></i> Instagram
@@ -42,18 +51,23 @@ function Footer() {
           <Col>
             <h5 className={styles.titleH5}>ABOUT US</h5>
             <p>
-            Are you looking for an unforgettable gift for someone special or for yourself?
+              Are you looking for an unforgettable gift for someone special or
+              for yourself?
             </p>
             <p>Do you want to showcase your fandom and passion?</p>
             <p>
-            Are you tired of not finding items featuring your favorite characters in physical stores?
+              Are you tired of not finding items featuring your favorite
+              characters in physical stores?
             </p>
-            <p>Enjoy shopping at <strong>Ge3kHub.shop</strong>🤓!</p>
+            <p>
+              Enjoy shopping at <strong>Ge3kHub.shop</strong>🤓!
+            </p>
           </Col>
         </Row>
-   
       </Container>
-      <div className={`${styles.guardianes} container-fluid text-center`} >Developed with ❤️ by the Guardians of Tukineta</div>
+      <div className={`${styles.guardianes} container-fluid text-center`}>
+        Developed with ❤️ by the Guardians of Tukineta
+      </div>
     </div>
   );
 }
