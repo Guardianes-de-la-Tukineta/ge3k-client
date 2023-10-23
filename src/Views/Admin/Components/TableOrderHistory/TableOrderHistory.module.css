@@ -81,13 +81,55 @@ button.editButton {
 
 
 
-.saveButton, .cancelButton, .saveButtonOff, .deletetButton, .deletetButtonOff, .passwordButton{
+.detailButton, .completedButton{
   border-radius: 4px;
   margin-left: 2px;
   padding: 2px 8px;
   outline: none;
   border: none;
   font-weight: 600;
+}
+
+.bothButton{
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+}
+
+.detailButton{
+  border: 2px solid #383838;
+}
+
+.completedButton{
+  border: 2px solid #383838;
+  background-color: #198754;
+  color: white;
+}
+
+.completedButton:hover{
+  border: 2px solid #383838;
   background-color: #383838;
+}
+
+.completedButton:active{
+  background-color: #525252;
+}
+
+
+.completedButton:disabled{
+  border: 2px solid #585858;
+  background-color: #8a8a8a;
+  color: white;
+  
+} 
+
+.detailButton:hover{
+  background-color:  #383838;
+  color: #ffffff;
+}
+
+.detailButton:active{
+  background-color:  #525252;
+  color: #ffffff;
 }
 

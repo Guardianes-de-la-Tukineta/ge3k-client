@@ -6,7 +6,7 @@ function PaginationAdmin({ page, setPage, totalPages }) {
   return (
     <Pagination>
       <Pagination.Prev disabled={page === 1} onClick={() => setPage({pageNumber: page > 1 ? page - 1 : 1})} />
-      <Pagination.Item active className={styles.pagiantionIndex} >{page}</Pagination.Item>
+      <Pagination.Item active className={styles.pagiantionIndex} >{page} <span style={{fontSize:'0.85rem'}}>-</span> {totalPages}</Pagination.Item>
       <Pagination.Next  disabled={page === totalPages} onClick={() => setPage({pageNumber: page < totalPages ? page + 1 : totalPages})} />
     </Pagination>
   );

@@ -5,5 +5,5 @@
 
 a:focus{
     box-shadow: none !important;
-
+    background-color: white !important;
 }

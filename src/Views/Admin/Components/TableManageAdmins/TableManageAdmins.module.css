@@ -99,7 +99,7 @@ button.editButton:hover  i{
 }
 
 
-.saveButton, .cancelButton, .saveButtonOff, .deletetButton, .deletetButtonOff, .passwordButton{
+.saveButton, .cancelButton, .saveButtonOff, .deletetButton, .deletetButtonOff{
   border-radius: 4px;
   margin-left: 2px;
   padding: 2px 8px;
@@ -202,13 +202,22 @@ button.editButton:hover  i{
 
 
   .passwordButton{
-    font-size: 0.85rem ;
-    color: rgb(111, 196, 252);
+    border-radius: 4px;
+    margin-left: 2px;
+    padding: 2px 8px;
+    outline: none;
+    border: none;
+    font-weight: 600;
     border: 2px solid #383838;
   }
 
   .passwordButton:hover{
-    background-color:  rgb(111, 196, 252);
-    color: #383838;
+    background-color:  #383838;
+    color: #ffffff;
+  }
+
+  .passwordButton:active{
+    background-color:  #525252;
+    color: #ffffff;
   }
 

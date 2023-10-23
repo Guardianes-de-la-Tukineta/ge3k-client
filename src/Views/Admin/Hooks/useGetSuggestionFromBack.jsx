@@ -28,7 +28,6 @@ function useGetSuggestionFromBack() {
 
 //Un controlador que me maneja cuando una petición cae el catch
 const handleCatchError= (error)=>{
-  console.log(error)
   setLoading(false)
         if(error.response){
           if(error.message === "Request failed with status code 404"){

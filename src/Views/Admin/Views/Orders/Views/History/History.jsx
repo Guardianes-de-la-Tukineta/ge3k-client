@@ -5,11 +5,12 @@ import PaginationAdminOrders from '../../../../Components/PaginationAdminOrders/
 import Spinner from "react-bootstrap/Spinner";
 import styles from './History.module.css'
 import DropDownAdmin from '../../../../Components/DropDownAdmin/DropDownAdmin';
-
+import Alert from "react-bootstrap/Alert";
+import SearchBarAdmin from '../../../../Components/SearchBarAdmin/SearchBarAdmin'
 
 const History = () => {
 
- const {data, loading, pageNum, setFilters, setSortedBy, setPageNum, reset, totalPages, getOrdersFromBack, error} = useOrdersFromBack()
+ const {data, loading, pageNum, setFilters, setSortedBy, setPageNum, reset, totalPages, getOrdersFromBack,handleCompleteOrder, handleSearchByEmail, message, error} = useOrdersFromBack()
  const [resetDropDowns, setResetDropDowns] = useState(false);
 
   //Para resetear los dropdowns cuando se hace una nueva busqueda
@@ -19,7 +20,7 @@ const History = () => {
 
 const handleResetButton = ()=>{
   reset()
-  setResetDropDowns();
+  setResetDropDowns(true);
 }
   return (
     <div
@@ -33,16 +34,16 @@ const handleResetButton = ()=>{
 <div className='row  justify-content-center w-100'>
         <div className='col-lg-10'>
         <div className={styles.messageSection}>
-          {/* {(errorGetProducts || error) && (
+          {error && (
             <Alert key={"danger"} variant={"danger"} style={{height:'2.5rem', display:'flex', alignItems:'center'}}>
-              {errorGetProducts || error}
+              {error}
             </Alert>
           )}
           {message && (
             <Alert key={"success"} variant={"success"} style={{height:'2.5rem', display:'flex', alignItems:'center'}}>
               {message}
             </Alert>
-          )} */}
+          )}
         </div>
         <div className="d-flex w-100 justify-content-between align-items-center flex-wrap mb-3">
           <div className="d-flex align-items-center flex-wrap">
@@ -67,11 +68,12 @@ const handleResetButton = ()=>{
               <i className="bi bi-arrow-clockwise"></i>{" "}
             </button>
           </div>
-          {/* <SearchBarAdmin
-            handleSearch={handleGetSuggestions}
+          <SearchBarAdmin
+            handleSearch={handleSearchByEmail}
             setResetDropDowns={setResetDropDowns}
-            reset={searchBarResetCounter}
-          /> */}
+            reset={data}
+            placeholder={'Enter email address'}
+          />
         </div>
 
 <div className={styles.spinerContainer} >
@@ -79,7 +81,7 @@ const handleResetButton = ()=>{
             animation="border"
             variant="dark"
             style={{ height: "50px", width: "50px", margin: "5rem" }}
-          /> : <TableOrderHistory data={data} />}
+          /> : <TableOrderHistory data={data} handleCompleteOrder={handleCompleteOrder} />}
 </div>
     </div>
     </div>
