@@ -13,8 +13,14 @@
     transition: opacity 0.3s; /* Transición suave */      
 }
 .inputCant{
-    width: 55px !important;
+    width: 70px !important;
     margin-bottom: 2px; 
+}
+.inputCantError{
+    width: 70px !important;
+    margin-bottom: 2px; 
+    border: 1px red solid !important;
+    box-shadow: 0 0 0 .25rem rgba(253, 13, 29, 0.25) !important;
 }
 .inputCant ~ p{
     width: 100%;
@@ -26,4 +32,9 @@
 .iconTrash{
     font-size: small;
     
+}
+.errorQuantity {    
+    box-shadow: 0 0 0 .25rem #ff6824 !important;
+    border-radius: 10%;
+    background-color: #ff6824;  
 }
