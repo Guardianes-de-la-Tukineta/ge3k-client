@@ -8,6 +8,7 @@ import Tooltip from "react-bootstrap/Tooltip";
 import { cartStore } from "../../zustand/cartStore/cartStore";
 import FastBar from "./fastBar";
 import SecionComponent from "./SecionComponent";
+import MenuMobile from "../MenuMobile/MenuMobile";
 
 const NavBar = () => {
   const { setVisibility } = cartStore(); // llamamos de zustand cart
@@ -38,6 +39,7 @@ const NavBar = () => {
             <SearchBar />
           </div>
 
+<div className="d-flex">
           <Link to='/favorites'>
             <div className={`p-2 ml-1`}>
               <i className="bi bi-heart-fill"></i>
@@ -49,10 +51,14 @@ const NavBar = () => {
           </div>
           {/* resumo el componente de inicio de secion y perfil */}
           <SecionComponent />
+          </div>
+     
         </Container>
 
-        <div className="flex-grow-1 d-md-none ">
+        <div className="w-100 d-flex align-items-center justify-content-between d-md-none">
+    
           <SearchBar />
+          <MenuMobile/>
         </div>
       </Navbar>
       {/* { resumiendo el codigo en otro compnente} */}

@@ -48,3 +48,11 @@ position: relative;
 .no-scroll {
   overflow: hidden !important;
 }
+
+a.carousel-control-prev{
+  background: none !important;
+}
+
+a.carousel-control-next{
+  background: none !important;
+}

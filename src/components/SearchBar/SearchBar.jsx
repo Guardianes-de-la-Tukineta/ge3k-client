@@ -86,7 +86,7 @@ const SearchBar = () => {
 
   const inputProps = {
 
-    placeholder: "Search your geek product here!",
+    placeholder: "Search here!",
     value: find,
     onChange: (event) => handleChange(event),
     onKeyPress: (event) => {
