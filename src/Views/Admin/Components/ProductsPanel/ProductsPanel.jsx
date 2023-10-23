@@ -1,12 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import style from './ProductsPanel.module.css'
+import OrderHistoryCard from '../OrderHistoryCard/OrderHistoryCard'
+import { useLocation } from 'react-router-dom'
 
 const ProductsPanel = () => {
+
+  const {pathname} = useLocation()
+ 
   return (
     <div className='row justify-content-around'>
            
-    <div className={`col-md-5 `} style={{padding:'0 '}}>
+    <div className={`col-lg-4 `} style={{padding:'0 '}}>
     <Link to='/admin/products/add'>   <div className={`${style.cardCreateProduct} ` }  style={{margin:'1.5rem 2.5rem',}}>
       <div className={`container-fluid  `}> 
         <div className={`row`}>
@@ -30,7 +35,7 @@ const ProductsPanel = () => {
 
 
 
-    <div className={`col-md-5 `} style={{padding:'0 '}}>
+    <div className={`col-lg-4 `} style={{padding:'0 '}}>
     <Link to='/admin/products/manage'>    <div className={`${style.cardCreateProduct} ` }  style={{margin:'1.5rem 2.5rem',}}>
       <div className={`container-fluid  `}> 
         <div className={`row`}>
@@ -53,8 +58,8 @@ MANAGE PRODUCTS</span>
       </div>
 
 
-
-
+    
+      {(pathname === '/admin')? <OrderHistoryCard/> : undefined} 
 
 
   

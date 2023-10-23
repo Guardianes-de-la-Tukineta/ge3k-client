@@ -40,6 +40,14 @@ export default function AdminNav({toggleState, handleLogOut}) {
               <span className="title">User Management</span>
           </Link>
           </li>
+          <li>
+          <Link to='/admin/orders/history'>
+              <span className="icon">
+              <i className="bi bi-clipboard-data"></i>
+              </span>
+              <span className="title">Order Historyt</span>
+          </Link>
+          </li>
          
           <li>
           <Link to='/admin/auth' onClick={handleLogOut}>

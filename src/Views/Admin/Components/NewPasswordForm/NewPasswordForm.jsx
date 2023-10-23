@@ -67,7 +67,6 @@ const NewPasswordForm = ({admin, handleNewPassword, handleClosePassModal}) => {
             <span>New Password</span>
             <div className={style.passwordInput}>
             <input type={(!showPassword)? "password" : "text"}
-             placeholder="Create new password"
             {...register("password", {required:"This field is required.", pattern: {
                 value:
                   /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%.*?&]{10,}$/,
@@ -102,7 +101,6 @@ const NewPasswordForm = ({admin, handleNewPassword, handleClosePassModal}) => {
             <div className={style.passwordInput}>
             <input
               type={(!showConfirmPassword)?"password":"text"}  
-              placeholder="Confirm the password"
               {...register("confirmPassword", {
                 required: "This field is required",
                 validate: (value) =>
