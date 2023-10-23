@@ -3,8 +3,10 @@ import { Button, ProgressBar } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { PurchaseStore } from "../../zustand/PurchaseOrder/PurchaseStore";
 import { useEffect } from "react";
+import { cartStore } from "../../zustand/cartStore/cartStore";
 
 const PaymentSuccessView = () => {
+  const { deleteCart } = cartStore(); //nos traemos estados de zustand
   const navigate = useNavigate();
 
   const purchaseStore = PurchaseStore();
@@ -12,7 +14,7 @@ const PaymentSuccessView = () => {
 
   useEffect(() => {
     const delay = 5000; // 5 segundos (en milisegundos)
-
+    deleteCart();
     const timeoutId = setTimeout(() => {
       navigate("/bill"); // Redirige al usuario a la página de factura
     }, delay);

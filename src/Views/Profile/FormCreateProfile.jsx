@@ -8,7 +8,6 @@ import { parseISO } from "date-fns"; // Importa parseISO de date-fns para el for
 import { customerStore } from "../../zustand/customerStore/customerStore";
 import styles from "./Profile.module.css";
 import { validate } from "./validate";
-import { format } from "date-fns";
 
 function FormCreateProfile(props) {
   const { currentCustomer, user, haveProfile } = props;
@@ -41,13 +40,6 @@ function FormCreateProfile(props) {
     setEditing(true);
   };
 
-  // const handleSaveClick = () => {
-  //   haveProfile
-  //     ? updateCustomer(updatedCustomer, user.email)
-  //     : createCustomer(updatedCustomer);
-  //   setEditing(false);
-  // };
-
   const handleSaveClick = async () => {
     try {
       if (haveProfile) {
@@ -56,12 +48,11 @@ function FormCreateProfile(props) {
         await createCustomer(updatedCustomer);
       }
 
-      setIsLoading(false); // Cuando la operación se completa, se detiene la carga.
+      setIsLoading(false);
       setEditing(false);
     } catch (error) {
       console.error("Error:", error);
-      setIsLoading(false); // Asegúrate de detener la carga en caso de error.
-      // Aquí puedes manejar el error de acuerdo a tus necesidades.
+      setIsLoading(false);
     }
   };
 

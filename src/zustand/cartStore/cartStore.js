@@ -128,6 +128,14 @@ export const cartStore = create(zukeeper((set) => ({
             console.log(error);
         }
     },
+    //eliminar el card del local
+    deleteCart: ()=>{  
+        console.log("borre el cart zustand");
+        set(prevState => ({
+            ...prevState,
+            cart: []
+        }))  
+    },
     //eliminar producto de cart
     deleteProductCart: async(isAuthenticated, idCustomer,idproduct) => {
         try {
