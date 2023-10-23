@@ -57,14 +57,6 @@ a:hover{
 }
 
 
-i.create{
-    color:#198754;
-}
-
-i.edit{
-    color:#f9aa2f;
-}
-
-i.delete{
-    color:#ff4848;
+i.order{
+    color:#457fed;
 }

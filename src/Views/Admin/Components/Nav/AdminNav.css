@@ -45,7 +45,9 @@
     width: 100%;
     display: flex;
     text-decoration: none;
+    background: none !important;
 }
+
 
 .navigation ul li a .icon{
     position: relative;
@@ -91,7 +93,7 @@
     }
 }
 
-@media (max-width: 480px){
+@media (max-width: 650px){
 
     .navigation{
         left:-100%;

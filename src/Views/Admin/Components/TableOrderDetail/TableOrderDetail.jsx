@@ -37,7 +37,7 @@ function cutID(id) {
             })}
             <tr>
             <td colSpan="5" style={{textAlign:'right'}}></td>
-             <td > <strong>${data.total}</strong></td>
+             <td > <strong>${data.total.toFixed(2)}</strong></td>
             </tr>
          </tbody>
       </table>

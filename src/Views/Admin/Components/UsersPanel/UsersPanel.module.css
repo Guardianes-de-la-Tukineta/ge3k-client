@@ -1,10 +1,9 @@
 .cardForUsers{
-    border: 2px solid #383838;
-    border-right: none;
-    background-color: #383838;
+    background-color: #f0f0f0;
     border-radius: 4px;
     overflow: hidden;
-    color: white;
+    color:#383838;
+    border: 2px solid #383838;
 }
 
 .cardForUsers:hover{
@@ -21,12 +20,11 @@
 
 
 .cardForUsers .arrowContainer{
-    background-color:#ffffff;
+    background-color: #383838;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius:100% 0 0 100%/50% 0 0 50%;
-    border: 3px solid #383838;
 }
 
 
@@ -53,7 +51,7 @@ a:hover{
 }
 
 .arrowContainer i{
-    color: #383838;
+    color: #ffffff;
     transform: translateX(-0px); 
     transition: transform 0.2s ease;
 }
@@ -71,9 +69,9 @@ a:hover{
 }
 
 i.create{
-    color:#58ff3b;
+    color:#198754;
 }
 
 i.edit{
-    color:#fdf747;
+    color:#f9aa2f;
 }
