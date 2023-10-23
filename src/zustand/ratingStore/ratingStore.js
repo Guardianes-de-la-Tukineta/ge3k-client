@@ -21,29 +21,21 @@ export const ratingStore = create(zukeeper((set) => ({
         }
     },
     //add producto a cart
-    addRatingProduct: async(customerId,newProduct,rating) => {
-        try {
-            const cart = ratingStore.getState().cart;          
-            if (cart.findIndex(({ product }) => product.id === newProduct.id) < 0) {          
-                set(prevState => ({
-                    ...prevState,
-                    cart: [...prevState.cart, { product: newProduct, quantity: 1 }]
-                }))
-    
-                //Add en back  
-                if(isAuthenticated){
-                    const URL='https://ge3k-server.onrender.com/'
-                    const {data} = await axios.post(`${URL}carts`,{
-                        customerId,
-                        productId:newProduct.id,
-                        quantity:1
-                    })
-                    console.log(data.total);
-                    set(prevState => ({
-                        ...prevState,
-                        subTotal:data.total
-                    }))
-                }
+    addRatingProduct: async(customerId,productId,rating,comment) => {
+        try {         
+            if(isAuthenticated){
+                const URL='https://ge3k-server.onrender.com/'
+                const {data} = await axios.post(`${URL}ratings`,{
+                    customerId,
+                    productId,
+                    rating,
+                    comment
+                })
+                console.log(data);
+                // set(prevState => ({
+                //     ...prevState,
+                //     subTotal:data.total
+                // }))            
             }               
         } catch (error) {
             console.log(error);

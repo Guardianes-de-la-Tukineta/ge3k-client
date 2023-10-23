@@ -81,3 +81,10 @@
   .blurBackground {
     filter: blur(5px); /* Ajusta el valor de desenfoque según tus preferencias */
   }
+  .descritionComment{
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Número de líneas para mostrar */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }

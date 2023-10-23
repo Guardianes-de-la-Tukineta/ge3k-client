@@ -278,5 +278,27 @@ return
         }
     }),
 
+    //add rating a product
+    addRatingProduct: async(isAuthenticated,customerId,productId,rating,comment) => {
+        try {         
+            if(isAuthenticated){
+                const URL='https://ge3k-server.onrender.com/'
+                const {data} = await axios.post(`${URL}ratings`,{
+                    customerId,
+                    productId,
+                    rating,
+                    comment
+                })
+                console.log(data);
+                // set(prevState => ({
+                //     ...prevState,
+                //     subTotal:data.total
+                // }))            
+            }               
+        } catch (error) {
+            console.log(error);
+        }
+    },
+
 })))
 window.store = useStore;

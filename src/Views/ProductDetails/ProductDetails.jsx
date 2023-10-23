@@ -24,7 +24,7 @@ function ProductDetails() {
   const [isFavDisabled, setIsFavDisabled] = useState(false); // para deshabilitar momentaneamente el boton de fav
   const[showFormRating,setShowFormRating]=useState(false)
 
-  useEffect(() => {
+  useEffect(() => {    
     const fetchData = async() => {     
       await getProductsDetails(id); // Obtiene los nuevos detalles del producto      
     };    
@@ -36,6 +36,8 @@ function ProductDetails() {
   }, [id]);
 
   useEffect(() => { // la info de productDetails se demora unos segundos, por eso cuando le llegue la info se renderiza el corazon
+    console.log(productDetails);
+    console.log(currentCustomer);
     updateLocalStorage(favorites) 
     if (productDetails.id && favorites.findIndex((elem) => elem.id === productDetails.id) !== -1) { //si esta en favoritos pintamos el corazon       
       setIsFav(true)
@@ -192,37 +194,28 @@ function ProductDetails() {
 
         <div className={`col-md-8  ${showFormRating && styles.blurBackground}`}>
           <h3>Top reviews </h3>
-          <div className="media">
-            <img src="imagen-usuario.jpg" className="mr-3" alt="..." style={{ width: "64px", height: "64px"}}/>
-            <div className="media-body">
-              <h5 className="mt-0">Nombre de Usuario</h5>
-              Comentario del usuario. Puedes incluir texto, enlaces, etc.
-            </div>
-          </div><div className="media">
-            <img src="imagen-usuario.jpg" className="mr-3" alt="..." style={{ width: "64px", height: "64px"}}/>
-            <div className="media-body">
-              <h5 className="mt-0">Nombre de Usuario</h5>
-              Comentario del usuario. Puedes incluir texto, enlaces, etc.
-            </div>
-          </div>
-          <div className="media">
-            <img src="imagen-usuario.jpg" className="mr-3" alt="..." style={{ width: "64px", height: "64px"}}/>
-            <div className="media-body">
-              <h5 className="mt-0">Nombre de Usuario</h5>
-              Comentario del usuario. Puedes incluir texto, enlaces, etc.
-            </div>
-          </div>
-          <div className="media">
-            <img src="imagen-usuario.jpg" className="mr-3" alt="..." style={{ width: "64px", height: "64px"}}/>
-            <div className="media-body">
-              <h5 className="mt-0">Nombre de Usuario</h5>
-              Comentario del usuario. Puedes incluir texto, enlaces, etc.
-            </div>
-          </div>
+          { 
+            productDetails.length>0   && productDetails.ratings.map((elem)=>(<>
+              <div className="media">
+                <img src="imagen-usuario.jpg" className="mr-3" alt="..." style={{ width: "64px", height: "64px"}}/>
+                <div className="media-body">
+                  <h5 className="mt-0">{currentCustomer.name}</h5>
+                  <ReactStars
+                    count={5}
+                    value={3.5} // Establece el valor de las estrellas a 3.5
+                    edit={false} // Deshabilita la interacción del usuario
+                    size={24}
+                    color2={'#ffd700'}
+                  />
+                  <div className={styles.descritionComment}>{elem.comment}</div>                  
+                </div>
+              </div>
+            </>))
+          }    
       </div>
 
       {
-       <FormRating name={productDetails.name} showFormRating={showFormRating} setShowFormRating={setShowFormRating}/>
+       showFormRating && <FormRating name={productDetails.name} showFormRating={showFormRating} setShowFormRating={setShowFormRating}/>
       }
 
       </div>
