@@ -58,12 +58,14 @@ function FormCreateProfile(props) {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    // console.log("updateCus ", updatedCustomer.birthdate);
     setFormErrors(validate({ ...updatedCustomer, [name]: value }));
     setUpdatedCustomer({
       ...updatedCustomer,
       [name]: value,
     });
     setIsLoading(true);
+    // console.log(formErrors.birthdate);
   };
 
   const handleDateChange = (date) => {
@@ -72,12 +74,18 @@ function FormCreateProfile(props) {
     const day = String(date.getDate()).padStart(2, "0");
     const formattedDate = `${year}-${month}-${day}`;
 
-    console.log("Formatted Date", formattedDate);
+    // console.log("Formatted Date", formattedDate);
     setIsLoading(true);
     setUpdatedCustomer({
       ...updatedCustomer,
       birthdate: formattedDate,
     });
+    setFormErrors(
+      validate({
+        ...updatedCustomer,
+        birthdate: formattedDate,
+      })
+    );
   };
 
   return (
@@ -115,6 +123,8 @@ function FormCreateProfile(props) {
                   dateFormat="yyyy-MM-dd"
                   className={styles.customDatePicker}
                 />
+                {formErrors.birthdate ? <></> : ""}
+                <span className={styles.error}>{formErrors.birthdate}</span>
               </Form.Group>
               <Form.Group controlId="email">
                 <Form.Label>Email</Form.Label>
