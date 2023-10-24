@@ -7,8 +7,8 @@
   }
 
 .map{
-    width: 300px;
-    border-radius: 10px;
+    width: 100%;
+    border-radius: 5px;
 }
 .footerLink{
   color: white;

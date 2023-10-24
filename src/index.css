@@ -49,10 +49,8 @@ position: relative;
   overflow: hidden !important;
 }
 
-a.carousel-control-prev{
-  background: none !important;
-}
 
-a.carousel-control-next{
+
+a:focus{
   background: none !important;
 }

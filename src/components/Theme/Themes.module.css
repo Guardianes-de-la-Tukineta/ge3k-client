@@ -7,12 +7,28 @@
     text-decoration: none;
    
 }
+
+.title{
+  display: inline-block;
+    margin-bottom: 50px !important;
+    border-radius: 57px;
+    font-size: 25px !important;
+    font-weight: 700;
+    padding: 0.7rem 1.2rem;
+    background-color: #353535;
+    color: white !important;
+}
+
 .titleThema{
-    margin-top: 15px;
+  margin-top: 5PX;
   color:black;
   font-size: 1.2rem;
   text-transform: uppercase;
   font-weight: 700;
+  border-radius: 57px;
+  padding: 0.5rem 1.2rem;
+  background-color: #ffffff;
+  border:1px solid black;
 }
 
 /* Estilo al hacer hover en la imagen */

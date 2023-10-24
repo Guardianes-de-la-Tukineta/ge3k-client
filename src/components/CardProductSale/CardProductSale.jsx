@@ -59,8 +59,8 @@ const CardProductSale = ({ name, price, image, id,description }) => {
   },[favorites])
 
   return (
-    <div className="card">
-      <div className="card-body d-flex flex-column w-100 h-100 mb-1 mt-1">
+    <div className="card border-0">
+      <div className={`card-body d-flex flex-column w-100 h-100 ${styles.cardProduct}`}>
         <div className="row">
           <div className="col-md-4">
             <Link style={{ textDecoration: "none" }} to={`/product/${id}`}>

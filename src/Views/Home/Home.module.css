@@ -1,17 +1,29 @@
-.coloredText{
-    color: #FC6522;
-}
+
 
 .title{
-    margin-top: 30px;
-    margin-bottom: 60px;
+    display: inline-block;
+    margin-bottom: 30px !important;
+    border-radius: 57px;
+    font-size: 25px !important;
+    font-weight: 700;
+    padding: 0.7rem 1.2rem;
+    background-color: #353535;
+    color: white !important;
 }
 
 .carousel_container {
-    margin-left: 30px; 
-    margin-right:30px;
+  margin: 0 1rem;
     margin-top: 30px;
+
   }
+
+
+  @media screen and (max-width: 575px) {
+    .containerTitle {
+    text-align: center;
+    }   
+}
+
  
   
   

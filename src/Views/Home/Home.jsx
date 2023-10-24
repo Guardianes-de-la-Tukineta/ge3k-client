@@ -52,17 +52,17 @@ const Home = () => {
     <div>
       <Silder />
 
-      <div className="p-3">
-        <div>
-          <h1 className={`card-title ${style.title}`}>
+      <div  style={{backgroundColor:'#f2f2f2', padding:'5rem 3rem', paddingBottom:'7rem'}}>
+        <div className={style.containerTitle}>
+          <h3 className={`card-title ${style.title}`}>
             <span className={style.coloredText}>Products</span> on sale
-          </h1>
+          </h3>
         </div>
 
         <div className={style.carousel_container}>
           <Carousel>
             {groupedSales.map((group, index) => (
-              <Carousel.Item key={index}>
+              <Carousel.Item key={index}   >
                 <div className={"row"}>
                   {group.map((product) => (
                     <div key={product.id} className="col-md-4">
@@ -73,6 +73,7 @@ const Home = () => {
                         price={product.price}
                         id={product.id}
                         description={product.description}
+                        className={style.card}
                       />
                     </div>
                   ))}
