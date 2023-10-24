@@ -3,6 +3,17 @@ import React from 'react'
 import styles from './TableOrderDetail.module.css'
 
 const TableOrderDetail = ({data}) => {
+
+
+  function limitarADosDecimales(numero) {
+    if (typeof numero === 'number') {
+      return numero % 1 === 0 ? numero.toFixed(2) : numero;
+    } else {
+      return parseFloat(numero).toFixed(2);
+    }
+  }
+
+  
   return (
     <div>
         <div className={styles.tableContainer} >
@@ -37,7 +48,7 @@ function cutID(id) {
             })}
             <tr>
             <td colSpan="5" style={{textAlign:'right'}}></td>
-             <td > <strong>${data.total.toFixed(2)}</strong></td>
+             <td > <strong>${limitarADosDecimales(data.total)}</strong></td>
             </tr>
          </tbody>
       </table>
