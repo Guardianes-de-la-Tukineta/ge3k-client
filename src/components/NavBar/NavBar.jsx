@@ -11,11 +11,7 @@ import SecionComponent from "./SecionComponent";
 
 const NavBar = () => {
   const { setVisibility } = cartStore(); // llamamos de zustand cart
-  const renderTooltip = (props) => (
-    <Tooltip id="button-tooltip" {...props}>
-      email is not verified!
-    </Tooltip>
-  );
+
   const handlerCart = () => {
     setVisibility();
   };
@@ -38,7 +34,7 @@ const NavBar = () => {
             <SearchBar />
           </div>
 
-          <Link to='/favorites'>
+          <Link to="/favorites">
             <div className={`p-2 ml-1`}>
               <i className="bi bi-heart-fill"></i>
             </div>

@@ -55,7 +55,7 @@ const ContactCustomerForm = () => {
       // Invoca la función asíncrona inmediatamente
       try {
         const response = await axios.post(
-          "http://localhost:3000/send-email",
+          "http://ge3k-server.onrender.com/send-email",
           msj,
           {
             headers: {
