@@ -11,36 +11,54 @@ import Spinner from "react-bootstrap/Spinner";
 import { favoriteStore } from "../../zustand/favoriteStore/favoriteStore";
 import ReactStars from 'react-stars';
 import FormRating from "../../components/FormRating/FormRating";
+import Swal from 'sweetalert2'
 
 //HP el componente de llama ProductDetails  ya que podemos tener otros details ej, RatingDetails
 function ProductDetails() {
   const { id } = useParams();
-  const { getProductsDetails, productDetails, deletePorductDetail } =useStore(); // Utiliza el hook useStore para acceder al estado y a la función getProductsDetails
+  const { getProductsDetails, productDetails, deletePorductDetail,addRatingProduct } =useStore(); // Utiliza el hook useStore para acceder al estado y a la función getProductsDetails
   const { addProductToCart } = cartStore(); //cart store de zustand
   const { isAuthenticated } = useAuth0(); // para saber si estoy logueado
   const { currentCustomer } = customerStore();
   const { favorites, addProductFavorite, deleteProductFavorite, updateLocalStorage } = favoriteStore()
   const [isFav, setIsFav] = useState(false); // para cambiar el estado de fav y no fav
   const [isFavDisabled, setIsFavDisabled] = useState(false); // para deshabilitar momentaneamente el boton de fav
-  const[showFormRating,setShowFormRating]=useState(false)
+  const[showFormRating,setShowFormRating]=useState({
+    state:false,
+    edit:false
+  })
+  const[promedioRating,setPromedioRating]=useState(0)
+  const { loginWithRedirect } = useAuth0(); // para loguearnos
+  const [comments, setComments] = useState(0); // solo para guardar el momento q añadimos o editamos cometario y renderizar de nuevo automaticamente
 
-  useEffect(() => {
+
+  useEffect(() => {     
     const fetchData = async() => {     
       await getProductsDetails(id); // Obtiene los nuevos detalles del producto      
     };    
     fetchData(); 
-    setShowFormRating(false)   
+    setShowFormRating({
+      state:false,
+      edit:false
+    }) 
+    console.log(comments); 
+    setComments('') // limpiaos para q se renderice cada q modifiquemos o añadamos comentario
     return ()=>{
       deletePorductDetail() //limpiar el deteail cuando se desmonta el componente
     }
-  }, [id]);
+  }, [id,comments ]);
 
   useEffect(() => { // la info de productDetails se demora unos segundos, por eso cuando le llegue la info se renderiza el corazon
     updateLocalStorage(favorites) 
     if (productDetails.id && favorites.findIndex((elem) => elem.id === productDetails.id) !== -1) { //si esta en favoritos pintamos el corazon       
       setIsFav(true)
     }    
-  }, [favorites,productDetails]);
+    if(productDetails.ratings && productDetails.ratings.length>0) {      
+      const promedioRat=(productDetails.ratings.reduce((a,b)=>a +b.rating,0))/productDetails.ratings.length
+      setPromedioRating(promedioRat)   
+    }  
+    console.log(productDetails,currentCustomer); 
+  }, [favorites,productDetails,promedioRating,setComments, comments]);
  
   // const productDetail = useSelector((state) => state.detail);
   const buttonStyle = {
@@ -82,11 +100,42 @@ function ProductDetails() {
       setIsFavDisabled(false);
     }, 1000);
   }
-  const handlerWriteReview=()=>{ //mostrar form para valorar producto
-    setShowFormRating(true)
+  const handlerWriteReview=()=>{ //mostrar form para valorar producto, solo si esta logueado
+    if(isAuthenticated) {
+      setShowFormRating({
+        state:true,
+        edit:false
+      })
+    } else {
+      Swal.fire({    //modal    
+        icon: 'warning',
+        title:
+        'you must <b>log in</b> to be able to leave a comment',
+        showCloseButton: true,
+        showCancelButton: true,
+        focusConfirm: false,
+        confirmButtonText:
+          '<i class="fa fa-thumbs-up"></i> Login!',
+        confirmButtonAriaLabel: 'Thumbs up, great!',
+        confirmButtonColor: '#ff6824',
+        cancelButtonText:
+        '<i class="bi bi-hand-thumbs-down"></i>',
+        cancelButtonAriaLabel: 'Thumbs down'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          loginWithRedirect()
+        }
+      })
+    }
   }
   const ratingChanged=(e)=>{
     console.log(e);
+  }
+  const handleEditComment=()=>{
+    setShowFormRating({
+      state:true,
+      edit:true
+    })
   }
 
   return (
@@ -113,7 +162,7 @@ function ProductDetails() {
             <h1 className={styles.title}>{productDetails.name}</h1>
             <h3 className={styles.stock}>{productDetails.description}</h3>
             {/* HP. muestro el descuento solo si el producto lo tiene */}
-            {productDetails.discount === null ? (
+            {productDetails.discount === null || productDetails.discount === 0 ? (
               <h2 className={styles.Price}>Price ${productDetails.price}</h2>
             ) : (
               <>
@@ -172,59 +221,56 @@ function ProductDetails() {
       )}
       <hr></hr>
       <div className={`d-flex row  ${styles.containerReviews}`}>
-        <div className={`col-md-4  ${showFormRating && styles.blurBackground}`}>
+        <div className={`col-md-4  ${showFormRating.state && styles.blurBackground}`}>
           <div>
-            <h3>Customer reviews</h3>            
-            <ReactStars
-              count={5}
-              onChange={ratingChanged}// para manejar el cambio de valoración
-              size={24}
-              color2={'#ffd700'}
-            />
+            <h3>Customer reviews</h3> 
+            <div className="d-flex">
+              <ReactStars
+                count={5}
+                value={promedioRating} // Establece el valor de las estrellas 
+                edit={false} // Deshabilita la interacción del usuario
+                onChange={ratingChanged}// para manejar el cambio de valoración
+                size={24}
+                color2={'#ffd700'}
+              /> 
+              <p className="mt-2">[{promedioRating}]</p>              
+            </div>           
           </div>
           <hr></hr>
           <div>
             <h3>Review this product</h3>            
             Share your thoughts with other customers
-            <button onClick={()=>handlerWriteReview()} className="btn btn-dark">Write a customer review</button>
+            <button onClick={()=>handlerWriteReview()} className="btn btn-dark mt-3">Write a customer review</button>
           </div>
         </div>
 
-        <div className={`col-md-8  ${showFormRating && styles.blurBackground}`}>
+        <div className={`col-md-8  ${showFormRating.state && styles.blurBackground} `}>
           <h3>Top reviews </h3>
-          <div className="media">
-            <img src="imagen-usuario.jpg" className="mr-3" alt="..." style={{ width: "64px", height: "64px"}}/>
-            <div className="media-body">
-              <h5 className="mt-0">Nombre de Usuario</h5>
-              Comentario del usuario. Puedes incluir texto, enlaces, etc.
-            </div>
-          </div><div className="media">
-            <img src="imagen-usuario.jpg" className="mr-3" alt="..." style={{ width: "64px", height: "64px"}}/>
-            <div className="media-body">
-              <h5 className="mt-0">Nombre de Usuario</h5>
-              Comentario del usuario. Puedes incluir texto, enlaces, etc.
-            </div>
-          </div>
-          <div className="media">
-            <img src="imagen-usuario.jpg" className="mr-3" alt="..." style={{ width: "64px", height: "64px"}}/>
-            <div className="media-body">
-              <h5 className="mt-0">Nombre de Usuario</h5>
-              Comentario del usuario. Puedes incluir texto, enlaces, etc.
-            </div>
-          </div>
-          <div className="media">
-            <img src="imagen-usuario.jpg" className="mr-3" alt="..." style={{ width: "64px", height: "64px"}}/>
-            <div className="media-body">
-              <h5 className="mt-0">Nombre de Usuario</h5>
-              Comentario del usuario. Puedes incluir texto, enlaces, etc.
-            </div>
-          </div>
+          { 
+            productDetails.ratings && productDetails.ratings.length>0   && productDetails.ratings.map((elem)=>(              
+              <div className= {`media ${styles.commentContainer}`} key={elem.id}>               
+                {/* <img src="imagen-usuario.jpg" className="mr-3" alt="..." style={{ width: "64px", height: "64px"}}/> */}
+                <div className="media-body">
+                  <h5 className="mt-0">{elem.CustomerName}</h5>
+                  {
+                    currentCustomer.id===elem.CustomerId && 
+                      <button className={`btn btn-dark ${styles.editButton}`} onClick={() => handleEditComment()}><i className="bi bi-pen"></i></button>
+                  }
+                  <ReactStars
+                    count={5}
+                    value={elem.rating} // Establece el valor de las estrellas
+                    edit={false} // Deshabilita la interacción del usuario
+                    size={24}
+                    color2={'#ffd700'}
+                  />
+                  <div className={styles.descritionComment}>{elem.Comment}</div>                  
+                </div>
+              </div>))
+          }    
       </div>
-
       {
-       <FormRating name={productDetails.name} showFormRating={showFormRating} setShowFormRating={setShowFormRating}/>
+       showFormRating.state && <FormRating ProductId={productDetails.id} showFormRating={showFormRating} setShowFormRating={setShowFormRating} setComments={setComments}/>
       }
-
       </div>
     </Container>
   );

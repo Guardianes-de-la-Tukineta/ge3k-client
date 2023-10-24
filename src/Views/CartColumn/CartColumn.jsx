@@ -44,6 +44,7 @@ const CartColumn = () => {
                             image={product.image}
                             price={product.price}
                             id={product.id}
+                            discount={product.discount}
                         />
                     ))
                 }                  

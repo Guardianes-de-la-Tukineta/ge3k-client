@@ -4,8 +4,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 40vw !important;
-    height: 280px !important;
+    width: 600px !important;
+    height: 300px !important;
     border-radius: 20px;
     position: absolute;
     top: 0;
@@ -41,11 +41,11 @@
 
 /* efectos de animacion */
 .fadeIn {
-    animation: fadeIn 0.8s ease-in-out forwards;
+    animation: fadeIn 0.7s ease-in-out forwards;
 }
   
 .fadeOut {
-animation: fadeOut 0.8s ease-in-out forwards;
+animation: fadeOut 0.1s ease-in-out forwards;
 }
   
 @keyframes fadeIn {
