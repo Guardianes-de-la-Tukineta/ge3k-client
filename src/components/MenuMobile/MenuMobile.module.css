@@ -1,0 +1,33 @@
+.linkContainer{
+display: flex;
+flex-direction: column;
+align-items:end;
+height: 100%;
+gap: 2rem;
+padding: 1rem;
+}
+
+.linkContainer span{
+   font-size: 1.1rem;
+   font-weight: 600;
+    }
+
+    .bodyContainer{
+        background-color: #f2f2f2;
+     
+    }
+
+
+    .burgerButton button{
+       border: 2px solid #8c8c8c;
+       color:white !important;
+       margin-right: 7px !important;
+    }
+
+  .burgerButton   button:focus{
+        box-shadow: none !important;
+    }
+
+    .burgerButton  span{
+        color:white !important;
+    }

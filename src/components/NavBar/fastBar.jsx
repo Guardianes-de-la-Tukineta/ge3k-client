@@ -11,8 +11,8 @@ const FastBar = () => {
   const { setVisibility } = cartStore(); // llamamos de zustand cart
 
   return (
-    <Navbar expand="md" data-bs-theme="dark" className={style.navigation}>
-      <Container>
+    <Navbar expand="md" data-bs-theme="dark" className={`d-none d-md-block ${style.navigation}`}>
+      <Container fluid>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav

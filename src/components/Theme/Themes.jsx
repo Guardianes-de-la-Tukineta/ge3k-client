@@ -10,16 +10,12 @@ const Themes = () => {
 
   const gameImgUrl = 'https://res.cloudinary.com/dqoi2ez7t/image/upload/v1696480611/p5a4hscqi1prpncnn4f4.jpg'
   return (
-    <div className={`${style.containerDiv}`}style={{ padding: "20px"}}>
-        <h1
-          className="card-title"
-          style={{
-            color: "#FC6522",
-            marginBottom: "25px",
-          }}
+    <div className={`${style.containerDiv}`}style={{ backgroundColor:'#f2f2f2', padding:'5rem 3rem', paddingBottom:'4rem'}}>
+        <h3
+          className={`card-title ${style.title}`}
         >
           Themes
-        </h1>
+        </h3>
    
 
       <div
@@ -31,7 +27,7 @@ const Themes = () => {
             <div className="card-body" style={{display:'flex', justifyContent:'center', flexDirection: 'column',alignItems: 'center' }}>
             <div  className="rounded-circle" style={{ width: "250px", height: "250px", overflow:"hidden"}}> 
               <img
-                src={game}
+                src='https://res.cloudinary.com/dqoi2ez7t/image/upload/v1698103683/ecekgpimtju6coozirot.png'
                 alt="game"
                 className={style.imgHovered}
               />
@@ -47,7 +43,7 @@ const Themes = () => {
             <div className="card-body" style={{display:'flex', justifyContent:'center', flexDirection: 'column',alignItems: 'center' }}>
               <div  className="rounded-circle" style={{ width: "250px", height: "250px", overflow:"hidden"}}> 
               <img
-                src={gameImgUrl}
+                src='https://icon-library.com/images/programming-code-icon/programming-code-icon-15.jpg'
                 alt="programming"
 
                 className={style.imgHovered}
@@ -65,7 +61,7 @@ const Themes = () => {
               
             <div  className="rounded-circle" style={{ width: "250px", height: "250px", overflow:"hidden"}}> 
               <img
-                src={anime_themes}
+                src='https://res.cloudinary.com/dqoi2ez7t/image/upload/v1698103868/jqnzvstuoloyq3pnbuhk.jpg'
                 alt="anime_themes"
                 className={style.imgHovered}
 
@@ -84,7 +80,7 @@ const Themes = () => {
             <div className="card-body" style={{display:'flex', justifyContent:'center', flexDirection: 'column',alignItems: 'center' }}>
             <div  className="rounded-circle" style={{ width: "250px", height: "250px", overflow:"hidden"}}> 
               <img
-                src={gaming}
+                src='https://res.cloudinary.com/dqoi2ez7t/image/upload/v1698104946/xfk9yokdv1fcfgtficxe.png'
                 alt="gaming"
 
                 className={style.imgHovered}

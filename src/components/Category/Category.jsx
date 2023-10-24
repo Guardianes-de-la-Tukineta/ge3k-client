@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 const Category = () => {
   return (
     <div className={`container-fluid ${style.textura}`}>
-      <button className={style.btnCategory}>Categories</button>
+      <h3 className={style.btnCategory}>Categories</h3>
       <div className={`row ${style.containDivs}`}>
         <div className="col-sm-6  col-12 col-lg-3 mb-4 pt-3 mt-3">
           <Link
@@ -17,7 +17,7 @@ const Category = () => {
             to="/category/Collectible-figures"
           >
             <div className={`card mx-3 ${style.responsiveCard}`}>
-              <div style={{overflow:"hidden"}}>
+              <div style={{overflow:"hidden", }}>
                 <img
                   src={anime}
                   alt="anime"

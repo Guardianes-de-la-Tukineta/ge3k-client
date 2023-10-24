@@ -8,13 +8,13 @@ i {
 
 .logo{
   height: 60px;
-  width: auto;
+  max-width: 200px;
   margin: 0;
 }
 
 .navigation{
   background-color: #b1b1b129;
-  padding: 0;
+  padding: 0.75rem 3rem !important;
   margin: 0;
   color: #000000;
 }

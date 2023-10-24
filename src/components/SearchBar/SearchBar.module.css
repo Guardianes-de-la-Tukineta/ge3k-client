@@ -49,7 +49,7 @@ overflow: hidden;
 }
 
 .custom {
-  width: 60%; 
+  width: 50%; 
   height: 45px;
   /* background-color: white; */
   /* z-index: 2; */
@@ -60,7 +60,7 @@ overflow: hidden;
 
   border: 2px solid #000000; /* Borde predeterminado */
   transition: border-color 0.3s;
-  margin: 0 auto;
+margin-left:10px ;
 }
 
 .custom:focus-within {

@@ -19,7 +19,7 @@
 
 .fav {
     padding: 5px;
-    background-color: rgb(255, 255, 255);
+    background-color:white;
     border: none;
   }
   
@@ -32,3 +32,9 @@
     font-size: 30px;
   }
   
+
+  .cardProduct{
+    background-color:#ffffff !important;
+    border:1px solid rgb(148, 148, 148) !important;
+    border-radius: 2px;
+  }

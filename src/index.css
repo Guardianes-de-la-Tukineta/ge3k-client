@@ -48,3 +48,9 @@ position: relative;
 .no-scroll {
   overflow: hidden !important;
 }
+
+
+
+a:focus{
+  background: none !important;
+}
