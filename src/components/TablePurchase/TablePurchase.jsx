@@ -4,6 +4,7 @@ import { PurchaseStore } from "../../zustand/PurchaseOrder/PurchaseStore";
 import { customerStore } from "../../zustand/customerStore/customerStore";
 import style from "./TablePurchase.module.css";
 import { useAuth0 } from "@auth0/auth0-react";
+import { Link } from "react-router-dom";
 
 const TablePurchase = () => {
   const [showCartInfo, setShowCartInfo] = useState(false);
@@ -55,6 +56,16 @@ const TablePurchase = () => {
 
   return (
     <div className="col-12">
+      <h4
+        style={{
+          color: "#FC6522",
+          fontWeight: "700",
+          paddingBottom: "20px",
+          paddingTop: "40px",
+        }}
+      >
+        Current purchase
+      </h4>
       <table className={`${style.table} table table-hover table-dark `}>
         <thead>
           <tr>
@@ -147,7 +158,8 @@ const TablePurchase = () => {
             <th>Surname</th>
             <th>Address</th>
             <th>Status</th>
-            <th></th>
+            <th>Detail</th>
+            <th>Download</th>
           </tr>
         </thead>
         <tbody>
@@ -167,7 +179,7 @@ const TablePurchase = () => {
                       toggleOrderInfo(index);
                     }}
                     style={{
-                      width: "80%",
+                      width: "100%",
                       padding: "2%",
                       backgroundColor: "#FC6522",
                       border: "none",
@@ -178,6 +190,25 @@ const TablePurchase = () => {
                   >
                     Detail
                   </button>
+                </td>
+                <td>
+                  {order.urlBill ? ( // Comprueba si hay una URL en order.urlBill
+                    <Link to={order.urlBill} target="_blank">
+                      <button
+                        style={{
+                          width: "80%",
+                          padding: "2%",
+                          backgroundColor: "#FC6522",
+                          border: "none",
+                          color: "white",
+                          borderRadius: "30px",
+                          fontWeight: "500",
+                        }}
+                      >
+                        Invoice
+                      </button>
+                    </Link>
+                  ) : null}
                 </td>
               </tr>
               {expandedOrderIndex === index && orderDetail.products && (
