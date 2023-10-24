@@ -87,8 +87,9 @@ const Bill = () => {
 
   const stateOrder = async () => {
     try {
+      console.log("Estoy actualizando estado de order");
       const url = await fetch(
-        "https://ge3k-server.onrender.com/stripe-session/orders",
+        "https://ge3k-server.onrender.com/orders",
         {
           method: "PUT",
           headers: {
@@ -104,6 +105,7 @@ const Bill = () => {
 
   useEffect(() => {
     getBill();
+    stateOrder();
   }, []);
 
   useEffect(() => {
