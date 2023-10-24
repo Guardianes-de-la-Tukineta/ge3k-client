@@ -23,17 +23,22 @@ const Bill = () => {
       subject:
         "Thanks for your purchase! Your invoice is being generated, please wait a moment",
       html:
+        "<h2>Hello !! " +
+        currentCustomer.name +
+        " " +
+        currentCustomer.surname +
+        " <h2/>" +
         "<p>In this email, we are sending you the invoice corresponding to your purchase at the following ink:</p> <p><a href=" +
-        { url } +
+        url +
         ">View purchase invoice</a></p>  <p>Thank you for your urchase, and we hope to see you soon.</p>",
     };
-    // console.log(msj);
+    // console.log("url", typeof url);
 
     (async () => {
       // Invoca la función asíncrona inmediatamente
       try {
         const response = await axios.post(
-          "http://localhost:3000/send-email",
+          "http://ge3k-server.onrender.com/send-email",
           msj,
           {
             headers: {
@@ -86,7 +91,8 @@ const Bill = () => {
 
   useEffect(() => {
     //es para enviar el mail cuando cambio el currentCustomer ya que en un principio tarda en cargar el usuario logueado, cuando termine de cargarlo se ejecutara el sendEmail. y controlaremos que no fue enviado antes.
-    emailSend ? sendEmail() : console.log("no necesito el email");
+    // emailSend ? sendEmail() : console.log("no necesito el email");
+    sendEmail();
     setEmailSend(false);
     console.log("mail....");
   }, [currentCustomer]);

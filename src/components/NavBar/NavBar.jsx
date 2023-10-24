@@ -12,11 +12,7 @@ import MenuMobile from "../MenuMobile/MenuMobile";
 
 const NavBar = () => {
   const { setVisibility } = cartStore(); // llamamos de zustand cart
-  const renderTooltip = (props) => (
-    <Tooltip id="button-tooltip" {...props}>
-      email is not verified!
-    </Tooltip>
-  );
+
   const handlerCart = () => {
     setVisibility();
   };
