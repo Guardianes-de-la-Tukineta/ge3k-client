@@ -7,11 +7,11 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { customerStore } from '../../zustand/customerStore/customerStore';
 import Swal from 'sweetalert2'
 
-const FormRating = ({setShowFormRating,showFormRating}) => {
+const FormRating = ({setShowFormRating,showFormRating,ProductId,setComments}) => {
     const [validated, setValidated] = useState(true);
     const [rate,setRate] = useState(null) // para guardar la calificacion en estrellas  
     const[inputComment,setInputComment]=useState('') // para guardar lo que el user ponga en el input como comentario
-    const {addRatingProduct} = useStore() // traemos el estado modificador de zustand  
+    const {addRatingProduct,editRatingProduct} = useStore() // traemos el estado modificador de zustand  
     const { isAuthenticated } = useAuth0() // para saber si estoy logueado
     const {currentCustomer}=customerStore()   
     //handlers
@@ -22,7 +22,17 @@ const FormRating = ({setShowFormRating,showFormRating}) => {
             //limpiamos campos y cerramos ventana
             setRate(0)
             setInputComment('')
-            setShowFormRating(false)
+            setShowFormRating({
+                state:false,
+                edit:false
+              })
+            if(showFormRating.edit) {
+                editRatingProduct(isAuthenticated,currentCustomer.id,ProductId,Number(rate),inputComment)
+                setComments('uno nuevo')
+            } else {
+                addRatingProduct(isAuthenticated,currentCustomer.id,ProductId,Number(rate),inputComment)
+                setComments('uno nuevo')
+            }
             Swal.fire({
                 position: 'center',
                 icon:'success',
@@ -51,11 +61,14 @@ const FormRating = ({setShowFormRating,showFormRating}) => {
     const handlerCancel=()=>{
         setRate(0)
         setInputComment('')
-        setShowFormRating(false)
+        setShowFormRating({
+            state:false,
+            edit:false
+          })
     }  
     
     return (
-        <div className={`${style.container} ${showFormRating? style.fadeIn : style.fadeOut}`}>                   
+        <div className={`${style.container} ${showFormRating.state? style.fadeIn : style.fadeOut}`}>                   
             <h4>How many stars would you give it?</h4>
             <div className='d-flex mb-3'>
                 <ReactStars
@@ -64,7 +77,8 @@ const FormRating = ({setShowFormRating,showFormRating}) => {
                 onChange={ratingChanged}//para manejar el cambio de valoración
                 size={24}
                 color1={'#000'}
-                /> <p className='p0'>({rate})</p>
+                half={false} 
+                /> <span className='mt-2'>[{rate}]</span>
             </div>
             <Form className={style.formRate} noValidate validated={validated} onSubmit={(e)=>handleSubmit(e)}>
                 <Form.Group controlId='validate01'>                    
@@ -75,7 +89,8 @@ const FormRating = ({setShowFormRating,showFormRating}) => {
                         placeholder="leave your opinion here"
                         style={{width: "500px", height:"100px"}} 
                         value={inputComment}
-                        onChange={(e)=>handlerChangeInput(e)}             
+                        onChange={(e)=>handlerChangeInput(e)} 
+                                  
                     />
                     <Form.Control.Feedback type="invalid">
                         Required, minimum 8 characters                    

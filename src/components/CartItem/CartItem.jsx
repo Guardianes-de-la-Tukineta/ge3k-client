@@ -9,7 +9,7 @@ import { customerStore } from '../../zustand/customerStore/customerStore';
 import Spinner from "react-bootstrap/Spinner";
 import { useEffect } from 'react';
 
-const CartItem = ({ name, price, image, id: idProduct }) => {
+const CartItem = ({ name, price, image, id: idProduct,discount }) => {
     //estados y actions
     const { deleteProductCart, setQuantity, cart,borderAlert} = cartStore() //nos traemos estados de zustand      
     const cantidadActual=cart.find(({ product }) => product.id === idProduct).quantity// sabremos que cantidad tiene cada product
@@ -70,7 +70,11 @@ const CartItem = ({ name, price, image, id: idProduct }) => {
                 </Link>
 
                 <div className='text-center'>
-                    ${price}
+                    {discount ? ( //si existe descuento hacemos la multiplicación
+                        <span>{`$${price - (price * (discount / 100))}`}</span>
+                    ) : (
+                        <span>{`$${price}`}</span>
+                    )}
                 </div>
                 <div className='d-flex justify-content-between'>
                     {
