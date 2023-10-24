@@ -23,7 +23,6 @@ table.table {
   margin-bottom: 0;
   padding: 2rem !important;
   border-radius: 4px;
-  border: 1px solid #c5c5c5;
   overflow: hidden;
   display: flex;
   flex-direction: column;

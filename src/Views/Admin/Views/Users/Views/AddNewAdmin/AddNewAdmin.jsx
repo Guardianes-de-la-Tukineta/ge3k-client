@@ -16,7 +16,6 @@ const AddNewAdmin = () => {
  useEffect(()=>{
 
   if(storedRole === 'admin'){
-    console.log('cambiando')
     setNotAuth(true)
   }
 

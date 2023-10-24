@@ -1,57 +1,42 @@
-
-
-.passwordFormContainer{
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 100vw;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow-x: hidden;
-    overflow-y: hidden;
-}
-
-
-.AddProductForm {
-    position: relative !important;
-    z-index: 1000;
+.rowContainer {
+    background-color: #dbdbdb;
+  
+    padding: 1.5rem !important;
+    border-radius: 4px;
+  }
+  .AddProductForm {
     max-width: 350px !important;
     display: flex;
     flex-direction: column;
     margin: 0 auto;
     background-color: #ffffff;
     border-radius: 4px;
-    padding: 1.8rem !important;
+    padding: 1.5rem !important;
     gap: 10px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  
     font-weight: 600;
   }
-
- 
-
-
-  .AddProductForm label {
+  
+  .rowContainer label {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
   }
   
-  .AddProductForm label input {
+  .rowContainer label input {
     padding: 0 0.5rem;
     width: 100%;
     height: 2rem;
     outline: none;
     border-radius: 4px;
     border: 1px solid #383838;
-    background-color: #a5a5a513 !important;
+    background-color: #38383813;
     color: #383838;
     font-size: 1rem;
   }
   
-  .AddProductForm button.sumbit {
+  .rowContainer button {
     width: 100%;
     height: 2.5rem;
     outline: none;
@@ -64,19 +49,58 @@
     font-weight: 600;
   }
   
-  .AddProductForm button.sumbit:hover {
+  .rowContainer button:hover {
     border: 1px solid #ff6824;
     background-color: #ff6824;
     color: #ffffff;
   }
   
-  .AddProductForm button.sumbit:active {
-    border: 1px solid #bb633a;
-    background-color: #bb633a;
+  .rowContainer button:active {
+    border: 1px solid #bb633a !important;
+    background-color: #bb633a !important;
     color: #ffffff;
   }
   
-  .AddProductForm button.sumbit:disabled {
+ .input{
+    padding: 0 0.5rem;
+    width: 100%;
+    height: 2rem;
+    outline: none;
+    border-radius: 4px;
+    border: 1px solid #383838;
+    background-color: #a5a5a513 !important;
+    color: #383838;
+    font-size: 1rem;
+ }
+
+ .textArea{
+    padding: 0 0.5rem;
+    width: 100%;
+    outline: none;
+    border-radius: 4px;
+    border: 1px solid #383838;
+    background-color: #a5a5a513 !important;
+    color: #383838;
+    font-size: 1rem;
+
+ }
+
+ .textArea:focus{
+    outline: none !important;
+    border: 1px solid #ff6824 !important;
+    box-shadow: 0px 0px 6px #ff6824 !important;
+    border-radius: 4px !important;
+
+ }
+
+ .input:focus{
+    outline: none !important;
+    border: 1px solid #ff6824 !important;
+    box-shadow: 0px 0px 6px #ff6824 !important;
+    border-radius: 4px !important;
+ }
+
+  .rowContainer button:disabled {
     width: 100%;
     height: 2.5rem;
     outline: none;
@@ -89,7 +113,7 @@
     font-weight: 600;
   }
   
-  .AddProductForm label input:focus {
+  .rowContainer label input:focus {
     outline: none;
     border: 1px solid #ff6824;
     box-shadow: 0px 0px 6px #ff6824;
@@ -127,7 +151,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    top: 6px;
+    top: -10px;
   }
   
   button.showPasswordButton i {
@@ -138,29 +162,32 @@
       background-color: transparent;
       border: none;
     }
-
-    button.closeButton{
-      position: absolute;
-      right: 0;
-      top: 0;
-    border: none;
-    background-color: transparent;
-    padding: 0 !important;
-    margin: 3px 6px !important;
-    }
   
-    button.closeButton:hover{
-      background-color: transparent !important;
-      padding: 0 !important;
-      margin: 3px 6px !important;
-      outline: none !important;
-      border: none !important;
-     
-    }
   
-    button.closeButton i{
-      color:black;
-      padding: 0 !important;
     
-      font-size: 1.1rem;
+    
+    .resetButton{
+      width: 100px !important;
+      min-height:2.5rem;
+      border-radius: 4px;
+      margin-left: 2px;
+      padding: 5px 16px;
+      background-color: #383838;
+      outline: none;
+      color: white;
+      border: none;
+      font-weight: 600;
     }
+    
+    .resetButton:hover {
+     
+      background-color: #ff6824;
+    
+    }
+    
+    .resetButton:active{
+     
+      background-color: #b65d34;
+    
+    }
+    

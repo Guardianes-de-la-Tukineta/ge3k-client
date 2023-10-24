@@ -1,10 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
-import { customerStore } from "../../../../zustand/customerStore/customerStore";
-import { useParams } from "react-router-dom";
+import { customerStore} from "../../../../zustand/customerStore/customerStore";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import style from './contactCustomerForm.module.css'
+import Spinner from "react-bootstrap/Spinner";
+import Alert from "react-bootstrap/Alert";
 
 const ContactCustomerForm = () => {
+
+  const [error, setError] = useState(false)
+  const [message, setMessage] = useState(false)
+  const [loading, setLoading] = useState(false)
+  let navigate = useNavigate();
+  
   const { id } = useParams();
   //   getCustomerById(id);
   console.log("contact customer", id);
@@ -43,7 +52,7 @@ const ContactCustomerForm = () => {
     message: "",
   });
 
-  const send = () => {
+  const send = async () => {
     let msj = {
       to: formData.email,
       subject: "contacto desde ge3khub",
@@ -51,7 +60,7 @@ const ContactCustomerForm = () => {
     };
     console.log(msj);
 
-    (async () => {
+
       // Invoca la función asíncrona inmediatamente
       try {
         const response = await axios.post(
@@ -66,15 +75,23 @@ const ContactCustomerForm = () => {
         // Verifica si la solicitud fue exitosa y obtén los datos de la respuesta
         if (response.status >= 200 && response.status < 300) {
           window.alert("mensaje enviado");
+          setLoading(false)
         } else {
           // Maneja el caso en el que la solicitud no fue exitosa
           console.error("La solicitud no fue exitosa:", response.status);
+          setLoading(false)
+  
         }
       } catch (error) {
         // Maneja los errores de la solicitud
-        window.alert("error. This email not envied");
+        setLoading(false)
+        setError('Error. This email not envied')
+        setTimeout(() => {
+          setError(false)
+        }, 5000);
+        throw new Error()
       }
-    })();
+
   };
 
   const handleChange = (e) => {
@@ -82,46 +99,95 @@ const ContactCustomerForm = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    setLoading(true)
     e.preventDefault();
-    send();
-    setFormData({
-      name: currentCustomer.name + " " + currentCustomer.surname,
-      email: email,
-      message: "",
-    });
-    console.log("Datos del formulario:");
+
+    try {
+     await send();
+      setFormData({
+        name: currentCustomer.name + " " + currentCustomer.surname,
+        email: email,
+        message: "",
+      });
+      setMessage('Email sent successfully')
+      setTimeout(() => {
+        setMessage(false)
+      }, 3500);
+    } catch (error) {
+      
+    }
   };
 
   return (
-    <div>
-      <h2>Contact by email</h2>
-      <Container className="contact-form">
-        <Row>
-          <Col xs={12} md={8}>
-            <Form onSubmit={handleSubmit}>
+    <div className='container-fluid d-flex flex-column flex-grow-1 justify-content-around w-100' style={{paddingBottom:'1rem', marginTop:'0.75rem'}}>
+       <div
+      className="flex-grow-1 m-4 d-flex flex-column justify-content-center align-items-center text-center rounded mt-2"
+      style={{ backgroundColor: "#dbdbdb", height: "100%" }}
+    >
+      
+      
+ 
+      <div className={`container-fluid`} style={{ padding: "1rem 2.4rem", borderRadius:' 4px' }}>
+
+      
+      <div className={`row ${style.rowContainer}`}>
+      
+          <div  className='d-flex' style={{margin:' 0 auto'}}>
+      {error && (
+      <div style={{margin:'1rem 0  -30px 0'}} >
+        <Alert
+          key={"danger"}
+          variant={"danger"}
+          style={{ height: "2.5rem", display: "flex", alignItems: "center" }}
+        >
+          {error}
+        </Alert> </div>
+      )}
+      {message && (
+        <div style={{margin:'1rem 0  -30px 0'}} >  <Alert
+          key={"success"}
+          variant={"success"}
+          style={{ height: "2.5rem", display: "flex", alignItems: "center" }}
+        >
+          {message}
+        </Alert></div>
+      )}
+      
+      
+      </div>
+      <div className="d-flex align-items-center flex-wrap">
+            <button onClick={()=>navigate(-1)} className={style.resetButton}>
+            <i className="bi bi-arrow-left-circle" style={{marginRight:'5px'}}></i> Back
+            </button> 
+          </div>
+            <Form onSubmit={handleSubmit} className={`col-md-7 ${style.AddProductForm}`}>
+        
+            <h4>CONTACT BY EMAIL</h4>
               <Form.Group>
-                <Form.Label>Nombre:</Form.Label>
+                <Form.Label>Name:</Form.Label>
                 <Form.Control
                   type="text"
                   name="name"
                   value={currentCustomer.name + " " + currentCustomer.surname}
                   onChange={handleChange}
                   required
+                  className={style.input}
                 />
               </Form.Group>
               <Form.Group>
-                <Form.Label>Correo Electrónico:</Form.Label>
+                <Form.Label>Email:</Form.Label>
                 <Form.Control
                   type="email"
                   name="email"
                   value={email}
                   onChange={handleChange}
                   required
+                  className={style.input}
                 />
               </Form.Group>
               <Form.Group>
-                <Form.Label>Mensaje:</Form.Label>
+                <Form.Label>Message:</Form.Label>
                 <Form.Control
                   as="textarea"
                   name="message"
@@ -129,19 +195,24 @@ const ContactCustomerForm = () => {
                   onChange={handleChange}
                   required
                   rows={8} // Ajusta la altura del campo de mensaje
+                  className={style.textArea}
                 />
               </Form.Group>
               <Button variant="primary" type="submit">
-                Enviar
+              {!loading ? (
+              "Sumbit"
+            ) : (
+              <Spinner animation="border" variant="light" />
+            )}
               </Button>
+         
+   
+
             </Form>
-          </Col>
-          {/* <Col xs={12} md={4}>
-          <h2>Cabecera del Correo</h2>
-          /* Otros elementos de la cabecera, si es necesario * /
-        </Col> */}
-        </Row>
-      </Container>
+            </div>
+    </div>
+   
+      </div>
     </div>
   );
 };
