@@ -85,8 +85,27 @@ const Bill = () => {
     }
   };
 
+  const stateOrder = async () => {
+    try {
+      console.log("Estoy actualizando estado de order");
+      const url = await fetch(
+        "https://ge3k-server.onrender.com/orders",
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ stripeOrderId }),
+        }
+      );
+    } catch (error) {
+      console.error("Error sending information for upgrade pay status");
+    }
+  }
+
   useEffect(() => {
     getBill();
+    stateOrder();
   }, []);
 
   useEffect(() => {
