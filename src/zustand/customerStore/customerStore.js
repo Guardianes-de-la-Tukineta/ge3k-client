@@ -18,6 +18,8 @@ import { Alert } from "react-bootstrap";
         allCustomers: [],
         currentCustomer: {}, // es undefined o talves se colocara el perfil de invitado
         authenticatedCustomer: null,
+        error:'',
+        message:'',
         
         createCustomer: async (customer) => {
           const fecha = customer.birthdate; 
@@ -35,8 +37,10 @@ import { Alert } from "react-bootstrap";
             
                 set((state) => ({
                 ...state,
-                currentCustomer: customer,
+                currentCustomer: customer
               }));
+
+
             } else {
                 // Maneja el caso en el que la solicitud no fue exitosa
                 console.error('La solicitud no fue exitosa:', response.status);
@@ -121,11 +125,20 @@ import { Alert } from "react-bootstrap";
             if (response.status === 200) { // Cambiado de 201 a 200 para verificar si la respuesta es exitosa
               const { data } = response;
               // console.log("deleted... ", data);
+              set((state) => ({
+                ...state,
+                message: 'User blocked successfully.',
+              }));
 
+              setTimeout(() => {
+                set((state) => ({
+                  ...state,
+                  message: '',
+                }));
+              }, 3500);
             } else {
               // Maneja el caso en el que el perfil no esté registrado
               console.error('El email no fue encontrado en la base de datos:');
-         
             }
           } catch (error) {
             console.error("Error obteniendo customer:", error);
@@ -138,7 +151,20 @@ import { Alert } from "react-bootstrap";
             const response = await axios.patch(`https://ge3k-server.onrender.com/customers/${id}`);
         
             if (response.status === 204) { 
-              console.log("Activated... ");
+
+              set((state) => ({
+                ...state,
+                message: 'User activated successfully.',
+              }));
+
+              setTimeout(() => {
+                set((state) => ({
+                  ...state,
+                  message: '',
+                }));
+              }, 3500);
+
+
             } else {
               // Maneja el caso no exista el ID
               console.error('Se recido una respuesta inadecuada');
