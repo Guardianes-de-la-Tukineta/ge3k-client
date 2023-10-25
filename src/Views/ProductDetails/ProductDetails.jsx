@@ -16,7 +16,7 @@ import Swal from 'sweetalert2'
 //HP el componente de llama ProductDetails  ya que podemos tener otros details ej, RatingDetails
 function ProductDetails() {
   const { id } = useParams();
-  const { getProductsDetails, productDetails, deletePorductDetail,addRatingProduct } =useStore(); // Utiliza el hook useStore para acceder al estado y a la función getProductsDetails
+  const { getProductsDetails, productDetails, deletePorductDetail, deleteRatingProduct} =useStore(); // Utiliza el hook useStore para acceder al estado y a la función getProductsDetails
   const { addProductToCart } = cartStore(); //cart store de zustand
   const { isAuthenticated } = useAuth0(); // para saber si estoy logueado
   const { currentCustomer } = customerStore();
@@ -41,7 +41,6 @@ function ProductDetails() {
       state:false,
       edit:false
     }) 
-    console.log(comments); 
     setComments('') // limpiaos para q se renderice cada q modifiquemos o añadamos comentario
     return ()=>{
       deletePorductDetail() //limpiar el deteail cuando se desmonta el componente
@@ -53,11 +52,10 @@ function ProductDetails() {
     if (productDetails.id && favorites.findIndex((elem) => elem.id === productDetails.id) !== -1) { //si esta en favoritos pintamos el corazon       
       setIsFav(true)
     }    
-    if(productDetails.ratings && productDetails.ratings.length>0) {      
-      const promedioRat=(productDetails.ratings.reduce((a,b)=>a +b.rating,0))/productDetails.ratings.length
+    if(productDetails.Ratings && productDetails.Ratings.length>0) {      
+      const promedioRat=(productDetails.Ratings.reduce((a,b)=>a +b.rating,0))/productDetails.Ratings.length
       setPromedioRating(promedioRat)   
     }  
-    console.log(productDetails,currentCustomer); 
   }, [favorites,productDetails,promedioRating,setComments, comments]);
  
   // const productDetail = useSelector((state) => state.detail);
@@ -131,12 +129,50 @@ function ProductDetails() {
   const ratingChanged=(e)=>{
     console.log(e);
   }
-  const handleEditComment=()=>{
+  const handleEditComment=(prevComment)=>{
     setShowFormRating({
       state:true,
-      edit:true
+      edit:true,
+      prevComment
     })
   }
+
+  const handleDeleteRating= async (ratingId)=>{
+    try {
+      await deleteRatingProduct(isAuthenticated, currentCustomer.id, ratingId)
+      setComments('update')
+    } catch (error){
+      console.error(error)
+    }
+  }
+
+
+  const maxCaracterByLine = 40; // Define la longitud máxima en caracteres por línea
+
+// Función para contar las líneas de un texto en función de la longitud
+const linesCounter = (texto) => {
+  const lines = texto.split('\n'); // Divide el texto por saltos de línea
+  let lineasExcedidas = 0;
+  lines.forEach((line) => {
+    if (line.length > maxCaracterByLine) {
+      lineasExcedidas += Math.ceil(line.length / maxCaracterByLine);
+    }
+  });
+  return lineasExcedidas;
+};
+
+//Para transformar los saltos de linea en array de parrafos
+function splitTextIntoParagraphs(text) {
+  return text.split('\n').filter(paragraph => paragraph.trim() !== '');
+}
+
+
+// Genera avatares aleatorios en base a las iniciales del nombre
+function userAvatar( name ) {
+  const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random`;
+
+  return avatarUrl;
+}
 
   return (
     <Container className={styles.productDetailsConteiner}>      
@@ -149,7 +185,7 @@ function ProductDetails() {
           />
         </Row>
       ) : (
-        <Row className="mt-4 mb-4">
+        <Row className="mt-4" style={{marginBottom:'3rem'}}>
           <Col>
             <img
               className={styles.image}
@@ -182,20 +218,20 @@ function ProductDetails() {
             <h2 className={styles.info}>
               Category:{" "}
               <Link
-                to={"/category/" + productDetails.categoryName}
+                to={"/category/" + productDetails.Category.name}
                 className={styles.detailsLink}
               >
-                {productDetails.categoryName}
+                {productDetails.Category.name}
               </Link>
             </h2>
 
             <h2 className={styles.info}>
               Thematic:{" "}
               <Link
-                to={"/thematic/" + productDetails.themeName}
+                to={"/thematic/" + productDetails.Theme.name}
                 className={styles.detailsLink}
               >
-                {productDetails.themeName}
+                {productDetails.Theme.name}
               </Link>
             </h2>
             </div>
@@ -247,7 +283,7 @@ function ProductDetails() {
         <div className={`col-md-8  ${showFormRating.state && styles.blurBackground} `}>
           <h3>Top reviews </h3>
           { 
-            productDetails.ratings && productDetails.ratings.length>0   && productDetails.ratings.map((elem)=>{  
+            productDetails.Ratings && productDetails.Ratings.length> 0   && productDetails.Ratings.map((elem)=>{  
               
               let dateBack = new Date(elem.createdAt);
               let dateFormated = dateBack.toLocaleDateString();
@@ -261,26 +297,32 @@ function ProductDetails() {
                     <div
                       className={styles.imagenUsuario}
                       style={{
-                        backgroundImage: `url('https://c0.klipartz.com/pngpicture/831/88/gratis-png-perfil-de-usuario-iconos-de-la-computadora-interfaz-de-usuario-mistica.png')`,
+                        backgroundImage: `url(${userAvatar(elem.Customer.name)})`,
                       }}
                     ></div>
-                    <span className={styles.customerName}>Fulanito de Tal</span>
+                    <span className={styles.customerName}>{elem.Customer.name} </span>
                     </div>
-                    {/* {currentCustomer.id === elem.CustomerId && (
+
+<div className={styles.headerDescription}>
+                    {currentCustomer.id === elem.CustomerId && (
                       <button
                         className={`btn btn-dark ${styles.editButton}`}
-                        onClick={() => handleEditComment()}
-                      >
-                        <i className="bi bi-pen"></i>
-                      </button>
-                    )} */}
-           
-                      <button
-                        className={`btn btn-dark ${styles.editButton}`}
-                        onClick={() => handleEditComment()}
+                        onClick={() => handleEditComment(elem.Comment)}
                       > Edit
                      <i className="bi bi-pencil-square"></i>
                       </button>
+                    )}
+                    {currentCustomer.id === elem.CustomerId && (
+                      <button
+                        className={`btn btn-dark ${styles.deleteButton}`}
+                        onClick={() => handleDeleteRating(elem.id)}
+                      > 
+                     <i className="bi bi-trash"></i>
+                      </button>
+                    )}
+                    </div>
+           
+                  
           
                   </div>
                   <ReactStars
@@ -292,20 +334,12 @@ function ProductDetails() {
                    className={styles.stars}
                   />
                   <div   className={styles.date} >Reviewed on {dateFormated} </div>
-                  <div className={ (reviewSelected !== elem.id) ? styles.descritionComment : styles.descritionCommentMore  }>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae enim optio totam, iure sequi tenetur. Rerum deleniti provident amet vel vero odio autem accusamus, vitae nihil, placeat quia? Qui, omnis.
-
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae enim optio totam, iure sequi tenetur. Rerum deleniti provident amet vel vero odio autem accusamus, vitae nihil, placeat quia? Qui, omnis.
-
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae enim optio totam, iure sequi tenetur. Rerum deleniti provident amet vel vero odio autem accusamus, vitae nihil, placeat quia? Qui, omnis.
-                  
-                  Molestiae enim optio totam, iure sequi tenetur. Rerum deleniti provident amet vel vero odio autem accusamus, vitae nihil, placeat quia? Qui, omnis.
-
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae enim optio totam, iure sequi tenetur. Rerum deleniti provident amet vel vero odio autem accusamus, vitae nihil, placeat quia? Qui, omnis.
-
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae enim optio totam, iure sequi tenetur. Rerum deleniti provident amet vel vero odio autem accusamus, vitae nihil, placeat quia? Qui, omnis
-                  
+                  <div className={ (reviewSelected !== elem.id) ? styles.descritionComment : styles.descritionCommentMore  }>{splitTextIntoParagraphs(elem.Comment).map((paragraph, index) => (<p key={index} >
+                    {paragraph}
+                  </p>))}
                   </div>
 
+{linesCounter(elem.Comment) >3  &&  <div>
                   {(reviewSelected === elem.id)? <button
                         className={`btn btn-dark ${styles.seeMore}`}
                         onClick={()=>setReviewSelected('')}
@@ -317,6 +351,7 @@ function ProductDetails() {
                       >  See more
                      <i className="bi bi-chevron-compact-down"></i>
                       </button>}
+                      </div>}
                  
                 </div>
               </div>
@@ -324,7 +359,7 @@ function ProductDetails() {
           }    
       </div>
       {
-       showFormRating.state && <FormRating ProductId={productDetails.id} showFormRating={showFormRating} setShowFormRating={setShowFormRating} setComments={setComments}/>
+       showFormRating.state && <FormRating ProductId={productDetails.id} showFormRating={showFormRating} setShowFormRating={setShowFormRating} setComments={setComments} prevComment={( showFormRating.edit) ? showFormRating.prevComment : false} />
       }
       </div>
     </Container>

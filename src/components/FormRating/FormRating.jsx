@@ -7,18 +7,18 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { customerStore } from '../../zustand/customerStore/customerStore';
 import Swal from 'sweetalert2'
 
-const FormRating = ({setShowFormRating,showFormRating,ProductId,setComments}) => {
+const FormRating = ({setShowFormRating,showFormRating,ProductId,setComments, prevComment}) => {
     const [validated, setValidated] = useState(true);
     const [rate,setRate] = useState(null) // para guardar la calificacion en estrellas  
-    const[inputComment,setInputComment]=useState('') // para guardar lo que el user ponga en el input como comentario
+    const[inputComment,setInputComment]= useState(prevComment || '') // para guardar lo que el user ponga en el input como comentario
     const {addRatingProduct,editRatingProduct} = useStore() // traemos el estado modificador de zustand  
     const { isAuthenticated } = useAuth0() // para saber si estoy logueado
     const {currentCustomer}=customerStore()   
+
     //handlers
     const handleSubmit = (event) => {     
         event.preventDefault(); 
-        if(inputComment.length>8 && rate) {            
-            console.log(inputComment,rate);            
+        if(inputComment.length>8 && rate) {                       
             //limpiamos campos y cerramos ventana
             setRate(0)
             setInputComment('')
@@ -68,6 +68,7 @@ const FormRating = ({setShowFormRating,showFormRating,ProductId,setComments}) =>
     }  
     
     return (
+        <div className={style.containerContainer}>
         <div className={`${style.container} ${showFormRating.state? style.fadeIn : style.fadeOut}`}>                   
             <h4>How many stars would you give it?</h4>
             <div className='d-flex mb-3'>
@@ -99,7 +100,8 @@ const FormRating = ({setShowFormRating,showFormRating,ProductId,setComments}) =>
                 <button className={`btn btn-success ${style.buttonSubmit}`} type='submit'><i className="bi bi-send-fill"></i></button>
             </Form>
             <button onClick={()=>handlerCancel()} className={`btn btn-danger ${style.buttonCancel}`}><i className="bi bi-x-square"></i></button>
-        </div>          
+        </div>  
+        </div>        
     )      
       
 }

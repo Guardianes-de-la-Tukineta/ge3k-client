@@ -37,7 +37,7 @@ const CartColumn = () => {
             </div>
             <aside>               
                 {   
-                    cart.map(({product})=>(
+                   (cart && cart.length>0) && cart.map(({product})=>(
                         <CartItem
                             key={product.id}
                             name={product.name}

@@ -323,5 +323,32 @@ return
         }
     },
 
+
+    deleteRatingProduct: async(isAuthenticated,CustomerId,ratingId) => {
+       
+        const data = {
+            CustomerId,
+            ratingId
+        }
+        try {         
+            if(isAuthenticated){
+                const URL='https://ge3k-server.onrender.com/'
+                const response = await axios.delete(`${URL}ratings/${ratingId}`,{                
+                    data
+                })
+                console.log('todo bien');
+                // set(prevState => ({
+                //     ...prevState,
+                //     subTotal:data.total
+                // }))            
+            }               
+        } catch (error) {
+            console.log(error);
+        }
+    },
+
+
+
+
 })))
 window.store = useStore;
