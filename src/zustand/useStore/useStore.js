@@ -304,28 +304,20 @@ return
         try {         
             if(isAuthenticated){
                 const URL='https://ge3k-server.onrender.com/'
-                const {data} = await axios.put(`${URL}ratings`,{                
-                   
-                        CustomerId,
-                        ProductId,
-                        rating,
-                        Comment
-                    
+                const {data} = await axios.put(`${URL}ratings`,{             
+                    CustomerId,
+                    ProductId,
+                    rating,
+                    Comment                   
                 })
-                console.log(data);
-                // set(prevState => ({
-                //     ...prevState,
-                //     subTotal:data.total
-                // }))            
+                console.log(data);                        
             }               
         } catch (error) {
             console.log(error);
         }
     },
-
-
-    deleteRatingProduct: async(isAuthenticated,CustomerId,ratingId) => {
-       
+    //deleted comentario de producto
+    deleteRatingProduct: async(isAuthenticated,CustomerId,ratingId) => {       
         const data = {
             CustomerId,
             ratingId
@@ -336,19 +328,11 @@ return
                 const response = await axios.delete(`${URL}ratings/${ratingId}`,{                
                     data
                 })
-                console.log('todo bien');
-                // set(prevState => ({
-                //     ...prevState,
-                //     subTotal:data.total
-                // }))            
+                console.log(response.data);                        
             }               
         } catch (error) {
             console.log(error);
         }
     },
-
-
-
-
 })))
 window.store = useStore;

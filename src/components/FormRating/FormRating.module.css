@@ -1,15 +1,15 @@
-.containerContainer{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+.containerContainer{    
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    width: 600px !important;
+    height: 300px !important;
+    border-radius: 20px;
+    position: absolute;
+    top: 0;
+    left: 35%;     
 }
-
-
 .container{
     background-color: rgba(112, 106, 102, 0.712);
     display: flex;
@@ -21,10 +21,7 @@
     border-radius: 20px;
     box-shadow: 8px 5px rgba(1, 2, 0, 0.7);     
 }
-.buttonSubmit{   
-    /* position: absolute;
-    top: 0;
-    left:80%; */
+.buttonSubmit{     
     margin-top: 3%;  
     padding: 0% !important; 
     width: 40px;    
