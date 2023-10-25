@@ -36,7 +36,7 @@ const FormRating = ({setShowFormRating,showFormRating,ProductId,setComments, pre
             Swal.fire({
                 position: 'center',
                 icon:'success',
-                title:'your comment was created successfully',
+                title:'Your comment was created successfully!',
                 showConfirmButton: false, 
                 allowOutsideClick: false,
                 timer:2000              
@@ -70,7 +70,7 @@ const FormRating = ({setShowFormRating,showFormRating,ProductId,setComments, pre
     return (
         <div className={style.containerContainer}>
         <div className={`${style.container} ${showFormRating.state? style.fadeIn : style.fadeOut}`}>                   
-            <h4>How many stars would you give it?</h4>
+            <h4 className='mt-2'>How many stars would you give it?</h4>
             <div className='d-flex mb-3'>
                 <ReactStars
                 count={5}
@@ -82,22 +82,25 @@ const FormRating = ({setShowFormRating,showFormRating,ProductId,setComments, pre
                 /> <span className='mt-2'>[{rate}]</span>
             </div>
             <Form className={style.formRate} noValidate validated={validated} onSubmit={(e)=>handleSubmit(e)}>
-                <Form.Group controlId='validate01'>                    
+                <div className={style.infoContaioner}>
+                <Form.Group controlId='validate01' >                    
                     <Form.Control
                         required
                         minLength="8"                
                         as="textarea" 
                         placeholder="leave your opinion here"
-                        style={{width: "500px", height:"100px"}} 
                         value={inputComment}
                         onChange={(e)=>handlerChangeInput(e)} 
-                                  
+                        className={style.contentForm}
                     />
-                    <Form.Control.Feedback type="invalid">
+                    <Form.Control.Feedback type="invalid" >
                         Required, minimum 8 characters                    
                     </Form.Control.Feedback>
                 </Form.Group>
-                <button className={`btn btn-success ${style.buttonSubmit}`} type='submit'><i className="bi bi-send-fill"></i></button>
+                <div className='d-flex justify-content-end'>
+                <button className={`btn btn-success ${style.buttonSubmit}`} type='submit'>POST<i className="bi bi-send-fill"></i></button>
+                </div>
+                </div>
             </Form>
             <button onClick={()=>handlerCancel()} className={`btn btn-danger ${style.buttonCancel}`}><i className="bi bi-x-square"></i></button>
         </div>  
