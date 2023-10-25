@@ -1,62 +1,102 @@
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import axios from "axios";
 
 const ContactForm = () => {
   const {
     control,
+    reset,
     handleSubmit,
     formState: { errors },
     getValues,
   } = useForm();
 
+  const sendEmail = (data) => {
+    console.log("send", data);
+
+    let msj = {
+      to: "pariohernan@gmail.com",
+      subject: "Tenemos un intento de contacto de " + data.email,
+      html:
+        "<h2>Hello !!  <h2/> <p>datos del contacto. <p/>" +
+        JSON.stringify(data),
+    };
+
+    (async () => {
+      // Invoca la función asíncrona inmediatamente
+      try {
+        const response = await axios.post(
+          "https://ge3k-server.onrender.com/send-email/",
+          msj,
+          {
+            headers: {
+              "Content-Type": "application/json", // Indica que estás enviando datos en formato JSON
+            },
+          }
+        );
+        // Verifica si la solicitud fue exitosa y obtén los datos de la respuesta
+        if (response.status >= 200 && response.status < 300) {
+          console.log("mensaje enviado");
+        } else {
+          // Maneja el caso en el que la solicitud no fue exitosa
+          console.log("La solicitud no fue exitosa:", response.status);
+        }
+      } catch (error) {
+        // Maneja los errores de la solicitud
+        console.log("error. This email not envied");
+      }
+    })();
+    reset();
+  };
+
   const onSubmit = (data) => {
-    // Aquí puedes manejar el envío de datos del formulario
-    console.log(data);
+    sendEmail(data);
   };
 
   const isButtonDisabled = () => {
     const values = getValues();
     // Comprueba si todos los campos requeridos están llenos
-    return Object.values(values).some((value) => !value);
+    return Object.keys(errors).length > 0;
   };
 
   return (
-    <Container>
+    <Container style={{ padding: "2em" }}>
       <h3 className="text-center">Contact Us</h3>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Row>
           <Col md={3}>
-            <Form.Group>
+            <Form.Group style={{ paddingTop: "2px" }}>
               <Controller
-                name="nombres"
+                name="name"
                 control={control}
-                rules={{ required: "Campo requerido" }}
+                rules={{ required: "required field" }}
                 render={({ field }) => (
-                  <Form.Control {...field} placeholder="Nombres" />
+                  <Form.Control {...field} placeholder="Name" />
                 )}
               />
-              {errors.nombres && <p>{errors.nombres.message}</p>}
+              {errors.name && <p>{errors.name.message}</p>}
             </Form.Group>
-            <Form.Group>
+            <Form.Group style={{ paddingTop: "2px" }}>
               <Controller
-                name="apellidos"
+                name="surname"
                 control={control}
-                rules={{ required: "Campo requerido" }}
+                rules={{ required: "required field" }}
                 render={({ field }) => (
-                  <Form.Control {...field} placeholder="Apellidos" />
+                  <Form.Control {...field} placeholder="Surname" />
                 )}
               />
-              {errors.apellidos && <p>{errors.apellidos.message}</p>}
+              {errors.surname && <p>{errors.surname.message}</p>}
             </Form.Group>
-            <Form.Group>
+            <Form.Group style={{ paddingTop: "2px" }}>
               <Controller
                 name="email"
                 control={control}
                 rules={{
-                  required: "Campo requerido",
+                  required: "required field",
                   pattern: {
                     value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                    message: "Invalid email format",
                   },
                 }}
                 render={({ field }) => (
@@ -65,65 +105,67 @@ const ContactForm = () => {
               />
               {errors.email && <p>{errors.email.message}</p>}
             </Form.Group>
-            <Form.Group>
+            <Form.Group style={{ paddingTop: "2px" }}>
               <Controller
-                name="telefono"
+                name="Phone"
                 control={control}
                 render={({ field }) => (
-                  <Form.Control {...field} placeholder="Teléfono" />
+                  <Form.Control {...field} placeholder="Phone" />
                 )}
               />
             </Form.Group>
-            <Form.Group>
+            <Form.Group style={{ paddingTop: "2px" }}>
               <Controller
-                name="direccion"
+                name="Address"
                 control={control}
                 render={({ field }) => (
-                  <Form.Control {...field} placeholder="Dirección" />
+                  <Form.Control {...field} placeholder="Address" />
                 )}
               />
             </Form.Group>
-            <Form.Group>
+            <Form.Group style={{ paddingTop: "2px" }}>
               <Controller
-                name="ciudad"
+                name="City"
                 control={control}
                 render={({ field }) => (
-                  <Form.Control {...field} placeholder="Ciudad" />
+                  <Form.Control {...field} placeholder="City" />
                 )}
               />
             </Form.Group>
-            <Form.Group>
+            <Form.Group style={{ paddingTop: "2px" }}>
               <Controller
-                name="pais"
+                name="country"
                 control={control}
                 render={({ field }) => (
-                  <Form.Control {...field} placeholder="País" />
+                  <Form.Control {...field} placeholder="Country" />
                 )}
               />
             </Form.Group>
           </Col>
           <Col md={9}>
-            <Form.Group>
+            <Form.Group style={{ paddingTop: "2px" }}>
               <Controller
-                name="asunto"
+                name="assubject"
                 control={control}
-                rules={{ required: "Campo requerido" }}
+                rules={{ required: "required field" }}
                 render={({ field }) => (
-                  <Form.Control {...field} placeholder="Asunto" />
+                  <Form.Control {...field} placeholder="Subject" />
                 )}
               />
-              {errors.asunto && <p>{errors.asunto.message}</p>}
+              {errors.assubject && <p>{errors.assubject.message}</p>}
             </Form.Group>
-            <Form.Group>
+            <Form.Group style={{ height: "106%", paddingTop: "4px" }}>
               <Controller
                 name="mensaje"
+                style={{ height: "90%" }}
                 control={control}
-                rules={{ required: "Campo requerido" }}
+                rules={{ required: "required field" }}
                 render={({ field }) => (
                   <Form.Control
                     as="textarea"
                     {...field}
                     placeholder="Messaje"
+                    style={{ height: "80%" }}
                   />
                 )}
               />
@@ -131,9 +173,18 @@ const ContactForm = () => {
             </Form.Group>
           </Col>
         </Row>
-        <Button type="submit" disabled={isButtonDisabled()} className="mt-3">
-          Enviar
-        </Button>
+        <Row className="text-center">
+          <Col>
+            <Button
+              type="submit"
+              disabled={isButtonDisabled()}
+              className="mt-3"
+              style={{ backgroundColor: "orangered" }}
+            >
+              Enviar
+            </Button>
+          </Col>
+        </Row>
       </Form>
     </Container>
   );

@@ -32,13 +32,13 @@ const Bill = () => {
         url +
         ">View purchase invoice</a></p>  <p>Thank you for your urchase, and we hope to see you soon.</p>",
     };
-    // console.log("url", typeof url);
+    console.log("msj", msj);
 
     (async () => {
       // Invoca la función asíncrona inmediatamente
       try {
         const response = await axios.post(
-          "http://ge3k-server.onrender.com/send-email",
+          "https://ge3k-server.onrender.com/send-email/",
           msj,
           {
             headers: {

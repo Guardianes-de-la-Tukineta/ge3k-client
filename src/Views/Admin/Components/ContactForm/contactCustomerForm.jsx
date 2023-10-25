@@ -55,7 +55,7 @@ const ContactCustomerForm = () => {
   const send = async () => {
     let msj = {
       to: formData.email,
-      subject: "contacto desde ge3khub",
+      subject: "contact from ge3khub",
       html: formData.message,
     };
     console.log(msj);
@@ -64,7 +64,7 @@ const ContactCustomerForm = () => {
       // Invoca la función asíncrona inmediatamente
       try {
         const response = await axios.post(
-          "http://ge3k-server.onrender.com/send-email",
+          "https://ge3k-server.onrender.com/send-email",
           msj,
           {
             headers: {
