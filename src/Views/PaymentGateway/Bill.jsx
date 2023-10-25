@@ -5,8 +5,10 @@ import { useStore } from "zustand";
 import { PurchaseStore } from "../../zustand/PurchaseOrder/PurchaseStore.js";
 import { customerStore } from "../../zustand/customerStore/customerStore";
 import axios from "axios";
+import { cartStore } from "../../zustand/cartStore/cartStore.js"
 
 const Bill = () => {
+  const { deleteCart } = cartStore(); //estado de Zustand del carrito
   const [url, setUrl] = useState("");
   const [emailSend, setEmailSend] = useState(true);
   const { currentCustomer } = customerStore();
@@ -106,6 +108,7 @@ const Bill = () => {
   useEffect(() => {
     getBill();
     stateOrder();
+    deleteCart();
   }, []);
 
   useEffect(() => {
