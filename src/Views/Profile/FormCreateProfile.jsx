@@ -8,6 +8,7 @@ import { parseISO } from "date-fns"; // Importa parseISO de date-fns para el for
 import { customerStore } from "../../zustand/customerStore/customerStore";
 import styles from "./Profile.module.css";
 import { validate } from "./validate";
+import sendEmail from "../../components/SendEmaill/send-email";
 
 function FormCreateProfile(props) {
   const { currentCustomer, user, haveProfile } = props;
@@ -20,6 +21,26 @@ function FormCreateProfile(props) {
     category: "premium",
     email: user.email,
   });
+
+  const msjCreated = {
+    to: updatedCustomer.email,
+    subject: "welcome to ge3khub store",
+    html:
+      "<h2>Hello " +
+      updatedCustomer.name +
+      " !!  <h2/> <p>You have completed your ge3khub registration.<p/>" +
+      "You can now enjoy our products.",
+  };
+
+  const msjUpd = {
+    to: updatedCustomer.email,
+    subject: "Profile update completed, ge3khub store",
+    html:
+      "<h2>Hello " +
+      updatedCustomer.name +
+      " !!  <h2/> <p>You have updated your ge3khub profile.<p/>" +
+      "You can now enjoy our products.",
+  };
 
   const strToDate = (str) => {
     const date = str ? parseISO(str) : null; // Convierte la fecha a un objeto Date
@@ -44,14 +65,16 @@ function FormCreateProfile(props) {
     try {
       if (haveProfile) {
         await updateCustomer(updatedCustomer, user.email);
+        sendEmail(msjUpd);
       } else {
         await createCustomer(updatedCustomer);
+        sendEmail(msjCreated);
       }
 
       setIsLoading(false);
       setEditing(false);
     } catch (error) {
-      console.error("Error:", error);
+      // console.error("Error:", error);
       setIsLoading(false);
     }
   };
