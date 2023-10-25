@@ -43,17 +43,10 @@ export const useAdminStore = create((set) => ({
     const URL = "https://ge3k-server.onrender.com/orders";
     try {
       const { data } = await axios.get(URL);
-
-      const initialSorted = data.sort((a, b) => {
-        const aDate = new Date(a.createdAt);
-        const bDate = new Date(b.createdAt);
-        return bDate - aDate;
-      });
-
       set((state) => {
         return {
           ...state,
-          allOrders: initialSorted,
+          allOrders: data,
         };
       });
       // Ahora puedes acceder a los datos de cada petición

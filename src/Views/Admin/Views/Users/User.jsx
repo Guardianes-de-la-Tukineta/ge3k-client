@@ -11,10 +11,7 @@ const Users = () => {
   const showProductsPanel = location.pathname === "/admin/users";
 
   return (
-    <div
-      className="container d-flex flex-column flex-grow-1 justify-content-around"
-      style={{ paddingBottom: "1rem" }}
-    >
+    <div className='container-fluid d-flex flex-column flex-grow-1 justify-content-around w-100' style={{paddingBottom:'1rem'}}>
       
 
       { showProductsPanel && <div>

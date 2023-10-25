@@ -33,7 +33,7 @@ font-weight: 600;
     outline:none;
     border-radius: 4px;
     border: 1px solid #383838;
-    background-color: #38383813;
+    background-color:#a5a5a513 !important;
     color: #383838;
     font-size: 1rem;
 }

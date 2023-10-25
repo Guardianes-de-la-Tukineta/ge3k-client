@@ -3,7 +3,7 @@
     border: none;
 }
 
-a:focus{
+.paginationContianer a:focus{
     box-shadow: none !important;
     background-color: white !important;
 }

@@ -1,22 +1,20 @@
 import React from "react";
 import { Carousel } from "react-bootstrap";
 import style from "./Slider.module.css";
-import halloween from '../../Images/happy Geek.svg'
-import blackfriday from '../../Images/blackfriday.svg'
-import christmas from '../../Images/christmas.svg'
+
 
 const Silder = () => {
   return (
     <div className={`carousel-container ${style.carousel}`}>
       <Carousel >
         <Carousel.Item>
-          <img src={halloween} />
+          <img src="https://res.cloudinary.com/dqoi2ez7t/image/upload/v1698114925/rz18d8et0qlvllbatcpi.png" />
         </Carousel.Item>
         <Carousel.Item>
-          <img src={blackfriday} />
+          <img src="https://res.cloudinary.com/dqoi2ez7t/image/upload/v1698115082/scc45u33scq4tefitqt1.png" />
         </Carousel.Item>
         <Carousel.Item>
-          <img src={christmas} />
+          <img src="https://res.cloudinary.com/dqoi2ez7t/image/upload/v1698115081/jk8gwnc4dhkqtwy6fmdz.png" />
         </Carousel.Item>
       </Carousel>
     </div>
