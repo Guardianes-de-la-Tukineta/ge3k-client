@@ -30,7 +30,7 @@ function ProductDetails() {
   const[promedioRating,setPromedioRating]=useState(0)
   const { loginWithRedirect } = useAuth0(); // para loguearnos
   const [comments, setComments] = useState(0); // solo para guardar el momento q añadimos o editamos cometario y renderizar de nuevo automaticamente
-
+  const [reviewSelected, setReviewSelected] = useState('')
 
   useEffect(() => {     
     const fetchData = async() => {     
@@ -247,25 +247,80 @@ function ProductDetails() {
         <div className={`col-md-8  ${showFormRating.state && styles.blurBackground} `}>
           <h3>Top reviews </h3>
           { 
-            productDetails.ratings && productDetails.ratings.length>0   && productDetails.ratings.map((elem)=>(              
-              <div className= {`media ${styles.commentContainer}`} key={elem.id}>               
+            productDetails.ratings && productDetails.ratings.length>0   && productDetails.ratings.map((elem)=>{  
+              
+              let dateBack = new Date(elem.createdAt);
+              let dateFormated = dateBack.toLocaleDateString();
+
+              return (
+              <div className={`media ${styles.commentContainer}`} key={elem.id}>
                 {/* <img src="imagen-usuario.jpg" className="mr-3" alt="..." style={{ width: "64px", height: "64px"}}/> */}
                 <div className="media-body">
-                  <h5 className="mt-0">{elem.CustomerName}</h5>
-                  {
-                    currentCustomer.id===elem.CustomerId && 
-                      <button className={`btn btn-dark ${styles.editButton}`} onClick={() => handleEditComment()}><i className="bi bi-pen"></i></button>
-                  }
+                  <div className={styles.header}>
+                    <div className={styles.headerDescription}>
+                    <div
+                      className={styles.imagenUsuario}
+                      style={{
+                        backgroundImage: `url('https://c0.klipartz.com/pngpicture/831/88/gratis-png-perfil-de-usuario-iconos-de-la-computadora-interfaz-de-usuario-mistica.png')`,
+                      }}
+                    ></div>
+                    <span className={styles.customerName}>Fulanito de Tal</span>
+                    </div>
+                    {/* {currentCustomer.id === elem.CustomerId && (
+                      <button
+                        className={`btn btn-dark ${styles.editButton}`}
+                        onClick={() => handleEditComment()}
+                      >
+                        <i className="bi bi-pen"></i>
+                      </button>
+                    )} */}
+           
+                      <button
+                        className={`btn btn-dark ${styles.editButton}`}
+                        onClick={() => handleEditComment()}
+                      > Edit
+                     <i className="bi bi-pencil-square"></i>
+                      </button>
+          
+                  </div>
                   <ReactStars
                     count={5}
                     value={elem.rating} // Establece el valor de las estrellas
                     edit={false} // Deshabilita la interacción del usuario
                     size={24}
-                    color2={'#ffd700'}
+                    color2={"#ffd700"}
+                   className={styles.stars}
                   />
-                  <div className={styles.descritionComment}>{elem.Comment}</div>                  
+                  <div   className={styles.date} >Reviewed on {dateFormated} </div>
+                  <div className={ (reviewSelected !== elem.id) ? styles.descritionComment : styles.descritionCommentMore  }>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae enim optio totam, iure sequi tenetur. Rerum deleniti provident amet vel vero odio autem accusamus, vitae nihil, placeat quia? Qui, omnis.
+
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae enim optio totam, iure sequi tenetur. Rerum deleniti provident amet vel vero odio autem accusamus, vitae nihil, placeat quia? Qui, omnis.
+
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae enim optio totam, iure sequi tenetur. Rerum deleniti provident amet vel vero odio autem accusamus, vitae nihil, placeat quia? Qui, omnis.
+                  
+                  Molestiae enim optio totam, iure sequi tenetur. Rerum deleniti provident amet vel vero odio autem accusamus, vitae nihil, placeat quia? Qui, omnis.
+
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae enim optio totam, iure sequi tenetur. Rerum deleniti provident amet vel vero odio autem accusamus, vitae nihil, placeat quia? Qui, omnis.
+
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae enim optio totam, iure sequi tenetur. Rerum deleniti provident amet vel vero odio autem accusamus, vitae nihil, placeat quia? Qui, omnis
+                  
+                  </div>
+
+                  {(reviewSelected === elem.id)? <button
+                        className={`btn btn-dark ${styles.seeMore}`}
+                        onClick={()=>setReviewSelected('')}
+                      >  See less
+                     <i className="bi bi-chevron-compact-up"></i>
+                      </button>  :  <button
+                        className={`btn btn-dark ${styles.seeMore}`}
+                        onClick={()=>setReviewSelected(elem.id)}
+                      >  See more
+                     <i className="bi bi-chevron-compact-down"></i>
+                      </button>}
+                 
                 </div>
-              </div>))
+              </div>
+            );})
           }    
       </div>
       {
