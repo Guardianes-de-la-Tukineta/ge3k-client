@@ -25,6 +25,7 @@ import CartProvider from "./Views/PaymentGateway/CartContext";
 import ContactForm from "./Views/Admin/Components/ContactForm/ContactForm";
 import Favorite from "./Views/Favorite/Favorite";
 import WhatsAppButton from "./components/whatsAppButton/whatsAppButton";
+import TeamLanding from "./Views/TeamLanding/TeamLanding";
 
 function App() {
   const { cart, visibility } = cartStore(); //traemos el estado de zustand
@@ -63,7 +64,8 @@ function App() {
             <Route path="/PurchaseOrder" element={<PurchaseOrder />} />;
             <Route path="/admin/*" element={<Admin />} />
             <Route path="/send-email" element={<ContactForm />} />
-            <Route path="/favorites" element={<Favorite/>}/>
+            <Route path="/favorites" element={<Favorite />} />
+            <Route path="/team" element={<TeamLanding />} />
             <Route path="*" element={<Error404 />} />
           </Routes>
         </div>
@@ -73,7 +75,6 @@ function App() {
           ) //solo renderiza si tenemos articulos en el cart
         }
         {location.pathname.startsWith("/admin") ? undefined : <Footer />}
-
       </div>
     </CartProvider>
   );
