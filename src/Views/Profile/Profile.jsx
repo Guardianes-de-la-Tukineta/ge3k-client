@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { customerStore } from "../../zustand/customerStore/customerStore";
 import style from "./Profile.module.css";
@@ -22,9 +22,12 @@ function Profile() {
     address: "",
     paymentMethod: "",
     Category: "",
-  };
-
-
+  }; 
+  useEffect(()=>{    
+    return(()=>{
+      if(!currentCustomer.name)  console.log('por favor completa el formulario')
+    })
+  },[])
   return (
     <div className={style.formContainer}>
       {isAuthenticated ? (

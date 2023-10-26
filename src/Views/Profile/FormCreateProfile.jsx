@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker"; // el calendario cuando elegimos una fecha
 import "react-datepicker/dist/react-datepicker.css";
 import Button from "react-bootstrap/Button";
@@ -110,6 +110,12 @@ function FormCreateProfile(props) {
       })
     );
   };
+
+  // useEffect(()=>{
+  //   if(!haveProfile){
+  //     alert('cree perfil')
+  //   }
+  // },[haveProfile])
 
   return (
     <Container className="d-flex" style={{gap:'5px', flexDirection:'column'}}>

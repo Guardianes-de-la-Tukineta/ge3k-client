@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useStore } from "../../zustand/useStore/useStore";
-import { Link } from "react-router-dom";
 import Silder from "../../components/Slider/Slider";
 import Category from "../../components/Category/Category";
 import CardProductSale from "../../components/CardProductSale/CardProductSale";
@@ -22,8 +21,7 @@ const Home = () => {
   const { currentCustomer } = customerStore();
 
   const perPage = 3; // Cantidad de tarjetas por página
-  const [paginado, setPaginado] = useState([0, perPage - 1]);
-
+  const [paginado, setPaginado] = useState([0, perPage - 1]);  
   //hooks
   useEffect(() => {
     if (isAuthenticated) {
