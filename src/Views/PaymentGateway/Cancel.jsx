@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Modal } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom"; // Si deseas agregar un enlace a otra página
 import { useEffect } from "react";
 import cart from "../../Images/cart.jpg";
@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
 const PaymentSuccessView = () => {
 
   useEffect(()=> {
-    //shows after .6 secs
+    //shows after .6 second
     const timer = setTimeout(()=> {
      
       Swal.fire({
