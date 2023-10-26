@@ -17,7 +17,9 @@ const CardContainer = ({products}) => {
     
     const totalProducts = currentProducts.length // para saber el total de productos q vienen del back   
     const showProducts = currentProducts.slice(currentPage * cardsPerPagin - cardsPerPagin, currentPage * cardsPerPagin) //logica para rebanar el array total, y mostrar solo las cardsperpag correspondientes
-       
+    useEffect(()=>{
+        setCurrentPage(1) //reinicia a la primer pagina siempre
+    },[currentProducts])   
     return (
         <div className="row">
             {

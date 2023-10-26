@@ -63,7 +63,7 @@ function ProductDetails() {
         else setDisabledButtonWrite(false)
       })
     }
-    console.log(productDetails,currentCustomer);
+    console.log(currentCustomer);    
   }, [favorites, productDetails, promedioRating, setComments, comments]);
 
   // const productDetail = useSelector((state) => state.detail);
@@ -128,16 +128,11 @@ function ProductDetails() {
         icon: 'warning',
         title:
           'you must <b>log in</b> to be able to leave a comment',
-        showCloseButton: true,
-        showCancelButton: true,
+        showCloseButton: true,        
         focusConfirm: false,
         confirmButtonText:
-          '<i class="fa fa-thumbs-up"></i> Login!',
-        confirmButtonAriaLabel: 'Thumbs up, great!',
-        confirmButtonColor: '#ff6824',
-        cancelButtonText:
-          '<i class="bi bi-hand-thumbs-down"></i>',
-        cancelButtonAriaLabel: 'Thumbs down'
+          '<i class="fa fa-thumbs-up"></i> Login!',        
+        confirmButtonColor: '#ff6824',      
       }).then((result) => {
         if (result.isConfirmed) {
           loginWithRedirect()
