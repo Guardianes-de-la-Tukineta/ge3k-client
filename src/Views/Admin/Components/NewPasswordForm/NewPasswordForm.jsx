@@ -40,10 +40,9 @@ const NewPasswordForm = ({admin, handleNewPassword, handleClosePassModal}) => {
 
 
     const onSubmit = async (dataFrom) =>{
-      console.log(dataFrom)
+
       setLoadingForm(true)
     try {
-      console.log('fdsfasdfasdfadsf')
       await handleNewPassword(admin, dataFrom.password)
     
       reset();

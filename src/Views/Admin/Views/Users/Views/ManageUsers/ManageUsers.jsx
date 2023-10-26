@@ -31,6 +31,11 @@ const ManageUsers = () => {
   }, [updateOnChanges]);
 
 
+  const handleSearch = (value)=>{
+    setCurrentPage(1);
+    setSearchTerm(value)
+  }
+
   const handleReset = ()=>{
     setCurrentPage(1);
     setSearchTerm('')
@@ -50,7 +55,7 @@ const ManageUsers = () => {
     indexOfFirstItem,
     indexOfLastItem
   );
-
+ 
   const totalPages = Math.ceil(filteredCustomers.length / itemsPerPage);
 
   const hamdlerActivate = async (id) => {
@@ -106,7 +111,7 @@ const ManageUsers = () => {
             <button className={styles.toogleButton} onClick={() => setActiveFilter(!activeFilter)}> Show Blocked <span>{(!activeFilter)? <i className="bi bi-toggle-on"></i> : <i className="bi bi-toggle-off"></i>} </span> </button>
             </div>
        <SearchBarAdmin
-            handleSearch={setSearchTerm}
+            handleSearch={handleSearch}
             setResetDropDowns={false}
             reset={currentItems}
             placeholder={'Enter email address'}

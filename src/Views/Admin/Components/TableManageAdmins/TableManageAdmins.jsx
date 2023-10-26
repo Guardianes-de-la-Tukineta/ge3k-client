@@ -84,7 +84,6 @@ const TableManageAdmins = ({ data, handleUnban, handleBan, handleNewPassword }) 
 
     //Si la respuesta del modal es afirmativa mostramos el form para la nueva password
     if (modalResponsePassword) {
-      console.log('jijijijiji')
       setShowFormPassword(true)
     } 
 

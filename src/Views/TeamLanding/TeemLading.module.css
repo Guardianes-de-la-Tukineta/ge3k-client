@@ -1,0 +1,35 @@
+.header{
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;;
+    justify-content: center !important;;
+    gap: 10px;
+    background-color: rgb(250, 250, 250);
+    padding: 2rem;
+    text-align: center;
+    padding-bottom: 7rem !important;
+}
+
+
+.header h2{
+    font-size: 2.5rem;
+}
+
+.icon{
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f58756;
+}
+
+.icon i {
+    color:rgb(255, 255, 255);
+    font-size:2.5rem;
+}
+
+.personContainer{
+    margin-top: -5rem !important;
+}

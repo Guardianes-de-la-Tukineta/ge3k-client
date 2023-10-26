@@ -24,7 +24,6 @@ export const useAdminStore = create((set) => ({
         axios.get(billedURL),
         axios.get(registeredUsersURL)
       ]);
-      console.log(totalSales)
       set((state) => {
         return {
           ...state,

@@ -28,7 +28,7 @@ font-weight: 700;
 
   font-weight: 400;
     color: rgb(31, 31, 31) !important;
-   margin-left: 7px;
+
    }
 
   button.buttonBorder{
@@ -45,8 +45,13 @@ text-align: center;
 margin: 3rem;
 }
 .customDatePicker {
+  display: block;
     border-radius: 6px; /* Redondear los bordes */
     padding: 5px; /* Agregar padding */
+    outline: none;
+    border: 1px solid #dee2e6 !important;
+    width: 100% !important;
+    text-align: center;
   }
   .error{
     color:#ff6824

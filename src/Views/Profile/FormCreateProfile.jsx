@@ -137,9 +137,8 @@ function FormCreateProfile(props) {
                 />
                 <span className={styles.error}>{formErrors.surname}</span>
               </Form.Group>
-              <Form.Group controlId="birthdate">
-                <Form.Label>Birthdate </Form.Label>
-                <br />
+              <Form.Group controlId="birthdate" className="w-100">
+                <Form.Label className="w-100">Birthdate </Form.Label>
                 <DatePicker
                   selected={strToDate(updatedCustomer.birthdate)}
                   onChange={handleDateChange}
@@ -184,12 +183,12 @@ function FormCreateProfile(props) {
       ) : (
         <div className={styles.data}>
           {isLoading ? <h2>Loading..</h2> : " "}
-          <p>Name:<span>{currentCustomer.name}</span></p>
-          <p>Surname:<span>{currentCustomer.surname}</span></p>
-          <p>Email:<span>{user.email}</span></p>
-          <p>Birthdate:<span>{currentCustomer.birthdate}</span></p>
-          <p>Phone:<span>{currentCustomer.phone}</span></p>
-          <p>Address:<span>{currentCustomer.address}</span></p>
+          <p>Name: <span>{currentCustomer.name}</span></p>
+          <p>Surname: <span>{currentCustomer.surname}</span></p>
+          <p>Email: <span>{user.email}</span></p>
+          <p>Birthdate: <span>{currentCustomer.birthdate}</span></p>
+          <p>Phone: <span>{currentCustomer.phone}</span></p>
+          <p>Address: <span>{currentCustomer.address}</span></p>
         </div>
       )}
       {editing ? (

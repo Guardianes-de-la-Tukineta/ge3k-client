@@ -20,7 +20,7 @@ const FormAddProduct = () => {
     formState: { errors},
     reset,
   } = useForm();
- const {allCategories, AllThemes, getCatgoriesAndThemes} = useAdminStore()
+ const {allCategories, allThemes, getCatgoriesAndThemes} = useAdminStore()
 
 
  useEffect(()=>{
@@ -71,7 +71,6 @@ const FormAddProduct = () => {
         bodyRequest.image = infoFromCloudinary.secure_url;
       } catch (error) {
         setSpinner(false);
-        console.log(error.response.data.error);
       }
     } else {
       bodyRequest.image = urlImagen;
@@ -93,7 +92,6 @@ const FormAddProduct = () => {
       }, 3500);
     } catch (error) {
       setSpinner(false);
-      console.log(error.response.data);
     }
   };
 
@@ -365,7 +363,7 @@ const FormAddProduct = () => {
                   }}
                 >
                   <option value="">Select a theme</option>
-                  {AllThemes && [...AllThemes, {name:"New Theme"}].map((themas) => (
+                  {allThemes && [...allThemes, {name:"New Theme"}].map((themas) => (
                     <option key={themas.id} value={themas.name}>
                       {themas.name}
                     </option>

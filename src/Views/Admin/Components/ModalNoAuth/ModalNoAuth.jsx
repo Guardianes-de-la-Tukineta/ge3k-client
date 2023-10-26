@@ -22,7 +22,7 @@ const ModalNoAuth = () => {
           <ul className={styles.authToDo} >
           <Link to="/admin/products/add"><li><span ><i className={`${styles.auth} bi bi-check-circle-fill`} ></i>Upload New Product</span> <span><i className={`${styles.arrow} bi bi-arrow-right-short`}></i></span></li></Link>
           <Link to="/admin/products/manage"><li><span><i className={`${styles.auth} bi bi-check-circle-fill`}></i>Manage Product</span><span><i className={`${styles.arrow} bi bi-arrow-right-short`}></i></span></li></Link>
-          <Link to="/admin"> <li><span><i className={`${styles.auth} bi bi-check-circle-fill`}></i>View order history</span> <span><i className={`${styles.arrow} bi bi-arrow-right-short`}></i></span></li></Link>
+          <Link to="/admin/orders/history"> <li><span><i className={`${styles.auth} bi bi-check-circle-fill`}></i>View order history</span> <span><i className={`${styles.arrow} bi bi-arrow-right-short`}></i></span></li></Link>
           </ul>
         </div>
         <Link to="/admin"><button>Back to Dashboard</button></Link>
