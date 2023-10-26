@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom"; // Si deseas agregar un enlace a otra página
 import { useEffect } from "react";
 import Swal from 'sweetalert2';
-import cart from "../../Images/cart.jpg"
+import cart from "../../Images/cart.jpg";
 
 
 const PaymentSuccessView = () => {
