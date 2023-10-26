@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom"; // Si deseas agregar un enlace a otra página
 import { useEffect } from "react";
-import cart from "../../Images/cart.jpg";
+// import cart from "../../Images/cart.jpg";
 import Swal from 'sweetalert2';
 
 
@@ -15,9 +15,9 @@ const PaymentSuccessView = () => {
       Swal.fire({
         title: 'Failed To Purchase',
         text: 'The purchase was not successful, if an error has occurred please try again',
-        imageUrl: cart, 
-        imageWidth: 150, 
-        imageHeight: 150, 
+        // imageUrl: cart, 
+        // imageWidth: 150, 
+        // imageHeight: 150, 
         confirmButtonText: 'OK',
         confirmButtonColor: '#ff6824',
       });
