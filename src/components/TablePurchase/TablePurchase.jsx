@@ -16,7 +16,8 @@ const TablePurchase = () => {
   const [userData, setUserData] = useState({
     id: "",
   });
-  const { getOrdersByCustomer, getOrderDetail } = PurchaseStore();
+  const { getOrdersByCustomer, getOrderDetail, resetOrderDetail } =
+    PurchaseStore();
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -46,8 +47,8 @@ const TablePurchase = () => {
   };
 
   const handleOrderDetailsClick = (orderId, index) => {
+    resetOrderDetail();
     getOrderDetail(orderId);
-    toggleOrderInfo(index);
   };
 
   const toggleOrderInfo = (index) => {

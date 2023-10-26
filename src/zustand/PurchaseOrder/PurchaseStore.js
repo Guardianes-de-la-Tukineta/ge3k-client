@@ -67,6 +67,13 @@ export const PurchaseStore = create(zukeeper((set) => ({
       }
   },
 
+  resetOrderDetail:() => {
+    set((state) => ({
+      ...state,
+      orderDetail:[],
+    }))
+  },
+
   getOrderDetail: async (orderId) => {
     try {
       const response = await axios.get(`https://ge3k-server.onrender.com/orders/detail/${orderId}`);
