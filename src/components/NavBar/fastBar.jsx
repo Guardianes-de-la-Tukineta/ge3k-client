@@ -33,7 +33,7 @@ const FastBar = () => {
             >
               <Link to="/category/T-shirts">
                 {" "}
-                <span>T-shiddrts</span>
+                <span>T-shirts</span>
               </Link>
               <Link to="/category/Mugs">
                 {" "}
