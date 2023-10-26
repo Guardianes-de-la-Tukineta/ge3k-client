@@ -112,7 +112,7 @@ function FormCreateProfile(props) {
   };
 
   return (
-    <Container>
+    <Container className="d-flex" style={{gap:'5px', flexDirection:'column'}}>
       {editing ? (
         <>
           <div>
@@ -182,24 +182,24 @@ function FormCreateProfile(props) {
           </div>
         </>
       ) : (
-        <>
+        <div className={styles.data}>
           {isLoading ? <h2>Loading..</h2> : " "}
-          <p>Name: {currentCustomer.name}</p>
-          <p>Surname: {currentCustomer.surname}</p>
-          <p>Email: {user.email}</p>
-          <p>Birthdate: {currentCustomer.birthdate}</p>
-          <p>Phone: {currentCustomer.phone}</p>
-          <p>Address: {currentCustomer.address}</p>
-        </>
+          <p>Name:<span>{currentCustomer.name}</span></p>
+          <p>Surname:<span>{currentCustomer.surname}</span></p>
+          <p>Email:<span>{user.email}</span></p>
+          <p>Birthdate:<span>{currentCustomer.birthdate}</span></p>
+          <p>Phone:<span>{currentCustomer.phone}</span></p>
+          <p>Address:<span>{currentCustomer.address}</span></p>
+        </div>
       )}
       {editing ? (
         haveProfile ? (
           <Button
             style={{
               backgroundColor: "#ff6824",
-              marginTop: "15px",
+              width:'100px'
             }}
-            variant="primary"
+            className={styles.buttonBorder}
             onClick={handleSaveClick}
             disabled={Object.values(formErrors).some((error) => error !== "")}
           >
@@ -209,9 +209,9 @@ function FormCreateProfile(props) {
           <Button
             style={{
               backgroundColor: "#ff6824",
-              marginTop: "15px",
+              width:'100px'
             }}
-            variant="primary"
+            className={styles.buttonBorder}
             onClick={handleSaveClick}
             disabled={Object.values(formErrors).some((error) => error !== "")}
           >
@@ -222,9 +222,10 @@ function FormCreateProfile(props) {
         <Button
           style={{
             backgroundColor: "#ff6824",
+            width:'100px'
           }}
+          className={styles.buttonBorder}
           onClick={handleEditClick}
-          className={styles.customButton}
         >
           Update
         </Button>

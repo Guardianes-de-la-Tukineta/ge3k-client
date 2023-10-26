@@ -1,0 +1,14 @@
+.nickName{
+    color: rgb(0, 0, 0);
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: 200;
+}
+
+.nameAndImage{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

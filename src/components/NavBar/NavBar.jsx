@@ -35,15 +35,15 @@ const NavBar = () => {
             <SearchBar />
           </div>
 
-<div className="d-flex">
+<div className="d-flex align-items-center" style={{marginRight:'0.45rem'}}>
           <Link to='/favorites'>
             <div className={`p-2 ml-1`}>
-              <i className="bi bi-heart-fill"></i>
+              <i className="bi bi-heart-fill" style={{fontSize:'1.2rem'}}>  </i>
             </div>
           </Link>
 
           <div onClick={handlerCart} className={`${style.divCart} p-2 ml-1`}>
-            <i className="bi bi-cart-fill"></i>
+            <i className="bi bi-cart-fill"  style={{fontSize:'1.2rem'}}></i>
           </div>
           {/* resumo el componente de inicio de secion y perfil */}
           <SecionComponent />
