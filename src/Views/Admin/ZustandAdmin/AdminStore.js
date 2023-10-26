@@ -7,6 +7,37 @@ export const useAdminStore = create((set) => ({
   categoriesWithProducts: [],
   themeWithProducts: [],
   allOrders: [],
+  totalBilled:'',
+  totalSales:'',
+  registeredUsers:'',
+  laoding:false,
+
+  getStadisticData: async ()=>{
+
+    const salesURL = 'https://ge3k-server.onrender.com/statistics/order';
+    const billedURL = 'https://ge3k-server.onrender.com/statistics/sales';
+    const registeredUsersURL = 'https://ge3k-server.onrender.com/statistics/customer';
+
+    try {
+      const [totalBilled, totalSales, registeredUsers] = await Promise.all([
+        axios.get(salesURL),
+        axios.get(billedURL),
+        axios.get(registeredUsersURL)
+      ]);
+      console.log(totalSales)
+      set((state) => {
+        return {
+          ...state,
+          totalBilled: totalBilled.data, totalSales: totalSales.data[0].totalSales , registeredUsers: registeredUsers.data
+        };
+      });
+
+    } catch (error) {
+      console.log(error);
+    }
+
+  },
+
 
   getCatgoriesAndThemes: async () => {
     const URLAllTheme = "https://ge3k-server.onrender.com/themes";
