@@ -24,7 +24,7 @@ function Legal() {
           <strong>1.2. Proper Use:</strong> You agree to use our Website
           appropriately and in accordance with all applicable laws and
           regulations. You must not use our Website for unlawful or unauthorized
-          purposes.
+          purposes please.
         </p>
       </section>
       <section>
