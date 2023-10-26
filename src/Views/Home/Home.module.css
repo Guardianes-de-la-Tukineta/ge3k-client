@@ -11,24 +11,44 @@
     color: white !important;
 }
 
-.carousel_container {
-  margin: 0 1rem;
-    margin-top: 30px;
-
-  }
-
-
   @media screen and (max-width: 575px) {
     .containerTitle {
     text-align: center;
     }   
-}
+  }
 
+.carousel_container {
+  margin: 0 1rem;
+  margin-top: 30px;
+  display: flex;
+  }
+
+ .cards_carousel{
+  gap: 20px;
+  position: relative;
+
+ }
+
+ .arrowLeft {
+  position: absolute;
+  margin-top: 65px;
+  width: 60px;
+  left: 18px;
+  z-index: 1;
+    
+ }
+
+ .arrowRight {
+  position: absolute;
+  margin-top: 60px;
+  width: 60px;
+  transform: rotate(180deg);
+  
+ }
+
+
+ .buttonRight {
+  width: 10%;
+  margin-left: -20px;
+ }
  
-  
-  
-  
-  
-
-
-
