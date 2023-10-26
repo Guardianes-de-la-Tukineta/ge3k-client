@@ -72,7 +72,7 @@ const Home = () => {
       }
     }
   };
-  l;
+  
 
   return (
     <div>
