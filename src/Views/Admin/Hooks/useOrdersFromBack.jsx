@@ -183,7 +183,6 @@ const useOrdersFromBack = () => {
    
 
       if (pageNum !== 1 || sortedBy.hasOwnProperty("order") || filters.hasOwnProperty("status")) {
-        console.log('lplplplplpl')
         const { data } = await axios.get(URLGet);
         if (sortedBy.order === "Old First") {
           data.sort((a, b) => {
@@ -204,6 +203,7 @@ const useOrdersFromBack = () => {
         }
 
         const ordersFiltered = data.filter((order) => {
+          console.log(`esto es by email ${byEmail}`)
           return (
             (order.status === filters.status ||
               filters.status === "Reset" ||
@@ -211,6 +211,7 @@ const useOrdersFromBack = () => {
             (byEmail ? order.email === byEmail : true)
           );
         });
+        await getOrdersFromBack()
         setDataFronBack(ordersFiltered);
       } else{
         await getOrdersFromBack()

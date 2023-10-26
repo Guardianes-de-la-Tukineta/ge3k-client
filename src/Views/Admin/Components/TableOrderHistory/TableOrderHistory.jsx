@@ -43,7 +43,6 @@ const TableOrderHistory = ({ data, handleCompleteOrder }) => {
               let dateFormated = dateBack.toLocaleDateString();
 
               if (orderSelected === order.id) {
-                console.log('entro acaa')
                 return (
                   <tr key={order.id}>
                     <td>{cutID(order.id)}</td>

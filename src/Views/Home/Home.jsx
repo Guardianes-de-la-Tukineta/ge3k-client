@@ -102,7 +102,6 @@ const Home = () => {
             {sales.slice(paginado[0], paginado[1] + 1).map((product) => (
               <div
                 className="col-md-4"
-                style={{ marginLeft: "-0.5rem", marginRight: "-0.5rem" }}
                 key={product.id}
               >
                 <CardProductSale
@@ -116,14 +115,15 @@ const Home = () => {
               </div>
             ))}
           </div>
-          <div className={style.buttonRight}>
-            <img
+
+          <img
               className={`position-absolute ${style.arrowRight}`}
               src={flecha}
               alt=""
               onClick={() => handlePageChange("right")}
             />
-          </div>
+          
+
         </div>
       </div>
       <div>

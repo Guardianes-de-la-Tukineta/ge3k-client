@@ -1,6 +1,8 @@
 import React from "react";
 import { Container, Row, Col, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import styles from './TeemLading.module.css'
+
 const TeamLanding = () => {
   const teamData = [
     {
@@ -82,31 +84,31 @@ const TeamLanding = () => {
       fluid
       style={{
         backgroundColor: "#f2f2f2",
-        border: "1px solid",
-        borderColor: "black",
-        padding: "3em",
-        paddingBottom: "0em",
-        paddingTop: "2em",
+        padding: "5rem",
+        paddingBottom: "0em"
       }}
     >
-      <Row
-        style={{
-          backgroundColor: "#f2f2f2",
-          padding: "3em",
-          paddingBottom: "0em",
-          paddingTop: "2em",
-        }}
+      <div
+        // style={{
+        //   backgroundColor: "#f2f2f2",
+        //   padding: "3em",
+        //   paddingBottom: "0em",
+        //   paddingTop: "2em",
+        // }}
+        className={styles.header}
       >
-        <h2 className="text-center">Our Developer's Team</h2>
+        <div className={styles.icon}><i className="bi bi-person-fill"></i></div>
+       
+        <h2>Our Development Team</h2>
 
-        <h3 style={{ padding: "3em", paddingBottom: "2em", paddingTop: "2em" }}>
+        <p style={{fontSize:'1.2rem', maxWidth:'750px'}}>
           We are a passionate team of developers and technology enthusiasts.
           Each member brings a unique combination of technical skills and
           creativity, allowing us to tackle challenges innovatively and deliver
           exceptional solutions.
-        </h3>
-      </Row>
-      <Row>
+        </p>
+      </div>
+      <Row className={styles.personContainer}>
         {team.map((member, index) => (
           <Col
             style={{
@@ -128,7 +130,7 @@ const TeamLanding = () => {
                 roundedCircle
                 style={{ width: "150px", height: "150px" }}
               />
-              <h4>{`${member.name} ${member.surname}`}</h4>
+              <h4 className="mt-1">{`${member.name} ${member.surname}`}</h4>
               <p
                 style={{
                   fontStyle: "italic",
@@ -141,7 +143,7 @@ const TeamLanding = () => {
                   xmlns="http://www.w3.org/2000/svg"
                   width="30"
                   height="30"
-                  fill="blue"
+                  fill="#0177b5"
                   class="bi bi-linkedin"
                   viewBox="0 0 16 16"
                 >

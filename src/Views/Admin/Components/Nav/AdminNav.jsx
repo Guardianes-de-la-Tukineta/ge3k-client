@@ -45,7 +45,7 @@ export default function AdminNav({toggleState, handleLogOut}) {
               <span className="icon">
               <i className="bi bi-clipboard-data"></i>
               </span>
-              <span className="title">Order Historyt</span>
+              <span className="title">Order History</span>
           </Link>
           </li>
          

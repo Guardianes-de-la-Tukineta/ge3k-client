@@ -22,7 +22,7 @@ const SearchBar = () => {
   
   useEffect(()=>{
     setFind(inputValue)
-    if(inputValue && inputValue.length  > 2){
+    if(inputValue && inputValue.length  > 1){
     getSuggestionsFromBack(inputValue)}
 
   },[inputValue])
@@ -31,7 +31,7 @@ const SearchBar = () => {
   useEffect(()=>{
     setFind(selectedSuggestion)
 
-    if(selectedSuggestion.length  > 2){
+    if(selectedSuggestion.length  > 1){
     getSuggestionsFromBack(selectedSuggestion)
   }
   },[selectedSuggestion])

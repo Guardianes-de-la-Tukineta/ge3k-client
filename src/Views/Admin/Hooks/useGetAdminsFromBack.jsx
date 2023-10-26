@@ -188,7 +188,6 @@ function useGetAdminsFromBack() {
 
   const handleNewPassword = async(admin, password)=>{
 
-    console.log('entrando al hook')
     setLoading(true);
 
     const URL = "https://ge3k-server.onrender.com/admin/cc/";
