@@ -44,7 +44,7 @@ function Footer() {
             <Col className="col-12 col-lg-3">
               <h5 className={styles.titleH5}>FIND</h5>
               {/* <p>SEARCH</p> */}
-              <SearchBar />
+               <div className={styles.SearchBar} ><SearchBar /></div>
               <h5 className={styles.titleH5}>SOCIAL MEDIA</h5>
 
               <p>

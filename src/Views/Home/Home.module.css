@@ -18,14 +18,14 @@
   }
 
 .carousel_container {
-  margin: 0 1rem;
+  margin: 0;
   margin-top: 30px;
   display: flex;
   }
 
  .cards_carousel{
-  gap: 20px;
   position: relative;
+  justify-content: space-between;
 
  }
 
@@ -33,17 +33,19 @@
   position: absolute;
   margin-top: 65px;
   width: 60px;
-  left: 18px;
-  z-index: 1;
+  left: 15px;
+  z-index: 10;
     
  }
 
  .arrowRight {
+  display: inline;
   position: absolute;
   margin-top: 60px;
   width: 60px;
   transform: rotate(180deg);
-  
+  z-index: 10;
+  right: 3px;
  }
 
 
