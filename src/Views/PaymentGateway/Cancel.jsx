@@ -15,7 +15,7 @@ const PaymentSuccessView = () => {
       Swal.fire({
         title: 'Failed To Purchase',
         text: 'The purchase was not successful, if an error has occurred please try again',
-        imageUrl: cart, 
+        imageUrl: "https://pic.onlinewebfonts.com/thumbnails/icons_567583.svg", 
         imageWidth: 150, 
         imageHeight: 150, 
         confirmButtonText: 'OK',
