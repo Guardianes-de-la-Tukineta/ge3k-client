@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom"; // Si deseas agregar un enlace a otra página
 import { useEffect } from "react";
-import cartCanceled from "../../Images/cartCanceled.jpg";
+import cart from "../../Images/cart.jpg";
 import Swal from 'sweetalert2';
 
 
@@ -15,7 +15,7 @@ const PaymentSuccessView = () => {
       Swal.fire({
         title: 'Failed To Purchase',
         text: 'The purchase was not successful, if an error has occurred please try again',
-        imageUrl: cartCanceled, 
+        imageUrl: cart, 
         imageWidth: 150, 
         imageHeight: 150, 
         confirmButtonText: 'OK',
@@ -27,8 +27,6 @@ const PaymentSuccessView = () => {
     
   return (
     <>
-
-    
     <div  className="text-center my-5">
       <h1>¡The purchase has been canceled!</h1>
       <p className="my-5">Please try again your purchase if was  an error</p>
