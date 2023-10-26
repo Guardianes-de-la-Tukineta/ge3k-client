@@ -72,7 +72,6 @@ const Home = () => {
       }
     }
   };
-  
 
   return (
     <div>
@@ -100,10 +99,7 @@ const Home = () => {
           />
           <div className={`row ${style.cards_carousel}`}>
             {sales.slice(paginado[0], paginado[1] + 1).map((product) => (
-              <div
-                className="col-md-4"
-                key={product.id}
-              >
+              <div className="col-md-4" key={product.id}>
                 <CardProductSale
                   image={product.image}
                   name={product.name}
@@ -115,15 +111,15 @@ const Home = () => {
               </div>
             ))}
           </div>
-
-          <img
+          {/* no eliminar, es el estilo de la flecha */}
+          <div className={style.buttonRight}>
+            <img
               className={`position-absolute ${style.arrowRight}`}
               src={flecha}
               alt=""
               onClick={() => handlePageChange("right")}
             />
-          
-
+          </div>
         </div>
       </div>
       <div>
