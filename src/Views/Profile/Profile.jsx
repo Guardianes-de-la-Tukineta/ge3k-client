@@ -23,7 +23,8 @@ function Profile() {
     paymentMethod: "",
     Category: "",
   };
-  console.log("profile".currentCustomer);
+
+
   return (
     <div className={style.formContainer}>
       {isAuthenticated ? (
@@ -54,7 +55,7 @@ function Profile() {
           )}
         </div>
       ) : (
-        <h2>No Authenticated User. Please register</h2>
+        <h2 style={{marginTop:'2rem', textAlign:'center'}}>No authenticated user. Please login or register</h2>
       )}
     </div>
   );

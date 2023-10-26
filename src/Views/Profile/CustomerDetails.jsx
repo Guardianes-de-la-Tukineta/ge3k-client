@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import FormCreateProfile from "./FormCreateProfile";
+import style from './CustomerDetails.module.css'
 
 function CustomerDetails(props) {
   const { currentCustomer, user, haveProfile } = props;
@@ -8,28 +9,19 @@ function CustomerDetails(props) {
   return (
     <Container>
       <Row
-        style={{
-          //   backgroundColor: "#dee2e6",
-          //   border: "2px black solid",
-          borderRadius: "10px",
-          padding: "10px",
-          margin: "10px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems:'center'
-        }}
+        className={style.customerContainer}
       >
         <Col className="text-center">
-          <h1>{user.nickname}</h1>
+          <div className={style.nameAndImage} >
+        <span  className={style.nickName} >{user.nickname}</span>
           <div>
             {user.email_verified ? (
               <img
                 src={user.picture}
                 className="rounded-circle"
                 style={{
-                  maxWidth: "200px",
-                  width: "100%",
-                  border: "solid 5px orangered",
+                  width: "120%",
+                  border: "solid 2px black",
                 }}
               />
             ) : (
@@ -38,31 +30,21 @@ function CustomerDetails(props) {
                 alt={user.name}
                 className="rounded-circle"
                 style={{
-                  maxWidth: "200px",
-                  width: "100%",
-                  border: "solid 5px orangered",
+                  width: "120px",
+                  border: "solid 2px black",
                 }}
               />
             )}
           </div>
+          </div>
         </Col>
         <Col
-          style={{
-            // backgroundColor: "#dee2e6",
-            border: "2px black solid",
-            borderRadius: "10px",
-            padding: "10px",
-            margin: "10px",
-            display: "flex",
-            justifyContent: "center",
-          }}
         >
           <FormCreateProfile
             currentCustomer={currentCustomer}
             user={user}
             haveProfile={haveProfile}
           />
-          {/* <h2>create profile</h2> */}
         </Col>
       </Row>
     </Container>
