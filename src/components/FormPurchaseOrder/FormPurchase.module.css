@@ -52,3 +52,9 @@
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
     
 }
+
+@media (max-width: 768px) {
+  .logo {
+      display: none; /* Oculta el logo en pantallas pequeñas */
+  }
+}
