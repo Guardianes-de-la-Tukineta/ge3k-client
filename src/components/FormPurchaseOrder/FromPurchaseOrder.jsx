@@ -41,6 +41,7 @@ const FormPurchaseOrder = () => {
     CreatedOrder({
       customerId: authenticatedCustomer.id,
       base_url: "https://ge3k-client-team.vercel.app",
+      // base_url: "http://localhost:5173",
       name: userData.name,
       surname: userData.surname,
       birthdate: userData.birthdate,

@@ -5,11 +5,18 @@ import { cartStore } from '../../zustand/cartStore/cartStore';
 import { useNavigate } from 'react-router-dom';
 import { useAuth0 } from "@auth0/auth0-react";
 
+import { useLocation } from 'react-router-dom';
+
 const CartColumn = () => {
+
+    const location = useLocation();
     //hooks y estados    
     const {cart,subTotal,getSubTotal,updateLocalStorage,visibility,setVisibility} = cartStore() // estados y variables de zustand       
     const navigate=useNavigate()
     const {isAuthenticated } = useAuth0() // para saber si estoy logueado
+
+    const isCancelPage = location.pathname === "/cancel";  //oculta la barra del carrito mientras cancel está renderizado
+    const shouldShowCartColumn = cart.length > 0 && visibility && !isCancelPage;
 
     useEffect(()=>{  
         if(!isAuthenticated) getSubTotal() // obtenemos el subtotal para mostrar si no esta autenticado   
@@ -26,7 +33,8 @@ const CartColumn = () => {
     }
     
     return (
-        <div className={`${style.cartColumn} ${(cart.length>0 && visibility)? style.fadeIn : style.fadeOut}`}>
+        <div className={`${style.cartColumn} ${(shouldShowCartColumn) ? style.fadeIn : style.fadeOut}`}>
+        {/* // <div className={`${style.cartColumn}   ${(cart.length>0 && visibility)? style.fadeIn : style.fadeOut}`}> */}
             <strong className='text-center m-0'>
                 Subtotal
                 <br></br> 
