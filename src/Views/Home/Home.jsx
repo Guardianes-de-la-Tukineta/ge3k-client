@@ -107,6 +107,7 @@ const Home = () => {
                   price={product.price}
                   id={product.id}
                   description={product.description}
+                  discount={product.discount}
                 />
               </div>
             ))}

@@ -71,7 +71,7 @@ const CartItem = ({ name, price, image, id: idProduct,discount }) => {
 
                 <div className='text-center'>
                     {discount ? ( //si existe descuento hacemos la multiplicación
-                        <span>{`$${price - (price * (discount / 100))}`}</span>
+                        <span>{`$${(price - (price * (discount / 100))).toFixed(2)}`}</span>
                     ) : (
                         <span>{`$${price}`}</span>
                     )}
