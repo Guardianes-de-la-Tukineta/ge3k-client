@@ -31,6 +31,7 @@ const CardContainer = ({products}) => {
                         price={product.price}
                         image={product.image}
                         id={product.id}
+                        discount={product.discount}
                     />
                 ))
             }

@@ -7,7 +7,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { customerStore } from '../../zustand/customerStore/customerStore';
 import { favoriteStore } from '../../zustand/favoriteStore/favoriteStore';
 
-const CardProduct = ({ name, description, id, image, price }) => {
+const CardProduct = ({ name, description, id, image, price,discount }) => {
     //Estados
     const [isFav, setIsFav] = useState(false); // para cambiar el estado de fav y no fav
     const [isFavDisabled, setIsFavDisabled] = useState(false); // para deshabilitar momentaneamente el boton de fav
@@ -38,7 +38,7 @@ const CardProduct = ({ name, description, id, image, price }) => {
     }
     const handlerCart = (e) => {
         e.stopPropagation(); // evita q el click se propague al elemento padre        
-        addProductToCart(isAuthenticated || false,currentCustomer.id,{ name, id, image, price })
+        addProductToCart(isAuthenticated || false,currentCustomer.id,{ name, id, image, price,discount })
         setVisibility(true)
     }
     const handlerNavigate = () => {        

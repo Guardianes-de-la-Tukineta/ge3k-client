@@ -20,8 +20,13 @@
     --bs-btn-hover-bg: #ff6824 !important;
     --bs-btn-border-color:#ff6824 !important;
     color: #ffff !important;
-    height: 30px !important;
-    font-size: 16px !important;
+    height: 45px !important;
+    font-size: 15px !important;
+}
+.buttonClear{  
+    color: #ffff !important;
+    height: 45px !important;   
+    font-size: 15px !important;
 }
   
 /* efectos de animacion */
@@ -32,7 +37,7 @@
 .fadeOut {
 animation: fadeOut 0.8s ease-in-out forwards;
 }
-  
+
 @keyframes fadeIn {
 from {
     opacity: 0;    

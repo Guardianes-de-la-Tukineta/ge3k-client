@@ -128,13 +128,24 @@ export const cartStore = create(zukeeper((set) => ({
             console.log(error);
         }
     },
-    //eliminar el card del local
-    deleteCart: ()=>{  
-        console.log("borre el cart zustand");
-        set(prevState => ({
-            ...prevState,
-            cart: []
-        }))  
+    //limpia el card del local y back
+    deleteCart: async(isAuthenticated,idCustomer)=>{  
+        try {                
+            set(prevState => ({
+                ...prevState,
+                cart: [],
+                subTotal:0
+            }))
+            //borrar del back
+            if(isAuthenticated) { 
+                console.log(idCustomer);
+                const URL='https://ge3k-server.onrender.com/'
+                const {data} = await axios.delete(`${URL}carts?customerId=${idCustomer}&productId=ALL`)                
+                console.log(data);                
+            }    
+        } catch (error) {
+            console.log(error);
+        }
     },
     //eliminar producto de cart
     deleteProductCart: async(isAuthenticated, idCustomer,idproduct) => {
@@ -223,6 +234,7 @@ export const cartStore = create(zukeeper((set) => ({
     //obtener SubTotal en el precio del carrito
     getSubTotal: (isAuthenticated) => {
         if(!isAuthenticated){  // mientras no este autenticado, trabajamos con esta logica
+            console.log('hola');
             const cart = cartStore.getState().cart;        
             const subTotal = cart.reduce((accumulator, item) => { // calculamos el subtotal de los precios en el carrito
                 const price = item.product.price;
