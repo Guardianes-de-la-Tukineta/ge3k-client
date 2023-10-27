@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import styles from '../../Views/Admin/Components/ContactForm/ContactForm.module.css'
+import styles from './Error.module.css'
 
 const Error404 = () => {
   return (
