@@ -6,11 +6,7 @@ const TableOrderDetail = ({data}) => {
 
 
   function limitarADosDecimales(numero) {
-    if (typeof numero === 'number') {
-      return numero % 1 === 0 ? numero.toFixed(2) : numero;
-    } else {
-      return parseFloat(numero).toFixed(2);
-    }
+    return Number(numero).toFixed(2)
   }
 
   
