@@ -5,7 +5,7 @@ import { useStore } from "zustand";
 import { PurchaseStore } from "../../zustand/PurchaseOrder/PurchaseStore.js";
 import { customerStore } from "../../zustand/customerStore/customerStore";
 import axios from "axios";
-import { cartStore } from "../../zustand/cartStore/cartStore.js"
+import { cartStore } from "../../zustand/cartStore/cartStore.js";
 
 const Bill = () => {
   const { deleteCart } = cartStore(); //estado de Zustand del carrito
@@ -40,7 +40,7 @@ const Bill = () => {
       // Invoca la función asíncrona inmediatamente
       try {
         const response = await axios.post(
-          "https://ge3k-server.onrender.com/send-email/",
+          "https://nodemail-production-704c.up.railway.app/send-email",
           msj,
           {
             headers: {
@@ -90,20 +90,17 @@ const Bill = () => {
   const stateOrder = async () => {
     try {
       console.log("Estoy actualizando estado de order");
-      const url = await fetch(
-        "https://ge3k-server.onrender.com/orders",
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ stripeOrderId }),
-        }
-      );
+      const url = await fetch("https://ge3k-server.onrender.com/orders", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ stripeOrderId }),
+      });
     } catch (error) {
       console.error("Error sending information for upgrade pay status");
     }
-  }
+  };
 
   useEffect(() => {
     getBill();

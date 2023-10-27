@@ -64,8 +64,8 @@ function FormCreateProfile(props) {
   const handleSaveClick = async () => {
     try {
       if (haveProfile) {
-        sendEmail(msjUpd);
         await updateCustomer(updatedCustomer, user.email);
+        sendEmail(msjUpd);
       } else {
         sendEmail(msjCreated);
         await createCustomer(updatedCustomer);
