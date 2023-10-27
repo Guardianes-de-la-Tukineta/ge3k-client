@@ -2,6 +2,7 @@ import { create } from "zustand"; // crear estados globales y actions
 import zukeeper from 'zukeeper' //poder usar la extension de chrome para zustand("zustand dev-tools")
 import axios from "axios";
 import React from "react";
+import { useEffect } from "react";
 
 const sessionStorage = window.sessionStorage;
 
@@ -12,6 +13,7 @@ export const PurchaseStore = create(zukeeper((set) => ({
     
 
     CreatedOrder: async (customerData) => {
+        console.log(customerData);
         try {
           const response = await axios.post("https://ge3k-server.onrender.com/stripe-session", customerData);
           if (response.status === 200) { 
@@ -99,7 +101,5 @@ export const PurchaseStore = create(zukeeper((set) => ({
     
       
 })));
-
-
 
 window.store = PurchaseStore;

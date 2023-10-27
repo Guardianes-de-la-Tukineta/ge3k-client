@@ -1,11 +1,14 @@
 import React from "react";
 import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom"; // Si deseas agregar un enlace a otra página
+import { Link, useNavigate } from "react-router-dom"; // Si deseas agregar un enlace a otra página
 import { useEffect } from "react";
 import Swal from 'sweetalert2';
-
+import { cartStore } from "../../zustand/cartStore/cartStore";
 
 const PaymentSuccessView = () => {
+
+  const navigate = useNavigate();
+  const { deleteCart } = cartStore(); //nos traemos estados de zustand
 
   useEffect(()=> {
     //shows after .6 second
@@ -23,6 +26,17 @@ const PaymentSuccessView = () => {
     },600);
     return () => clearTimeout(timer);
   },[])
+
+  
+  const reloadPage = () => {
+    navigate("/");
+    window.location.reload();
+  }
+
+  const cancelPurchase = () => {
+    deleteCart();
+    reloadPage();
+  }
     
   return (
     <>
@@ -30,8 +44,12 @@ const PaymentSuccessView = () => {
       <h1>¡The purchase has been canceled!</h1>
       <p className="my-5">Please try again your purchase if was  an error</p>
       
-      <Link to="/">
-        <Button style={{borderRadius:'10px', padding:'10px 5px', margin:'0 3px', backgroundColor:'#ff6824', border:'none', fontWeight:'600'}} >Volver a la página de inicio</Button>
+      <Link to="/PurchaseOrder">
+        <Button style={{borderRadius:'10px', padding:'10px 5px', margin:'0 3px', backgroundColor:'#ff6824', border:'none', fontWeight:'600'}} onClick={reloadPage} >Try Again Your Purchase</Button>
+      </Link>
+
+      <Link to="/PurchaseOrder">
+        <Button style={{borderRadius:'10px', padding:'10px 5px', margin:'0 3px', backgroundColor:'#ff6824', border:'none', fontWeight:'600'}} onClick={cancelPurchase} >Cancel the Purchase</Button>
       </Link>
 
     </div>
