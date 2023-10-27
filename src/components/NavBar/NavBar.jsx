@@ -9,12 +9,18 @@ import { cartStore } from "../../zustand/cartStore/cartStore";
 import FastBar from "./fastBar";
 import SecionComponent from "./SecionComponent";
 import MenuMobile from "../MenuMobile/MenuMobile";
+import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
-  const { setVisibility } = cartStore(); // llamamos de zustand cart
+  const { setVisibility, cart } = cartStore(); // llamamos de zustand cart
+  const navigate = useNavigate();
 
   const handlerCart = () => {
-    setVisibility();
+    if (cart.length === 0) {
+      navigate("/PurchaseOrder");
+    } else {
+      setVisibility();
+    }
   };
 
   return (
@@ -35,26 +41,29 @@ const NavBar = () => {
             <SearchBar />
           </div>
 
-<div className="d-flex align-items-center" style={{marginRight:'0.45rem'}}>
-          <Link to='/favorites'>
-            <div className={`p-2 ml-1`}>
-              <i className="bi bi-heart-fill" style={{fontSize:'1.2rem'}}>  </i>
-            </div>
-          </Link>
+          <div
+            className="d-flex align-items-center"
+            style={{ marginRight: "0.45rem" }}
+          >
+            <Link to="/favorites">
+              <div className={`p-2 ml-1`}>
+                <i className="bi bi-heart-fill" style={{ fontSize: "1.2rem" }}>
+                  {" "}
+                </i>
+              </div>
+            </Link>
 
-          <div onClick={handlerCart} className={`${style.divCart} p-2 ml-1`}>
-            <i className="bi bi-cart-fill"  style={{fontSize:'1.2rem'}}></i>
+            <div onClick={handlerCart} className={`${style.divCart} p-2 ml-1`}>
+              <i className="bi bi-cart-fill" style={{ fontSize: "1.2rem" }}></i>
+            </div>
+            {/* resumo el componente de inicio de secion y perfil */}
+            <SecionComponent />
           </div>
-          {/* resumo el componente de inicio de secion y perfil */}
-          <SecionComponent />
-          </div>
-     
         </Container>
 
         <div className="w-100 d-flex align-items-center justify-content-between d-md-none">
-    
           <SearchBar />
-          <MenuMobile/>
+          <MenuMobile />
         </div>
       </Navbar>
       {/* { resumiendo el codigo en otro compnente} */}
