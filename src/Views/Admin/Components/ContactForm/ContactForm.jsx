@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import axios from "axios";
 
 const ContactForm = () => {
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+
   const {
     control,
     reset,
@@ -27,7 +29,7 @@ const ContactForm = () => {
       // Invoca la función asíncrona inmediatamente
       try {
         const response = await axios.post(
-          "https://ge3k-server.onrender.com/send-email/",
+          "https://nodemail-production-704c.up.railway.app/send-email",
           msj,
           {
             headers: {
@@ -52,6 +54,9 @@ const ContactForm = () => {
 
   const onSubmit = (data) => {
     sendEmail(data);
+    console.log("limpio el form");
+    reset();
+    setShowSuccessMessage(true);
   };
 
   const isButtonDisabled = () => {
@@ -59,6 +64,10 @@ const ContactForm = () => {
     // Comprueba si todos los campos requeridos están llenos
     return Object.keys(errors).length > 0;
   };
+
+  if (showSuccessMessage) {
+    return <div style={{ color: "green" }}>Contact successful</div>;
+  }
 
   return (
     <Container style={{ padding: "2em" }}>
@@ -186,6 +195,9 @@ const ContactForm = () => {
           </Col>
         </Row>
       </Form>
+      {/* {showSuccessMessage && (
+        <div style={{ color: "green" }}>Contact successful</div>
+      )} */}
     </Container>
   );
 };

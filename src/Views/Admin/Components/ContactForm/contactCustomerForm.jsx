@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
-import { customerStore} from "../../../../zustand/customerStore/customerStore";
+import { customerStore } from "../../../../zustand/customerStore/customerStore";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import style from './contactCustomerForm.module.css'
+import style from "./contactCustomerForm.module.css";
 import Spinner from "react-bootstrap/Spinner";
 import Alert from "react-bootstrap/Alert";
 
 const ContactCustomerForm = () => {
-
-  const [error, setError] = useState(false)
-  const [message, setMessage] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(false);
+  const [message, setMessage] = useState(false);
+  const [loading, setLoading] = useState(false);
   let navigate = useNavigate();
-  
+
   const { id } = useParams();
   //   getCustomerById(id);
   console.log("contact customer", id);
@@ -54,44 +53,41 @@ const ContactCustomerForm = () => {
 
   const send = async () => {
     let msj = {
-      to: formData.email,
+      to: email,
       subject: "contact from ge3khub",
       html: formData.message,
     };
     console.log(msj);
 
-
-      // Invoca la función asíncrona inmediatamente
-      try {
-        const response = await axios.post(
-          "https://ge3k-server.onrender.com/send-email",
-          msj,
-          {
-            headers: {
-              "Content-Type": "application/json", // Indica que estás enviando datos en formato JSON
-            },
-          }
-        );
-        // Verifica si la solicitud fue exitosa y obtén los datos de la respuesta
-        if (response.status >= 200 && response.status < 300) {
-          window.alert("mensaje enviado");
-          setLoading(false)
-        } else {
-          // Maneja el caso en el que la solicitud no fue exitosa
-          console.error("La solicitud no fue exitosa:", response.status);
-          setLoading(false)
-  
+    // Invoca la función asíncrona inmediatamente
+    try {
+      const response = await axios.post(
+        "https://nodemail-production-704c.up.railway.app/send-email",
+        msj,
+        {
+          headers: {
+            "Content-Type": "application/json", // Indica que estás enviando datos en formato JSON
+          },
         }
-      } catch (error) {
-        // Maneja los errores de la solicitud
-        setLoading(false)
-        setError('Error. This email not envied')
-        setTimeout(() => {
-          setError(false)
-        }, 5000);
-        throw new Error()
+      );
+      // Verifica si la solicitud fue exitosa y obtén los datos de la respuesta
+      if (response.status >= 200 && response.status < 300) {
+        // window.alert("mensaje enviado");
+        setLoading(false);
+      } else {
+        // Maneja el caso en el que la solicitud no fue exitosa
+        console.error("La solicitud no fue exitosa:", response.status);
+        setLoading(false);
       }
-
+    } catch (error) {
+      // Maneja los errores de la solicitud
+      setLoading(false);
+      setError("Error. This email not envied");
+      setTimeout(() => {
+        setError(false);
+      }, 5000);
+      throw new Error();
+    }
   };
 
   const handleChange = (e) => {
@@ -100,70 +96,87 @@ const ContactCustomerForm = () => {
   };
 
   const handleSubmit = async (e) => {
-    setLoading(true)
+    setLoading(true);
     e.preventDefault();
 
     try {
-     await send();
+      await send();
       setFormData({
         name: currentCustomer.name + " " + currentCustomer.surname,
         email: email,
         message: "",
       });
-      setMessage('Email sent successfully')
+      setMessage("Email sent successfully");
       setTimeout(() => {
-        setMessage(false)
+        setMessage(false);
       }, 3500);
-    } catch (error) {
-      
-    }
+    } catch (error) {}
   };
 
   return (
-    <div className='container-fluid d-flex flex-column flex-grow-1 justify-content-around w-100' style={{paddingBottom:'1rem', marginTop:'0.75rem'}}>
-       <div
-      className="flex-grow-1 m-4 d-flex flex-column justify-content-center align-items-center text-center rounded mt-2"
-      style={{ backgroundColor: "#dbdbdb", height: "100%" }}
+    <div
+      className="container-fluid d-flex flex-column flex-grow-1 justify-content-around w-100"
+      style={{ paddingBottom: "1rem", marginTop: "0.75rem" }}
     >
-      
-      
- 
-      <div className={`container-fluid`} style={{ padding: "1rem 2.4rem", borderRadius:' 4px' }}>
-
-      
-      <div className={`row ${style.rowContainer}`}>
-      
-          <div  className='d-flex' style={{margin:' 0 auto'}}>
-      {error && (
-      <div style={{margin:'1rem 0  -30px 0'}} >
-        <Alert
-          key={"danger"}
-          variant={"danger"}
-          style={{ height: "2.5rem", display: "flex", alignItems: "center" }}
+      <div
+        className="flex-grow-1 m-4 d-flex flex-column justify-content-center align-items-center text-center rounded mt-2"
+        style={{ backgroundColor: "#dbdbdb", height: "100%" }}
+      >
+        <div
+          className={`container-fluid`}
+          style={{ padding: "1rem 2.4rem", borderRadius: " 4px" }}
         >
-          {error}
-        </Alert> </div>
-      )}
-      {message && (
-        <div style={{margin:'1rem 0  -30px 0'}} >  <Alert
-          key={"success"}
-          variant={"success"}
-          style={{ height: "2.5rem", display: "flex", alignItems: "center" }}
-        >
-          {message}
-        </Alert></div>
-      )}
-      
-      
-      </div>
-      <div className="d-flex align-items-center flex-wrap">
-            <button onClick={()=>navigate(-1)} className={style.resetButton}>
-            <i className="bi bi-arrow-left-circle" style={{marginRight:'5px'}}></i> Back
-            </button> 
-          </div>
-            <Form onSubmit={handleSubmit} className={`col-md-7 ${style.AddProductForm}`}>
-        
-            <h4>CONTACT BY EMAIL</h4>
+          <div className={`row ${style.rowContainer}`}>
+            <div className="d-flex" style={{ margin: " 0 auto" }}>
+              {error && (
+                <div style={{ margin: "1rem 0  -30px 0" }}>
+                  <Alert
+                    key={"danger"}
+                    variant={"danger"}
+                    style={{
+                      height: "2.5rem",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    {error}
+                  </Alert>{" "}
+                </div>
+              )}
+              {message && (
+                <div style={{ margin: "1rem 0  -30px 0" }}>
+                  {" "}
+                  <Alert
+                    key={"success"}
+                    variant={"success"}
+                    style={{
+                      height: "2.5rem",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    {message}
+                  </Alert>
+                </div>
+              )}
+            </div>
+            <div className="d-flex align-items-center flex-wrap">
+              <button
+                onClick={() => navigate(-1)}
+                className={style.resetButton}
+              >
+                <i
+                  className="bi bi-arrow-left-circle"
+                  style={{ marginRight: "5px" }}
+                ></i>{" "}
+                Back
+              </button>
+            </div>
+            <Form
+              onSubmit={handleSubmit}
+              className={`col-md-7 ${style.AddProductForm}`}
+            >
+              <h4>CONTACT BY EMAIL</h4>
               <Form.Group>
                 <Form.Label>Name:</Form.Label>
                 <Form.Control
@@ -199,19 +212,15 @@ const ContactCustomerForm = () => {
                 />
               </Form.Group>
               <Button variant="primary" type="submit">
-              {!loading ? (
-              "Sumbit"
-            ) : (
-              <Spinner animation="border" variant="light" />
-            )}
+                {!loading ? (
+                  "Sumbit"
+                ) : (
+                  <Spinner animation="border" variant="light" />
+                )}
               </Button>
-         
-   
-
             </Form>
-            </div>
-    </div>
-   
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -6,7 +6,7 @@ const sendEmail = (msj) => {
       // Invoca la función asíncrona inmediatamente
       try {
         const response = await axios.post(
-          "https://ge3k-server.onrender.com/send-email/",
+          "https://nodemail-production-704c.up.railway.app/send-email",
           msj,
           {
             headers: {
