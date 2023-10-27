@@ -13,7 +13,7 @@ const PaymentSuccessView = () => {
   const order = purchaseStore.order;
 
   useEffect(() => {
-    const delay = 5000; // 5 segundos (en milisegundos)
+    const delay = 4000; // 4 segundos (en milisegundos)
     deleteCart();
     const timeoutId = setTimeout(() => {
       navigate("/bill"); // Redirige al usuario a la página de factura
