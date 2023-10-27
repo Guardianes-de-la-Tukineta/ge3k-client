@@ -55,15 +55,19 @@ function ProductDetails() {
     if (productDetails.id && favorites.findIndex((elem) => elem.id === productDetails.id) !== -1) { //si esta en favoritos pintamos el corazon       
       setIsFav(true)
     }
+    setDisabledButtonWrite(false)
     if (productDetails.Ratings && productDetails.Ratings.length > 0) {
       const promedioRat = (productDetails.Ratings.reduce((a, b) => a + b.rating, 0)) / productDetails.Ratings.length
       setPromedioRating(promedioRat)
       productDetails.Ratings.map((elem)=>{
-        if(currentCustomer.id === elem.CustomerId)setDisabledButtonWrite(true)
-        else setDisabledButtonWrite(false)
+        if(currentCustomer.id === elem.CustomerId){
+          console.log('hola');
+          setDisabledButtonWrite(true)
+          return
+        }
       })
     }
-    console.log(currentCustomer);    
+    console.log(currentCustomer,productDetails);    
   }, [favorites, productDetails, promedioRating, setComments, comments]);
 
   // const productDetail = useSelector((state) => state.detail);
