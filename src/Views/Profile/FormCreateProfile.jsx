@@ -64,11 +64,11 @@ function FormCreateProfile(props) {
   const handleSaveClick = async () => {
     try {
       if (haveProfile) {
-        await updateCustomer(updatedCustomer, user.email);
         sendEmail(msjUpd);
+        await updateCustomer(updatedCustomer, user.email);
       } else {
-        await createCustomer(updatedCustomer);
         sendEmail(msjCreated);
+        await createCustomer(updatedCustomer);
       }
 
       setIsLoading(false);
@@ -112,7 +112,10 @@ function FormCreateProfile(props) {
   };
 
   return (
-    <Container className="d-flex" style={{gap:'5px', flexDirection:'column'}}>
+    <Container
+      className="d-flex"
+      style={{ gap: "5px", flexDirection: "column" }}
+    >
       {editing ? (
         <>
           <div>
@@ -183,12 +186,24 @@ function FormCreateProfile(props) {
       ) : (
         <div className={styles.data}>
           {isLoading ? <h2>Loading..</h2> : " "}
-          <p>Name: <span>{currentCustomer.name}</span></p>
-          <p>Surname: <span>{currentCustomer.surname}</span></p>
-          <p>Email: <span>{user.email}</span></p>
-          <p>Birthdate: <span>{currentCustomer.birthdate}</span></p>
-          <p>Phone: <span>{currentCustomer.phone}</span></p>
-          <p>Address: <span>{currentCustomer.address}</span></p>
+          <p>
+            Name: <span>{currentCustomer.name}</span>
+          </p>
+          <p>
+            Surname: <span>{currentCustomer.surname}</span>
+          </p>
+          <p>
+            Email: <span>{user.email}</span>
+          </p>
+          <p>
+            Birthdate: <span>{currentCustomer.birthdate}</span>
+          </p>
+          <p>
+            Phone: <span>{currentCustomer.phone}</span>
+          </p>
+          <p>
+            Address: <span>{currentCustomer.address}</span>
+          </p>
         </div>
       )}
       {editing ? (
@@ -196,7 +211,7 @@ function FormCreateProfile(props) {
           <Button
             style={{
               backgroundColor: "#ff6824",
-              width:'100px'
+              width: "100px",
             }}
             className={styles.buttonBorder}
             onClick={handleSaveClick}
@@ -208,7 +223,7 @@ function FormCreateProfile(props) {
           <Button
             style={{
               backgroundColor: "#ff6824",
-              width:'100px'
+              width: "100px",
             }}
             className={styles.buttonBorder}
             onClick={handleSaveClick}
@@ -221,7 +236,7 @@ function FormCreateProfile(props) {
         <Button
           style={{
             backgroundColor: "#ff6824",
-            width:'100px'
+            width: "100px",
           }}
           className={styles.buttonBorder}
           onClick={handleEditClick}

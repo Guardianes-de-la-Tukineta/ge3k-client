@@ -26,7 +26,7 @@ const sendEmail = (msj) => {
         console.log("error. This email not envied");
       }
     })();
-    reset();
+    
   };
 
   export default sendEmail;
