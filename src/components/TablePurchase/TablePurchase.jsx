@@ -5,6 +5,7 @@ import { customerStore } from "../../zustand/customerStore/customerStore";
 import style from "./TablePurchase.module.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
+import PaginationAdminOrders from "../../Views/Admin/Components/PaginationAdminOrders/PaginationAdminOrders";
 
 const TablePurchase = () => {
   const [showCartInfo, setShowCartInfo] = useState(false);
@@ -18,6 +19,38 @@ const TablePurchase = () => {
   });
   const { getOrdersByCustomer, getOrderDetail, resetOrderDetail } =
     PurchaseStore();
+  const itemsPerPage = 5; // Cantidad de elementos por página
+  const [page, setPage] = useState(1);
+
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  const visibleOrders = ordersByCustomer.slice(startIndex, endIndex);
+
+  const totalPages = Math.ceil(ordersByCustomer.length / itemsPerPage);
+
+  const handlePageChange = (newPage) => {
+    setPage(newPage);
+  };
+
+  // function OrdersTable({ ordersByCustomer }) {
+  // const itemsPerPage = 10; // Cantidad de elementos por página
+  // const [page, setPage] = useState(1);
+
+  // // Función para calcular el índice de inicio y fin de las filas a mostrar
+  // const startIndex = (page - 1) * itemsPerPage;
+  // const endIndex = startIndex + itemsPerPage;
+
+  // // Filtra las filas a mostrar en función del número de página actual
+  // const visibleOrders = ordersByCustomer.slice(startIndex, endIndex);
+
+  // // Calcula el número total de páginas
+  // const totalPages = Math.ceil(ordersByCustomer.length / itemsPerPage);
+
+  // // Función para manejar el cambio de página
+  // const handlePageChange = (newPage) => {
+  //   setPage(newPage);
+  // };
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -164,7 +197,7 @@ const TablePurchase = () => {
           </tr>
         </thead>
         <tbody>
-          {ordersByCustomer.map((order, index) => (
+          {visibleOrders.map((order, index) => (
             <React.Fragment key={index}>
               <tr>
                 <td>{index + 1}</td>
@@ -255,6 +288,13 @@ const TablePurchase = () => {
           ))}
         </tbody>
       </table>
+      <div>
+        <PaginationAdminOrders
+          page={page}
+          setPage={handlePageChange}
+          totalPages={totalPages}
+        />
+      </div>
     </div>
   );
 };
