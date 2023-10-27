@@ -2,6 +2,7 @@ import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import axios from "axios";
+import styles from './contactForm.module.css'
 
 const ContactForm = () => {
   const {
@@ -178,10 +179,9 @@ const ContactForm = () => {
             <Button
               type="submit"
               disabled={isButtonDisabled()}
-              className="mt-3"
-              style={{ backgroundColor: "orangered" }}
+              className={styles.button}
             >
-              Enviar
+              Submit
             </Button>
           </Col>
         </Row>
