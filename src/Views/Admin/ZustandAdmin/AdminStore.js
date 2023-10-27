@@ -24,10 +24,12 @@ export const useAdminStore = create((set) => ({
         axios.get(billedURL),
         axios.get(registeredUsersURL)
       ]);
+
       set((state) => {
         return {
           ...state,
-          totalBilled: totalBilled.data, totalSales: totalSales.data[0].totalSales , registeredUsers: registeredUsers.data
+          totalBilled: totalBilled.data, totalSales: totalSales.data[0]["OrderDetails.totalAmount"]
+          , registeredUsers: registeredUsers.data
         };
       });
 
