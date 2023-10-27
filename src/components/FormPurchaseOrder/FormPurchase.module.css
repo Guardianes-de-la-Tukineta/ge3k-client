@@ -1,3 +1,4 @@
+
 .buttonConfirm {
   width: 200px;
   height: 40px;
@@ -67,6 +68,18 @@ font-weight: 500;
 box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
 }
 
+.buttonCancel {
+background-Color: #FC6522;
+border: none;
+color: white;
+border-radius: 30px;
+width: 100px;
+height: 40px;
+font-weight: 500;
+box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+margin-left: 10px;
+}
+
 .logo {
   width: 120%;
   margin-left: 60%;
@@ -91,3 +104,7 @@ border: 2px solid gray !important;
 color: #636161 !important;
 }
 
+.error{
+  color:#ff6824;
+  background-color: rgba(240, 248, 255, 0.63);
+}
