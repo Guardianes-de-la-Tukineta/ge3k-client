@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Row, Col, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import styles from './TeemLading.module.css'
+import styles from "./TeemLading.module.css";
 
 const TeamLanding = () => {
   const teamData = [
@@ -17,7 +17,7 @@ const TeamLanding = () => {
       name: "Cristian",
       surname: "Guzman",
       linkedin: "https://www.linkedin.com/in/cristian-guzman-bb5867233/",
-      country: "España",
+      country: "Colombia",
       img: "https://avatars.githubusercontent.com/u/97709449?v=4",
     },
     {
@@ -85,7 +85,7 @@ const TeamLanding = () => {
       style={{
         backgroundColor: "#f2f2f2",
         padding: "5rem",
-        paddingBottom: "0em"
+        paddingBottom: "0em",
       }}
     >
       <div
@@ -97,11 +97,13 @@ const TeamLanding = () => {
         // }}
         className={styles.header}
       >
-        <div className={styles.icon}><i className="bi bi-person-fill"></i></div>
-       
+        <div className={styles.icon}>
+          <i className="bi bi-person-fill"></i>
+        </div>
+
         <h2>Our Development Team</h2>
 
-        <p style={{fontSize:'1.2rem', maxWidth:'750px'}}>
+        <p style={{ fontSize: "1.2rem", maxWidth: "750px" }}>
           We are a passionate team of developers and technology enthusiasts.
           Each member brings a unique combination of technical skills and
           creativity, allowing us to tackle challenges innovatively and deliver
