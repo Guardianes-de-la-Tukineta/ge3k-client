@@ -234,10 +234,10 @@ export const cartStore = create(zukeeper((set) => ({
     //obtener SubTotal en el precio del carrito
     getSubTotal: (isAuthenticated) => {
         if(!isAuthenticated){  // mientras no este autenticado, trabajamos con esta logica
-            console.log('hola');
             const cart = cartStore.getState().cart;        
             const subTotal = cart.reduce((accumulator, item) => { // calculamos el subtotal de los precios en el carrito
-                const price = item.product.price;
+                console.log(item.product);
+                const price = item.product.discount ? (item.product.price - (item.product.price * (item.product.discount / 100))).toFixed(2):item.product.price;
                 const quantity = item.quantity;
                 return accumulator + (price * quantity);
             }, 0);// inicial valor por si el array esta vacio
