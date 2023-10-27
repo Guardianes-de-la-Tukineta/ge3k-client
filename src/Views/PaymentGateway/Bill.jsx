@@ -12,7 +12,7 @@ const Bill = () => {
   const [url, setUrl] = useState("");
   const [emailSend, setEmailSend] = useState(true);
   const { currentCustomer } = customerStore();
-  const order = useStore(PurchaseStore, (state) => state.order);
+  // const order = useStore(PurchaseStore, (state) => state.order);
 
   const stripeOrderId = sessionStorage.getItem("propiedad");
   console.log(stripeOrderId);

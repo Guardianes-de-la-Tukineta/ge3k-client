@@ -1,60 +1,110 @@
+
 .buttonConfirm {
-    width: 200px;
-    height: 40px;
-    background-Color: #FC6522;
-    border: none;
-    color: white;
-    border-radius: 30px;
-    font-weight: 500;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
-    font-size: 20px;
-    
+  width: 200px;
+  height: 40px;
+  background-Color: #FC6522;
+  border: none;
+  color: white;
+  border-radius: 30px;
+  font-weight: 500;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+  font-size: 20px;
+  
 }
 
 
 .form {
-    position: relative;
-    padding-top: 30px;
-    padding-bottom: 20px;
-    border-radius: 5px;
-  }
-  
-  .form::before {
-    content: "";
-    border-radius: 5px;
-    background-image: url("../../Images/TEXTURA_WEB.jpg");
-    background-position: center;
-    opacity: 0.7; 
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: -1; 
-  }
+  position: relative;
+  padding-top: 30px;
+  padding-bottom: 20px;
+  border-radius: 5px;
+}
+
+.form::before {
+  content: "";
+  border-radius: 5px;
+  background-image: url("../../Images/TEXTURA_WEB.jpg");
+  background-position: center;
+  opacity: 0.7; 
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1; 
+}
 
 .formLabel {
-    font-weight: 500;
-    background-color: rgba(252, 99, 34, 0.938);
-    color: white;
-    font-size: 18px;
-    width: 30%;
-    padding-left: 10px;
-    border-radius: 5px;
-    margin-bottom: 5px;
+  font-weight: 500;
+  background-color: rgba(252, 99, 34, 0.938);
+  color: white;
+  font-size: 18px;
+  width: 30%;
+  padding-left: 10px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+.buttonSave {
+background-Color: #FC6522;
+border: none;
+color: white;
+border-radius: 30px;
+width: 100px;
+height: 40px;
+font-weight: 500;
+box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+
+}
+
+.buttonEdit {
+background-Color: #FC6522;
+border: none;
+color: white;
+border-radius: 30px;
+width: 100px;
+height: 40px;
+font-weight: 500;
+box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.buttonCancel {
+background-Color: #FC6522;
+border: none;
+color: white;
+border-radius: 30px;
+width: 100px;
+height: 40px;
+font-weight: 500;
+box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+margin-left: 10px;
 }
 
 .logo {
-    width: 120%;
-    margin-left: 60%;
-    border-radius: 20%;
-    margin-top: 30%;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
-    
+  width: 120%;
+  margin-left: 60%;
+  border-radius: 20%;
+  margin-top: 30%;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+  
 }
 
 @media (max-width: 768px) {
-  .logo {
-      display: none; /* Oculta el logo en pantallas pequeñas */
-  }
+.logo {
+    display: none; /* Oculta el logo en pantallas pequeñas */
+}
+}
+
+.editable {
+border: 2px solid #FC6522 !important 
+}
+
+.non_editable {
+border: 2px solid gray !important;
+color: #636161 !important;
+}
+
+.error{
+  color:#ff6824;
+  background-color: rgba(240, 248, 255, 0.63);
 }
