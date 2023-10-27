@@ -193,6 +193,12 @@ function ProductDetails() {
     return avatarUrl;
   }
 
+  function calcularPrecioConDescuento(price, discount ) {
+    const precioDescuento = price - price * (discount / 100);
+    return Number(precioDescuento).toFixed(2);
+  }
+
+
   return (
     <Container className={styles.productDetailsConteiner}>
       {!productDetails.image ? ( //controlo que el estado ya tenga la propiedad imagen
@@ -225,9 +231,7 @@ function ProductDetails() {
                     Price U$S {productDetails.price}
                   </h2>
                   <h2 className={styles.price}>
-                    Off $
-                    {productDetails.price -
-                      productDetails.price * (productDetails.discount / 100)}
+                    Off $ {calcularPrecioConDescuento(productDetails.price, productDetails.discount)}
                   </h2>
                 </>
               )}
@@ -287,7 +291,7 @@ function ProductDetails() {
                 size={24}
                 color2={'#ffd700'}
               />
-              <p className="mt-2">[{promedioRating}]</p>
+              <p className="mt-2">{(promedioRating % 1 === 0)? promedioRating : Number(promedioRating).toFixed(1)}</p>
             </div>
           </div>
           <hr></hr>
