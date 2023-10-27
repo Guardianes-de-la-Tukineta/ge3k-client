@@ -10,14 +10,42 @@ import FastBar from "./fastBar";
 import SecionComponent from "./SecionComponent";
 import MenuMobile from "../MenuMobile/MenuMobile";
 import { useNavigate } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
+import { customerStore } from "../../zustand/customerStore/customerStore";
+import Swal from "sweetalert2";
 
 const NavBar = () => {
   const { setVisibility, cart } = cartStore(); // llamamos de zustand cart
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth0();
+  const { currentCustomer } = customerStore();
 
   const handlerCart = () => {
     if (cart.length === 0) {
-      navigate("/PurchaseOrder");
+      if (!isAuthenticated) {
+        // El usuario no está autenticado
+        Swal.fire({
+          title: "You have no items in your shopping cart!",
+          text: "Check out our products and select the one you like the most..",
+          icon: "warning",
+          timer: 4000,
+          timerProgressBar: true,
+          showConfirmButton: false,
+        });
+      } else if (Object.keys(currentCustomer).length === 0) {
+        // El usuario está autenticado pero no tiene perfil
+        Swal.fire({
+          title: "You have no items in your shopping cart!",
+          text: "Check out our products and select the one you like the most..",
+          icon: "warning",
+          timer: 4000,
+          timerProgressBar: true,
+          showConfirmButton: false,
+        });
+      } else {
+        // El carrito está vacío, pero el usuario está autenticado y tiene perfil
+        navigate("/PurchaseOrder");
+      }
     } else {
       setVisibility();
     }
