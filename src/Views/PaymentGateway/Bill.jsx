@@ -40,7 +40,7 @@ const Bill = () => {
       // Invoca la función asíncrona inmediatamente
       try {
         const response = await axios.post(
-          "https://nodemail-production-704c.up.railway.app/send-email",
+          "https://ge3k-server.onrender.com/send-email",
           msj,
           {
             headers: {
