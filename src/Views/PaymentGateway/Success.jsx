@@ -39,7 +39,7 @@ const PaymentSuccessView = () => {
         Your invoice is being generated, please wait a moment
       </p>
       <br />
-      <ProgressBar animated now={100} label="Procesando..." />
+      <ProgressBar animated now={100} label="Purchase bill in progress..." />
       <br />
       <Link to="/">
         <Button
